@@ -1,0 +1,16 @@
+disabled_rules: # 실행에서 제외할 룰 식별자들
+  - comma
+  - control_statement
+  - vertical_whitespace
+  - todo
+  - trailing_whitespace
+opt_in_rules: # 일부 룰은 옵트 인 형태로 제공
+  # 사용 가능한 모든 룰은 swiftlint rules 명령으로 확인 가능
+included: # 린트 과정에 포함할 파일 경로. 이 항목이 존재하면 `--path`는 무시됨
+excluded: # 린트 과정에서 무시할 파일 경로. `included`보다 우선순위 높음
+  - Doesaegim/App/AppDelegate.swift
+  - Doesaegim/App/SceneDelegate.swift
+  - DoesaegimTests
+  - DoesaegimUITests
+
+line_length: 99
