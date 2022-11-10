@@ -17,6 +17,7 @@
 		BBFAC0A1291CBDD800D7FD57 /* DoesaegimTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC0A0291CBDD800D7FD57 /* DoesaegimTests.swift */; };
 		BBFAC0AB291CBDD800D7FD57 /* DoesaegimUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC0AA291CBDD800D7FD57 /* DoesaegimUITests.swift */; };
 		BBFAC0AD291CBDD800D7FD57 /* DoesaegimUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC0AC291CBDD800D7FD57 /* DoesaegimUITestsLaunchTests.swift */; };
+		EE2C553D291CC08B0018B109 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EE2C553C291CC08B0018B109 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE2C553D291CC08B0018B109 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +156,9 @@
 			dependencies = (
 			);
 			name = Doesaegim;
+			packageProductDependencies = (
+				EE2C553C291CC08B0018B109 /* SnapKit */,
+			);
 			productName = Doesaegim;
 			productReference = BBFAC083291CBDD700D7FD57 /* Doesaegim.app */;
 			productType = "com.apple.product-type.application";
@@ -226,6 +231,9 @@
 				Base,
 			);
 			mainGroup = BBFAC07A291CBDD700D7FD57;
+			packageReferences = (
+				EE2C553B291CC08B0018B109 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = BBFAC084291CBDD700D7FD57 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -614,6 +622,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EE2C553B291CC08B0018B109 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EE2C553C291CC08B0018B109 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE2C553B291CC08B0018B109 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		BBFAC08F291CBDD700D7FD57 /* Doesaegim.xcdatamodeld */ = {
