@@ -38,7 +38,7 @@ final class MainTabBarController: UITabBarController {
         diaryViewController.tabBarItem.image = UIImage(systemName: "doc.append")
         settingViewController.tabBarItem.image = UIImage(systemName: "gear")
         
-        tabBar.tintColor = UIColor(named: "primaryOrange")
+        tabBar.tintColor = .primaryOrange
         
         trevelPlanViewController.title = "일정"
         expenseViewController.title = "지출 "
