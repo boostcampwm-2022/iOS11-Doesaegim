@@ -1,4 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="21G115" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Diary" representedClassName="Diary" syncable="YES" codeGenerationType="category">
+        <attribute name="content" optional="YES" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="images" optional="YES" attributeType="Transformable" customClassName="[String]"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="location" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Location" inverseName="diary" inverseEntity="Location"/>
+        <relationship name="trevel" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Trevel" inverseName="diary" inverseEntity="Trevel"/>
+    </entity>
+    <entity name="Expense" representedClassName="Expense" syncable="YES" codeGenerationType="category">
+        <attribute name="category" optional="YES" attributeType="String"/>
+        <attribute name="content" optional="YES" attributeType="String" customClassName="String?"/>
+        <attribute name="cost" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="currency" optional="YES" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="trevel" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Trevel" inverseName="expense" inverseEntity="Trevel"/>
+    </entity>
+    <entity name="Location" representedClassName="Location" syncable="YES" codeGenerationType="category">
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="diary" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Diary" inverseName="location" inverseEntity="Diary"/>
+        <relationship name="plan" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Plan" inverseName="location" inverseEntity="Plan"/>
+    </entity>
+    <entity name="Plan" representedClassName="Plan" syncable="YES" codeGenerationType="category">
+        <attribute name="content" optional="YES" attributeType="String" customClassName="String?"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="location" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Location" inverseName="plan" inverseEntity="Location"/>
+        <relationship name="trevel" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Trevel" inverseName="plan" inverseEntity="Trevel"/>
+    </entity>
+    <entity name="Trevel" representedClassName="Trevel" syncable="YES" codeGenerationType="category">
+        <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="diary" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Diary" inverseName="trevel" inverseEntity="Diary"/>
+        <relationship name="expense" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Expense" inverseName="trevel" inverseEntity="Expense"/>
+        <relationship name="plan" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Plan" inverseName="trevel" inverseEntity="Plan"/>
+    </entity>
 </model>
