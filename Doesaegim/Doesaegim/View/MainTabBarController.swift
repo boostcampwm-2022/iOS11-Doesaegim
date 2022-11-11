@@ -9,11 +9,23 @@ import UIKit
 
 final class MainTabBarController: UITabBarController {
 
+    // MARK: Properties
+    
+    
+    // MARK: Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         view.backgroundColor = .systemBackground
         
+        configureTabBar()
+    }
+    
+    // MARK: Configure Functions
+    
+    /// `MainTabBarController` 설정 함수
+    private func configureTabBar() {
         let trevelPlanViewController = UINavigationController(rootViewController: TrevelPlanViewController())
         let expenseViewController = UINavigationController(rootViewController: ExpenseViewController())
         let mapViewController = UINavigationController(rootViewController: MapViewController())
@@ -44,7 +56,6 @@ final class MainTabBarController: UITabBarController {
             ],
             animated: true
         )
-        
     }
 
 }
