@@ -13,9 +13,14 @@
 		BBD0D052291DE4A2007D0D82 /* Expense+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D048291DE4A2007D0D82 /* Expense+CoreDataClass.swift */; };
 		BBD0D054291DE4A2007D0D82 /* Plan+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D04A291DE4A2007D0D82 /* Plan+CoreDataClass.swift */; };
 		BBD0D056291DE4A2007D0D82 /* Trevel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D04C291DE4A2007D0D82 /* Trevel+CoreDataClass.swift */; };
+		BBD0D05B291DE956007D0D82 /* TrevelPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05A291DE956007D0D82 /* TrevelPlanViewController.swift */; };
+		BBD0D05D291DE975007D0D82 /* ExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05C291DE975007D0D82 /* ExpenseViewController.swift */; };
+		BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05E291DE97F007D0D82 /* MapViewController.swift */; };
+		BBD0D061291DE988007D0D82 /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D060291DE988007D0D82 /* DiaryViewController.swift */; };
+		BBD0D063291DE991007D0D82 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D062291DE991007D0D82 /* SettingViewController.swift */; };
 		BBFAC087291CBDD700D7FD57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC086291CBDD700D7FD57 /* AppDelegate.swift */; };
 		BBFAC089291CBDD700D7FD57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC088291CBDD700D7FD57 /* SceneDelegate.swift */; };
-		BBFAC08B291CBDD700D7FD57 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC08A291CBDD700D7FD57 /* ViewController.swift */; };
+		BBFAC08B291CBDD700D7FD57 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC08A291CBDD700D7FD57 /* MainTabBarController.swift */; };
 		BBFAC091291CBDD700D7FD57 /* Doesaegim.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC08F291CBDD700D7FD57 /* Doesaegim.xcdatamodeld */; };
 		BBFAC093291CBDD800D7FD57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBFAC092291CBDD800D7FD57 /* Assets.xcassets */; };
 		BBFAC096291CBDD800D7FD57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBFAC094291CBDD800D7FD57 /* LaunchScreen.storyboard */; };
@@ -49,10 +54,15 @@
 		BBD0D048291DE4A2007D0D82 /* Expense+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense+CoreDataClass.swift"; sourceTree = "<group>"; };
 		BBD0D04A291DE4A2007D0D82 /* Plan+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Plan+CoreDataClass.swift"; sourceTree = "<group>"; };
 		BBD0D04C291DE4A2007D0D82 /* Trevel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trevel+CoreDataClass.swift"; sourceTree = "<group>"; };
+		BBD0D05A291DE956007D0D82 /* TrevelPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrevelPlanViewController.swift; sourceTree = "<group>"; };
+		BBD0D05C291DE975007D0D82 /* ExpenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseViewController.swift; sourceTree = "<group>"; };
+		BBD0D05E291DE97F007D0D82 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		BBD0D060291DE988007D0D82 /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
+		BBD0D062291DE991007D0D82 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		BBFAC083291CBDD700D7FD57 /* Doesaegim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doesaegim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBFAC086291CBDD700D7FD57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BBFAC088291CBDD700D7FD57 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		BBFAC08A291CBDD700D7FD57 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BBFAC08A291CBDD700D7FD57 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		BBFAC090291CBDD700D7FD57 /* Doesaegim.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Doesaegim.xcdatamodel; sourceTree = "<group>"; };
 		BBFAC092291CBDD800D7FD57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BBFAC095291CBDD800D7FD57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -102,6 +112,19 @@
 			path = NSManagedObjectClass;
 			sourceTree = "<group>";
 		};
+		BBD0D059291DE88B007D0D82 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BBFAC08A291CBDD700D7FD57 /* MainTabBarController.swift */,
+				BBD0D05A291DE956007D0D82 /* TrevelPlanViewController.swift */,
+				BBD0D05C291DE975007D0D82 /* ExpenseViewController.swift */,
+				BBD0D05E291DE97F007D0D82 /* MapViewController.swift */,
+				BBD0D060291DE988007D0D82 /* DiaryViewController.swift */,
+				BBD0D062291DE991007D0D82 /* SettingViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		BBFAC07A291CBDD700D7FD57 = {
 			isa = PBXGroup;
 			children = (
@@ -127,8 +150,8 @@
 		BBFAC085291CBDD700D7FD57 /* Doesaegim */ = {
 			isa = PBXGroup;
 			children = (
-				BBFAC08A291CBDD700D7FD57 /* ViewController.swift */,
 				BBFAC0B9291CBEFC00D7FD57 /* App */,
+				BBD0D059291DE88B007D0D82 /* View */,
 				BBFAC094291CBDD800D7FD57 /* LaunchScreen.storyboard */,
 			);
 			path = Doesaegim;
@@ -322,12 +345,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBD0D05D291DE975007D0D82 /* ExpenseViewController.swift in Sources */,
 				BBD0D054291DE4A2007D0D82 /* Plan+CoreDataClass.swift in Sources */,
+				BBD0D05B291DE956007D0D82 /* TrevelPlanViewController.swift in Sources */,
 				BBD0D052291DE4A2007D0D82 /* Expense+CoreDataClass.swift in Sources */,
 				BBD0D050291DE4A2007D0D82 /* Location+CoreDataClass.swift in Sources */,
+				BBD0D063291DE991007D0D82 /* SettingViewController.swift in Sources */,
 				BBFAC091291CBDD700D7FD57 /* Doesaegim.xcdatamodeld in Sources */,
-				BBFAC08B291CBDD700D7FD57 /* ViewController.swift in Sources */,
+				BBFAC08B291CBDD700D7FD57 /* MainTabBarController.swift in Sources */,
+				BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */,
 				BBFAC087291CBDD700D7FD57 /* AppDelegate.swift in Sources */,
+				BBD0D061291DE988007D0D82 /* DiaryViewController.swift in Sources */,
 				BBD0D04E291DE4A2007D0D82 /* Diary+CoreDataClass.swift in Sources */,
 				BBD0D056291DE4A2007D0D82 /* Trevel+CoreDataClass.swift in Sources */,
 				BBFAC089291CBDD700D7FD57 /* SceneDelegate.swift in Sources */,
