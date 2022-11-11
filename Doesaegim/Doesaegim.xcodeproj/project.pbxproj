@@ -90,7 +90,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BBFAC07A291CBDD700D7FD57 = {
+		BBD0D058291DE6F8007D0D82 /* NSManagedObjectClass */ = {
 			isa = PBXGroup;
 			children = (
 				BBD0D044291DE4A2007D0D82 /* Diary+CoreDataClass.swift */,
@@ -98,6 +98,14 @@
 				BBD0D048291DE4A2007D0D82 /* Expense+CoreDataClass.swift */,
 				BBD0D04A291DE4A2007D0D82 /* Plan+CoreDataClass.swift */,
 				BBD0D04C291DE4A2007D0D82 /* Trevel+CoreDataClass.swift */,
+			);
+			path = NSManagedObjectClass;
+			sourceTree = "<group>";
+		};
+		BBFAC07A291CBDD700D7FD57 = {
+			isa = PBXGroup;
+			children = (
+				BBD0D058291DE6F8007D0D82 /* NSManagedObjectClass */,
 				A4971D73291CC3A9008B337F /* .swiftlint.yml */,
 				BBFAC085291CBDD700D7FD57 /* Doesaegim */,
 				BBFAC09F291CBDD800D7FD57 /* DoesaegimTests */,
