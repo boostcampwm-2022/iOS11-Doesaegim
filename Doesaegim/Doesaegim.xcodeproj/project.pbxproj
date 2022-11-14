@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		A4971D74291CC3A9008B337F /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = A4971D73291CC3A9008B337F /* .swiftlint.yml */; };
-		BBD0D04E291DE4A2007D0D82 /* Diary+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D044291DE4A2007D0D82 /* Diary+CoreDataClass.swift */; };
-		BBD0D050291DE4A2007D0D82 /* Location+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D046291DE4A2007D0D82 /* Location+CoreDataClass.swift */; };
-		BBD0D052291DE4A2007D0D82 /* Expense+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D048291DE4A2007D0D82 /* Expense+CoreDataClass.swift */; };
-		BBD0D054291DE4A2007D0D82 /* Plan+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D04A291DE4A2007D0D82 /* Plan+CoreDataClass.swift */; };
-		BBD0D056291DE4A2007D0D82 /* Trevel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D04C291DE4A2007D0D82 /* Trevel+CoreDataClass.swift */; };
+		BB3F69832921E40D00669317 /* Location+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3F69792921E40D00669317 /* Location+CoreDataClass.swift */; };
+		BB3F69852921E40D00669317 /* Trevel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3F697B2921E40D00669317 /* Trevel+CoreDataClass.swift */; };
+		BB3F69872921E40D00669317 /* Expense+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3F697D2921E40D00669317 /* Expense+CoreDataClass.swift */; };
+		BB3F69892921E40D00669317 /* Plan+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3F697F2921E40D00669317 /* Plan+CoreDataClass.swift */; };
+		BB3F698B2921E40D00669317 /* Diary+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3F69812921E40D00669317 /* Diary+CoreDataClass.swift */; };
 		BBD0D05B291DE956007D0D82 /* TrevelPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05A291DE956007D0D82 /* TrevelPlanViewController.swift */; };
 		BBD0D05D291DE975007D0D82 /* ExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05C291DE975007D0D82 /* ExpenseViewController.swift */; };
 		BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05E291DE97F007D0D82 /* MapViewController.swift */; };
@@ -50,11 +50,11 @@
 
 /* Begin PBXFileReference section */
 		A4971D73291CC3A9008B337F /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
-		BBD0D044291DE4A2007D0D82 /* Diary+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Diary+CoreDataClass.swift"; sourceTree = "<group>"; };
-		BBD0D046291DE4A2007D0D82 /* Location+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataClass.swift"; sourceTree = "<group>"; };
-		BBD0D048291DE4A2007D0D82 /* Expense+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense+CoreDataClass.swift"; sourceTree = "<group>"; };
-		BBD0D04A291DE4A2007D0D82 /* Plan+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Plan+CoreDataClass.swift"; sourceTree = "<group>"; };
-		BBD0D04C291DE4A2007D0D82 /* Trevel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trevel+CoreDataClass.swift"; sourceTree = "<group>"; };
+		BB3F69792921E40D00669317 /* Location+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataClass.swift"; sourceTree = "<group>"; };
+		BB3F697B2921E40D00669317 /* Trevel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trevel+CoreDataClass.swift"; sourceTree = "<group>"; };
+		BB3F697D2921E40D00669317 /* Expense+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense+CoreDataClass.swift"; sourceTree = "<group>"; };
+		BB3F697F2921E40D00669317 /* Plan+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Plan+CoreDataClass.swift"; sourceTree = "<group>"; };
+		BB3F69812921E40D00669317 /* Diary+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Diary+CoreDataClass.swift"; sourceTree = "<group>"; };
 		BBD0D05A291DE956007D0D82 /* TrevelPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrevelPlanViewController.swift; sourceTree = "<group>"; };
 		BBD0D05C291DE975007D0D82 /* ExpenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseViewController.swift; sourceTree = "<group>"; };
 		BBD0D05E291DE97F007D0D82 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -105,11 +105,11 @@
 		BBD0D058291DE6F8007D0D82 /* NSManagedObjectClass */ = {
 			isa = PBXGroup;
 			children = (
-				BBD0D044291DE4A2007D0D82 /* Diary+CoreDataClass.swift */,
-				BBD0D046291DE4A2007D0D82 /* Location+CoreDataClass.swift */,
-				BBD0D048291DE4A2007D0D82 /* Expense+CoreDataClass.swift */,
-				BBD0D04A291DE4A2007D0D82 /* Plan+CoreDataClass.swift */,
-				BBD0D04C291DE4A2007D0D82 /* Trevel+CoreDataClass.swift */,
+				BB3F69792921E40D00669317 /* Location+CoreDataClass.swift */,
+				BB3F697B2921E40D00669317 /* Trevel+CoreDataClass.swift */,
+				BB3F697D2921E40D00669317 /* Expense+CoreDataClass.swift */,
+				BB3F697F2921E40D00669317 /* Plan+CoreDataClass.swift */,
+				BB3F69812921E40D00669317 /* Diary+CoreDataClass.swift */,
 			);
 			path = NSManagedObjectClass;
 			sourceTree = "<group>";
@@ -357,19 +357,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBD0D05D291DE975007D0D82 /* ExpenseViewController.swift in Sources */,
-				BBD0D054291DE4A2007D0D82 /* Plan+CoreDataClass.swift in Sources */,
 				BBD0D05B291DE956007D0D82 /* TrevelPlanViewController.swift in Sources */,
-				BBD0D052291DE4A2007D0D82 /* Expense+CoreDataClass.swift in Sources */,
-				BBD0D050291DE4A2007D0D82 /* Location+CoreDataClass.swift in Sources */,
+				BB3F698B2921E40D00669317 /* Diary+CoreDataClass.swift in Sources */,
+				BB3F69892921E40D00669317 /* Plan+CoreDataClass.swift in Sources */,
 				BBD0D063291DE991007D0D82 /* SettingViewController.swift in Sources */,
 				BBFAC091291CBDD700D7FD57 /* Doesaegim.xcdatamodeld in Sources */,
 				BBFAC08B291CBDD700D7FD57 /* MainTabBarController.swift in Sources */,
 				BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */,
 				BBFAC087291CBDD700D7FD57 /* AppDelegate.swift in Sources */,
+				BB3F69872921E40D00669317 /* Expense+CoreDataClass.swift in Sources */,
 				BBD0D061291DE988007D0D82 /* DiaryViewController.swift in Sources */,
-				BBD0D04E291DE4A2007D0D82 /* Diary+CoreDataClass.swift in Sources */,
-				BBD0D056291DE4A2007D0D82 /* Trevel+CoreDataClass.swift in Sources */,
 				BBFAC089291CBDD700D7FD57 /* SceneDelegate.swift in Sources */,
+				BB3F69832921E40D00669317 /* Location+CoreDataClass.swift in Sources */,
+				BB3F69852921E40D00669317 /* Trevel+CoreDataClass.swift in Sources */,
 				BBD0D066291DED6A007D0D82 /* UIColor+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
