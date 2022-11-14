@@ -35,16 +35,9 @@ final class PersistentManager {
 
     // MARK: - Core Data Saving support
 
-    func saveContext () {
+    func saveContext() throws {
         if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-
-                // TODO: 에러처리
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
+            try context.save()
         }
     }
 

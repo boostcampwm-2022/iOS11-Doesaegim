@@ -14,6 +14,11 @@
 		A4CC04A629221EEE00BB678B /* Travel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC049C29221EEE00BB678B /* Travel+CoreDataClass.swift */; };
 		A4CC04A829221EEE00BB678B /* Expense+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC049E29221EEE00BB678B /* Expense+CoreDataClass.swift */; };
 		A4CC04AA29221EEE00BB678B /* Location+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04A029221EEE00BB678B /* Location+CoreDataClass.swift */; };
+		B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D96252922301E00B510B8 /* TravelDTO.swift */; };
+		B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D9627292230CA00B510B8 /* PlanDTO.swift */; };
+		B57D962C2922315500B510B8 /* LocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962B2922315500B510B8 /* LocationDTO.swift */; };
+		B57D962E2922318F00B510B8 /* ExpenseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962D2922318F00B510B8 /* ExpenseDTO.swift */; };
+		B57D9630292231FC00B510B8 /* DiaryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962F292231FC00B510B8 /* DiaryDTO.swift */; };
 		BBD0D05B291DE956007D0D82 /* TrevelPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05A291DE956007D0D82 /* TrevelPlanViewController.swift */; };
 		BBD0D05D291DE975007D0D82 /* ExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05C291DE975007D0D82 /* ExpenseViewController.swift */; };
 		BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05E291DE97F007D0D82 /* MapViewController.swift */; };
@@ -57,6 +62,11 @@
 		A4CC049C29221EEE00BB678B /* Travel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Travel+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A4CC049E29221EEE00BB678B /* Expense+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A4CC04A029221EEE00BB678B /* Location+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataClass.swift"; sourceTree = "<group>"; };
+		B57D96252922301E00B510B8 /* TravelDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDTO.swift; sourceTree = "<group>"; };
+		B57D9627292230CA00B510B8 /* PlanDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDTO.swift; sourceTree = "<group>"; };
+		B57D962B2922315500B510B8 /* LocationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDTO.swift; sourceTree = "<group>"; };
+		B57D962D2922318F00B510B8 /* ExpenseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDTO.swift; sourceTree = "<group>"; };
+		B57D962F292231FC00B510B8 /* DiaryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDTO.swift; sourceTree = "<group>"; };
 		BBD0D05A291DE956007D0D82 /* TrevelPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrevelPlanViewController.swift; sourceTree = "<group>"; };
 		BBD0D05C291DE975007D0D82 /* ExpenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseViewController.swift; sourceTree = "<group>"; };
 		BBD0D05E291DE97F007D0D82 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +120,34 @@
 				A4CC04812922191300BB678B /* PersistentManager.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		B57D962229222FC500B510B8 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				B57D962329222FD900B510B8 /* DTO */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		B57D962329222FD900B510B8 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				B57D96242922300400B510B8 /* PersistentDTO */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		B57D96242922300400B510B8 /* PersistentDTO */ = {
+			isa = PBXGroup;
+			children = (
+				B57D96252922301E00B510B8 /* TravelDTO.swift */,
+				B57D9627292230CA00B510B8 /* PlanDTO.swift */,
+				B57D962B2922315500B510B8 /* LocationDTO.swift */,
+				B57D962D2922318F00B510B8 /* ExpenseDTO.swift */,
+				B57D962F292231FC00B510B8 /* DiaryDTO.swift */,
+			);
+			path = PersistentDTO;
 			sourceTree = "<group>";
 		};
 		BBD0D058291DE6F8007D0D82 /* NSManagedObjectClass */ = {
@@ -170,6 +208,7 @@
 		BBFAC085291CBDD700D7FD57 /* Doesaegim */ = {
 			isa = PBXGroup;
 			children = (
+				B57D962229222FC500B510B8 /* Data */,
 				BBD0D064291DED61007D0D82 /* Extensions */,
 				BBFAC0B9291CBEFC00D7FD57 /* App */,
 				BBD0D059291DE88B007D0D82 /* View */,
@@ -367,8 +406,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B57D9630292231FC00B510B8 /* DiaryDTO.swift in Sources */,
 				BBD0D05D291DE975007D0D82 /* ExpenseViewController.swift in Sources */,
 				BBD0D05B291DE956007D0D82 /* TrevelPlanViewController.swift in Sources */,
+				B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */,
 				A4CC04A429221EEE00BB678B /* Plan+CoreDataClass.swift in Sources */,
 				BBD0D063291DE991007D0D82 /* SettingViewController.swift in Sources */,
 				BBFAC091291CBDD700D7FD57 /* Doesaegim.xcdatamodeld in Sources */,
@@ -376,9 +417,12 @@
 				A4CC04AA29221EEE00BB678B /* Location+CoreDataClass.swift in Sources */,
 				A4CC04A629221EEE00BB678B /* Travel+CoreDataClass.swift in Sources */,
 				BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */,
+				B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */,
 				A4CC04A829221EEE00BB678B /* Expense+CoreDataClass.swift in Sources */,
 				BBFAC087291CBDD700D7FD57 /* AppDelegate.swift in Sources */,
 				BBD0D061291DE988007D0D82 /* DiaryViewController.swift in Sources */,
+				B57D962E2922318F00B510B8 /* ExpenseDTO.swift in Sources */,
+				B57D962C2922315500B510B8 /* LocationDTO.swift in Sources */,
 				BBFAC089291CBDD700D7FD57 /* SceneDelegate.swift in Sources */,
 				A4CC04A229221EEE00BB678B /* Diary+CoreDataClass.swift in Sources */,
 				A4CC04822922191300BB678B /* PersistentManager.swift in Sources */,
