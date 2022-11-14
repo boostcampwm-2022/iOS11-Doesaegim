@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+protocol TravelPlanControllerProtocol {
+    var delegate: TravelPlanControllerDelegate? { get set }
+    
+    var travelInfos: [TravelInfoViewModel] { get set }
+    
+}
+
+protocol TravelPlanControllerDelegate {
+    func applyTravelSnapshot()
+}
