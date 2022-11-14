@@ -170,6 +170,14 @@
 			path = SettingScene;
 			sourceTree = "<group>";
 		};
+		A4CC04B6292268BB00BB678B /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				BBD0D064291DED61007D0D82 /* Extensions */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		B57D962229222FC500B510B8 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,8 +292,8 @@
 		BBFAC085291CBDD700D7FD57 /* Doesaegim */ = {
 			isa = PBXGroup;
 			children = (
+				A4CC04B6292268BB00BB678B /* Utility */,
 				B57D962229222FC500B510B8 /* Data */,
-				BBD0D064291DED61007D0D82 /* Extensions */,
 				BBFAC0B9291CBEFC00D7FD57 /* App */,
 				BBD0D059291DE88B007D0D82 /* Presentation */,
 				BBFAC094291CBDD800D7FD57 /* LaunchScreen.storyboard */,
