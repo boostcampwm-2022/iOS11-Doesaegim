@@ -13,7 +13,7 @@ final class PersistentManager {
 
     static let shared: PersistentManager = PersistentManager()
 
-    private var context: NSManagedObjectContext { persistentContainer.viewContext }
+    var context: NSManagedObjectContext { persistentContainer.viewContext }
 
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Doesaegim")
