@@ -36,6 +36,7 @@ final class TravelPlanViewController: UIViewController {
         configureSubviews()
         configureConstraints()
         configureNavigationBar()
+        configureCollectionViewDataSource()
     }
     
     // MARK: - Configure
@@ -98,6 +99,13 @@ final class TravelPlanViewController: UIViewController {
         }
         
         return layout
+    }
+    
+    private func configureCollectionViewDataSource() {
+        let travelCell = UICollectionView.CellRegistration<TravelCollectionViewCell, TravelInfoViewModel> {
+            
+        }
+        
     }
     
     // MARK: - Actions

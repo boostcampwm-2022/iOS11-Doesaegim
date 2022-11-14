@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TravelPlanCollectionViewCell: UICollectionViewCell {
+final class TravelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     
