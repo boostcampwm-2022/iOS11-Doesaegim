@@ -17,6 +17,10 @@
 		A4CC04C229226CA500BB678B /* PlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04C129226CA500BB678B /* PlanViewModel.swift */; };
 		A4CC04C429226FC100BB678B /* String+Placeholders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04C329226FC100BB678B /* String+Placeholders.swift */; };
 		A4CC04C62922799600BB678B /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04C52922799600BB678B /* CheckBox.swift */; };
+		A4CC04C929227C7200BB678B /* PlanCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04C829227C7200BB678B /* PlanCollectionViewCell.swift */; };
+		A4CC04CB29227E5C00BB678B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04CA29227E5C00BB678B /* Constants.swift */; };
+		A4CC04CD2922818900BB678B /* UIView+AddSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04CC2922818900BB678B /* UIView+AddSubviews.swift */; };
+		A4CC04CF292281B400BB678B /* UIStackView+AddArrangedSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04CE292281B400BB678B /* UIStackView+AddArrangedSubviews.swift */; };
 		B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D96252922301E00B510B8 /* TravelDTO.swift */; };
 		B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D9627292230CA00B510B8 /* PlanDTO.swift */; };
 		B57D962C2922315500B510B8 /* LocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962B2922315500B510B8 /* LocationDTO.swift */; };
@@ -72,6 +76,10 @@
 		A4CC04C129226CA500BB678B /* PlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewModel.swift; sourceTree = "<group>"; };
 		A4CC04C329226FC100BB678B /* String+Placeholders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Placeholders.swift"; sourceTree = "<group>"; };
 		A4CC04C52922799600BB678B /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		A4CC04C829227C7200BB678B /* PlanCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCollectionViewCell.swift; sourceTree = "<group>"; };
+		A4CC04CA29227E5C00BB678B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A4CC04CC2922818900BB678B /* UIView+AddSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AddSubviews.swift"; sourceTree = "<group>"; };
+		A4CC04CE292281B400BB678B /* UIStackView+AddArrangedSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+AddArrangedSubviews.swift"; sourceTree = "<group>"; };
 		B57D96252922301E00B510B8 /* TravelDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDTO.swift; sourceTree = "<group>"; };
 		B57D9627292230CA00B510B8 /* PlanDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDTO.swift; sourceTree = "<group>"; };
 		B57D962B2922315500B510B8 /* LocationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDTO.swift; sourceTree = "<group>"; };
@@ -181,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				BBD0D064291DED61007D0D82 /* Extensions */,
+				A4CC04CA29227E5C00BB678B /* Constants.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -206,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				A4CC04C52922799600BB678B /* CheckBox.swift */,
+				A4CC04C829227C7200BB678B /* PlanCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -287,6 +297,8 @@
 			children = (
 				BBD0D065291DED6A007D0D82 /* UIColor+.swift */,
 				A4CC04C329226FC100BB678B /* String+Placeholders.swift */,
+				A4CC04CC2922818900BB678B /* UIView+AddSubviews.swift */,
+				A4CC04CE292281B400BB678B /* UIStackView+AddArrangedSubviews.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -531,6 +543,9 @@
 				B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */,
 				A4CC04A429221EEE00BB678B /* Plan+CoreDataClass.swift in Sources */,
 				BBD0D063291DE991007D0D82 /* SettingViewController.swift in Sources */,
+				A4CC04CF292281B400BB678B /* UIStackView+AddArrangedSubviews.swift in Sources */,
+				A4CC04CB29227E5C00BB678B /* Constants.swift in Sources */,
+				A4CC04CD2922818900BB678B /* UIView+AddSubviews.swift in Sources */,
 				BBFAC091291CBDD700D7FD57 /* Doesaegim.xcdatamodeld in Sources */,
 				A4CC04C62922799600BB678B /* CheckBox.swift in Sources */,
 				BBFAC08B291CBDD700D7FD57 /* MainTabBarController.swift in Sources */,
@@ -549,6 +564,7 @@
 				BBFAC089291CBDD700D7FD57 /* SceneDelegate.swift in Sources */,
 				A4CC04A229221EEE00BB678B /* Diary+CoreDataClass.swift in Sources */,
 				A4CC04822922191300BB678B /* PersistentManager.swift in Sources */,
+				A4CC04C929227C7200BB678B /* PlanCollectionViewCell.swift in Sources */,
 				BBD0D066291DED6A007D0D82 /* UIColor+.swift in Sources */,
 				A4CC04C429226FC100BB678B /* String+Placeholders.swift in Sources */,
 			);
