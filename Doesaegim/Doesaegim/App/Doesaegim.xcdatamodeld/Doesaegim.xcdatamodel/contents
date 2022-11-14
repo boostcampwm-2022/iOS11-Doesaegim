@@ -7,7 +7,7 @@
         <attribute name="images" optional="YES" attributeType="Transformable" customClassName="[String]"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="diary" inverseEntity="Location"/>
-        <relationship name="trevel" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Trevel" inverseName="diary" inverseEntity="Trevel"/>
+        <relationship name="travel" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Travel" inverseName="diary" inverseEntity="Travel"/>
     </entity>
     <entity name="Expense" representedClassName=".Expense" syncable="YES" codeGenerationType="category">
         <attribute name="category" optional="YES" attributeType="String"/>
@@ -17,7 +17,7 @@
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="trevel" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Trevel" inverseName="expense" inverseEntity="Trevel"/>
+        <relationship name="travel" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Travel" inverseName="expense" inverseEntity="Travel"/>
     </entity>
     <entity name="Location" representedClassName=".Location" syncable="YES" codeGenerationType="category">
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -33,15 +33,15 @@
         <attribute name="isComplete" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="plan" inverseEntity="Location"/>
-        <relationship name="trevel" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Trevel" inverseName="plan" inverseEntity="Trevel"/>
+        <relationship name="travel" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Travel" inverseName="plan" inverseEntity="Travel"/>
     </entity>
-    <entity name="Trevel" representedClassName=".Trevel" syncable="YES" codeGenerationType="category">
+    <entity name="Travel" representedClassName=".Travel" syncable="YES" codeGenerationType="category">
         <attribute name="endDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="startDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="diary" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Diary" inverseName="trevel" inverseEntity="Diary"/>
-        <relationship name="expense" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Expense" inverseName="trevel" inverseEntity="Expense"/>
-        <relationship name="plan" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Plan" inverseName="trevel" inverseEntity="Plan"/>
+        <relationship name="diary" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Diary" inverseName="travel" inverseEntity="Diary"/>
+        <relationship name="expense" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Expense" inverseName="travel" inverseEntity="Expense"/>
+        <relationship name="plan" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Plan" inverseName="travel" inverseEntity="Plan"/>
     </entity>
 </model>

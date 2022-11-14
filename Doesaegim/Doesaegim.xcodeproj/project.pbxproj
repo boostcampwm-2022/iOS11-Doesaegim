@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		A4971D74291CC3A9008B337F /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = A4971D73291CC3A9008B337F /* .swiftlint.yml */; };
 		A4CC04822922191300BB678B /* PersistentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04812922191300BB678B /* PersistentManager.swift */; };
-		BB3F69832921E40D00669317 /* Location+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3F69792921E40D00669317 /* Location+CoreDataClass.swift */; };
-		BB3F69852921E40D00669317 /* Trevel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3F697B2921E40D00669317 /* Trevel+CoreDataClass.swift */; };
-		BB3F69872921E40D00669317 /* Expense+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3F697D2921E40D00669317 /* Expense+CoreDataClass.swift */; };
-		BB3F69892921E40D00669317 /* Plan+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3F697F2921E40D00669317 /* Plan+CoreDataClass.swift */; };
-		BB3F698B2921E40D00669317 /* Diary+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3F69812921E40D00669317 /* Diary+CoreDataClass.swift */; };
+		A4CC04A229221EEE00BB678B /* Diary+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC049829221EEE00BB678B /* Diary+CoreDataClass.swift */; };
+		A4CC04A429221EEE00BB678B /* Plan+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC049A29221EEE00BB678B /* Plan+CoreDataClass.swift */; };
+		A4CC04A629221EEE00BB678B /* Travel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC049C29221EEE00BB678B /* Travel+CoreDataClass.swift */; };
+		A4CC04A829221EEE00BB678B /* Expense+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC049E29221EEE00BB678B /* Expense+CoreDataClass.swift */; };
+		A4CC04AA29221EEE00BB678B /* Location+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04A029221EEE00BB678B /* Location+CoreDataClass.swift */; };
 		BBD0D05B291DE956007D0D82 /* TrevelPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05A291DE956007D0D82 /* TrevelPlanViewController.swift */; };
 		BBD0D05D291DE975007D0D82 /* ExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05C291DE975007D0D82 /* ExpenseViewController.swift */; };
 		BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05E291DE97F007D0D82 /* MapViewController.swift */; };
@@ -52,11 +52,11 @@
 /* Begin PBXFileReference section */
 		A4971D73291CC3A9008B337F /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		A4CC04812922191300BB678B /* PersistentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentManager.swift; sourceTree = "<group>"; };
-		BB3F69792921E40D00669317 /* Location+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataClass.swift"; sourceTree = "<group>"; };
-		BB3F697B2921E40D00669317 /* Trevel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trevel+CoreDataClass.swift"; sourceTree = "<group>"; };
-		BB3F697D2921E40D00669317 /* Expense+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense+CoreDataClass.swift"; sourceTree = "<group>"; };
-		BB3F697F2921E40D00669317 /* Plan+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Plan+CoreDataClass.swift"; sourceTree = "<group>"; };
-		BB3F69812921E40D00669317 /* Diary+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Diary+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A4CC049829221EEE00BB678B /* Diary+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Diary+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A4CC049A29221EEE00BB678B /* Plan+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Plan+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A4CC049C29221EEE00BB678B /* Travel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Travel+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A4CC049E29221EEE00BB678B /* Expense+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A4CC04A029221EEE00BB678B /* Location+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataClass.swift"; sourceTree = "<group>"; };
 		BBD0D05A291DE956007D0D82 /* TrevelPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrevelPlanViewController.swift; sourceTree = "<group>"; };
 		BBD0D05C291DE975007D0D82 /* ExpenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseViewController.swift; sourceTree = "<group>"; };
 		BBD0D05E291DE97F007D0D82 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -115,11 +115,11 @@
 		BBD0D058291DE6F8007D0D82 /* NSManagedObjectClass */ = {
 			isa = PBXGroup;
 			children = (
-				BB3F69792921E40D00669317 /* Location+CoreDataClass.swift */,
-				BB3F697B2921E40D00669317 /* Trevel+CoreDataClass.swift */,
-				BB3F697D2921E40D00669317 /* Expense+CoreDataClass.swift */,
-				BB3F697F2921E40D00669317 /* Plan+CoreDataClass.swift */,
-				BB3F69812921E40D00669317 /* Diary+CoreDataClass.swift */,
+				A4CC049829221EEE00BB678B /* Diary+CoreDataClass.swift */,
+				A4CC049A29221EEE00BB678B /* Plan+CoreDataClass.swift */,
+				A4CC049C29221EEE00BB678B /* Travel+CoreDataClass.swift */,
+				A4CC049E29221EEE00BB678B /* Expense+CoreDataClass.swift */,
+				A4CC04A029221EEE00BB678B /* Location+CoreDataClass.swift */,
 			);
 			path = NSManagedObjectClass;
 			sourceTree = "<group>";
@@ -369,18 +369,18 @@
 			files = (
 				BBD0D05D291DE975007D0D82 /* ExpenseViewController.swift in Sources */,
 				BBD0D05B291DE956007D0D82 /* TrevelPlanViewController.swift in Sources */,
-				BB3F698B2921E40D00669317 /* Diary+CoreDataClass.swift in Sources */,
-				BB3F69892921E40D00669317 /* Plan+CoreDataClass.swift in Sources */,
+				A4CC04A429221EEE00BB678B /* Plan+CoreDataClass.swift in Sources */,
 				BBD0D063291DE991007D0D82 /* SettingViewController.swift in Sources */,
 				BBFAC091291CBDD700D7FD57 /* Doesaegim.xcdatamodeld in Sources */,
 				BBFAC08B291CBDD700D7FD57 /* MainTabBarController.swift in Sources */,
+				A4CC04AA29221EEE00BB678B /* Location+CoreDataClass.swift in Sources */,
+				A4CC04A629221EEE00BB678B /* Travel+CoreDataClass.swift in Sources */,
 				BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */,
+				A4CC04A829221EEE00BB678B /* Expense+CoreDataClass.swift in Sources */,
 				BBFAC087291CBDD700D7FD57 /* AppDelegate.swift in Sources */,
-				BB3F69872921E40D00669317 /* Expense+CoreDataClass.swift in Sources */,
 				BBD0D061291DE988007D0D82 /* DiaryViewController.swift in Sources */,
 				BBFAC089291CBDD700D7FD57 /* SceneDelegate.swift in Sources */,
-				BB3F69832921E40D00669317 /* Location+CoreDataClass.swift in Sources */,
-				BB3F69852921E40D00669317 /* Trevel+CoreDataClass.swift in Sources */,
+				A4CC04A229221EEE00BB678B /* Diary+CoreDataClass.swift in Sources */,
 				A4CC04822922191300BB678B /* PersistentManager.swift in Sources */,
 				BBD0D066291DED6A007D0D82 /* UIColor+.swift in Sources */,
 			);

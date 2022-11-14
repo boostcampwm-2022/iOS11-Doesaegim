@@ -2,7 +2,7 @@
 //  Plan+CoreDataClass.swift
 //  Doesaegim
 //
-//  Created by Jaehoon So on 2022/11/14.
+//  Created by sun on 2022/11/14.
 //
 //
 
