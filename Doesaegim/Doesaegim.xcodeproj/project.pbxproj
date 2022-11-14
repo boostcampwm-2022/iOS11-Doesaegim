@@ -19,7 +19,7 @@
 		B57D962C2922315500B510B8 /* LocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962B2922315500B510B8 /* LocationDTO.swift */; };
 		B57D962E2922318F00B510B8 /* ExpenseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962D2922318F00B510B8 /* ExpenseDTO.swift */; };
 		B57D9630292231FC00B510B8 /* DiaryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962F292231FC00B510B8 /* DiaryDTO.swift */; };
-		BBD0D05B291DE956007D0D82 /* TrevelPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05A291DE956007D0D82 /* TrevelPlanViewController.swift */; };
+		BBD0D05B291DE956007D0D82 /* TravelPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05A291DE956007D0D82 /* TravelPlanViewController.swift */; };
 		BBD0D05D291DE975007D0D82 /* ExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05C291DE975007D0D82 /* ExpenseViewController.swift */; };
 		BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05E291DE97F007D0D82 /* MapViewController.swift */; };
 		BBD0D061291DE988007D0D82 /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D060291DE988007D0D82 /* DiaryViewController.swift */; };
@@ -67,7 +67,7 @@
 		B57D962B2922315500B510B8 /* LocationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDTO.swift; sourceTree = "<group>"; };
 		B57D962D2922318F00B510B8 /* ExpenseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDTO.swift; sourceTree = "<group>"; };
 		B57D962F292231FC00B510B8 /* DiaryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDTO.swift; sourceTree = "<group>"; };
-		BBD0D05A291DE956007D0D82 /* TrevelPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrevelPlanViewController.swift; sourceTree = "<group>"; };
+		BBD0D05A291DE956007D0D82 /* TravelPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlanViewController.swift; sourceTree = "<group>"; };
 		BBD0D05C291DE975007D0D82 /* ExpenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseViewController.swift; sourceTree = "<group>"; };
 		BBD0D05E291DE97F007D0D82 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		BBD0D060291DE988007D0D82 /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +122,46 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		A4CC04AC2922618700BB678B /* TravelScene */ = {
+			isa = PBXGroup;
+			children = (
+				BBD0D05A291DE956007D0D82 /* TravelPlanViewController.swift */,
+			);
+			path = TravelScene;
+			sourceTree = "<group>";
+		};
+		A4CC04AE292261CD00BB678B /* ExpenseScene */ = {
+			isa = PBXGroup;
+			children = (
+				BBD0D05C291DE975007D0D82 /* ExpenseViewController.swift */,
+			);
+			path = ExpenseScene;
+			sourceTree = "<group>";
+		};
+		A4CC04AF292261D900BB678B /* MapScene */ = {
+			isa = PBXGroup;
+			children = (
+				BBD0D05E291DE97F007D0D82 /* MapViewController.swift */,
+			);
+			path = MapScene;
+			sourceTree = "<group>";
+		};
+		A4CC04B0292261E000BB678B /* DiaryScene */ = {
+			isa = PBXGroup;
+			children = (
+				BBD0D060291DE988007D0D82 /* DiaryViewController.swift */,
+			);
+			path = DiaryScene;
+			sourceTree = "<group>";
+		};
+		A4CC04B1292261E800BB678B /* SettingScene */ = {
+			isa = PBXGroup;
+			children = (
+				BBD0D062291DE991007D0D82 /* SettingViewController.swift */,
+			);
+			path = SettingScene;
+			sourceTree = "<group>";
+		};
 		B57D962229222FC500B510B8 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,17 +202,17 @@
 			path = NSManagedObjectClass;
 			sourceTree = "<group>";
 		};
-		BBD0D059291DE88B007D0D82 /* View */ = {
+		BBD0D059291DE88B007D0D82 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
 				BBFAC08A291CBDD700D7FD57 /* MainTabBarController.swift */,
-				BBD0D05A291DE956007D0D82 /* TrevelPlanViewController.swift */,
-				BBD0D05C291DE975007D0D82 /* ExpenseViewController.swift */,
-				BBD0D05E291DE97F007D0D82 /* MapViewController.swift */,
-				BBD0D060291DE988007D0D82 /* DiaryViewController.swift */,
-				BBD0D062291DE991007D0D82 /* SettingViewController.swift */,
+				A4CC04AC2922618700BB678B /* TravelScene */,
+				A4CC04AE292261CD00BB678B /* ExpenseScene */,
+				A4CC04AF292261D900BB678B /* MapScene */,
+				A4CC04B0292261E000BB678B /* DiaryScene */,
+				A4CC04B1292261E800BB678B /* SettingScene */,
 			);
-			path = View;
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 		BBD0D064291DED61007D0D82 /* Extensions */ = {
@@ -211,7 +251,7 @@
 				B57D962229222FC500B510B8 /* Data */,
 				BBD0D064291DED61007D0D82 /* Extensions */,
 				BBFAC0B9291CBEFC00D7FD57 /* App */,
-				BBD0D059291DE88B007D0D82 /* View */,
+				BBD0D059291DE88B007D0D82 /* Presentation */,
 				BBFAC094291CBDD800D7FD57 /* LaunchScreen.storyboard */,
 				A4CC04832922191700BB678B /* Services */,
 			);
@@ -408,7 +448,7 @@
 			files = (
 				B57D9630292231FC00B510B8 /* DiaryDTO.swift in Sources */,
 				BBD0D05D291DE975007D0D82 /* ExpenseViewController.swift in Sources */,
-				BBD0D05B291DE956007D0D82 /* TrevelPlanViewController.swift in Sources */,
+				BBD0D05B291DE956007D0D82 /* TravelPlanViewController.swift in Sources */,
 				B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */,
 				A4CC04A429221EEE00BB678B /* Plan+CoreDataClass.swift in Sources */,
 				BBD0D063291DE991007D0D82 /* SettingViewController.swift in Sources */,

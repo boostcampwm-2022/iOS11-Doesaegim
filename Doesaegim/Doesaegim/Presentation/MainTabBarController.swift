@@ -26,13 +26,13 @@ final class MainTabBarController: UITabBarController {
     
     /// `MainTabBarController` 설정 함수
     private func configureTabBar() {
-        let trevelPlanViewController = UINavigationController(rootViewController: TrevelPlanViewController())
+        let travelPlanViewController = UINavigationController(rootViewController: TravelPlanViewController())
         let expenseViewController = UINavigationController(rootViewController: ExpenseViewController())
         let mapViewController = UINavigationController(rootViewController: MapViewController())
         let diaryViewController = UINavigationController(rootViewController: DiaryViewController())
         let settingViewController = UINavigationController(rootViewController: SettingViewController())
         
-        trevelPlanViewController.tabBarItem.image = UIImage(systemName: "calendar")
+        travelPlanViewController.tabBarItem.image = UIImage(systemName: "calendar")
         expenseViewController.tabBarItem.image = UIImage(systemName: "dollarsign.circle")
         mapViewController.tabBarItem.image = UIImage(systemName: "map")
         diaryViewController.tabBarItem.image = UIImage(systemName: "doc.append")
@@ -40,7 +40,7 @@ final class MainTabBarController: UITabBarController {
         
         tabBar.tintColor = .primaryOrange
         
-        trevelPlanViewController.title = "일정"
+        travelPlanViewController.title = "일정"
         expenseViewController.title = "지출 "
         mapViewController.title = "지도"
         diaryViewController.title = "다이어리"
@@ -48,7 +48,7 @@ final class MainTabBarController: UITabBarController {
         
         setViewControllers(
             [
-                trevelPlanViewController,
+                travelPlanViewController,
                 expenseViewController,
                 mapViewController,
                 diaryViewController,
