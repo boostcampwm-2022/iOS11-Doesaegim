@@ -12,6 +12,7 @@ import SnapKit
 
 final class TravelPlanViewController: UIViewController {
 
+    // MARK: - Properties
     
     private let placeholdLabel: UILabel = {
         let label = UILabel()
@@ -29,14 +30,32 @@ final class TravelPlanViewController: UIViewController {
         
     }()
     
+    private var travelDataSource: UICollectionViewDiffableDataSource<String, TravelInfoViewModel>! = nil
+    
+    private var viewModel: TravelPlanControllerProtocol? = TempTravelPlanViewModel()
+    
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        viewModel?.delegate = self
         // Do any additional setup after loading the view.
         configureSubviews()
         configureConstraints()
         configureNavigationBar()
         configureCollectionViewDataSource()
+        configureTravelData()
+        
+        // TODO: - 임시 데이터 저장, 추후 삭제
+        do {
+//            try Travel.addAndSave(with: TravelDTO(name: "일본여행", startDate: Date(), endDate: Date()))
+//            try Travel.addAndSave(with: TravelDTO(name: "프랑스여행", startDate: Date(), endDate: Date()))
+//            try Travel.addAndSave(with: TravelDTO(name: "필리핀여행", startDate: Date(), endDate: Date()))
+//            try Travel.addAndSave(with: TravelDTO(name: "하와이여행", startDate: Date(), endDate: Date()))
+        } catch {
+            print(error.localizedDescription)
+        }
     }
     
     // MARK: - Configure
@@ -76,22 +95,36 @@ final class TravelPlanViewController: UIViewController {
     
     // MARK: - Configure CollectionView
     
+    private func configureCollectionView() {
+        
+        // 셀 등록
+        planCollectionView.register(
+            TravelCollectionViewCell.self,
+            forCellWithReuseIdentifier: TravelCollectionViewCell.identifier
+        )
+    }
+    
+    private func configureTravelData() {
+        
+    }
+    
     private func createCompositionalLayout() -> UICollectionViewLayout {
+        
         let layout = UICollectionViewCompositionalLayout {
             (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) ->
             NSCollectionLayoutSection  in
             
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
-                heightDimension: .absolute(50)
+                heightDimension: .absolute(60)
             )
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.contentInsets = NSDirectionalEdgeInsets(top: 6, leading: 0, bottom: 0, trailing: 6)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 6, leading: 0, bottom: 6, trailing: 6)
             
             
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
-                heightDimension: .absolute(50)
+                heightDimension: .absolute(60)
             )
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
             let section = NSCollectionLayoutSection(group: group)
@@ -103,16 +136,48 @@ final class TravelPlanViewController: UIViewController {
     
     private func configureCollectionViewDataSource() {
         let travelCell = UICollectionView.CellRegistration<TravelCollectionViewCell, TravelInfoViewModel> {
-            
+            (cell, indexPath, identifier) in
+            cell.configureLabel(with: identifier)
         }
         
+        travelDataSource = UICollectionViewDiffableDataSource<String, TravelInfoViewModel>(
+            collectionView: planCollectionView, cellProvider: { collectionView, indexPath, item in
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: travelCell,
+                    for: indexPath,
+                    item: item)
+            })
     }
+    
+    // TODO: - 주석 해제 추후 결정
+//    private func applySnapshot() {
+//
+//
+//    }
     
     // MARK: - Actions
     
     @objc func didAddTravelButtonTap() {
         print("여행 추가 버튼이 탭 되었습니다.")
+        // TODO - 임시로 여행목록 패치. 추후 제거
+        viewModel?.fetchTravelInfo()
+        print(viewModel?.travelInfos)
     }
-    
+}
 
+extension TravelPlanViewController: TravelPlanControllerDelegate {
+    func applyTravelSnapshot() {
+        // TODO: - ViewModel 작성 후 identifierItem 작성
+        
+        guard let viewModel = viewModel else {
+            return
+        }
+        
+        let travelInfos = viewModel.travelInfos
+        var snapshot = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>()
+        
+        snapshot.appendSections(["main section"])
+        snapshot.appendItems(travelInfos)
+        travelDataSource.apply(snapshot, animatingDifferences: true)
+    }
 }

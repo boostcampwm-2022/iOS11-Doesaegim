@@ -22,10 +22,11 @@ final class TempTravelPlanViewModel: TravelPlanControllerProtocol {
         travelInfos = []
     }
     
-    func fetchTravelData() {
+    func fetchTravelInfo() {
         let travels = PersistentManager.shared.fetch(request: Travel.fetchRequest())
         var newTravelInfos: [TravelInfoViewModel] = []
         
+        // TODO: - Travel 익스텐션으로
         for travel in travels {
             if let id = travel.id,
                let title = travel.name,
@@ -43,6 +44,4 @@ final class TempTravelPlanViewModel: TravelPlanControllerProtocol {
         
         travelInfos = newTravelInfos
     }
-    
-    
 }

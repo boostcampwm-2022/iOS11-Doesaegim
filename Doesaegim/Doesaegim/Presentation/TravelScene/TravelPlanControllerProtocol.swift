@@ -12,6 +12,8 @@ protocol TravelPlanControllerProtocol {
     
     var travelInfos: [TravelInfoViewModel] { get set }
     
+    func fetchTravelInfo()
+    
 }
 
 protocol TravelPlanControllerDelegate {

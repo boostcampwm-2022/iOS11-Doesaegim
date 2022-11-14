@@ -53,6 +53,10 @@ final class TravelCollectionViewCell: UICollectionViewCell {
         configureConstraints()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+    
     // MARK: - Configure
     
     func configureStackView() {

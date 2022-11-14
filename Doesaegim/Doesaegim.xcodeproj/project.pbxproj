@@ -25,6 +25,10 @@
 		BBD0D061291DE988007D0D82 /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D060291DE988007D0D82 /* DiaryViewController.swift */; };
 		BBD0D063291DE991007D0D82 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D062291DE991007D0D82 /* SettingViewController.swift */; };
 		BBD0D066291DED6A007D0D82 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D065291DED6A007D0D82 /* UIColor+.swift */; };
+		BBE695D4292273A10015FAD4 /* TravelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE695D3292273A10015FAD4 /* TravelCollectionViewCell.swift */; };
+		BBE695D629227C8D0015FAD4 /* TravelInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE695D529227C8D0015FAD4 /* TravelInfoViewModel.swift */; };
+		BBE695D829228B560015FAD4 /* TempTravelPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE695D729228B560015FAD4 /* TempTravelPlanViewModel.swift */; };
+		BBE695DA29228C570015FAD4 /* TravelPlanControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE695D929228C570015FAD4 /* TravelPlanControllerProtocol.swift */; };
 		BBFAC087291CBDD700D7FD57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC086291CBDD700D7FD57 /* AppDelegate.swift */; };
 		BBFAC089291CBDD700D7FD57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC088291CBDD700D7FD57 /* SceneDelegate.swift */; };
 		BBFAC08B291CBDD700D7FD57 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC08A291CBDD700D7FD57 /* MainTabBarController.swift */; };
@@ -73,6 +77,10 @@
 		BBD0D060291DE988007D0D82 /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
 		BBD0D062291DE991007D0D82 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		BBD0D065291DED6A007D0D82 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		BBE695D3292273A10015FAD4 /* TravelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelCollectionViewCell.swift; sourceTree = "<group>"; };
+		BBE695D529227C8D0015FAD4 /* TravelInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelInfoViewModel.swift; sourceTree = "<group>"; };
+		BBE695D729228B560015FAD4 /* TempTravelPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempTravelPlanViewModel.swift; sourceTree = "<group>"; };
+		BBE695D929228C570015FAD4 /* TravelPlanControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlanControllerProtocol.swift; sourceTree = "<group>"; };
 		BBFAC083291CBDD700D7FD57 /* Doesaegim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doesaegim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBFAC086291CBDD700D7FD57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BBFAC088291CBDD700D7FD57 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -126,6 +134,10 @@
 			isa = PBXGroup;
 			children = (
 				BBD0D05A291DE956007D0D82 /* TravelPlanViewController.swift */,
+				BBE695D3292273A10015FAD4 /* TravelCollectionViewCell.swift */,
+				BBE695D529227C8D0015FAD4 /* TravelInfoViewModel.swift */,
+				BBE695D729228B560015FAD4 /* TempTravelPlanViewModel.swift */,
+				BBE695D929228C570015FAD4 /* TravelPlanControllerProtocol.swift */,
 			);
 			path = TravelScene;
 			sourceTree = "<group>";
@@ -449,6 +461,7 @@
 				B57D9630292231FC00B510B8 /* DiaryDTO.swift in Sources */,
 				BBD0D05D291DE975007D0D82 /* ExpenseViewController.swift in Sources */,
 				BBD0D05B291DE956007D0D82 /* TravelPlanViewController.swift in Sources */,
+				BBE695D829228B560015FAD4 /* TempTravelPlanViewModel.swift in Sources */,
 				B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */,
 				A4CC04A429221EEE00BB678B /* Plan+CoreDataClass.swift in Sources */,
 				BBD0D063291DE991007D0D82 /* SettingViewController.swift in Sources */,
@@ -457,7 +470,10 @@
 				A4CC04AA29221EEE00BB678B /* Location+CoreDataClass.swift in Sources */,
 				A4CC04A629221EEE00BB678B /* Travel+CoreDataClass.swift in Sources */,
 				BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */,
+				BBE695DA29228C570015FAD4 /* TravelPlanControllerProtocol.swift in Sources */,
+				BBE695D4292273A10015FAD4 /* TravelCollectionViewCell.swift in Sources */,
 				B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */,
+				BBE695D629227C8D0015FAD4 /* TravelInfoViewModel.swift in Sources */,
 				A4CC04A829221EEE00BB678B /* Expense+CoreDataClass.swift in Sources */,
 				BBFAC087291CBDD700D7FD57 /* AppDelegate.swift in Sources */,
 				BBD0D061291DE988007D0D82 /* DiaryViewController.swift in Sources */,
