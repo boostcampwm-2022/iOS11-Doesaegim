@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A4971D74291CC3A9008B337F /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = A4971D73291CC3A9008B337F /* .swiftlint.yml */; };
+		A4CC04822922191300BB678B /* PersistentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04812922191300BB678B /* PersistentManager.swift */; };
 		BB3F69832921E40D00669317 /* Location+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3F69792921E40D00669317 /* Location+CoreDataClass.swift */; };
 		BB3F69852921E40D00669317 /* Trevel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3F697B2921E40D00669317 /* Trevel+CoreDataClass.swift */; };
 		BB3F69872921E40D00669317 /* Expense+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3F697D2921E40D00669317 /* Expense+CoreDataClass.swift */; };
@@ -50,6 +51,7 @@
 
 /* Begin PBXFileReference section */
 		A4971D73291CC3A9008B337F /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		A4CC04812922191300BB678B /* PersistentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentManager.swift; sourceTree = "<group>"; };
 		BB3F69792921E40D00669317 /* Location+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataClass.swift"; sourceTree = "<group>"; };
 		BB3F697B2921E40D00669317 /* Trevel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trevel+CoreDataClass.swift"; sourceTree = "<group>"; };
 		BB3F697D2921E40D00669317 /* Expense+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -102,6 +104,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A4CC04832922191700BB678B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A4CC04812922191300BB678B /* PersistentManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		BBD0D058291DE6F8007D0D82 /* NSManagedObjectClass */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,6 +174,7 @@
 				BBFAC0B9291CBEFC00D7FD57 /* App */,
 				BBD0D059291DE88B007D0D82 /* View */,
 				BBFAC094291CBDD800D7FD57 /* LaunchScreen.storyboard */,
+				A4CC04832922191700BB678B /* Services */,
 			);
 			path = Doesaegim;
 			sourceTree = "<group>";
@@ -370,6 +381,7 @@
 				BBFAC089291CBDD700D7FD57 /* SceneDelegate.swift in Sources */,
 				BB3F69832921E40D00669317 /* Location+CoreDataClass.swift in Sources */,
 				BB3F69852921E40D00669317 /* Trevel+CoreDataClass.swift in Sources */,
+				A4CC04822922191300BB678B /* PersistentManager.swift in Sources */,
 				BBD0D066291DED6A007D0D82 /* UIColor+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
