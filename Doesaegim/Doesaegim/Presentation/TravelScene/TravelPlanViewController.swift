@@ -25,7 +25,7 @@ final class TravelPlanViewController: UIViewController {
     private lazy var planCollectionView: UICollectionView = {
         let layout = createCompositionalLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .primaryOrange
+        collectionView.backgroundColor = .white
         return collectionView
         
     }()
@@ -116,7 +116,7 @@ final class TravelPlanViewController: UIViewController {
             
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
-                heightDimension: .absolute(60)
+                heightDimension: .absolute(80)
             )
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             item.contentInsets = NSDirectionalEdgeInsets(top: 6, leading: 0, bottom: 6, trailing: 6)
@@ -124,7 +124,7 @@ final class TravelPlanViewController: UIViewController {
             
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
-                heightDimension: .absolute(60)
+                heightDimension: .absolute(80)
             )
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
             let section = NSCollectionLayoutSection(group: group)

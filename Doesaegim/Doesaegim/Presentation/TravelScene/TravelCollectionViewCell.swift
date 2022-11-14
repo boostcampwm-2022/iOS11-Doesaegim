@@ -17,7 +17,7 @@ final class TravelCollectionViewCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .leading
-        stackView.spacing = 9
+        stackView.spacing = 6
         
         return stackView
     }()
@@ -41,6 +41,7 @@ final class TravelCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configurelayer()
         configureStackView()
         configureSubviews()
         configureConstraints()
@@ -48,6 +49,7 @@ final class TravelCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        configurelayer()
         configureStackView()
         configureSubviews()
         configureConstraints()
@@ -58,6 +60,12 @@ final class TravelCollectionViewCell: UICollectionViewCell {
     }
     
     // MARK: - Configure
+    
+    func configurelayer() {
+        layer.cornerRadius = 3
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.grey4?.cgColor
+    }
     
     func configureStackView() {
         stackView.addArrangedSubview(titleLabel)
@@ -70,8 +78,8 @@ final class TravelCollectionViewCell: UICollectionViewCell {
     
     func configureConstraints() {
         stackView.snp.makeConstraints {
-            $0.leading.equalTo(self.snp.leading)
-            $0.trailing.equalTo(self.snp.trailing)
+            $0.leading.equalTo(self.snp.leading).offset(3)
+            $0.trailing.equalTo(self.snp.trailing).offset(-3)
             $0.centerY.equalTo(self.snp.centerY)
         }
     }
