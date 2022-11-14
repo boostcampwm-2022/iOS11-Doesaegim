@@ -29,7 +29,7 @@ final class TravelCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let descriptionLabel: UILabel = {
+    private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = label.font.withSize(16)
         label.textColor = .grey4
@@ -57,7 +57,7 @@ final class TravelCollectionViewCell: UICollectionViewCell {
     
     func configureStackView() {
         stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(descriptionLabel)
+        stackView.addArrangedSubview(dateLabel)
     }
     
     func configureSubviews() {
@@ -72,9 +72,25 @@ final class TravelCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configureLabel(title: String, description: String) {
+    func configureLabel(with travelData: TravelInfoViewModel) {
+        let title = travelData.title
+        let startDate = travelData.startDate
+        let endDate = travelData.endDate
+        
+        //TODO: - 셀을 만들때마다 DateFormatter를 만드니까 부담이되나...?
+        
+        let startDateFormatter = DateFormatter()
+        let endDateFormatter = DateFormatter()
+        
+        startDateFormatter.dateFormat = "yyyy년 MM월 dd일"
+        endDateFormatter.dateFormat = "MM월 dd일"
+        
+        let startDateString = startDateFormatter.string(from: startDate)
+        let endDateString = endDateFormatter.string(from: endDate)
+        let periodString = startDateString + " ~ " + endDateString
+        
         titleLabel.text = title
-        descriptionLabel.text = description
+        dateLabel.text = periodString
     }
     
 }
