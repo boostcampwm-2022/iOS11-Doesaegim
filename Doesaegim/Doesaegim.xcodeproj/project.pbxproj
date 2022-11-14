@@ -16,6 +16,7 @@
 		A4CC04AA29221EEE00BB678B /* Location+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04A029221EEE00BB678B /* Location+CoreDataClass.swift */; };
 		A4CC04C229226CA500BB678B /* PlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04C129226CA500BB678B /* PlanViewModel.swift */; };
 		A4CC04C429226FC100BB678B /* String+Placeholders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04C329226FC100BB678B /* String+Placeholders.swift */; };
+		A4CC04C62922799600BB678B /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04C52922799600BB678B /* CheckBox.swift */; };
 		B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D96252922301E00B510B8 /* TravelDTO.swift */; };
 		B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D9627292230CA00B510B8 /* PlanDTO.swift */; };
 		B57D962C2922315500B510B8 /* LocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962B2922315500B510B8 /* LocationDTO.swift */; };
@@ -70,6 +71,7 @@
 		A4CC04A029221EEE00BB678B /* Location+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A4CC04C129226CA500BB678B /* PlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewModel.swift; sourceTree = "<group>"; };
 		A4CC04C329226FC100BB678B /* String+Placeholders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Placeholders.swift"; sourceTree = "<group>"; };
+		A4CC04C52922799600BB678B /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		B57D96252922301E00B510B8 /* TravelDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDTO.swift; sourceTree = "<group>"; };
 		B57D9627292230CA00B510B8 /* PlanDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDTO.swift; sourceTree = "<group>"; };
 		B57D962B2922315500B510B8 /* LocationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDTO.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				A4CC04C029226C7900BB678B /* ViewModel */,
+				A4CC04C729227BA800BB678B /* View */,
 			);
 			path = PlanList;
 			sourceTree = "<group>";
@@ -197,6 +200,14 @@
 				A4CC04C129226CA500BB678B /* PlanViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A4CC04C729227BA800BB678B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A4CC04C52922799600BB678B /* CheckBox.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		B57D962229222FC500B510B8 /* Data */ = {
@@ -521,6 +532,7 @@
 				A4CC04A429221EEE00BB678B /* Plan+CoreDataClass.swift in Sources */,
 				BBD0D063291DE991007D0D82 /* SettingViewController.swift in Sources */,
 				BBFAC091291CBDD700D7FD57 /* Doesaegim.xcdatamodeld in Sources */,
+				A4CC04C62922799600BB678B /* CheckBox.swift in Sources */,
 				BBFAC08B291CBDD700D7FD57 /* MainTabBarController.swift in Sources */,
 				A4CC04AA29221EEE00BB678B /* Location+CoreDataClass.swift in Sources */,
 				A4CC04A629221EEE00BB678B /* Travel+CoreDataClass.swift in Sources */,
