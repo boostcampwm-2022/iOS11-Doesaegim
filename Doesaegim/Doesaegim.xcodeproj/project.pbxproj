@@ -14,6 +14,8 @@
 		A4CC04A629221EEE00BB678B /* Travel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC049C29221EEE00BB678B /* Travel+CoreDataClass.swift */; };
 		A4CC04A829221EEE00BB678B /* Expense+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC049E29221EEE00BB678B /* Expense+CoreDataClass.swift */; };
 		A4CC04AA29221EEE00BB678B /* Location+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04A029221EEE00BB678B /* Location+CoreDataClass.swift */; };
+		A4CC04C229226CA500BB678B /* PlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04C129226CA500BB678B /* PlanViewModel.swift */; };
+		A4CC04C429226FC100BB678B /* String+Placeholders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04C329226FC100BB678B /* String+Placeholders.swift */; };
 		B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D96252922301E00B510B8 /* TravelDTO.swift */; };
 		B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D9627292230CA00B510B8 /* PlanDTO.swift */; };
 		B57D962C2922315500B510B8 /* LocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962B2922315500B510B8 /* LocationDTO.swift */; };
@@ -66,6 +68,8 @@
 		A4CC049C29221EEE00BB678B /* Travel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Travel+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A4CC049E29221EEE00BB678B /* Expense+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expense+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A4CC04A029221EEE00BB678B /* Location+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A4CC04C129226CA500BB678B /* PlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewModel.swift; sourceTree = "<group>"; };
+		A4CC04C329226FC100BB678B /* String+Placeholders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Placeholders.swift"; sourceTree = "<group>"; };
 		B57D96252922301E00B510B8 /* TravelDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDTO.swift; sourceTree = "<group>"; };
 		B57D9627292230CA00B510B8 /* PlanDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDTO.swift; sourceTree = "<group>"; };
 		B57D962B2922315500B510B8 /* LocationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDTO.swift; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				BBF10A8929231DAD00F8E078 /* TravelList */,
+				A4CC04BF29226C7000BB678B /* PlanList */,
 			);
 			path = TravelScene;
 			sourceTree = "<group>";
@@ -176,6 +181,22 @@
 				BBD0D064291DED61007D0D82 /* Extensions */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		A4CC04BF29226C7000BB678B /* PlanList */ = {
+			isa = PBXGroup;
+			children = (
+				A4CC04C029226C7900BB678B /* ViewModel */,
+			);
+			path = PlanList;
+			sourceTree = "<group>";
+		};
+		A4CC04C029226C7900BB678B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A4CC04C129226CA500BB678B /* PlanViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		B57D962229222FC500B510B8 /* Data */ = {
@@ -254,6 +275,7 @@
 			isa = PBXGroup;
 			children = (
 				BBD0D065291DED6A007D0D82 /* UIColor+.swift */,
+				A4CC04C329226FC100BB678B /* String+Placeholders.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -491,6 +513,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B57D9630292231FC00B510B8 /* DiaryDTO.swift in Sources */,
+				A4CC04C229226CA500BB678B /* PlanViewModel.swift in Sources */,
 				BBD0D05D291DE975007D0D82 /* ExpenseViewController.swift in Sources */,
 				BBD0D05B291DE956007D0D82 /* TravelListViewController.swift in Sources */,
 				BBE695D829228B560015FAD4 /* TravelListViewModel.swift in Sources */,
@@ -515,6 +538,7 @@
 				A4CC04A229221EEE00BB678B /* Diary+CoreDataClass.swift in Sources */,
 				A4CC04822922191300BB678B /* PersistentManager.swift in Sources */,
 				BBD0D066291DED6A007D0D82 /* UIColor+.swift in Sources */,
+				A4CC04C429226FC100BB678B /* String+Placeholders.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
