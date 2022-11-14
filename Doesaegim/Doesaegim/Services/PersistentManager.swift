@@ -68,6 +68,7 @@ final class PersistentManager {
         }
     }
     
+    @discardableResult
     func deleteAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> Bool {
         let request: NSFetchRequest<NSFetchRequestResult> = T.fetchRequest()
         let deleteObject = NSBatchDeleteRequest(fetchRequest: request)
