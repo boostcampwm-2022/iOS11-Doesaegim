@@ -61,6 +61,23 @@ final class PersistentManager {
     /// 엔티티 인스턴스 삭제
     func delete(_ object: NSManagedObject) {
         context.delete(object)
+        do {
+            try context.save()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func deleteAll<T: NSManagedObject>(request: NSFetchRequest<T>) -> Bool {
+        let request: NSFetchRequest<NSFetchRequestResult> = T.fetchRequest()
+        let deleteObject = NSBatchDeleteRequest(fetchRequest: request)
+        do {
+            try context.execute(deleteObject)
+            return true
+        } catch {
+            return false
+        }
+        
     }
 
 }
