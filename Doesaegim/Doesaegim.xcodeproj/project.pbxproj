@@ -36,6 +36,7 @@
 		BBFAC0AD291CBDD800D7FD57 /* DoesaegimUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC0AC291CBDD800D7FD57 /* DoesaegimUITestsLaunchTests.swift */; };
 		EE2C553D291CC08B0018B109 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EE2C553C291CC08B0018B109 /* SnapKit */; };
 		EE3E298529228A51007C7FC7 /* TravelPlanAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E298429228A51007C7FC7 /* TravelPlanAddViewController.swift */; };
+		EE3E29A829235F6B007C7FC7 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E29A729235F6B007C7FC7 /* UITextField+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		BBFAC0AA291CBDD800D7FD57 /* DoesaegimUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoesaegimUITests.swift; sourceTree = "<group>"; };
 		BBFAC0AC291CBDD800D7FD57 /* DoesaegimUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoesaegimUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		EE3E298429228A51007C7FC7 /* TravelPlanAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelPlanAddViewController.swift; sourceTree = "<group>"; };
+		EE3E29A729235F6B007C7FC7 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				BBD0D065291DED6A007D0D82 /* UIColor+.swift */,
+				EE3E29A729235F6B007C7FC7 /* UITextField+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -469,6 +472,7 @@
 				B57D962C2922315500B510B8 /* LocationDTO.swift in Sources */,
 				BBFAC089291CBDD700D7FD57 /* SceneDelegate.swift in Sources */,
 				A4CC04A229221EEE00BB678B /* Diary+CoreDataClass.swift in Sources */,
+				EE3E29A829235F6B007C7FC7 /* UITextField+.swift in Sources */,
 				A4CC04822922191300BB678B /* PersistentManager.swift in Sources */,
 				BBD0D066291DED6A007D0D82 /* UIColor+.swift in Sources */,
 			);

@@ -81,6 +81,7 @@ final class TravelPlanAddViewController: UIViewController {
         textField.backgroundColor = .grey1
         textField.textColor = .black
         textField.font = .systemFont(ofSize: 17, weight: .regular)
+        textField.addPadding(witdh: 8)
         textField.delegate = self
         return textField
     }()
