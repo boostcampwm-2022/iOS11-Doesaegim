@@ -110,7 +110,11 @@ extension SearchingLocationViewController {
 extension SearchingLocationViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        viewModel.fetchDummies()
+        
+        guard let keyword = textField.text
+        else { return true }
+        
+        viewModel.fetchSearchResults(with: keyword)
         
         return true
     }
