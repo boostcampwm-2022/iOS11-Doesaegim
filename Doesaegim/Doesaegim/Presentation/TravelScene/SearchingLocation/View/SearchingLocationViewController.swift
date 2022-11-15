@@ -16,10 +16,24 @@ final class SearchingLocationViewController: UIViewController {
     
     override func loadView() {
         view = rootView
-        title = "장소 검색"
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configureNavigationBar()
+        configureCollectionViewDelegates()
+    }
+    
+    // MARK: - Configure Functions
+    
+    private func configureNavigationBar() {
+        title = "장소 검색"
+    }
+    
+    private func configureCollectionViewDelegates() {
+        rootView.searchResultCollectionView.delegate = self
     }
 }
+
+extension SearchingLocationViewController: UICollectionViewDelegate {}

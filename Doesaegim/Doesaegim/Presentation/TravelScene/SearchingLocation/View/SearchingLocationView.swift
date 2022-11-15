@@ -38,7 +38,7 @@ final class SearchingLocationView: UIView {
     }()
     
     /// 검색 결과를 표시하는 컬렉션 뷰
-    private lazy var searchResultCollectionView: UICollectionView = {
+    lazy var searchResultCollectionView: UICollectionView = {
         let layout = configureCompositionalLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
