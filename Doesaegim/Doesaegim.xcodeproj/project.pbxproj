@@ -22,6 +22,7 @@
 		B5C096B629235416007426B1 /* SearchingLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096B529235416007426B1 /* SearchingLocationViewController.swift */; };
 		B5C096B829235428007426B1 /* SearchingLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096B729235428007426B1 /* SearchingLocationView.swift */; };
 		B5C096BC29235B08007426B1 /* SearchResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096BB29235B08007426B1 /* SearchResultCollectionViewCell.swift */; };
+		B5C096C029236BC0007426B1 /* SearchResultCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096BF29236BC0007426B1 /* SearchResultCellViewModel.swift */; };
 		BBD0D05B291DE956007D0D82 /* TravelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05A291DE956007D0D82 /* TravelListViewController.swift */; };
 		BBD0D05D291DE975007D0D82 /* ExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05C291DE975007D0D82 /* ExpenseViewController.swift */; };
 		BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05E291DE97F007D0D82 /* MapViewController.swift */; };
@@ -77,6 +78,7 @@
 		B5C096B529235416007426B1 /* SearchingLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationViewController.swift; sourceTree = "<group>"; };
 		B5C096B729235428007426B1 /* SearchingLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationView.swift; sourceTree = "<group>"; };
 		B5C096BB29235B08007426B1 /* SearchResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewCell.swift; sourceTree = "<group>"; };
+		B5C096BF29236BC0007426B1 /* SearchResultCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCellViewModel.swift; sourceTree = "<group>"; };
 		BBD0D05A291DE956007D0D82 /* TravelListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListViewController.swift; sourceTree = "<group>"; };
 		BBD0D05C291DE975007D0D82 /* ExpenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseViewController.swift; sourceTree = "<group>"; };
 		BBD0D05E291DE97F007D0D82 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 		B5C096B3292353FB007426B1 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				B5C096BF29236BC0007426B1 /* SearchResultCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -531,6 +534,7 @@
 				BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */,
 				B5C096BC29235B08007426B1 /* SearchResultCollectionViewCell.swift in Sources */,
 				BBE695DA29228C570015FAD4 /* TravelListControllerProtocol.swift in Sources */,
+				B5C096C029236BC0007426B1 /* SearchResultCellViewModel.swift in Sources */,
 				BBE695D4292273A10015FAD4 /* TravelCollectionViewCell.swift in Sources */,
 				B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */,
 				BBE695D629227C8D0015FAD4 /* TravelInfoViewModel.swift in Sources */,
