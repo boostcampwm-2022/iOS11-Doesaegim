@@ -14,7 +14,7 @@ final class SearchingLocationViewModel {
     
     weak var delegate: SearchingLocationViewControllerDelegate?
     
-    var searchResultCellViewModels: [SearchResultCellViewModel] = [] {
+    private(set) var searchResultCellViewModels: [SearchResultCellViewModel] = [] {
         didSet {
             delegate?.refreshSnapshot()
         }
@@ -36,7 +36,7 @@ final class SearchingLocationViewModel {
             guard let response = response else {
                 return
             }
-            let mapItems = response.mapItems.map({
+            let cellViewModels = response.mapItems.map({
                 let placemark = $0.placemark
                 return SearchResultCellViewModel(
                     name: placemark.name ?? "",
@@ -49,7 +49,7 @@ final class SearchingLocationViewModel {
             // [Memory] Resetting zone allocator with 32387 allocations still alive 경고가 떠서 추가
             // removeAnnotations과 어떤 관련이 있는지는 아직 정확히 파악하지 못함..
             
-            self.searchResultCellViewModels = mapItems
+            self.searchResultCellViewModels = cellViewModels
         }
     }
 }
