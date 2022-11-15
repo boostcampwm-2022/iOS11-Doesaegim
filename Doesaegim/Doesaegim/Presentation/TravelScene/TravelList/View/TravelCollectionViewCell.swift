@@ -57,6 +57,7 @@ final class TravelCollectionViewCell: UICollectionViewListCell {
     
     func configure() {
 //        configureLayer()
+        self.backgroundColor = .white
         configureStackView()
         configureSubviews()
         configureConstraints()
@@ -79,8 +80,8 @@ final class TravelCollectionViewCell: UICollectionViewListCell {
     
     func configureConstraints() {
         stackView.snp.makeConstraints {
-            $0.leading.equalTo(self.snp.leading).offset(3)
-            $0.trailing.equalTo(self.snp.trailing).offset(-3)
+            $0.leading.equalTo(self.snp.leading).offset(10)
+            $0.trailing.equalTo(self.snp.trailing).offset(-10)
             $0.centerY.equalTo(self.snp.centerY)
         }
         

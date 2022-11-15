@@ -34,6 +34,7 @@ final class TravelListViewController: UIViewController {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
+        collectionView.layer.cornerRadius = 7
         return collectionView
         
     }()
@@ -115,9 +116,7 @@ final class TravelListViewController: UIViewController {
     private func configureCollectionViewDataSource() {
         let travelCell = UICollectionView.CellRegistration<TravelCollectionViewCell, TravelInfoViewModel> {
             (cell, indexPath, identifier) in
-            let config = cell.defaultContentConfiguration()
             cell.configureLabel(with: identifier)
-
         }
         
         travelDataSource = DataSource (
