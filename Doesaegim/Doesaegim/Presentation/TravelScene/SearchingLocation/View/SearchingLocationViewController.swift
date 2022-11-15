@@ -28,6 +28,7 @@ final class SearchingLocationViewController: UIViewController {
         super.viewDidLoad()
         
         configureNavigationBar()
+        configureSearchBarFieldDelegate()
         configureCollectionView()
         configureViewModelDelegate()
     }
@@ -38,12 +39,24 @@ final class SearchingLocationViewController: UIViewController {
         title = "장소 검색"
     }
     
+    /// 서치바의 UITextFieldDelegate를 지정한다.
+    private func configureSearchBarFieldDelegate() {
+        rootView.searchBarField.delegate = self
+    }
+    
     /// 컬렉션뷰 셀 등록, DiffableDataSource 정의, 델리게이트 지정을 수행한다.
     private func configureCollectionView() {
         configureCollectionViewDataSource()
         configureCollectionViewDelegates()
         applySnapshot()
     }
+    
+    /// SearchingLocationViewModel의 델리게이트를 지정한다.
+    private func configureViewModelDelegate() {
+        viewModel.delegate = self
+    }
+    
+    // MARK: - Configure CollectionView Functions
     
     /// 컬렉션뷰에 사용될 셀을 등록하고, DiffableDataSource를 정의한다.
     private func configureCollectionViewDataSource() {
@@ -82,10 +95,6 @@ final class SearchingLocationViewController: UIViewController {
         
         resultViewDataSource?.apply(snapshot)
     }
-    
-    private func configureViewModelDelegate() {
-        viewModel.delegate = self
-    }
 }
 
 // MARK: - SearchingLocationViewController.Section
@@ -93,6 +102,17 @@ final class SearchingLocationViewController: UIViewController {
 extension SearchingLocationViewController {
     enum Section {
         case main
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension SearchingLocationViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        viewModel.fetchDummies()
+        
+        return true
     }
 }
 
