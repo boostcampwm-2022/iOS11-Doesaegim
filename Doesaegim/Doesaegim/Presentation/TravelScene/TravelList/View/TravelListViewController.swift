@@ -32,7 +32,7 @@ final class TravelListViewController: UIViewController {
     
     private var travelDataSource: UICollectionViewDiffableDataSource<String, TravelInfoViewModel>! = nil
     
-    private var viewModel: TravelListControllerProtocol? = TravelPlanViewModel()
+    private var viewModel: TravelListControllerProtocol? = TravelListViewModel()
     
     // MARK: - Life Cycle
     
@@ -61,8 +61,8 @@ final class TravelListViewController: UIViewController {
     // MARK: - Configure
     
     func configureSubviews() {
-        view.addSubview(placeholdLabel)
         view.addSubview(planCollectionView)
+        view.addSubview(placeholdLabel)
     }
     
     func configureConstraints() {
@@ -179,5 +179,19 @@ extension TravelListViewController: TravelListControllerDelegate {
         snapshot.appendSections(["main section"])
         snapshot.appendItems(travelInfos)
         travelDataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    func applyPlaceholdLabel() {
+        
+        guard let viewModel = viewModel else {
+            return
+        }
+        
+        let travelInfos = viewModel.travelInfos
+        if travelInfos.isEmpty {
+            placeholdLabel.isHidden = false
+        } else {
+            placeholdLabel.isHidden = true
+        }
     }
 }

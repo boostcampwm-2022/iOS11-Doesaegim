@@ -18,4 +18,5 @@ protocol TravelListControllerProtocol {
 
 protocol TravelListControllerDelegate {
     func applyTravelSnapshot()
+    func applyPlaceholdLabel()
 }

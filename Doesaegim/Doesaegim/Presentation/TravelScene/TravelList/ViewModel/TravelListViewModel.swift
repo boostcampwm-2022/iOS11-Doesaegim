@@ -8,13 +8,14 @@
 import Foundation
 
 
-final class TravelPlanViewModel: TravelListControllerProtocol {
+final class TravelListViewModel: TravelListControllerProtocol {
     
     var delegate: TravelListControllerDelegate?
     
     var travelInfos: [TravelInfoViewModel] {
         didSet {
             delegate?.applyTravelSnapshot()
+            delegate?.applyPlaceholdLabel()
         }
     }
     
