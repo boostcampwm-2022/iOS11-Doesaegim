@@ -11,6 +11,9 @@ import SnapKit
 
 final class ExpenseTravelListController: UIViewController {
 
+    typealias DataSource = UICollectionViewDiffableDataSource<String, TravelInfoViewModel>
+    typealias SnapShot = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>
+    
     // MARK: - Properties
     
     let placeholderLabel: UILabel = {
@@ -29,6 +32,8 @@ final class ExpenseTravelListController: UIViewController {
         
         return collectionView
     }()
+    
+    var travelDataSource: DataSource?
     
     // MARK: - Life Cycle
     
@@ -63,7 +68,6 @@ final class ExpenseTravelListController: UIViewController {
             $0.trailing.equalTo(view.snp.trailing).offset(16)
             $0.top.equalTo(view.snp.top)
             $0.bottom.equalTo(view.snp.bottom)
-            
         }
     }
     
@@ -75,6 +79,46 @@ final class ExpenseTravelListController: UIViewController {
         listConfiguration.backgroundColor = .white
         
         return UICollectionViewCompositionalLayout.list(using: listConfiguration)
+    }
+    
+    private func configureCollectionViewDataSource() {
+        let travelCell = UICollectionView.CellRegistration<ExpenseTravelViewCell, TravelInfoViewModel> {
+            cell, indexPath, identifier in
+            
+            // TODO: - 과정 처리 셀 클래스로 넘기는 것 고민
+            var content = cell.defaultContentConfiguration()
+            content.attributedText = NSAttributedString(
+                string: identifier.title,
+                attributes: [
+                    .font: UIFont.boldSystemFont(ofSize: 20),
+                    .foregroundColor: UIColor.black
+                ]
+            )
+            content.secondaryAttributedText = NSAttributedString(
+                string: Date.convertTravelString(
+                    start: identifier.startDate,
+                    end: identifier.endDate
+                ),
+                attributes: [
+                    .font: UIFont.systemFont(ofSize: 14),
+                    .foregroundColor: UIColor.grey2
+                        
+                ]
+            )
+            cell.contentConfiguration = content
+        }
+        
+        travelDataSource = DataSource(
+            collectionView: collectionView,
+            cellProvider: { collectionView, indexPath, item in
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: travelCell,
+                    for: indexPath,
+                    item: item
+                )
+            }
+        )
+        
     }
     
 }
