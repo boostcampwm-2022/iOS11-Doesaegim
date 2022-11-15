@@ -48,7 +48,7 @@ final class SearchingLocationViewController: UIViewController {
     private func configureCollectionView() {
         configureCollectionViewDataSource()
         configureCollectionViewDelegates()
-        applySnapshot()
+        configureSnapshot()
     }
     
     /// SearchingLocationViewModel의 델리게이트를 지정한다.
@@ -86,9 +86,8 @@ final class SearchingLocationViewController: UIViewController {
     }
     
     /// 설정한 DiffableDataSource에 snapshot을 적용한다.
-    private func applySnapshot() {
-        guard var snapshot = resultViewDataSource?.snapshot()
-        else { return }
+    private func configureSnapshot() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, SearchResultCellViewModel>()
         
         snapshot.appendSections([.main])
         snapshot.appendItems(viewModel.searchResultCellViewModels)
@@ -133,14 +132,6 @@ extension SearchingLocationViewController: UICollectionViewDelegate {
 
 extension SearchingLocationViewController: SearchingLocationViewControllerDelegate {
     func refreshSnapshot() {
-        guard var snapshot = resultViewDataSource?.snapshot()
-        else { return }
-        
-        snapshot.deleteAllItems()
-        
-        snapshot.appendSections([.main])
-        snapshot.appendItems(viewModel.searchResultCellViewModels)
-        
-        resultViewDataSource?.apply(snapshot)
+        configureSnapshot()
     }
 }
