@@ -81,6 +81,7 @@ final class TravelPlanAddViewController: UIViewController {
         textField.backgroundColor = .grey1
         textField.textColor = .black
         textField.font = .systemFont(ofSize: 17, weight: .regular)
+        textField.delegate = self
         return textField
     }()
     
@@ -171,7 +172,7 @@ final class TravelPlanAddViewController: UIViewController {
     private func configureViews() {
         configureSubviews()
         configureConstraint()
-        configureNavigation()
+        navigationItem.title = "여행 추가"
     }
     
     private func configureSubviews() {
@@ -195,10 +196,6 @@ final class TravelPlanAddViewController: UIViewController {
         [travelDateStartLabel, waveLabel, travelDateEndLabel].forEach {
             travelDateLabelStackView.addArrangedSubview($0)
         }
-    }
-    
-    private func configureNavigation() {
-        navigationItem.title = "여행 추가"
     }
     
     private func configureConstraint() {
@@ -252,8 +249,8 @@ extension TravelPlanAddViewController {
     private func setKeyboardNotification() {
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(keyboardWillShow),
-            name: UIResponder.keyboardWillShowNotification, object: nil
+            selector: #selector(keyboardDidShow),
+            name: UIResponder.keyboardDidShowNotification, object: nil
         )
         
         NotificationCenter.default.addObserver(
@@ -261,29 +258,37 @@ extension TravelPlanAddViewController {
             selector: #selector(keyboardWillHide),
             name: UIResponder.keyboardWillHideNotification, object: nil
         )
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
     }
-    
-    @objc private func keyboardWillShow(notification: NSNotification) {
+  
+    @objc private func keyboardDidShow(notification: NSNotification) {
         if let keyboardFrame: NSValue = notification
             .userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
             self.view.frame.size.height -= keyboardHeight
-            
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+            view.addGestureRecognizer(tapGesture)
         }
     }
-    
+
     @objc private func keyboardWillHide(notification: NSNotification) {
         if let keyboardFrame: NSValue = notification
             .userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
             self.view.frame.size.height += keyboardHeight
+            view.gestureRecognizers?.removeAll()
         }
     }
     
     @objc private func dismissKeyboard() {
         view.endEditing(true)
+    }
+}
+
+extension TravelPlanAddViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
