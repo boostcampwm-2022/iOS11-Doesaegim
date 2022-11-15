@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ExpenseViewController: UIViewController {
+final class ExpenseTravelListController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
