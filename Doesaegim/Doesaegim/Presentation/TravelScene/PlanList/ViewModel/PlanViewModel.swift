@@ -21,6 +21,7 @@ final class PlanViewModel {
         plan.name
     }
 
+    // 9:01 PM 형태의 날짜 문자열 
     var timeString: String? {
         guard let date = plan.date
         else {
@@ -46,21 +47,24 @@ final class PlanViewModel {
 
     let plan: Plan
 
+    private let repository: PlanRepository
+
 
     // MARK: - Init(s)
 
-    init(plan: Plan) {
+    init(plan: Plan, repository: PlanRepository) {
         self.plan = plan
         self.id = plan.id ?? UUID()
+        self.repository = repository
     }
 
 
     // MARK: - Functions
 
     /// 체크박스를 탭했을 때 호출
-    func checkBoxDidTap() {
+    func checkBoxDidTap() throws {
         plan.isComplete.toggle()
-        // TODO: 토글할때마다 저장?
+        try repository.save()
         checkBoxToggleHandler?()
     }
 }
