@@ -90,10 +90,19 @@ final class SearchingLocationViewController: UIViewController {
     }
 }
 
+// MARK: - SearchingLocationViewController.Section
+
 extension SearchingLocationViewController {
     enum Section {
         case main
     }
 }
 
-extension SearchingLocationViewController: UICollectionViewDelegate {}
+// MARK: - UICollectionViewDelegate
+
+extension SearchingLocationViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // TODO: 선택된 셀의 장소 데이터를 가지고 이전 화면으로 돌아가기 구현 필요
+        navigationController?.popViewController(animated: true)
+    }
+}
