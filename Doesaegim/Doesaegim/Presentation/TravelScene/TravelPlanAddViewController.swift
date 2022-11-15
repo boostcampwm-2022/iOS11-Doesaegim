@@ -135,17 +135,6 @@ final class TravelPlanAddViewController: UIViewController {
         return label
     }()
     
-    private lazy var datePicker: UIDatePicker = {
-        let datePicker = UIDatePicker()
-        
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
-        datePicker.locale = Locale(identifier: "ko-KR")
-        datePicker.preferredDatePickerStyle = .inline
-        datePicker.timeZone = .autoupdatingCurrent
-        datePicker.datePickerMode = .dateAndTime
-        return datePicker
-    }()
-    
     private lazy var addButton: UIButton = {
         let button = UIButton()
         
@@ -157,6 +146,10 @@ final class TravelPlanAddViewController: UIViewController {
         return button
     }()
     
+    private lazy var customCalendar: CustomCalendar = {
+        let customCalendar = CustomCalendar(frame: .zero, collectionViewLayout: CustomCalendar.createLayout())
+        return customCalendar
+    }()
     
     // MARK: - Properties
     
@@ -182,7 +175,7 @@ final class TravelPlanAddViewController: UIViewController {
         }
         scrollView.addSubview(contentView)
         
-        [travelTitleStackView, travelDateStackView, datePicker, addButton].forEach {
+        [travelTitleStackView, travelDateStackView, addButton, customCalendar].forEach {
             contentView.addSubview($0)
         }
         
@@ -230,22 +223,24 @@ final class TravelPlanAddViewController: UIViewController {
         travelDateEndLabel.snp.makeConstraints {
             $0.width.equalToSuperview().multipliedBy(0.4)
         }
-        
-        datePicker.snp.makeConstraints {
-            $0.top.equalTo(travelDateStackView.snp.bottom).offset(30)
+
+        customCalendar.snp.makeConstraints {
+            $0.top.equalTo(travelDateStackView.snp.bottom).offset(50)
             $0.leading.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(customCalendar.snp.width).multipliedBy(1.3)
         }
         
         addButton.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview().offset(-30)
-            $0.top.equalTo(datePicker.snp.bottom).offset(100)
+            $0.top.equalTo(customCalendar.snp.bottom).offset(40)
             $0.height.equalTo(48)
         }
     }
 }
 
 // MARK: - Keyboard
+
 extension TravelPlanAddViewController {
     private func setKeyboardNotification() {
         NotificationCenter.default.addObserver(
@@ -286,6 +281,8 @@ extension TravelPlanAddViewController {
         view.endEditing(true)
     }
 }
+
+// MARK: - TextField Delegate
 
 extension TravelPlanAddViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
