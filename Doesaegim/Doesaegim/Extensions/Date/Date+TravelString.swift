@@ -27,7 +27,7 @@ extension Date {
     /// - Parameters:
     ///   - start: 시작일 `Date`인스턴스
     ///   - end: 종료일 `Date`인스턴스
-    /// - Returns: OOOO년 OO월 OO일 ~ OO월 OO일 형식의 문자열
+    /// - Returns: `OOOO년 OO월 OO일 ~ OO월 OO일` 형식의 문자열
     static func convertTravelString(start: Date, end: Date) -> String {
         let startDateFormatter = Date.yearMonthDayDateFormatter
         let endDateFormatter = Date.monthDayDateFormatter
