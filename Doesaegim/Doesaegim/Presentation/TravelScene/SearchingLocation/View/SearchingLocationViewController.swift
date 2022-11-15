@@ -12,18 +12,11 @@ final class SearchingLocationViewController: UIViewController {
     
     private let rootView = SearchingLocationView()
     
-    private var resultViewDataSource: UICollectionViewDiffableDataSource<Section, SearchResultCellViewModel>?
-    
     // MARK: - Properties
     
-    // TODO: 더미 데이터. 추후 삭제
-    private let dummies = [
-        SearchResultCellViewModel(name: "1. 네이버 1784", address: "경기 성남시 분당구", latitude: 0.0, longitude: 0.0),
-        SearchResultCellViewModel(name: "2. 네이버 1784", address: "경기 성남시 분당구", latitude: 0.0, longitude: 0.0),
-        SearchResultCellViewModel(name: "3. 네이버 1784", address: "경기 성남시 분당구", latitude: 0.0, longitude: 0.0),
-        SearchResultCellViewModel(name: "4. 네이버 1784", address: "경기 성남시 분당구", latitude: 0.0, longitude: 0.0),
-        SearchResultCellViewModel(name: "5. 네이버 1784", address: "경기 성남시 분당구", latitude: 0.0, longitude: 0.0)
-    ]
+    private var resultViewDataSource: UICollectionViewDiffableDataSource<Section, SearchResultCellViewModel>?
+    
+    private let viewModel = SearchingLocationViewModel()
     
     // MARK: - Life Cycles
     
@@ -36,6 +29,7 @@ final class SearchingLocationViewController: UIViewController {
         
         configureNavigationBar()
         configureCollectionView()
+        configureViewModelDelegate()
     }
     
     // MARK: - Configure Functions
@@ -84,9 +78,13 @@ final class SearchingLocationViewController: UIViewController {
         else { return }
         
         snapshot.appendSections([.main])
-        snapshot.appendItems(dummies)
+        snapshot.appendItems(viewModel.searchResultCellViewModels)
         
         resultViewDataSource?.apply(snapshot)
+    }
+    
+    private func configureViewModelDelegate() {
+        viewModel.delegate = self
     }
 }
 
@@ -104,5 +102,21 @@ extension SearchingLocationViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // TODO: 선택된 셀의 장소 데이터를 가지고 이전 화면으로 돌아가기 구현 필요
         navigationController?.popViewController(animated: true)
+    }
+}
+
+// MARK: - SearchingLocationViewControllerDelegate
+
+extension SearchingLocationViewController: SearchingLocationViewControllerDelegate {
+    func refreshSnapshot() {
+        guard var snapshot = resultViewDataSource?.snapshot()
+        else { return }
+        
+        snapshot.deleteAllItems()
+        
+        snapshot.appendSections([.main])
+        snapshot.appendItems(viewModel.searchResultCellViewModels)
+        
+        resultViewDataSource?.apply(snapshot)
     }
 }
