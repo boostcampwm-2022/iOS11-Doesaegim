@@ -48,7 +48,6 @@ final class ExpenseTravelListController: UIViewController {
         configureNavigationBar()
         configureSubviews()
         configureConstratins()
-        configureCollectionView()
         configureCollectionViewDataSource()
     }
     
@@ -81,13 +80,6 @@ final class ExpenseTravelListController: UIViewController {
     }
     
     // MARK: - Collection View
-    
-    private func configureCollectionView() {
-        collectionView.register(
-            ExpenseTravelViewCell.self,
-            forCellWithReuseIdentifier: ExpenseTravelViewCell.identifier
-        )
-    }
     
     private func collectionViewListLayout() -> UICollectionViewCompositionalLayout {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
