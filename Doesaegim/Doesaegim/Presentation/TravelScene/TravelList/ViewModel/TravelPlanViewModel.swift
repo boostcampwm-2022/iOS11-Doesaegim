@@ -8,9 +8,9 @@
 import Foundation
 
 
-final class TempTravelPlanViewModel: TravelPlanControllerProtocol {
+final class TravelPlanViewModel: TravelListControllerProtocol {
     
-    var delegate: TravelPlanControllerDelegate?
+    var delegate: TravelListControllerDelegate?
     
     var travelInfos: [TravelInfoViewModel] {
         didSet {

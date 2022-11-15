@@ -26,7 +26,7 @@ final class MainTabBarController: UITabBarController {
     
     /// `MainTabBarController` 설정 함수
     private func configureTabBar() {
-        let travelPlanViewController = UINavigationController(rootViewController: TravelPlanViewController())
+        let travelPlanViewController = UINavigationController(rootViewController: TravelListViewController())
         let expenseViewController = UINavigationController(rootViewController: ExpenseViewController())
         let mapViewController = UINavigationController(rootViewController: MapViewController())
         let diaryViewController = UINavigationController(rootViewController: DiaryViewController())

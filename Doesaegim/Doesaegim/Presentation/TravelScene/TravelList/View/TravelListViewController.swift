@@ -10,7 +10,7 @@ import SnapKit
 
 // TODO: - 클래스 이름 TravelListViewController로 바꾸면 좋을듯함...
 
-final class TravelPlanViewController: UIViewController {
+final class TravelListViewController: UIViewController {
 
     // MARK: - Properties
     
@@ -32,7 +32,7 @@ final class TravelPlanViewController: UIViewController {
     
     private var travelDataSource: UICollectionViewDiffableDataSource<String, TravelInfoViewModel>! = nil
     
-    private var viewModel: TravelPlanControllerProtocol? = TempTravelPlanViewModel()
+    private var viewModel: TravelListControllerProtocol? = TravelPlanViewModel()
     
     // MARK: - Life Cycle
     
@@ -165,7 +165,7 @@ final class TravelPlanViewController: UIViewController {
     }
 }
 
-extension TravelPlanViewController: TravelPlanControllerDelegate {
+extension TravelListViewController: TravelListControllerDelegate {
     func applyTravelSnapshot() {
         // TODO: - ViewModel 작성 후 identifierItem 작성
         
