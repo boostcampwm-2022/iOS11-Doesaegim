@@ -155,6 +155,7 @@ final class TravelPlanAddViewController: UIViewController {
         return button
     }()
     
+    
     // MARK: - Properties
     
     // MARK: - Lifecycles
@@ -162,6 +163,7 @@ final class TravelPlanAddViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
+        setKeyboardNotification()
     }
     
     // MARK: - Configure Functions
@@ -213,7 +215,7 @@ final class TravelPlanAddViewController: UIViewController {
             $0.top.equalToSuperview().offset(17)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
-
+        
         travelTitleTextField.snp.makeConstraints {
             $0.height.equalTo(36)
         }
@@ -243,6 +245,45 @@ final class TravelPlanAddViewController: UIViewController {
             $0.height.equalTo(48)
         }
     }
+}
+
+// MARK: - Keyboard
+extension TravelPlanAddViewController {
+    private func setKeyboardNotification() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification, object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification, object: nil
+        )
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
+    }
     
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        if let keyboardFrame: NSValue = notification
+            .userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            self.view.frame.size.height -= keyboardHeight
+            
+        }
+    }
     
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        if let keyboardFrame: NSValue = notification
+            .userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            self.view.frame.size.height += keyboardHeight
+        }
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
