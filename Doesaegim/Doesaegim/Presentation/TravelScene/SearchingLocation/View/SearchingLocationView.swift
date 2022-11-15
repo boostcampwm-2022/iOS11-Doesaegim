@@ -14,7 +14,7 @@ final class SearchingLocationView: UIView {
     // MARK: - UI Properties
     
     /// 서치바 텍스트필드 영역
-    private let searchBarField: UITextField = {
+    let searchBarField: UITextField = {
         let textField = UITextField()
         textField.backgroundColor = .grey1
         textField.layer.cornerRadius = Metric.searchBarCornerRadius
@@ -31,18 +31,18 @@ final class SearchingLocationView: UIView {
         return textField
     }()
     
-    /// 서치바 마진 영역
-    private let searchBarMarginView: UIView = {
-        let view = UIView()
-        return view
-    }()
-    
     /// 검색 결과를 표시하는 컬렉션 뷰
     lazy var searchResultCollectionView: UICollectionView = {
         let layout = configureCompositionalLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         return collectionView
+    }()
+    
+    /// 서치바 마진 영역
+    private let searchBarMarginView: UIView = {
+        let view = UIView()
+        return view
     }()
     
     /// 서치바와 검색 결과 리스트를 포함하는 스택뷰
