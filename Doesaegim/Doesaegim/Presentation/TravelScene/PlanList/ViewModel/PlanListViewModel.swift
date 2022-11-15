@@ -61,7 +61,7 @@ final class PlanListViewModel {
     }
 
     func item(at indexPath: IndexPath, withID id: UUID) -> PlanViewModel? {
-        // TODO: Safe Subscript
+        // TODO: Safe Subscript -> 이 부분은 내일 대대적인 리팩토링이 있을 것 같아 일단 그냥 뒀습니다!
         let item = planViewModels[indexPath.section][indexPath.row]
         return item.id == id ? item : nil
     }
