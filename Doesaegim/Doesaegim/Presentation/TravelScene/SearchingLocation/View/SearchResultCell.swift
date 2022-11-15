@@ -61,14 +61,8 @@ final class SearchResultCell: UICollectionViewCell {
     // MARK: - Private Configure Functions
     
     private func configureViews() {
-        configureLayer()
         configureSubviews()
         configureConstraints()
-    }
-    
-    private func configureLayer() {
-        layer.borderWidth = Metric.cellLayerBorderWidth
-        layer.borderColor = UIColor.grey1?.cgColor
     }
     
     private func configureSubviews() {

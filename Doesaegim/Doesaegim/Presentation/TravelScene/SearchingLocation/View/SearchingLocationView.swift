@@ -33,7 +33,10 @@ final class SearchingLocationView: UIView {
     
     /// 검색 결과를 표시하는 컬렉션 뷰
     lazy var searchResultCollectionView: UICollectionView = {
-        let layout = configureCompositionalLayout()
+        var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+        configuration.showsSeparators = true
+        
+        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         return collectionView
@@ -98,26 +101,6 @@ final class SearchingLocationView: UIView {
         }
         
     }
-    
-    /// 컬렉션 뷰의 레이아웃을 설정한다.
-    /// - Returns: 설정이 완료된 레이아웃
-    private func configureCompositionalLayout() -> UICollectionViewCompositionalLayout {
-        let layoutSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(Metric.searchResultCellWidth),
-            heightDimension: .absolute(Metric.searchResultCellHeight)
-        )
-        let subitem = NSCollectionLayoutItem(layoutSize: layoutSize)
-        
-        let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: layoutSize,
-            subitems: [subitem]
-        )
-        
-        let section = NSCollectionLayoutSection(group: group)
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        
-        return layout
-    }
 }
 
 // MARK: - Namespaces Extension
@@ -127,9 +110,6 @@ extension SearchingLocationView {
         static let searchBarHorizontalPadding: CGFloat = 16
         static let searchBarHeight: CGFloat = 36
         static let searchBarCornerRadius: CGFloat = 10
-        
-        static let searchResultCellWidth: CGFloat = 1
-        static let searchResultCellHeight: CGFloat = 80
         
         static let contentStackSpacing: CGFloat = 16
     }
