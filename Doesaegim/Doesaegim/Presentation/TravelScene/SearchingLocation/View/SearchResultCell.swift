@@ -1,5 +1,5 @@
 //
-//  SearchResultCollectionViewCell.swift
+//  SearchResultCell.swift
 //  Doesaegim
 //
 //  Created by 서보경 on 2022/11/15.
@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-final class SearchResultCollectionViewCell: UICollectionViewCell {
+final class SearchResultCell: UICollectionViewCell {
     
     // MARK: - UI Properties
     
@@ -96,7 +96,7 @@ final class SearchResultCollectionViewCell: UICollectionViewCell {
     }
 }
 
-extension SearchResultCollectionViewCell {
+extension SearchResultCell {
     enum Metric {
         static let cellLayerBorderWidth: CGFloat = 1
         
@@ -107,7 +107,7 @@ extension SearchResultCollectionViewCell {
     }
     
     enum StringLiteral {
-        static let identifier = "SearchResultCollectionViewCell"
+        static let identifier = "SearchResultCell"
         
         static let defaultLocationName = "장소명"
         static let defaultLocationAddress = "주소"

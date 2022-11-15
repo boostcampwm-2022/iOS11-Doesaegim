@@ -54,7 +54,7 @@ final class SearchingLocationViewController: UIViewController {
     /// 컬렉션뷰에 사용될 셀을 등록하고, DiffableDataSource를 정의한다.
     private func configureCollectionViewDataSource() {
         let cellRegistration = UICollectionView
-            .CellRegistration<SearchResultCollectionViewCell, SearchResultCellViewModel>(
+            .CellRegistration<SearchResultCell, SearchResultCellViewModel>(
                 handler: { cell, _, viewModel in
             cell.setupLabels(name: viewModel.name, address: viewModel.address)
         })
