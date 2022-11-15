@@ -37,12 +37,12 @@ final class SearchingLocationView: UIView {
         return view
     }()
     
-    /// 검색 결과를 표시하는 테이블 뷰
-    private let searchResultTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .systemBlue
+    /// 검색 결과를 표시하는 컬렉션 뷰
+    private lazy var searchResultCollectionView: UICollectionView = {
+        let layout = configureCompositionalLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
-        return tableView
+        return collectionView
     }()
     
     /// 서치바와 검색 결과 리스트를 포함하는 스택뷰
@@ -81,7 +81,7 @@ final class SearchingLocationView: UIView {
         searchBarMarginView.addSubview(searchBarField)
         
         contentStack.addArrangedSubview(searchBarMarginView)
-        contentStack.addArrangedSubview(searchResultTableView)
+        contentStack.addArrangedSubview(searchResultCollectionView)
         
         addSubview(contentStack)
     }
@@ -98,13 +98,38 @@ final class SearchingLocationView: UIView {
         }
         
     }
+    
+    /// 컬렉션 뷰의 레이아웃을 설정한다.
+    /// - Returns: 설정이 완료된 레이아웃
+    private func configureCompositionalLayout() -> UICollectionViewCompositionalLayout {
+        let layoutSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(Metric.searchResultWidthDimension),
+            heightDimension: .fractionalHeight(Metric.searchResultHeightDimension)
+        )
+        let subitem = NSCollectionLayoutItem(layoutSize: layoutSize)
+        
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: layoutSize,
+            subitems: [subitem]
+        )
+        
+        let section = NSCollectionLayoutSection(group: group)
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        
+        return layout
+    }
 }
+
+// MARK: - Namespaces Extension
 
 extension SearchingLocationView {
     enum Metric {
         static let searchBarHorizontalPadding: CGFloat = 16
         static let searchBarHeight: CGFloat = 36
         static let searchBarCornerRadius: CGFloat = 10
+        
+        static let searchResultWidthDimension: CGFloat = 1.0
+        static let searchResultHeightDimension: CGFloat = 1.0
         
         static let contentStackSpacing: CGFloat = 16
     }
