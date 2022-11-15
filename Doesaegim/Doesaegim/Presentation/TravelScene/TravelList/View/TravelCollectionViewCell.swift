@@ -41,18 +41,12 @@ final class TravelCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configurelayer()
-        configureStackView()
-        configureSubviews()
-        configureConstraints()
+        configure()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        configurelayer()
-        configureStackView()
-        configureSubviews()
-        configureConstraints()
+        configure()
     }
     
     override func prepareForReuse() {
@@ -61,7 +55,14 @@ final class TravelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Configure
     
-    func configurelayer() {
+    func configure() {
+        configureLayer()
+        configureStackView()
+        configureSubviews()
+        configureConstraints()
+    }
+    
+    func configureLayer() {
         layer.cornerRadius = 3
         layer.borderWidth = 1
         layer.borderColor = UIColor.grey4?.cgColor

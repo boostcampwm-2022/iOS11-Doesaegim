@@ -30,7 +30,7 @@ final class TravelListViewController: UIViewController {
         
     }()
     
-    private var travelDataSource: UICollectionViewDiffableDataSource<String, TravelInfoViewModel>! = nil
+    private var travelDataSource: UICollectionViewDiffableDataSource<String, TravelInfoViewModel>?
     
     private var viewModel: TravelListControllerProtocol? = TravelListViewModel()
     
@@ -178,7 +178,7 @@ extension TravelListViewController: TravelListControllerDelegate {
         
         snapshot.appendSections(["main section"])
         snapshot.appendItems(travelInfos)
-        travelDataSource.apply(snapshot, animatingDifferences: true)
+        travelDataSource?.apply(snapshot, animatingDifferences: true)
     }
     
     func applyPlaceholdLabel() {
