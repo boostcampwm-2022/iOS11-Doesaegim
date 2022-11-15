@@ -21,6 +21,7 @@
 		A4CC04CB29227E5C00BB678B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04CA29227E5C00BB678B /* Constants.swift */; };
 		A4CC04CD2922818900BB678B /* UIView+AddSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04CC2922818900BB678B /* UIView+AddSubviews.swift */; };
 		A4CC04CF292281B400BB678B /* UIStackView+AddArrangedSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04CE292281B400BB678B /* UIStackView+AddArrangedSubviews.swift */; };
+		A4CC04D1292324B000BB678B /* EmptyLabeledCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04D0292324B000BB678B /* EmptyLabeledCollectionView.swift */; };
 		B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D96252922301E00B510B8 /* TravelDTO.swift */; };
 		B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D9627292230CA00B510B8 /* PlanDTO.swift */; };
 		B57D962C2922315500B510B8 /* LocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962B2922315500B510B8 /* LocationDTO.swift */; };
@@ -80,6 +81,7 @@
 		A4CC04CA29227E5C00BB678B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A4CC04CC2922818900BB678B /* UIView+AddSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AddSubviews.swift"; sourceTree = "<group>"; };
 		A4CC04CE292281B400BB678B /* UIStackView+AddArrangedSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+AddArrangedSubviews.swift"; sourceTree = "<group>"; };
+		A4CC04D0292324B000BB678B /* EmptyLabeledCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyLabeledCollectionView.swift; sourceTree = "<group>"; };
 		B57D96252922301E00B510B8 /* TravelDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDTO.swift; sourceTree = "<group>"; };
 		B57D9627292230CA00B510B8 /* PlanDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDTO.swift; sourceTree = "<group>"; };
 		B57D962B2922315500B510B8 /* LocationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDTO.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			children = (
 				A4CC04C52922799600BB678B /* CheckBox.swift */,
 				A4CC04C829227C7200BB678B /* PlanCollectionViewCell.swift */,
+				A4CC04D0292324B000BB678B /* EmptyLabeledCollectionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -548,6 +551,7 @@
 				A4CC04CD2922818900BB678B /* UIView+AddSubviews.swift in Sources */,
 				BBFAC091291CBDD700D7FD57 /* Doesaegim.xcdatamodeld in Sources */,
 				A4CC04C62922799600BB678B /* CheckBox.swift in Sources */,
+				A4CC04D1292324B000BB678B /* EmptyLabeledCollectionView.swift in Sources */,
 				BBFAC08B291CBDD700D7FD57 /* MainTabBarController.swift in Sources */,
 				A4CC04AA29221EEE00BB678B /* Location+CoreDataClass.swift in Sources */,
 				A4CC04A629221EEE00BB678B /* Travel+CoreDataClass.swift in Sources */,
