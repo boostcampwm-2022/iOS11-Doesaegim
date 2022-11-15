@@ -12,6 +12,19 @@ final class SearchingLocationViewController: UIViewController {
     
     private let rootView = SearchingLocationView()
     
+    private var resultViewDataSource: UICollectionViewDiffableDataSource<Section, SearchResultCellViewModel>?
+    
+    // MARK: - Properties
+    
+    // TODO: 더미 데이터. 추후 삭제
+    private let dummies = [
+        SearchResultCellViewModel(name: "1. 네이버 1784", address: "경기 성남시 분당구", latitude: 0.0, longitude: 0.0),
+        SearchResultCellViewModel(name: "2. 네이버 1784", address: "경기 성남시 분당구", latitude: 0.0, longitude: 0.0),
+        SearchResultCellViewModel(name: "3. 네이버 1784", address: "경기 성남시 분당구", latitude: 0.0, longitude: 0.0),
+        SearchResultCellViewModel(name: "4. 네이버 1784", address: "경기 성남시 분당구", latitude: 0.0, longitude: 0.0),
+        SearchResultCellViewModel(name: "5. 네이버 1784", address: "경기 성남시 분당구", latitude: 0.0, longitude: 0.0)
+    ]
+    
     // MARK: - Life Cycles
     
     override func loadView() {
@@ -22,7 +35,7 @@ final class SearchingLocationViewController: UIViewController {
         super.viewDidLoad()
         
         configureNavigationBar()
-        configureCollectionViewDelegates()
+        configureCollectionView()
     }
     
     // MARK: - Configure Functions
@@ -31,8 +44,55 @@ final class SearchingLocationViewController: UIViewController {
         title = "장소 검색"
     }
     
+    /// 컬렉션뷰 셀 등록, DiffableDataSource 정의, 델리게이트 지정을 수행한다.
+    private func configureCollectionView() {
+        configureCollectionViewDataSource()
+        configureCollectionViewDelegates()
+        applySnapshot()
+    }
+    
+    /// 컬렉션뷰에 사용될 셀을 등록하고, DiffableDataSource를 정의한다.
+    private func configureCollectionViewDataSource() {
+        let cellRegistration = UICollectionView
+            .CellRegistration<SearchResultCollectionViewCell, SearchResultCellViewModel>(
+                handler: { cell, _, viewModel in
+            cell.setupLabels(name: viewModel.name, address: viewModel.address)
+        })
+        
+        resultViewDataSource = UICollectionViewDiffableDataSource<Section, SearchResultCellViewModel>(
+            collectionView: rootView.searchResultCollectionView
+        ) { collectionView, indexPath, itemIdentifier in
+            let cell = collectionView.dequeueConfiguredReusableCell(
+                using: cellRegistration,
+                for: indexPath,
+                item: itemIdentifier
+            )
+            
+            return cell
+        }
+    }
+    
+    /// 컬렉션뷰의 델리게이트를 지정한다.
     private func configureCollectionViewDelegates() {
         rootView.searchResultCollectionView.delegate = self
+        rootView.searchResultCollectionView.dataSource = resultViewDataSource
+    }
+    
+    /// 설정한 DiffableDataSource에 snapshot을 적용한다.
+    private func applySnapshot() {
+        guard var snapshot = resultViewDataSource?.snapshot()
+        else { return }
+        
+        snapshot.appendSections([.main])
+        snapshot.appendItems(dummies)
+        
+        resultViewDataSource?.apply(snapshot)
+    }
+}
+
+extension SearchingLocationViewController {
+    enum Section {
+        case main
     }
 }
 

@@ -58,7 +58,7 @@ final class SearchResultCollectionViewCell: UICollectionViewCell {
         configureViews()
     }
     
-    // MARK: - Configure Functions
+    // MARK: - Private Configure Functions
     
     private func configureViews() {
         configureLayer()
@@ -82,6 +82,17 @@ final class SearchResultCollectionViewCell: UICollectionViewCell {
         contentStack.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(Metric.contentStackInsets)
         }
+    }
+    
+    // MARK: - Setup Data Functions
+    
+    /// 장소 검색 화면에 표시될 데이터를 세팅한다.
+    /// - Parameters:
+    ///   - name: `locationNameLabel`에 세팅될 데이터 값
+    ///   - address: `locationAddressLabel`에 세팅될 데이터 값
+    func setupLabels(name: String, address: String) {
+        locationNameLabel.text = name
+        locationAddressLabel.text = address
     }
 }
 
