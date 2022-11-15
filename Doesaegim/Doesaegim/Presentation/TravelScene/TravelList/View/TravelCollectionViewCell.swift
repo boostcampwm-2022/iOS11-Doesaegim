@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TravelCollectionViewCell: UICollectionViewCell {
+final class TravelCollectionViewCell: UICollectionViewListCell {
     
     // MARK: - Properties
     
@@ -17,14 +17,14 @@ final class TravelCollectionViewCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.alignment = .leading
-        stackView.spacing = 6
+        stackView.spacing = 3
         
         return stackView
     }()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         
         return label
     }()
@@ -56,7 +56,7 @@ final class TravelCollectionViewCell: UICollectionViewCell {
     // MARK: - Configure
     
     func configure() {
-        configureLayer()
+//        configureLayer()
         configureStackView()
         configureSubviews()
         configureConstraints()
@@ -82,6 +82,10 @@ final class TravelCollectionViewCell: UICollectionViewCell {
             $0.leading.equalTo(self.snp.leading).offset(3)
             $0.trailing.equalTo(self.snp.trailing).offset(-3)
             $0.centerY.equalTo(self.snp.centerY)
+        }
+        
+        self.snp.makeConstraints {
+            $0.height.equalTo(70)
         }
     }
     

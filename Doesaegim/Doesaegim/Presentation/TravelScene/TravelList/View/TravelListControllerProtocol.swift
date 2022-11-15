@@ -13,6 +13,7 @@ protocol TravelListControllerProtocol {
     var travelInfos: [TravelInfoViewModel] { get set }
     
     func fetchTravelInfo()
+    func deleteTravel(with id: UUID)
     
 }
 

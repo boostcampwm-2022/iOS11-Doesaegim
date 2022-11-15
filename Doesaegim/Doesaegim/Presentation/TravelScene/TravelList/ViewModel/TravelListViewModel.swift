@@ -45,4 +45,8 @@ final class TravelListViewModel: TravelListControllerProtocol {
         
         travelInfos = newTravelInfos
     }
+    
+    func deleteTravel(with id: UUID) {
+        travelInfos = travelInfos.filter { $0.uuid != id }
+    }
 }
