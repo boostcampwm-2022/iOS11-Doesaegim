@@ -10,13 +10,17 @@ import Foundation
 
 protocol ExpenseTravelViewModelProtocol {
     
-    var delegate: ExpenseTravelListDelegate? { get set }
+    var delegate: ExpenseTravelViewModelDelegate? { get set }
+    
+    var travelInfos: [TravelInfoViewModel] { get set }
+    
+    func fetchTravelInfo()
     
 }
 
-protocol ExpenseTravelListDelegate {
+protocol ExpenseTravelViewModelDelegate {
     
-    func applyTravelSnapShot()
+    func applyTravelSnapshot()
     func applyPlaceholdLabel()
     
 }

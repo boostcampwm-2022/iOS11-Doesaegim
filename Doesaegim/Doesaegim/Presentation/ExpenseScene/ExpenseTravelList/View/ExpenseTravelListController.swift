@@ -16,7 +16,7 @@ final class ExpenseTravelListController: UIViewController {
     
     // MARK: - Properties
     
-    let placeholderLabel: UILabel = {
+    let placeholdLabel: UILabel = {
         let label = UILabel()
         label.text = "일정 탭에서 새로운 여행을 추가해주세요!"
         label.textColor = .grey2
@@ -35,15 +35,26 @@ final class ExpenseTravelListController: UIViewController {
     
     var travelDataSource: DataSource?
     
+    var viewModel: ExpenseTravelViewModelProtocol? = ExpenseTravelViewModel()
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        // Do any additional setup after loading the view.
+        
+        viewModel?.delegate = self
+        
         configureNavigationBar()
         configureSubviews()
         configureConstratins()
+        configureCollectionView()
+        configureCollectionViewDataSource()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel?.fetchTravelInfo()
     }
 
     // MARK: - Configure
@@ -54,24 +65,29 @@ final class ExpenseTravelListController: UIViewController {
     
     func configureSubviews() {
         view.addSubview(collectionView)
-        view.addSubview(placeholderLabel)
+        view.addSubview(placeholdLabel)
     }
     
     func configureConstratins() {
-        placeholderLabel.snp.makeConstraints {
+        placeholdLabel.snp.makeConstraints {
             $0.centerX.equalTo(view.snp.centerX)
             $0.centerY.equalTo(view.snp.centerY)
         }
         
         collectionView.snp.makeConstraints {
-            $0.leading.equalTo(view.snp.leading).offset(16)
-            $0.trailing.equalTo(view.snp.trailing).offset(16)
-            $0.top.equalTo(view.snp.top)
-            $0.bottom.equalTo(view.snp.bottom)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.verticalEdges.equalToSuperview().inset(0)
         }
     }
     
     // MARK: - Collection View
+    
+    private func configureCollectionView() {
+        collectionView.register(
+            ExpenseTravelViewCell.self,
+            forCellWithReuseIdentifier: ExpenseTravelViewCell.identifier
+        )
+    }
     
     private func collectionViewListLayout() -> UICollectionViewCompositionalLayout {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
@@ -82,11 +98,13 @@ final class ExpenseTravelListController: UIViewController {
     }
     
     private func configureCollectionViewDataSource() {
-        let travelCell = UICollectionView.CellRegistration<ExpenseTravelViewCell, TravelInfoViewModel> {
+        let travelCell = UICollectionView.CellRegistration<UICollectionViewListCell, TravelInfoViewModel> {
             cell, indexPath, identifier in
             
             // TODO: - 과정 처리 셀 클래스로 넘기는 것 고민
             var content = cell.defaultContentConfiguration()
+            content.image = UIImage(systemName: "airplane.departure")
+            content.imageProperties.tintColor = .primaryOrange
             content.attributedText = NSAttributedString(
                 string: identifier.title,
                 attributes: [
@@ -108,7 +126,7 @@ final class ExpenseTravelListController: UIViewController {
             cell.contentConfiguration = content
         }
         
-        travelDataSource = DataSource(
+        travelDataSource = DataSource (
             collectionView: collectionView,
             cellProvider: { collectionView, indexPath, item in
                 return collectionView.dequeueConfiguredReusableCell(
@@ -121,4 +139,38 @@ final class ExpenseTravelListController: UIViewController {
         
     }
     
+}
+
+// MARK: - ExpenseTravelViewModelDelegate
+
+extension ExpenseTravelListController: ExpenseTravelViewModelDelegate {
+    
+    func applyTravelSnapshot() {
+        // TODO: - ViewModel 작성 후 identifierItem 작성
+        print(#function)
+        guard let viewModel = viewModel else {
+            return
+        }
+        
+        let travelInfos = viewModel.travelInfos
+        var snapshot = SnapShot()
+        
+        snapshot.appendSections(["main section"])
+        snapshot.appendItems(travelInfos)
+        travelDataSource?.apply(snapshot, animatingDifferences: true)
+    }
+    
+    func applyPlaceholdLabel() {
+        print(#function)
+        guard let viewModel = viewModel else {
+            return
+        }
+        
+        let travelInfos = viewModel.travelInfos
+        if travelInfos.isEmpty {
+            placeholdLabel.isHidden = false
+        } else {
+            placeholdLabel.isHidden = true
+        }
+    }
 }
