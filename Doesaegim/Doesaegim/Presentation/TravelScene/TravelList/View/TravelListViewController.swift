@@ -13,6 +13,9 @@ import SnapKit
 
 final class TravelListViewController: UIViewController {
 
+    private typealias DataSource = UICollectionViewDiffableDataSource<String, TravelInfoViewModel>
+    private typealias SnapShot = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>
+    
     // MARK: - Properties
     
     private let placeholdLabel: UILabel = {
@@ -35,7 +38,7 @@ final class TravelListViewController: UIViewController {
         
     }()
     
-    private var travelDataSource: UICollectionViewDiffableDataSource<String, TravelInfoViewModel>?
+    private var travelDataSource: DataSource?
     
     private var viewModel: TravelListControllerProtocol? = TravelListViewModel()
     
@@ -117,7 +120,7 @@ final class TravelListViewController: UIViewController {
 
         }
         
-        travelDataSource = UICollectionViewDiffableDataSource<String, TravelInfoViewModel>(
+        travelDataSource = DataSource (
             collectionView: planCollectionView, cellProvider: { collectionView, indexPath, item in
                 return collectionView.dequeueConfiguredReusableCell(
                     using: travelCell,
@@ -136,7 +139,7 @@ final class TravelListViewController: UIViewController {
     }
 }
 
-// MARK: - TravelControllerDelegate
+// MARK: - TravelListControllerDelegate
 
 extension TravelListViewController: TravelListControllerDelegate {
     func applyTravelSnapshot() {
@@ -147,7 +150,7 @@ extension TravelListViewController: TravelListControllerDelegate {
         }
         
         let travelInfos = viewModel.travelInfos
-        var snapshot = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>()
+        var snapshot = SnapShot()
         
         snapshot.appendSections(["main section"])
         snapshot.appendItems(travelInfos)
