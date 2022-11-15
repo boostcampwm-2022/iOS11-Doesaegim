@@ -7,6 +7,8 @@
 
 import UIKit
 
+import SnapKit
+
 final class ExpenseTravelListController: UIViewController {
 
     // MARK: - Properties
@@ -17,6 +19,15 @@ final class ExpenseTravelListController: UIViewController {
         label.textColor = .grey2
         
         return label
+    }()
+    
+    lazy var collectionView: UICollectionView = {
+        let layout = collectionViewListLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
+        collectionView.layer.cornerRadius = 7
+        
+        return collectionView
     }()
     
     // MARK: - Life Cycle
@@ -37,6 +48,7 @@ final class ExpenseTravelListController: UIViewController {
     }
     
     func configureSubviews() {
+        view.addSubview(collectionView)
         view.addSubview(placeholderLabel)
     }
     
@@ -45,7 +57,24 @@ final class ExpenseTravelListController: UIViewController {
             $0.centerX.equalTo(view.snp.centerX)
             $0.centerY.equalTo(view.snp.centerY)
         }
+        
+        collectionView.snp.makeConstraints {
+            $0.leading.equalTo(view.snp.leading).offset(16)
+            $0.trailing.equalTo(view.snp.trailing).offset(16)
+            $0.top.equalTo(view.snp.top)
+            $0.bottom.equalTo(view.snp.bottom)
+            
+        }
     }
     
+    // MARK: - Collection View
+    
+    private func collectionViewListLayout() -> UICollectionViewCompositionalLayout {
+        var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
+        listConfiguration.showsSeparators = false
+        listConfiguration.backgroundColor = .white
+        
+        return UICollectionViewCompositionalLayout.list(using: listConfiguration)
+    }
     
 }

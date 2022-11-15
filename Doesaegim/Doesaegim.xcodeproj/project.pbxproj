@@ -175,6 +175,7 @@
 		B57D962229222FC500B510B8 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				BB5771A52923AB0A0034047D /* ViewModel */,
 				B57D962329222FD900B510B8 /* DTO */,
 			);
 			path = Data;
@@ -206,7 +207,6 @@
 				BBE695D929228C570015FAD4 /* TravelListControllerProtocol.swift */,
 				BBD0D05A291DE956007D0D82 /* TravelListViewController.swift */,
 				BBE695D3292273A10015FAD4 /* TravelCollectionViewCell.swift */,
-				BBE695D529227C8D0015FAD4 /* TravelInfoViewModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -240,6 +240,14 @@
 			isa = PBXGroup;
 			children = (
 				BB5771A32923A08F0034047D /* ExpenseTravelViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BB5771A52923AB0A0034047D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BBE695D529227C8D0015FAD4 /* TravelInfoViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";

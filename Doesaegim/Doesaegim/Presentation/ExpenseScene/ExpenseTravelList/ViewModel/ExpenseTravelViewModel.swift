@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+final class ExpenseTravelViewModel {
+    
+    var travels: TravelInfoViewModel
+}
