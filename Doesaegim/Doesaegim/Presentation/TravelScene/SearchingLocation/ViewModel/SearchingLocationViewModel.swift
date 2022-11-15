@@ -22,44 +22,6 @@ final class SearchingLocationViewModel {
     
     // MARK: - Functions
     
-    // TODO: 더미 데이터 설정. 추후 삭제
-    func fetchDummies() {
-        let dummies = [
-            SearchResultCellViewModel(
-                name: "1. 네이버 1784",
-                address: "경기 성남시 분당구",
-                latitude: 0.0,
-                longitude: 0.0
-            ),
-            SearchResultCellViewModel(
-                name: "2. 네이버 1784", 
-                address: "경기 성남시 분당구",
-                latitude: 0.0,
-                longitude: 0.0
-            ),
-            SearchResultCellViewModel(
-                name: "3. 네이버 1784",
-                address: "경기 성남시 분당구",
-                latitude: 0.0,
-                longitude: 0.0
-            ),
-            SearchResultCellViewModel(
-                name: "4. 네이버 1784",
-                address: "경기 성남시 분당구",
-                latitude: 0.0,
-                longitude: 0.0
-            ),
-            SearchResultCellViewModel(
-                name: "5. 네이버 1784",
-                address: "경기 성남시 분당구",
-                latitude: 0.0,
-                longitude: 0.0
-            )
-        ]
-        
-        searchResultCellViewModels = dummies
-    }
-    
     /// 키워드를 통해 장소를 검색하고, 검색 결과값을 `searchResultCellViewModels`에 저장한다.
     /// - Parameter keyword: 입력된 키워드
     func fetchSearchResults(with keyword: String) {
@@ -87,8 +49,4 @@ final class SearchingLocationViewModel {
             self.searchResultCellViewModels = mapItems
         }
     }
-}
-
-extension MKMapItem {
-    
 }
