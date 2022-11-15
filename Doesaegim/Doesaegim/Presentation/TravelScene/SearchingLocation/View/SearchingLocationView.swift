@@ -103,8 +103,8 @@ final class SearchingLocationView: UIView {
     /// - Returns: 설정이 완료된 레이아웃
     private func configureCompositionalLayout() -> UICollectionViewCompositionalLayout {
         let layoutSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(Metric.searchResultWidthDimension),
-            heightDimension: .fractionalHeight(Metric.searchResultHeightDimension)
+            widthDimension: .fractionalWidth(Metric.searchResultCellWidth),
+            heightDimension: .absolute(Metric.searchResultCellHeight)
         )
         let subitem = NSCollectionLayoutItem(layoutSize: layoutSize)
         
@@ -128,8 +128,8 @@ extension SearchingLocationView {
         static let searchBarHeight: CGFloat = 36
         static let searchBarCornerRadius: CGFloat = 10
         
-        static let searchResultWidthDimension: CGFloat = 1.0
-        static let searchResultHeightDimension: CGFloat = 1.0
+        static let searchResultCellWidth: CGFloat = 1
+        static let searchResultCellHeight: CGFloat = 80
         
         static let contentStackSpacing: CGFloat = 16
     }
