@@ -15,7 +15,7 @@ final class TravelListViewController: UIViewController {
 
     private typealias DataSource = UICollectionViewDiffableDataSource<String, TravelInfoViewModel>
     private typealias SnapShot = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>
-    private typealias CellRegistration = UICollectionView.CellRegistration<TravelCollectionViewCell, TravelInfoViewModel>
+    private typealias CellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, TravelInfoViewModel>
     
     // MARK: - Properties
     
@@ -110,18 +110,30 @@ final class TravelListViewController: UIViewController {
     
     // MARK: - Configure CollectionView
     
-    private func configureCollectionView() {
-        
-        // 셀 등록
-        planCollectionView.register(
-            TravelCollectionViewCell.self,
-            forCellWithReuseIdentifier: TravelCollectionViewCell.identifier
-        )
-    }
-    
     private func configureCollectionViewDataSource() {
         let travelCell = CellRegistration { cell, _, identifier in
-            cell.configureLabel(with: identifier)
+//            cell.configureLabel(with: identifier)
+            var content = cell.defaultContentConfiguration()
+            content.image = UIImage(systemName: "airplane.departure")
+            content.imageProperties.tintColor = .primaryOrange
+            content.attributedText = NSAttributedString(
+                string: identifier.title,
+                attributes: [
+                    .font: UIFont.boldSystemFont(ofSize: 20),
+                    .foregroundColor: UIColor.black!
+                ]
+            )
+            content.secondaryAttributedText = NSAttributedString(
+                string: Date.convertTravelString(
+                    start: identifier.startDate,
+                    end: identifier.endDate
+                ),
+                attributes: [
+                    .font: UIFont.systemFont(ofSize: 14),
+                    .foregroundColor: UIColor.black!
+                ]
+            )
+            cell.contentConfiguration = content
         }
         
         travelDataSource = DataSource(
@@ -137,9 +149,6 @@ final class TravelListViewController: UIViewController {
     
     @objc func didAddTravelButtonTap() {
         print("여행 추가 버튼이 탭 되었습니다.")
-        // TODO - 임시로 여행목록 패치. 추후 제거
-        viewModel?.fetchTravelInfo()
-        print(viewModel?.travelInfos ?? [])
     }
 }
 
