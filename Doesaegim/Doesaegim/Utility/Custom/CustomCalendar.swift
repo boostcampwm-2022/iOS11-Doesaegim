@@ -21,9 +21,14 @@ final class CustomCalendar: UICollectionView {
         var isSelected: Bool = false
     }
     
+    // MARK: - typealias
+    
+    typealias Datasource = UICollectionViewDiffableDataSource<Section, Item>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Item>
+    
     // MARK: - Properties
     
-    private var diffableDatasource: UICollectionViewDiffableDataSource<Section, Item>?
+    private var diffableDatasource: Datasource?
     private var today = Date()
     private var calendar = Calendar.current
     private var dateComponents = DateComponents()
@@ -99,7 +104,7 @@ final class CustomCalendar: UICollectionView {
         return UICollectionViewCompositionalLayout(section: section)
     }
     
-    private func configureDatasource() -> UICollectionViewDiffableDataSource<Section, Item>? {
+    private func configureDatasource() -> Datasource {
         let datasource = UICollectionViewDiffableDataSource<Section, Item>(
             collectionView: self,
             cellProvider: { collectionView, indexPath, item in
@@ -139,7 +144,7 @@ final class CustomCalendar: UICollectionView {
     }
     
     private func configureSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+        var snapshot = Snapshot()
         snapshot.appendSections([.day])
         snapshot.appendItems(days, toSection: .day)
         diffableDatasource?.apply(snapshot)
