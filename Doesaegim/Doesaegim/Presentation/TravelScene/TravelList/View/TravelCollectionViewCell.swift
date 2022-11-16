@@ -95,8 +95,6 @@ final class TravelCollectionViewCell: UICollectionViewListCell {
         let startDate = travelData.startDate
         let endDate = travelData.endDate
         
-        //TODO: - 셀을 만들때마다 DateFormatter를 만드니까 부담이되나...?
-        
         let startDateFormatter = DateFormatter()
         let endDateFormatter = DateFormatter()
         

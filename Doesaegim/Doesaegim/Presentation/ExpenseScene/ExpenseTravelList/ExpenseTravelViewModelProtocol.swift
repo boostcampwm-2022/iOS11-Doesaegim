@@ -18,7 +18,7 @@ protocol ExpenseTravelViewModelProtocol {
     
 }
 
-protocol ExpenseTravelViewModelDelegate {
+protocol ExpenseTravelViewModelDelegate: AnyObject {
     
     func applyTravelSnapshot()
     func applyPlaceholdLabel()

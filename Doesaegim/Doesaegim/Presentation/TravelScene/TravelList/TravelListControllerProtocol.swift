@@ -17,7 +17,7 @@ protocol TravelListControllerProtocol {
     
 }
 
-protocol TravelListControllerDelegate {
+protocol TravelListControllerDelegate: AnyObject {
     func applyTravelSnapshot()
     func applyPlaceholdLabel()
 }

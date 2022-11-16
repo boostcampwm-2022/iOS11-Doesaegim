@@ -15,6 +15,7 @@ final class TravelListViewController: UIViewController {
 
     private typealias DataSource = UICollectionViewDiffableDataSource<String, TravelInfoViewModel>
     private typealias SnapShot = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>
+    private typealias CellRegistration = UICollectionView.CellRegistration<TravelCollectionViewCell, TravelInfoViewModel>
     
     // MARK: - Properties
     
@@ -114,12 +115,11 @@ final class TravelListViewController: UIViewController {
     }
     
     private func configureCollectionViewDataSource() {
-        let travelCell = UICollectionView.CellRegistration<TravelCollectionViewCell, TravelInfoViewModel> {
-            (cell, indexPath, identifier) in
+        let travelCell = CellRegistration { cell, _, identifier in
             cell.configureLabel(with: identifier)
         }
         
-        travelDataSource = DataSource (
+        travelDataSource = DataSource(
             collectionView: planCollectionView, cellProvider: { collectionView, indexPath, item in
                 return collectionView.dequeueConfiguredReusableCell(
                     using: travelCell,
@@ -134,7 +134,7 @@ final class TravelListViewController: UIViewController {
         print("여행 추가 버튼이 탭 되었습니다.")
         // TODO - 임시로 여행목록 패치. 추후 제거
         viewModel?.fetchTravelInfo()
-        print(viewModel?.travelInfos)
+        print(viewModel?.travelInfos ?? [])
     }
 }
 
