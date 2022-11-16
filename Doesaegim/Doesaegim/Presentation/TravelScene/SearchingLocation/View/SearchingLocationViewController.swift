@@ -128,9 +128,9 @@ extension SearchingLocationViewController: UICollectionViewDelegate {
     }
 }
 
-// MARK: - SearchingLocationViewControllerDelegate
+// MARK: - SearchingLocationViewModelDelegate
 
-extension SearchingLocationViewController: SearchingLocationViewControllerDelegate {
+extension SearchingLocationViewController: SearchingLocationViewModelDelegate {
     func refreshSnapshot() {
         configureSnapshot()
     }

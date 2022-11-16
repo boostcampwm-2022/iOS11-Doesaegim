@@ -12,7 +12,7 @@ final class SearchingLocationViewModel {
     
     // MARK: - Properties
     
-    weak var delegate: SearchingLocationViewControllerDelegate?
+    weak var delegate: SearchingLocationViewModelDelegate?
     
     private(set) var searchResultCellViewModels: [SearchResultCellViewModel] = [] {
         didSet {
