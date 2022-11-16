@@ -59,13 +59,18 @@ final class TravelListViewController: UIViewController {
         
         // TODO: - 임시 데이터 저장, 추후 삭제
         do {
-//            try Travel.addAndSave(with: TravelDTO(name: "일본여행", startDate: Date(), endDate: Date()))
-//            try Travel.addAndSave(with: TravelDTO(name: "프랑스여행", startDate: Date(), endDate: Date()))
-//            try Travel.addAndSave(with: TravelDTO(name: "필리핀여행", startDate: Date(), endDate: Date()))
-//            try Travel.addAndSave(with: TravelDTO(name: "하와이여행", startDate: Date(), endDate: Date()))
+//            try Travel.addAndSave(with: TravelDTO(name: "태국여행", startDate: Date(), endDate: Date()))
+//            try Travel.addAndSave(with: TravelDTO(name: "미국여행", startDate: Date(), endDate: Date()))
+//            try Travel.addAndSave(with: TravelDTO(name: "독일여행", startDate: Date(), endDate: Date()))
+//            try Travel.addAndSave(with: TravelDTO(name: "스페인여행", startDate: Date(), endDate: Date()))
         } catch {
             print(error.localizedDescription)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel?.fetchTravelInfo()
     }
     
     // MARK: - Configure
