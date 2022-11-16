@@ -34,7 +34,7 @@ final class SearchingLocationViewController: UIViewController {
         super.viewDidLoad()
         
         configureNavigationBar()
-        configureSearchBarFieldDelegate()
+        configureSearchController()
         configureCollectionView()
         configureViewModelDelegate()
     }
@@ -45,9 +45,17 @@ final class SearchingLocationViewController: UIViewController {
         title = "장소 검색"
     }
     
-    /// 서치바의 UITextFieldDelegate를 지정한다.
-    private func configureSearchBarFieldDelegate() {
-        rootView.searchBarField.delegate = self
+    /// 서치바가 포함된 UISearchController를 설정한다.
+    private func configureSearchController() {
+        let searchController = UISearchController()
+        
+        searchController.searchBar.delegate = self
+        
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.placeholder = "장소명을 입력해주세요."
+        
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     /// 컬렉션뷰 셀 등록, DiffableDataSource 정의, 델리게이트 지정을 수행한다.
@@ -108,18 +116,14 @@ extension SearchingLocationViewController {
     }
 }
 
-// MARK: - UITextFieldDelegate
+// MARK: - UISearchBarDelegate
 
-extension SearchingLocationViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        
-        guard let keyword = textField.text
-        else { return true }
+extension SearchingLocationViewController: UISearchBarDelegate {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        guard let keyword = searchBar.text
+        else { return }
         
         viewModel.fetchSearchResults(with: keyword)
-        
-        return true
     }
 }
 
