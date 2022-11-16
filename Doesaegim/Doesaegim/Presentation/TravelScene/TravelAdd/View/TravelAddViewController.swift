@@ -136,7 +136,16 @@ final class TravelAddViewController: UIViewController {
     }()
     
     private lazy var customCalendar: CustomCalendar = {
-        let customCalendar = CustomCalendar(frame: .zero, collectionViewLayout: CustomCalendar.createLayout())
+        let customCalendar = CustomCalendar(
+            frame: .zero,
+            collectionViewLayout: CustomCalendar.createLayout(),
+            touchOption: .double
+        )
+        customCalendar.completionHandler = { [weak self] dates in
+            guard let self, dates.count > 1 else { return }
+            self.travelDateStartLabel.text = dates[0]
+            self.travelDateEndLabel.text = dates[1]
+        }
         return customCalendar
     }()
     

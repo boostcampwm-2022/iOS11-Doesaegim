@@ -29,10 +29,16 @@ final class CustomCalendar: UICollectionView {
     private var dateFormmater = DateFormatter()
     private let weeks: [String] = ["일", "월", "화", "수", "목", "금", "토"]
     private var days: [Item] = []
+    private let touchOption: TouchOption
+    private var selectedCount = 0
+    private var selectedDates: [String] = []
+    
+    var completionHandler: (([String]) -> Void)?
     
     // MARK: - Lifecycles
     
-    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+    init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout, touchOption: TouchOption) {
+        self.touchOption = touchOption
         super.init(frame: frame, collectionViewLayout: layout)
         delegate = self
         configureCollectionView()
@@ -44,6 +50,7 @@ final class CustomCalendar: UICollectionView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     
     // MARK: - Confugure Functions
     
@@ -164,6 +171,19 @@ final class CustomCalendar: UICollectionView {
     }
 }
 
+extension CustomCalendar {
+    enum TouchOption {
+        case single
+        case double
+    }
+    
+    private func setTouchOption(option: TouchOption) {
+        
+    }
+}
+
+// MARK: Calendar Cell Tapped
+
 extension CustomCalendar: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let startDay = calendar.component(.weekday, from: today) - 1
@@ -172,8 +192,27 @@ extension CustomCalendar: UICollectionViewDelegate {
               let currentYear = dateComponents.year,
               let currentMonth = dateComponents.month else { return }
         
-        let day = String(format: "%02d", indexPath.row - startDay + 1)
+        let currentDay = String(format: "%02d", indexPath.row - startDay + 1)
+        let date = "\(currentYear)-\(currentMonth)-\(currentDay)"
         days[indexPath.row].isSelected.toggle()
+        selectedCount += 1
+        
+        selectedDates.append(date)
+        
+        switch touchOption {
+        case .single:
+            // TODO: 싱글터치일 때 작성
+            return
+        case .double:
+            if selectedCount == 2 {
+                completionHandler?(selectedDates)
+                selectedDates.removeAll()
+                selectedCount = 0
+                for index in 0..<days.count {
+                    days[index].isSelected = false
+                }
+            }
+        }
         
         configureSnapshot()
     }
