@@ -42,7 +42,7 @@ final class TravelListViewController: UIViewController {
     
     private var travelDataSource: DataSource?
     
-    private var viewModel: TravelListControllerProtocol? = TravelListViewModel()
+    private var viewModel: TravelListViewModelProtocol? = TravelListViewModel()
     
     // MARK: - Life Cycle
     
@@ -140,8 +140,8 @@ final class TravelListViewController: UIViewController {
 
 // MARK: - TravelListControllerDelegate
 
-extension TravelListViewController: TravelListControllerDelegate {
-    func applyTravelSnapshot() {
+extension TravelListViewController: TravelListViewModelDelegate {
+    func travelListSnapshotShouldChange() {
         // TODO: - ViewModel 작성 후 identifierItem 작성
         
         guard let viewModel = viewModel else {
@@ -156,7 +156,7 @@ extension TravelListViewController: TravelListControllerDelegate {
         travelDataSource?.apply(snapshot, animatingDifferences: true)
     }
     
-    func applyPlaceholdLabel() {
+    func travelPlaceholderShouldChange() {
         
         guard let viewModel = viewModel else {
             return

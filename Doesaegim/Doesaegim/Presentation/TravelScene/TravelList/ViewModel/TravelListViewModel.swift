@@ -8,14 +8,14 @@
 import Foundation
 
 
-final class TravelListViewModel: TravelListControllerProtocol {
+final class TravelListViewModel: TravelListViewModelProtocol {
     
-    var delegate: TravelListControllerDelegate?
+    var delegate: TravelListViewModelDelegate?
     
     var travelInfos: [TravelInfoViewModel] {
         didSet {
-            delegate?.applyTravelSnapshot()
-            delegate?.applyPlaceholdLabel()
+            delegate?.travelListSnapshotShouldChange()
+            delegate?.travelPlaceholderShouldChange()
         }
     }
     

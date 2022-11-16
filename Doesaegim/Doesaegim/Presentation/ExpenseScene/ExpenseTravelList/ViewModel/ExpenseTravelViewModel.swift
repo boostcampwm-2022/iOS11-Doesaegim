@@ -16,8 +16,8 @@ final class ExpenseTravelViewModel: ExpenseTravelViewModelProtocol {
     
     var travelInfos: [TravelInfoViewModel] {
         didSet {
-            delegate?.applyTravelSnapshot()
-            delegate?.applyPlaceholdLabel()
+            delegate?.travelListSnapshotShouldChange()
+            delegate?.travelPlaceholderShouldChange()
         }
     }
     

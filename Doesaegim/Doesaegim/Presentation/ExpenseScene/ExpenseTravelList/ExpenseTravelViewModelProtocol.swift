@@ -20,7 +20,7 @@ protocol ExpenseTravelViewModelProtocol {
 
 protocol ExpenseTravelViewModelDelegate: AnyObject {
     
-    func applyTravelSnapshot()
-    func applyPlaceholdLabel()
+    func travelListSnapshotShouldChange()
+    func travelPlaceholderShouldChange()
     
 }

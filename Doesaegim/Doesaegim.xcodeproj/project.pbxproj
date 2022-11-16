@@ -46,7 +46,7 @@
 		BBE695D4292273A10015FAD4 /* TravelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE695D3292273A10015FAD4 /* TravelCollectionViewCell.swift */; };
 		BBE695D629227C8D0015FAD4 /* TravelInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE695D529227C8D0015FAD4 /* TravelInfoViewModel.swift */; };
 		BBE695D829228B560015FAD4 /* TravelListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE695D729228B560015FAD4 /* TravelListViewModel.swift */; };
-		BBE695DA29228C570015FAD4 /* TravelListControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE695D929228C570015FAD4 /* TravelListControllerProtocol.swift */; };
+		BBE695DA29228C570015FAD4 /* TravelListViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE695D929228C570015FAD4 /* TravelListViewModelProtocol.swift */; };
 		BBFAC087291CBDD700D7FD57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC086291CBDD700D7FD57 /* AppDelegate.swift */; };
 		BBFAC089291CBDD700D7FD57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC088291CBDD700D7FD57 /* SceneDelegate.swift */; };
 		BBFAC08B291CBDD700D7FD57 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC08A291CBDD700D7FD57 /* MainTabBarController.swift */; };
@@ -122,7 +122,7 @@
 		BBE695D3292273A10015FAD4 /* TravelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelCollectionViewCell.swift; sourceTree = "<group>"; };
 		BBE695D529227C8D0015FAD4 /* TravelInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelInfoViewModel.swift; sourceTree = "<group>"; };
 		BBE695D729228B560015FAD4 /* TravelListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListViewModel.swift; sourceTree = "<group>"; };
-		BBE695D929228C570015FAD4 /* TravelListControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListControllerProtocol.swift; sourceTree = "<group>"; };
+		BBE695D929228C570015FAD4 /* TravelListViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListViewModelProtocol.swift; sourceTree = "<group>"; };
 		BBFAC083291CBDD700D7FD57 /* Doesaegim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doesaegim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBFAC086291CBDD700D7FD57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BBFAC088291CBDD700D7FD57 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -413,7 +413,7 @@
 		BBF10A8929231DAD00F8E078 /* TravelList */ = {
 			isa = PBXGroup;
 			children = (
-				BBE695D929228C570015FAD4 /* TravelListControllerProtocol.swift */,
+				BBE695D929228C570015FAD4 /* TravelListViewModelProtocol.swift */,
 				BB323E3429231DF900DFABC0 /* ViewModel */,
 				BB323E3329231DF100DFABC0 /* View */,
 			);
@@ -718,7 +718,7 @@
 				BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */,
 				BBFE4BA62924B25D003F5CCE /* Date+TravelString.swift in Sources */,
 				B5C096BC29235B08007426B1 /* SearchResultCell.swift in Sources */,
-				BBE695DA29228C570015FAD4 /* TravelListControllerProtocol.swift in Sources */,
+				BBE695DA29228C570015FAD4 /* TravelListViewModelProtocol.swift in Sources */,
 				B5C096C029236BC0007426B1 /* SearchResultCellViewModel.swift in Sources */,
 				BBE695D4292273A10015FAD4 /* TravelCollectionViewCell.swift in Sources */,
 				B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */,
