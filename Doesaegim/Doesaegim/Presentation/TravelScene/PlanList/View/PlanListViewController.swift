@@ -60,6 +60,10 @@ final class PlanListViewController: UIViewController {
 
     private func configureNavigationBar() {
         navigationItem.title = viewModel.navigationTitle
+        // TODO: 일정 추가 화면으로 교체
+        let nextViewController = UIViewController()
+        nextViewController.view.backgroundColor = .systemYellow
+        setRightBarAddButton(showing: nextViewController)
     }
 
 
