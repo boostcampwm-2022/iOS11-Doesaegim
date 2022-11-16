@@ -190,8 +190,9 @@ extension CustomCalendar: UICollectionViewDelegate {
         
         guard indexPath.row >= startDay,
               let currentYear = dateComponents.year,
-              let currentMonth = dateComponents.month else { return }
+              let month = dateComponents.month else { return }
         
+        let currentMonth = String(format: "%02d", month)
         let currentDay = String(format: "%02d", indexPath.row - startDay + 1)
         let date = "\(currentYear)-\(currentMonth)-\(currentDay)"
         days[indexPath.row].isSelected.toggle()
