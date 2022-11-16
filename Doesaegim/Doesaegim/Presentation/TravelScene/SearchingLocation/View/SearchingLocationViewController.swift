@@ -42,17 +42,16 @@ final class SearchingLocationViewController: UIViewController {
     // MARK: - Configure Functions
     
     private func configureNavigationBar() {
-        title = "장소 검색"
+        title = StringLiteral.title
     }
     
     /// 서치바가 포함된 UISearchController를 설정한다.
     private func configureSearchController() {
         let searchController = UISearchController()
-        
         searchController.searchBar.delegate = self
         
         searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.placeholder = "장소명을 입력해주세요."
+        searchController.searchBar.placeholder = StringLiteral.searchBarPlaceholder
         
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
@@ -105,6 +104,15 @@ final class SearchingLocationViewController: UIViewController {
         snapshot.appendItems(viewModel.searchResultCellViewModels)
         
         resultViewDataSource?.apply(snapshot)
+    }
+}
+
+// MARK: - Namespaces
+
+extension SearchingLocationViewController {
+    enum StringLiteral {
+        static let title = "장소 검색"
+        static let searchBarPlaceholder = "장소명을 입력해주세요."
     }
 }
 
