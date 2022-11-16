@@ -130,7 +130,8 @@ final class TravelAddViewController: UIViewController {
 
         button.setTitle("여행 추가", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .primaryOrange
+        button.backgroundColor = .grey3
+        button.isEnabled = false
         button.layer.cornerRadius = 10
         return button
     }()
@@ -141,22 +142,41 @@ final class TravelAddViewController: UIViewController {
             collectionViewLayout: CustomCalendar.createLayout(),
             touchOption: .double
         )
+        
+        // 2개 날짜 선택시 라벨에 나타나도록
         customCalendar.completionHandler = { [weak self] dates in
-            guard let self, dates.count > 1 else { return }
+            guard let self, dates.count > 1 else {
+                self?.viewModel.isVaildDate = false
+                return
+            }
             self.travelDateStartLabel.text = dates[0]
             self.travelDateEndLabel.text = dates[1]
+            self.viewModel.isVaildDate = true
         }
         return customCalendar
     }()
     
     // MARK: - Properties
     
+    private let viewModel: TravelAddViewModel
+    
     // MARK: - Lifecycles
+    
+    init() {
+        viewModel = TravelAddViewModel()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.delegate = self
         configureViews()
         setKeyboardNotification()
+        setTextField()
     }
     
     // MARK: - Configure Functions
@@ -280,11 +300,36 @@ extension TravelAddViewController {
     }
 }
 
+// MARK: - TextField
+
+extension TravelAddViewController {
+    func setTextField() {
+        travelTitleTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+    }
+    
+    @objc func textFieldDidChange(_ sender: UITextField) {
+        guard let text = sender.text, !text.isEmpty else {
+            viewModel.isVaildTextField = false
+            return
+        }
+        viewModel.isVaildTextField = true
+    }
+}
+
 // MARK: - TextField Delegate
 
 extension TravelAddViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+// MARK: TravelAddViewDelegate
+
+extension TravelAddViewController: TravelAddViewDelegate {
+    func isVaildView(isVaild: Bool) {
+        addButton.isEnabled = isVaild
+        addButton.backgroundColor = isVaild ? .primaryOrange : .grey3
     }
 }
