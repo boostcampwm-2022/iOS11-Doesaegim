@@ -8,6 +8,6 @@
 import Foundation
 
 protocol SearchingLocationViewModelDelegate: AnyObject {
-    func checkSearchResultExisted()
-    func refreshSnapshot()
+    func searchLocaitonResultDidChange()
+    func searchLocationSnapshotDidRefresh()
 }

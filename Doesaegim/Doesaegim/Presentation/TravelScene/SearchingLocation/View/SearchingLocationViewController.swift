@@ -147,12 +147,11 @@ extension SearchingLocationViewController: UICollectionViewDelegate {
 // MARK: - SearchingLocationViewModelDelegate
 
 extension SearchingLocationViewController: SearchingLocationViewModelDelegate {
-    
-    func checkSearchResultExisted() {
+    func searchLocaitonResultDidChange() {
         rootView.searchResultCollectionView.isEmpty = viewModel.searchResultCellViewModels.isEmpty
     }
     
-    func refreshSnapshot() {
+    func searchLocationSnapshotDidRefresh() {
         configureSnapshot()
     }
 }
