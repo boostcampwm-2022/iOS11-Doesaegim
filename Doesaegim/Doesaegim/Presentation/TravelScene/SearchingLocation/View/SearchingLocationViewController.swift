@@ -8,13 +8,19 @@
 import UIKit
 
 final class SearchingLocationViewController: UIViewController {
+    
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, SearchResultCellViewModel>
+    typealias SnapShot = NSDiffableDataSourceSnapshot<Section, SearchResultCellViewModel>
+    typealias CellRegistration = UICollectionView
+                                    .CellRegistration<SearchResultCell, SearchResultCellViewModel>
+    
     // MARK: - UI Properties
     
     private let rootView = SearchingLocationView()
     
     // MARK: - Properties
     
-    private var resultViewDataSource: UICollectionViewDiffableDataSource<Section, SearchResultCellViewModel>?
+    private var resultViewDataSource: DataSource?
     
     private let viewModel = SearchingLocationViewModel()
     
@@ -60,13 +66,11 @@ final class SearchingLocationViewController: UIViewController {
     
     /// 컬렉션뷰에 사용될 셀을 등록하고, DiffableDataSource를 정의한다.
     private func configureCollectionViewDataSource() {
-        let cellRegistration = UICollectionView
-            .CellRegistration<SearchResultCell, SearchResultCellViewModel>(
-                handler: { cell, _, viewModel in
+        let cellRegistration = CellRegistration(handler: { cell, _, viewModel in
             cell.setupLabels(name: viewModel.name, address: viewModel.address)
         })
         
-        resultViewDataSource = UICollectionViewDiffableDataSource<Section, SearchResultCellViewModel>(
+        resultViewDataSource = DataSource(
             collectionView: rootView.searchResultCollectionView
         ) { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueConfiguredReusableCell(
@@ -87,7 +91,7 @@ final class SearchingLocationViewController: UIViewController {
     
     /// 설정한 DiffableDataSource에 snapshot을 적용한다.
     private func configureSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, SearchResultCellViewModel>()
+        var snapshot = SnapShot()
         
         snapshot.appendSections([.main])
         snapshot.appendItems(viewModel.searchResultCellViewModels)
