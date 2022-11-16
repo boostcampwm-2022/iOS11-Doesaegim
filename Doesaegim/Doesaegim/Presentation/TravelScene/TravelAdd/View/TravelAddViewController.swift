@@ -15,23 +15,21 @@ final class TravelAddViewController: UIViewController {
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
+
         scrollView.backgroundColor = .white
         scrollView.showsVerticalScrollIndicator = false
-        
         return scrollView
     }()
     
     private lazy var contentView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
+        
         return view
     }()
     
     private lazy var travelTitleStackView: UIStackView = {
         let stackView = UIStackView()
         
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fill
@@ -42,7 +40,6 @@ final class TravelAddViewController: UIViewController {
     private lazy var travelDateStackView: UIStackView = {
         let stackView = UIStackView()
         
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fill
@@ -52,8 +49,7 @@ final class TravelAddViewController: UIViewController {
     
     private lazy var travelDateLabelStackView: UIStackView = {
         let stackView = UIStackView()
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fill
@@ -64,7 +60,6 @@ final class TravelAddViewController: UIViewController {
     private lazy var travelTitleLabel: UILabel = {
         let label = UILabel()
         
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "여행 제목"
         label.textColor = .black
         label.font = .systemFont(ofSize: 20, weight: .bold)
@@ -75,7 +70,6 @@ final class TravelAddViewController: UIViewController {
     private lazy var travelTitleTextField: UITextField = {
         let textField = UITextField()
         
-        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "여행 제목을 입력해주세요."
         textField.layer.cornerRadius = 10
         textField.backgroundColor = .grey1
@@ -89,7 +83,6 @@ final class TravelAddViewController: UIViewController {
     private lazy var travelDateLabel: UILabel = {
         let label = UILabel()
         
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "날짜"
         label.textColor = .black
         label.font = .systemFont(ofSize: 20, weight: .bold)
@@ -100,7 +93,6 @@ final class TravelAddViewController: UIViewController {
     private lazy var travelDateStartLabel: UILabel = {
         let label = UILabel()
         
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
         label.clipsToBounds = true
         label.layer.cornerRadius = 8
@@ -113,7 +105,6 @@ final class TravelAddViewController: UIViewController {
     private lazy var travelDateEndLabel: UILabel = {
         let label = UILabel()
         
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
         label.clipsToBounds = true
         label.layer.cornerRadius = 8
@@ -125,8 +116,7 @@ final class TravelAddViewController: UIViewController {
     
     private lazy var waveLabel: UILabel = {
         let label = UILabel()
-        
-        label.translatesAutoresizingMaskIntoConstraints = false
+
         label.text = "~"
         label.textColor = .black
         label.font = .systemFont(ofSize: 30, weight: .regular)
@@ -137,8 +127,7 @@ final class TravelAddViewController: UIViewController {
     
     private lazy var addButton: UIButton = {
         let button = UIButton()
-        
-        button.translatesAutoresizingMaskIntoConstraints = false
+
         button.setTitle("여행 추가", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .primaryOrange
