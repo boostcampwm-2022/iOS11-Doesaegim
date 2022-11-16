@@ -13,6 +13,9 @@ import SnapKit
 
 final class TravelListViewController: UIViewController {
 
+    private typealias DataSource = UICollectionViewDiffableDataSource<String, TravelInfoViewModel>
+    private typealias SnapShot = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>
+    
     // MARK: - Properties
     
     private let placeholdLabel: UILabel = {
@@ -24,14 +27,19 @@ final class TravelListViewController: UIViewController {
     }()
     
     private lazy var planCollectionView: UICollectionView = {
-        let layout = createCompositionalLayout()
+        var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+        configuration.showsSeparators = false
+        configuration.trailingSwipeActionsConfigurationProvider = makeSwipeActions
+        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
+        
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
+        collectionView.layer.cornerRadius = 7
         return collectionView
         
     }()
     
-    private var travelDataSource: UICollectionViewDiffableDataSource<String, TravelInfoViewModel>?
+    private var travelDataSource: DataSource?
     
     private var viewModel: TravelListControllerProtocol? = TravelListViewModel()
     
@@ -40,13 +48,13 @@ final class TravelListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
         viewModel?.delegate = self
-        // Do any additional setup after loading the view.
+        
         configureSubviews()
         configureConstraints()
         configureNavigationBar()
         configureCollectionViewDataSource()
-        configureTravelData()
         
         // TODO: - 임시 데이터 저장, 추후 삭제
         do {
@@ -105,43 +113,13 @@ final class TravelListViewController: UIViewController {
         )
     }
     
-    private func configureTravelData() {
-        
-    }
-    
-    private func createCompositionalLayout() -> UICollectionViewLayout {
-        
-        let layout = UICollectionViewCompositionalLayout {
-            (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) ->
-            NSCollectionLayoutSection  in
-            
-            let itemSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1),
-                heightDimension: .absolute(80)
-            )
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.contentInsets = NSDirectionalEdgeInsets(top: 6, leading: 0, bottom: 6, trailing: 6)
-            
-            
-            let groupSize = NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1),
-                heightDimension: .absolute(80)
-            )
-            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-            let section = NSCollectionLayoutSection(group: group)
-            return section
-        }
-        
-        return layout
-    }
-    
     private func configureCollectionViewDataSource() {
         let travelCell = UICollectionView.CellRegistration<TravelCollectionViewCell, TravelInfoViewModel> {
             (cell, indexPath, identifier) in
             cell.configureLabel(with: identifier)
         }
         
-        travelDataSource = UICollectionViewDiffableDataSource<String, TravelInfoViewModel>(
+        travelDataSource = DataSource (
             collectionView: planCollectionView, cellProvider: { collectionView, indexPath, item in
                 return collectionView.dequeueConfiguredReusableCell(
                     using: travelCell,
@@ -149,12 +127,6 @@ final class TravelListViewController: UIViewController {
                     item: item)
             })
     }
-    
-    // TODO: - 주석 해제 추후 결정
-//    private func applySnapshot() {
-//
-//
-//    }
     
     // MARK: - Actions
     
@@ -166,6 +138,8 @@ final class TravelListViewController: UIViewController {
     }
 }
 
+// MARK: - TravelListControllerDelegate
+
 extension TravelListViewController: TravelListControllerDelegate {
     func applyTravelSnapshot() {
         // TODO: - ViewModel 작성 후 identifierItem 작성
@@ -175,7 +149,7 @@ extension TravelListViewController: TravelListControllerDelegate {
         }
         
         let travelInfos = viewModel.travelInfos
-        var snapshot = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>()
+        var snapshot = SnapShot()
         
         snapshot.appendSections(["main section"])
         snapshot.appendItems(travelInfos)
@@ -194,5 +168,29 @@ extension TravelListViewController: TravelListControllerDelegate {
         } else {
             placeholdLabel.isHidden = true
         }
+    }
+}
+
+extension TravelListViewController {
+    
+    private func deleteTravel(with travelInfo: TravelInfoViewModel) {
+        let uuid = travelInfo.uuid
+        viewModel?.deleteTravel(with: uuid)
+    }
+    
+    private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
+        guard let indexPath = indexPath,
+              let id = travelDataSource?.itemIdentifier(for: indexPath) else { return nil }
+        
+        let deleteActionTitle = NSLocalizedString("삭제", comment: "여행 목록 삭제")
+        let deleteAction = UIContextualAction(
+            style: .destructive,
+            title: deleteActionTitle
+        ) { [weak self] _, _, completion in
+            self?.deleteTravel(with: id)
+            // 원래는 스냅샷 업데이트 메서드를 호출해주지만 뷰모델에서 Travel배열의 변화를 감지하면 자동으로 호출하므로 불필요
+            completion(false)
+        }
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
