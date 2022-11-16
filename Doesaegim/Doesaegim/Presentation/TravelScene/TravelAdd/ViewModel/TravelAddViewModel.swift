@@ -37,7 +37,6 @@ final class TravelAddViewModel: TravelAddViewProtocol {
     func postTravel(travel: TravelDTO, completion: @escaping (() -> Void)) {
         do {
             try Travel.addAndSave(with: travel)
-            print("저장완료")
             completion()
         } catch {
             print(error.localizedDescription)

@@ -10,6 +10,7 @@ import UIKit
 final class CustomCalendar: UICollectionView {
     
     // MARK: - Enum
+    
     enum Section {
         case day
     }
@@ -154,12 +155,25 @@ final class CustomCalendar: UICollectionView {
         configureSnapshot()
     }
     
+    
+    /// 캘린더 설정 함수
     private func setupCalendar() {
+        /// 현재 Month의 1일이 무슨 요일인지 인덱스로 알려줌
+        /// 0부터 월요일
         let firstWeekIndex = calendar.component(.weekday, from: today) - 1
+        
+        /// 마지막 날짜
+        /// ex) 2월 - 28, 12월- 31
         let endOfday = calendar.range(of: .day, in: .month, for: today)?.count ?? 31
         
+        /// 모든 날짜의 합을 알려줌
+        /// ex) 2022년 11월  화요일 시작 (2) + 30일까지 있음 (30)
+        /// totalDays = 32
         let totalDays = firstWeekIndex + endOfday
+        
         days.removeAll()
+        
+        /// 첫번째 날짜가 시작할 때 부터 숫자를 채워줌, 이전 날짜는 공백으로 처리
         for day in 0..<totalDays {
             if day < firstWeekIndex {
                 days.append(Item(day: ""))
@@ -176,14 +190,11 @@ extension CustomCalendar {
         case single
         case double
     }
-    
-    private func setTouchOption(option: TouchOption) {
-        
-    }
 }
 
 // MARK: Calendar Cell Tapped
 
+// TODO: 출발 날짜를 선택했을 때, 이전 날짜를 선택못하도록 막아야하는 것 구현해야됨!
 extension CustomCalendar: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let startDay = calendar.component(.weekday, from: today) - 1
