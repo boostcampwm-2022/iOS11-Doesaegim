@@ -27,7 +27,7 @@ final class ExpenseTravelViewModel: ExpenseTravelViewModelProtocol {
     
     func fetchTravelInfo() {
         
-        let travels = PersistentManager.shared.fetch(request: Travel.fetchRequest())
+        let travels = PersistentManager.shared.fetch(request: Travel.fetchRequest(), offset: travelInfos.count, limit: 10)
         var newTravelInfos: [TravelInfoViewModel] = []
         
         // TODO: - Travel 익스텐션으로
@@ -36,6 +36,6 @@ final class ExpenseTravelViewModel: ExpenseTravelViewModelProtocol {
             newTravelInfos.append(travelInfo)
         }
         
-        travelInfos = newTravelInfos
+        travelInfos.append(contentsOf: newTravelInfos)
     }
 }

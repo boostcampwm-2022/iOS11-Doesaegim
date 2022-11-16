@@ -91,7 +91,7 @@ final class ExpenseTravelListController: UIViewController {
     }
     
     private func configureCollectionViewDataSource() {
-        let travelCell =  CellRegistration { cell, _, identifier in
+        let travelCell =  CellRegistration { cell, indexPath, identifier in
             var content = cell.defaultContentConfiguration()
             content.image = UIImage(systemName: "airplane.departure")
             content.imageProperties.tintColor = .primaryOrange
@@ -114,6 +114,15 @@ final class ExpenseTravelListController: UIViewController {
                 ]
             )
             cell.contentConfiguration = content
+            
+            // pagination
+            if let viewModel = self.viewModel,
+               indexPath.row == viewModel.travelInfos.count - 1 {
+                DispatchQueue.main.async {
+                    viewModel.fetchTravelInfo()
+                }
+            }
+            
         }
         
         travelDataSource = DataSource(
