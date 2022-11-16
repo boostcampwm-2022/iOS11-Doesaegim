@@ -24,23 +24,16 @@ final class TravelListViewModel: TravelListViewModelProtocol {
     }
     
     func fetchTravelInfo() {
+        
+        // TODO: - 한번에 로딩하지 않고 페이지네이션으로 로딩하는 방법을 생각해보자.
+        
         let travels = PersistentManager.shared.fetch(request: Travel.fetchRequest())
         var newTravelInfos: [TravelInfoViewModel] = []
         
         // TODO: - Travel 익스텐션으로
         for travel in travels {
-            if let id = travel.id,
-               let title = travel.name,
-               let startDate = travel.startDate,
-               let endDate = travel.endDate {
-                let travelInfo = TravelInfoViewModel(
-                    uuid: id,
-                    title: title,
-                    startDate: startDate,
-                    endDate: endDate
-                )
-                newTravelInfos.append(travelInfo)
-            }
+            guard let travelInfo = Travel.convertToViewModel(with: travel) else { continue }
+            newTravelInfos.append(travelInfo)
         }
         
         travelInfos = newTravelInfos
