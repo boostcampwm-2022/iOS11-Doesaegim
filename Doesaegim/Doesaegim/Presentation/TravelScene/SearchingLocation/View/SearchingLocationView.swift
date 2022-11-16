@@ -21,8 +21,6 @@ final class SearchingLocationView: UIView {
         let layout = UICollectionViewCompositionalLayout.list(using: configuration)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
         return collectionView
     }()
     
