@@ -35,8 +35,10 @@
 		B5C096C029236BC0007426B1 /* SearchResultCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096BF29236BC0007426B1 /* SearchResultCellViewModel.swift */; };
 		B5C096C429238091007426B1 /* SearchingLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096C329238091007426B1 /* SearchingLocationViewModel.swift */; };
 		B5C096C629238A0B007426B1 /* SearchingLocationViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096C529238A0B007426B1 /* SearchingLocationViewControllerDelegate.swift */; };
+		BB5771A42923A08F0034047D /* ExpenseTravelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5771A32923A08F0034047D /* ExpenseTravelViewModel.swift */; };
+		BB5771AC2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5771AB2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift */; };
 		BBD0D05B291DE956007D0D82 /* TravelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05A291DE956007D0D82 /* TravelListViewController.swift */; };
-		BBD0D05D291DE975007D0D82 /* ExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05C291DE975007D0D82 /* ExpenseViewController.swift */; };
+		BBD0D05D291DE975007D0D82 /* ExpenseTravelListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05C291DE975007D0D82 /* ExpenseTravelListController.swift */; };
 		BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05E291DE97F007D0D82 /* MapViewController.swift */; };
 		BBD0D061291DE988007D0D82 /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D060291DE988007D0D82 /* DiaryViewController.swift */; };
 		BBD0D063291DE991007D0D82 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D062291DE991007D0D82 /* SettingViewController.swift */; };
@@ -54,6 +56,7 @@
 		BBFAC0A1291CBDD800D7FD57 /* DoesaegimTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC0A0291CBDD800D7FD57 /* DoesaegimTests.swift */; };
 		BBFAC0AB291CBDD800D7FD57 /* DoesaegimUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC0AA291CBDD800D7FD57 /* DoesaegimUITests.swift */; };
 		BBFAC0AD291CBDD800D7FD57 /* DoesaegimUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC0AC291CBDD800D7FD57 /* DoesaegimUITestsLaunchTests.swift */; };
+		BBFE4BA62924B25D003F5CCE /* Date+TravelString.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFE4BA52924B25D003F5CCE /* Date+TravelString.swift */; };
 		EE116C582924AA0D0017B519 /* CustomCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE116C552924AA0D0017B519 /* CustomCalendarCell.swift */; };
 		EE116C592924AA0D0017B519 /* CustomCalendarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE116C562924AA0D0017B519 /* CustomCalendarHeaderView.swift */; };
 		EE116C5A2924AA0D0017B519 /* CustomCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE116C572924AA0D0017B519 /* CustomCalendar.swift */; };
@@ -108,8 +111,10 @@
 		B5C096BF29236BC0007426B1 /* SearchResultCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCellViewModel.swift; sourceTree = "<group>"; };
 		B5C096C329238091007426B1 /* SearchingLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationViewModel.swift; sourceTree = "<group>"; };
 		B5C096C529238A0B007426B1 /* SearchingLocationViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationViewControllerDelegate.swift; sourceTree = "<group>"; };
+		BB5771A32923A08F0034047D /* ExpenseTravelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelViewModel.swift; sourceTree = "<group>"; };
+		BB5771AB2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelViewModelProtocol.swift; sourceTree = "<group>"; };
 		BBD0D05A291DE956007D0D82 /* TravelListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListViewController.swift; sourceTree = "<group>"; };
-		BBD0D05C291DE975007D0D82 /* ExpenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseViewController.swift; sourceTree = "<group>"; };
+		BBD0D05C291DE975007D0D82 /* ExpenseTravelListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelListController.swift; sourceTree = "<group>"; };
 		BBD0D05E291DE97F007D0D82 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		BBD0D060291DE988007D0D82 /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
 		BBD0D062291DE991007D0D82 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -131,6 +136,7 @@
 		BBFAC0A6291CBDD800D7FD57 /* DoesaegimUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DoesaegimUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBFAC0AA291CBDD800D7FD57 /* DoesaegimUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoesaegimUITests.swift; sourceTree = "<group>"; };
 		BBFAC0AC291CBDD800D7FD57 /* DoesaegimUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoesaegimUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		BBFE4BA52924B25D003F5CCE /* Date+TravelString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TravelString.swift"; sourceTree = "<group>"; };
 		EE116C552924AA0D0017B519 /* CustomCalendarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalendarCell.swift; sourceTree = "<group>"; };
 		EE116C562924AA0D0017B519 /* CustomCalendarHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalendarHeaderView.swift; sourceTree = "<group>"; };
 		EE116C572924AA0D0017B519 /* CustomCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalendar.swift; sourceTree = "<group>"; };
@@ -189,7 +195,7 @@
 		A4CC04AE292261CD00BB678B /* ExpenseScene */ = {
 			isa = PBXGroup;
 			children = (
-				BBD0D05C291DE975007D0D82 /* ExpenseViewController.swift */,
+				BB57719E29239E9F0034047D /* ExpenseTravelList */,
 			);
 			path = ExpenseScene;
 			sourceTree = "<group>";
@@ -259,6 +265,7 @@
 		B57D962229222FC500B510B8 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				BB5771A52923AB0A0034047D /* ViewModel */,
 				B57D962329222FD900B510B8 /* DTO */,
 			);
 			path = Data;
@@ -316,10 +323,8 @@
 		BB323E3329231DF100DFABC0 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BBE695D929228C570015FAD4 /* TravelListControllerProtocol.swift */,
 				BBD0D05A291DE956007D0D82 /* TravelListViewController.swift */,
 				BBE695D3292273A10015FAD4 /* TravelCollectionViewCell.swift */,
-				BBE695D529227C8D0015FAD4 /* TravelInfoViewModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -328,6 +333,40 @@
 			isa = PBXGroup;
 			children = (
 				BBE695D729228B560015FAD4 /* TravelListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BB57719E29239E9F0034047D /* ExpenseTravelList */ = {
+			isa = PBXGroup;
+			children = (
+				BB5771AB2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift */,
+				BB5771A22923A07D0034047D /* ViewModel */,
+				BB5771A12923A0780034047D /* View */,
+			);
+			path = ExpenseTravelList;
+			sourceTree = "<group>";
+		};
+		BB5771A12923A0780034047D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BBD0D05C291DE975007D0D82 /* ExpenseTravelListController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BB5771A22923A07D0034047D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BB5771A32923A08F0034047D /* ExpenseTravelViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BB5771A52923AB0A0034047D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BBE695D529227C8D0015FAD4 /* TravelInfoViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -360,6 +399,7 @@
 		BBD0D064291DED61007D0D82 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				BBFE4BA42924B252003F5CCE /* Date */,
 				BBD0D065291DED6A007D0D82 /* UIColor+.swift */,
 				EE3E29A729235F6B007C7FC7 /* UITextField+.swift */,
 				A4CC04C329226FC100BB678B /* String+Placeholders.swift */,
@@ -373,6 +413,7 @@
 		BBF10A8929231DAD00F8E078 /* TravelList */ = {
 			isa = PBXGroup;
 			children = (
+				BBE695D929228C570015FAD4 /* TravelListControllerProtocol.swift */,
 				BB323E3429231DF900DFABC0 /* ViewModel */,
 				BB323E3329231DF100DFABC0 /* View */,
 			);
@@ -442,6 +483,14 @@
 				BBFAC08F291CBDD700D7FD57 /* Doesaegim.xcdatamodeld */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		BBFE4BA42924B252003F5CCE /* Date */ = {
+			isa = PBXGroup;
+			children = (
+				BBFE4BA52924B25D003F5CCE /* Date+TravelString.swift */,
+			);
+			path = Date;
 			sourceTree = "<group>";
 		};
 		EE116C532924A9CA0017B519 /* Recovered References */ = {
@@ -641,8 +690,9 @@
 			files = (
 				B57D9630292231FC00B510B8 /* DiaryDTO.swift in Sources */,
 				A4CC04C229226CA500BB678B /* PlanViewModel.swift in Sources */,
-				BBD0D05D291DE975007D0D82 /* ExpenseViewController.swift in Sources */,
+				BBD0D05D291DE975007D0D82 /* ExpenseTravelListController.swift in Sources */,
 				B5C096B629235416007426B1 /* SearchingLocationViewController.swift in Sources */,
+				BBD0D05D291DE975007D0D82 /* ExpenseTravelListController.swift in Sources */,
 				BBD0D05B291DE956007D0D82 /* TravelListViewController.swift in Sources */,
 				BBE695D829228B560015FAD4 /* TravelListViewModel.swift in Sources */,
 				B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */,
@@ -663,7 +713,10 @@
 				B5C096B829235428007426B1 /* SearchingLocationView.swift in Sources */,
 				A4CC04AA29221EEE00BB678B /* Location+CoreDataClass.swift in Sources */,
 				A4CC04A629221EEE00BB678B /* Travel+CoreDataClass.swift in Sources */,
+				BB5771AC2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift in Sources */,
+				BB5771A42923A08F0034047D /* ExpenseTravelViewModel.swift in Sources */,
 				BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */,
+				BBFE4BA62924B25D003F5CCE /* Date+TravelString.swift in Sources */,
 				B5C096BC29235B08007426B1 /* SearchResultCell.swift in Sources */,
 				BBE695DA29228C570015FAD4 /* TravelListControllerProtocol.swift in Sources */,
 				B5C096C029236BC0007426B1 /* SearchResultCellViewModel.swift in Sources */,
