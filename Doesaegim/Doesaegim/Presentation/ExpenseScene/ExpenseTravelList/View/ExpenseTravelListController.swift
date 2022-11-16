@@ -134,8 +134,7 @@ final class ExpenseTravelListController: UIViewController {
 extension ExpenseTravelListController: ExpenseTravelViewModelDelegate {
     
     func travelListSnapshotShouldChange() {
-        // TODO: - ViewModel 작성 후 identifierItem 작성
-        print(#function)
+
         guard let viewModel = viewModel else {
             return
         }
@@ -149,7 +148,7 @@ extension ExpenseTravelListController: ExpenseTravelViewModelDelegate {
     }
     
     func travelPlaceholderShouldChange() {
-        print(#function)
+        
         guard let viewModel = viewModel else {
             return
         }

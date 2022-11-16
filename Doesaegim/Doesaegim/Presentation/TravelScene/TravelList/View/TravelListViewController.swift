@@ -158,7 +158,7 @@ final class TravelListViewController: UIViewController {
     // MARK: - Actions
     
     @objc func didAddTravelButtonTap() {
-        print("여행 추가 버튼이 탭 되었습니다.")
+        // 여행 추가 뷰컨트롤러 이동
         navigationController?.pushViewController(TravelAddViewController(), animated: true)
     }
 }

@@ -26,7 +26,7 @@ final class ExpenseTravelViewModel: ExpenseTravelViewModelProtocol {
     }
     
     func fetchTravelInfo() {
-        print(#function)
+        
         let travels = PersistentManager.shared.fetch(request: Travel.fetchRequest())
         var newTravelInfos: [TravelInfoViewModel] = []
         
