@@ -60,10 +60,9 @@ final class TravelListViewController: UIViewController {
         
         // TODO: - 임시 데이터 저장, 추후 삭제
         do {
-//            try Travel.addAndSave(with: TravelDTO(name: "태국여행", startDate: Date(), endDate: Date()))
-//            try Travel.addAndSave(with: TravelDTO(name: "미국여행", startDate: Date(), endDate: Date()))
-//            try Travel.addAndSave(with: TravelDTO(name: "독일여행", startDate: Date(), endDate: Date()))
-//            try Travel.addAndSave(with: TravelDTO(name: "스페인여행", startDate: Date(), endDate: Date()))
+//            for index in 1...100 {
+//                try Travel.addAndSave(with: TravelDTO(name: "\(index)번째 여행!", startDate: Date(), endDate: Date()))
+//            }
         } catch {
             print(error.localizedDescription)
         }
