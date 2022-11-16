@@ -17,6 +17,7 @@ final class CustomCalendar: UICollectionView {
     struct Item: Hashable {
         let id = UUID()
         let day: String
+        var isSelected: Bool = false
     }
     
     // MARK: - Properties
@@ -33,6 +34,7 @@ final class CustomCalendar: UICollectionView {
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
+        delegate = self
         configureCollectionView()
         diffableDatasource = configureDatasource()
         configureCalendar()
@@ -71,8 +73,10 @@ final class CustomCalendar: UICollectionView {
             widthDimension: .fractionalWidth(1),
             heightDimension: .fractionalWidth(1/6)
         )
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
+        item.contentInsets = .init(top: 0, leading: 2, bottom: 0, trailing: 2)
+        
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         let headerSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
             heightDimension: .absolute(100)
@@ -99,6 +103,7 @@ final class CustomCalendar: UICollectionView {
                 cell.configureUI(item: item)
                 return cell
             })
+        
         datasource.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
             guard let self, kind == UICollectionView.elementKindSectionHeader else {
                 return UICollectionReusableView()
@@ -157,4 +162,20 @@ final class CustomCalendar: UICollectionView {
         }
         
     }
+}
+
+extension CustomCalendar: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let startDay = calendar.component(.weekday, from: today) - 1
+        
+        guard indexPath.row >= startDay,
+              let currentYear = dateComponents.year,
+              let currentMonth = dateComponents.month else { return }
+        
+        let day = String(format: "%02d", indexPath.row - startDay + 1)
+        days[indexPath.row].isSelected.toggle()
+        
+        configureSnapshot()
+    }
+
 }

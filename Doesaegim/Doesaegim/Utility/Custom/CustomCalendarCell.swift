@@ -15,8 +15,12 @@ final class CustomCalendarCell: UICollectionViewCell {
     
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
+        
         label.textColor = .primaryOrange
         label.font = .systemFont(ofSize: 20)
+        label.layer.borderColor = UIColor.primaryOrange?.cgColor
+        label.textAlignment = .center
+        label.layer.cornerRadius = contentView.frame.size.width / 2
         return label
     }()
     
@@ -41,10 +45,13 @@ final class CustomCalendarCell: UICollectionViewCell {
         addSubview(dateLabel)
         dateLabel.snp.makeConstraints {
             $0.center.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(contentView.snp.width)
         }
     }
     
     func configureUI(item: CustomCalendar.Item) {
         dateLabel.text = item.day
+        dateLabel.layer.borderWidth = item.isSelected ? 1 : 0
     }
 }
