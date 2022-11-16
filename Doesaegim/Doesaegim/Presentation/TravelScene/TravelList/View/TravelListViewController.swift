@@ -111,7 +111,7 @@ final class TravelListViewController: UIViewController {
     // MARK: - Configure CollectionView
     
     private func configureCollectionViewDataSource() {
-        let travelCell = CellRegistration { cell, _, identifier in
+        let travelCell = CellRegistration { cell, indexPath, identifier in
 //            cell.configureLabel(with: identifier)
             var content = cell.defaultContentConfiguration()
             content.image = UIImage(systemName: "airplane.departure")
@@ -134,6 +134,16 @@ final class TravelListViewController: UIViewController {
                 ]
             )
             cell.contentConfiguration = content
+            
+            // pagination
+            if let viewModel = self.viewModel {
+                if indexPath.row == viewModel.travelInfos.count - 1 {
+                    DispatchQueue.main.async {
+                        viewModel.fetchTravelInfo()
+                    }
+                    
+                }
+            }
         }
         
         travelDataSource = DataSource(
@@ -168,7 +178,8 @@ extension TravelListViewController: TravelListViewModelDelegate {
         
         snapshot.appendSections(["main section"])
         snapshot.appendItems(travelInfos)
-        travelDataSource?.apply(snapshot, animatingDifferences: true)
+        self.travelDataSource?.apply(snapshot, animatingDifferences: true)
+        
     }
     
     func travelPlaceholderShouldChange() {

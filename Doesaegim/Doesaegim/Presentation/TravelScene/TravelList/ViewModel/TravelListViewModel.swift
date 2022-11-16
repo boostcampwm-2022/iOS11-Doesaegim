@@ -27,7 +27,10 @@ final class TravelListViewModel: TravelListViewModelProtocol {
         
         // TODO: - 한번에 로딩하지 않고 페이지네이션으로 로딩하는 방법을 생각해보자.
         
-        let travels = PersistentManager.shared.fetch(request: Travel.fetchRequest())
+        print(#function)
+        
+        let travels = PersistentManager.shared.fetch(request: Travel.fetchRequest(), offset: travelInfos.count, limit: 10)
+//        let travels = PersistentManager.shared.fetch(request: Travel.fetchRequest())
         var newTravelInfos: [TravelInfoViewModel] = []
         
         // TODO: - Travel 익스텐션으로
@@ -36,7 +39,8 @@ final class TravelListViewModel: TravelListViewModelProtocol {
             newTravelInfos.append(travelInfo)
         }
         
-        travelInfos = newTravelInfos
+        travelInfos.append(contentsOf: newTravelInfos)
+        
     }
     
     func deleteTravel(with id: UUID) {
