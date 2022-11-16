@@ -50,6 +50,7 @@ final class TravelListViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        planCollectionView.delegate = self
         viewModel?.delegate = self
         
         configureSubviews()
@@ -149,6 +150,7 @@ final class TravelListViewController: UIViewController {
     
     @objc func didAddTravelButtonTap() {
         print("여행 추가 버튼이 탭 되었습니다.")
+        navigationController?.pushViewController(TravelAddViewController(), animated: true)
     }
 }
 
