@@ -136,7 +136,7 @@ final class TravelListViewController: UIViewController {
             cell.contentConfiguration = content
                         
             if let viewModel = self.viewModel,
-               indexPath.row == viewModel.travelInfos.count - 1 {
+               indexPath.row == viewModel.travelInfos.count - 3 {
                 DispatchQueue.main.async {
                     viewModel.fetchTravelInfo()
                 }

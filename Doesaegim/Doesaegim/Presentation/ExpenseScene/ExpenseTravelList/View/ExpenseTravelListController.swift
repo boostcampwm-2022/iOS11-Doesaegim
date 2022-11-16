@@ -115,9 +115,10 @@ final class ExpenseTravelListController: UIViewController {
             )
             cell.contentConfiguration = content
             
+            // TODO: - 페이지 네이션 기준도 상수로 만들어서 사용하면 좋겠다.
             // pagination
             if let viewModel = self.viewModel,
-               indexPath.row == viewModel.travelInfos.count - 1 {
+               indexPath.row == viewModel.travelInfos.count - 3 {
                 DispatchQueue.main.async {
                     viewModel.fetchTravelInfo()
                 }
