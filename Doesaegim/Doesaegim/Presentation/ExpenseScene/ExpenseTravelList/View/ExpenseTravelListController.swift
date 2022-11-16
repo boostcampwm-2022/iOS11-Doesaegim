@@ -109,7 +109,7 @@ final class ExpenseTravelListController: UIViewController {
                 ),
                 attributes: [
                     .font: UIFont.systemFont(ofSize: 14),
-                    .foregroundColor: UIColor.grey2!
+                    .foregroundColor: UIColor.grey4!
                         
                 ]
             )

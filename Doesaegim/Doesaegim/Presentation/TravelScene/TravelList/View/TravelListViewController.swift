@@ -130,7 +130,7 @@ final class TravelListViewController: UIViewController {
                 ),
                 attributes: [
                     .font: UIFont.systemFont(ofSize: 14),
-                    .foregroundColor: UIColor.black!
+                    .foregroundColor: UIColor.grey4!
                 ]
             )
             cell.contentConfiguration = content
