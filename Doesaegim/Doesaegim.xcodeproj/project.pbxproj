@@ -468,9 +468,18 @@
 			path = Custom;
 			sourceTree = "<group>";
 		};
+		EE116C5F2924DE540017B519 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EE116C5B2924C9390017B519 /* TravelAddViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		EE3E29B92923C85B007C7FC7 /* TravelAdd */ = {
 			isa = PBXGroup;
 			children = (
+				EE116C5F2924DE540017B519 /* ViewModel */,
 				EE3E29BA2923C864007C7FC7 /* View */,
 			);
 			path = TravelAdd;
@@ -480,7 +489,6 @@
 			isa = PBXGroup;
 			children = (
 				EE3E29BB2923C870007C7FC7 /* TravelAddViewController.swift */,
-				EE116C5B2924C9390017B519 /* TravelAddViewModel.swift */,
 				EE116C5D2924CB6B0017B519 /* TravelAddViewProtocol.swift */,
 			);
 			path = View;

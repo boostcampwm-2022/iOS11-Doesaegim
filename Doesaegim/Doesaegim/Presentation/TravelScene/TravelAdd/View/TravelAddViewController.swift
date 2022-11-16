@@ -176,7 +176,8 @@ final class TravelAddViewController: UIViewController {
         viewModel.delegate = self
         configureViews()
         setKeyboardNotification()
-        setTextField()
+        travelTitleTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        addButton.addTarget(self, action: #selector(addButtonTouchUpInside), for: .touchUpInside)
     }
     
     // MARK: - Configure Functions
@@ -300,19 +301,32 @@ extension TravelAddViewController {
     }
 }
 
-// MARK: - TextField
+// MARK: - Actions
 
 extension TravelAddViewController {
-    func setTextField() {
-        travelTitleTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-    }
-    
     @objc func textFieldDidChange(_ sender: UITextField) {
         guard let text = sender.text, !text.isEmpty else {
             viewModel.isVaildTextField = false
             return
         }
         viewModel.isVaildTextField = true
+    }
+    
+    @objc func addButtonTouchUpInside() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        guard let name = travelTitleTextField.text,
+              let startDateString = travelDateStartLabel.text,
+              let startDate = dateFormatter.date(from: startDateString),
+              let endDateString = travelDateEndLabel.text,
+              let endDate = dateFormatter.date(from: endDateString) else { return }
+        
+        let travelDTO = TravelDTO(name: name, startDate: startDate, endDate: endDate)
+        
+        viewModel.postTravel(travel: travelDTO) { [weak self] in
+            guard let self else { return }
+            self.navigationController?.popViewController(animated: true)
+        }
     }
 }
 

@@ -31,4 +31,16 @@ final class TravelAddViewModel: TravelAddViewProtocol {
         isVaildTextField = false
         isVaildDate = false
     }
+    
+    // MARK: - CoreData Function
+    
+    func postTravel(travel: TravelDTO, completion: @escaping (() -> Void)) {
+        do {
+            try Travel.addAndSave(with: travel)
+            print("저장완료")
+            completion()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }
