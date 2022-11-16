@@ -134,16 +134,14 @@ final class TravelListViewController: UIViewController {
                 ]
             )
             cell.contentConfiguration = content
-            
-            // pagination
-            if let viewModel = self.viewModel {
-                if indexPath.row == viewModel.travelInfos.count - 1 {
-                    DispatchQueue.main.async {
-                        viewModel.fetchTravelInfo()
-                    }
-                    
+                        
+            if let viewModel = self.viewModel,
+               indexPath.row == viewModel.travelInfos.count - 1 {
+                DispatchQueue.main.async {
+                    viewModel.fetchTravelInfo()
                 }
             }
+            
         }
         
         travelDataSource = DataSource(
