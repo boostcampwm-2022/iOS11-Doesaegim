@@ -56,18 +56,37 @@ final class PlanListViewController: UIViewController {
     }
 
 
-    // MARK: - Configuration Functions
+    // MARK: - NavigationBar Configuration Functions
+
+    private func configureNavigationBar() {
+        navigationItem.title = viewModel.navigationTitle
+    }
+
+
+    // MARK: - CollectionView Configuration Functions
 
     private func createLayout() -> UICollectionViewLayout {
         var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
         configuration.headerMode = .supplementary
-        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
+        configuration.trailingSwipeActionsConfigurationProvider = { indexPath in
+            let deleteAction = UIContextualAction(
+                style: .destructive,
+                title: StringLiteral.deleteActionTitle
+            ) { _, _, _ in
+                do {
+                    try self.viewModel.deletePlan(at: indexPath)
+                } catch let error {
+                    self.presentErrorAlert(
+                        title: CoreDataError.deleteFailure.localizedDescription,
+                        message: error.localizedDescription
+                    )
+                }
+            }
 
-        return layout
-    }
+            return .init(actions: [deleteAction])
+        }
 
-    private func configureNavigationBar() {
-        navigationItem.title = viewModel.navigationTitle
+        return UICollectionViewCompositionalLayout.list(using: configuration)
     }
 
     private func configureDataSource() -> DataSource {
@@ -81,7 +100,7 @@ final class PlanListViewController: UIViewController {
                         try viewModel?.checkBoxDidTap()
                     } catch let error {
                         self.presentErrorAlert(
-                            title: CoreDataError.saveFailure.description,
+                            title: CoreDataError.saveFailure.localizedDescription,
                             message: error.localizedDescription
                         )
                     }
@@ -116,13 +135,6 @@ final class PlanListViewController: UIViewController {
         return dataSource
     }
 
-    private func bindToViewModel() {
-        viewModel.viewModelDidChange = { [weak self] isEmpty in
-            self?.applySnapshot()
-            self?.collectionView.isEmpty = isEmpty
-        }
-    }
-
     private func applySnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<Section, ItemID>()
 
@@ -144,9 +156,27 @@ final class PlanListViewController: UIViewController {
             try viewModel.fetch()
         } catch let error {
             self.presentErrorAlert(
-                title: CoreDataError.fetchFailure.description,
+                title: CoreDataError.fetchFailure.localizedDescription,
                 message: error.localizedDescription
             )
+        }
+    }
+
+
+    // MARK: - ViewModel Configuration Functions
+
+    private func bindToViewModel() {
+        viewModel.planFetchHandler = { [weak self] isEmpty in
+            self?.applySnapshot()
+            self?.collectionView.isEmpty = isEmpty
+        }
+        viewModel.planDeleteHandler = { [weak self] in
+            guard var snapshot = self?.dataSource.snapshot()
+            else { return }
+
+            snapshot.deleteItems([$0])
+            self?.dataSource.apply(snapshot, animatingDifferences: true)
+            self?.collectionView.isEmpty = self?.viewModel.planViewModels.isEmpty == true
         }
     }
 }
@@ -160,5 +190,7 @@ fileprivate extension PlanListViewController {
         static let emptyLabelText = "새로운 일정을 추가해주세요!"
 
         static let sectionHeaderElementKind = "UICollectionElementKindSectionHeader"
+
+        static let deleteActionTitle = "일정 삭제"
     }
 }

@@ -12,5 +12,7 @@ protocol PlanRepository {
 
     func fetchPlans(ofTravel travel: Travel) throws -> [Plan]
 
-    func save() throws 
+    func save() throws
+
+    func deletePlan(_ plan: Plan) throws
 }
