@@ -11,6 +11,7 @@ class ExpenseListViewController: UIViewController {
 
     // MARK: - Properties
     
+    let placeholdView: ExpensePlaceholdView = ExpensePlaceholdView()
     
     let expenseCollectionView: UICollectionView = {
         var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
@@ -47,13 +48,21 @@ class ExpenseListViewController: UIViewController {
     
     private func configureSubviews() {
         view.addSubview(expenseCollectionView)
-//        view.addSubview(placeholdLabel)
+        view.addSubview(placeholdView)
     }
     
     private func configureConstraints() {
         expenseCollectionView.snp.makeConstraints {
             $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
             $0.verticalEdges.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        placeholdView.snp.makeConstraints {
+            // TODO: - 뷰의 위치 추후 다시 설정
+            $0.centerX.equalTo(view.snp.centerX)
+            $0.centerY.equalTo(view.snp.centerY)
+            $0.width.equalTo(view.bounds.width - 100)
+            $0.height.equalTo(60)
         }
     }
     
