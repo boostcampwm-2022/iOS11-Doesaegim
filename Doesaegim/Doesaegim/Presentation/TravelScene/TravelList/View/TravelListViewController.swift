@@ -199,7 +199,25 @@ extension TravelListViewController: TravelListViewModelDelegate {
 
 extension TravelListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: - 적당한 Plan으로 이동. 선택한 데이터의 UUID를 넘겨서 이동한 컨트롤러에서 데이터를 불러온다.
+        collectionView.deselectItem(at: indexPath, animated: false)
+        let itemID = travelDataSource?.itemIdentifier(for: indexPath)
+        guard let travel = PersistentManager.shared.fetch(request: Travel.fetchRequest()).first(where: { $0.id == itemID?.uuid })
+        else {
+            return
+        }
+
+        // MARK: - 일정 있었으면 좋겠는 화면만
+        (1...20).forEach {
+//            try? Plan.addAndSave(with: PlanDTO(
+//                name: "일정",
+//                date: $0 < 10 ? Date() : Date().addingTimeInterval(-60 * 60 * 30),
+//                content: "내용",
+//                travel: travel)
+//            )
+        }
+        let viewModel = PlanListViewModel(travel: travel, repository: PlanLocalRepository())
+        let planListViewController = PlanListViewController(viewModel: viewModel)
+        show(planListViewController, sender: self)
     }
 }
 

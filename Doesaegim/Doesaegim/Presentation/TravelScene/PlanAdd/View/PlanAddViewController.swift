@@ -201,6 +201,18 @@ final class PlanAddViewController: UIViewController {
         )
         viewModel.delegate = self
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        tabBarController?.tabBar.isHidden = true
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        tabBarController?.tabBar.isHidden = false
+    }
     
     // MARK: - Configure Functions
     

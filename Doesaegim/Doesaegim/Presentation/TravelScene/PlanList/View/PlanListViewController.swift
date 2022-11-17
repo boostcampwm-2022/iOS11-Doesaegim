@@ -55,14 +55,19 @@ final class PlanListViewController: UIViewController {
         fetchPlans()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        tabBarController?.tabBar.isHidden = false
+    }
+
 
     // MARK: - NavigationBar Configuration Functions
 
     private func configureNavigationBar() {
         navigationItem.title = viewModel.navigationTitle
         // TODO: 일정 추가 화면으로 교체
-        let nextViewController = UIViewController()
-        nextViewController.view.backgroundColor = .systemYellow
+        let nextViewController = PlanAddViewController()
         setRightBarAddButton(showing: nextViewController)
     }
 
