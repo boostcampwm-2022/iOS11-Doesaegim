@@ -168,7 +168,18 @@ final class PlanAddViewController: UIViewController {
     
     // MARK: - Properties
     
+    private let viewModel: PlanAddViewModel
+    
     // MARK: - Lifecycles
+    
+    init() {
+        viewModel = PlanAddViewModel()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -178,6 +189,11 @@ final class PlanAddViewController: UIViewController {
             action: #selector(dateInputButtonTouchUpInside),
             for: .touchUpInside
         )
+        planTitleTextField.addTarget(
+            self,
+            action: #selector(textFieldDidChange),
+            for: .editingChanged)
+        viewModel.delegate = self
     }
     
     // MARK: - Configure Functions
@@ -309,6 +325,10 @@ extension PlanAddViewController {
         calendarViewController.delegate = self
         present(calendarViewController, animated: true)
     }
+    
+    @objc func textFieldDidChange(_ sender: UITextField) {
+        viewModel.isValidPlanName(name: sender.text)
+    }
 }
 
 // MARK: - TextField Delegate
@@ -338,12 +358,24 @@ extension PlanAddViewController: UITextViewDelegate {
     }
 }
 
+// MARK: - PlanAddViewDelegate
+
+extension PlanAddViewController: PlanAddViewDelegate {
+    func isVaildInputs(isValid: Bool) {
+        addButton.isEnabled = isValid
+        addButton.backgroundColor = isValid ? .primaryOrange : .grey3
+    }
+}
+
 
 // MARK: - Calendar Delegate
 
 extension PlanAddViewController: CalendarViewDelegate {
     func fetchDate(dateString: String) {
         dateInputButton.setTitle(dateString, for: .normal)
+        let dateFormatter = Date.yearMonthDayTimeDateFormatter
+        let date = dateFormatter.date(from: dateString)
+        viewModel.isValidDate(date: date)
     }
 }
 
