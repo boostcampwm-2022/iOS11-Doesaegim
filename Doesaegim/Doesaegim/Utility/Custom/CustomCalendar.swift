@@ -10,6 +10,7 @@ import UIKit
 final class CustomCalendar: UICollectionView {
     
     // MARK: - Enum
+    
     enum Section {
         case day
     }
@@ -17,22 +18,35 @@ final class CustomCalendar: UICollectionView {
     struct Item: Hashable {
         let id = UUID()
         let day: String
+        var isSelected: Bool = false
     }
+    
+    // MARK: - typealias
+    
+    typealias Datasource = UICollectionViewDiffableDataSource<Section, Item>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, Item>
     
     // MARK: - Properties
     
-    private var diffableDatasource: UICollectionViewDiffableDataSource<Section, Item>?
+    private var diffableDatasource: Datasource?
     private var today = Date()
     private var calendar = Calendar.current
     private var dateComponents = DateComponents()
     private var dateFormmater = DateFormatter()
     private let weeks: [String] = ["일", "월", "화", "수", "목", "금", "토"]
     private var days: [Item] = []
+    private let touchOption: TouchOption
+    private var selectedCount = 0
+    private var selectedDates: [String] = []
+    
+    var completionHandler: (([String]) -> Void)?
     
     // MARK: - Lifecycles
     
-    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+    init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout, touchOption: TouchOption) {
+        self.touchOption = touchOption
         super.init(frame: frame, collectionViewLayout: layout)
+        delegate = self
         configureCollectionView()
         diffableDatasource = configureDatasource()
         configureCalendar()
@@ -42,6 +56,7 @@ final class CustomCalendar: UICollectionView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     
     // MARK: - Confugure Functions
     
@@ -71,8 +86,10 @@ final class CustomCalendar: UICollectionView {
             widthDimension: .fractionalWidth(1),
             heightDimension: .fractionalWidth(1/6)
         )
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
+        item.contentInsets = .init(top: 0, leading: 2, bottom: 0, trailing: 2)
+        
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         let headerSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1),
             heightDimension: .absolute(100)
@@ -87,7 +104,7 @@ final class CustomCalendar: UICollectionView {
         return UICollectionViewCompositionalLayout(section: section)
     }
     
-    private func configureDatasource() -> UICollectionViewDiffableDataSource<Section, Item>? {
+    private func configureDatasource() -> Datasource {
         let datasource = UICollectionViewDiffableDataSource<Section, Item>(
             collectionView: self,
             cellProvider: { collectionView, indexPath, item in
@@ -99,6 +116,7 @@ final class CustomCalendar: UICollectionView {
                 cell.configureUI(item: item)
                 return cell
             })
+        
         datasource.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
             guard let self, kind == UICollectionView.elementKindSectionHeader else {
                 return UICollectionReusableView()
@@ -126,7 +144,7 @@ final class CustomCalendar: UICollectionView {
     }
     
     private func configureSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
+        var snapshot = Snapshot()
         snapshot.appendSections([.day])
         snapshot.appendItems(days, toSection: .day)
         diffableDatasource?.apply(snapshot)
@@ -142,12 +160,25 @@ final class CustomCalendar: UICollectionView {
         configureSnapshot()
     }
     
+    
+    /// 캘린더 설정 함수
     private func setupCalendar() {
+        /// 현재 Month의 1일이 무슨 요일인지 인덱스로 알려줌
+        /// 0부터 월요일
         let firstWeekIndex = calendar.component(.weekday, from: today) - 1
+        
+        /// 마지막 날짜
+        /// ex) 2월 - 28, 12월- 31
         let endOfday = calendar.range(of: .day, in: .month, for: today)?.count ?? 31
         
+        /// 모든 날짜의 합을 알려줌
+        /// ex) 2022년 11월  화요일 시작 (2) + 30일까지 있음 (30)
+        /// totalDays = 32
         let totalDays = firstWeekIndex + endOfday
+        
         days.removeAll()
+        
+        /// 첫번째 날짜가 시작할 때 부터 숫자를 채워줌, 이전 날짜는 공백으로 처리
         for day in 0..<totalDays {
             if day < firstWeekIndex {
                 days.append(Item(day: ""))
@@ -157,4 +188,50 @@ final class CustomCalendar: UICollectionView {
         }
         
     }
+}
+
+extension CustomCalendar {
+    enum TouchOption {
+        case single
+        case double
+    }
+}
+
+// MARK: Calendar Cell Tapped
+
+// TODO: 출발 날짜를 선택했을 때, 이전 날짜를 선택못하도록 막아야하는 것 구현해야됨!
+extension CustomCalendar: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let startDay = calendar.component(.weekday, from: today) - 1
+        
+        guard indexPath.row >= startDay,
+              let currentYear = dateComponents.year,
+              let month = dateComponents.month else { return }
+        
+        let currentMonth = String(format: "%02d", month)
+        let currentDay = String(format: "%02d", indexPath.row - startDay + 1)
+        let date = "\(currentYear)-\(currentMonth)-\(currentDay)"
+        days[indexPath.row].isSelected.toggle()
+        selectedCount += 1
+        
+        selectedDates.append(date)
+        
+        switch touchOption {
+        case .single:
+            // TODO: 싱글터치일 때 작성
+            return
+        case .double:
+            if selectedCount == 2 {
+                completionHandler?(selectedDates)
+                selectedDates.removeAll()
+                selectedCount = 0
+                for index in 0..<days.count {
+                    days[index].isSelected = false
+                }
+            }
+        }
+        
+        configureSnapshot()
+    }
+
 }

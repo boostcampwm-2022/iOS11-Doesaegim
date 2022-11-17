@@ -38,8 +38,8 @@ final class EmptyLabeledCollectionView: UICollectionView {
 
     convenience init(
         emptyLabelText: String,
-        frame: CGRect,
-        collectionViewLayout layout: UICollectionViewLayout
+        frame: CGRect = .zero,
+        collectionViewLayout layout: UICollectionViewLayout = .init()
     ) {
         self.init(frame: frame, collectionViewLayout: layout)
         emptyLabel.text = emptyLabelText

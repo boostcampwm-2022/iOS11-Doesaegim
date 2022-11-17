@@ -15,23 +15,21 @@ final class TravelAddViewController: UIViewController {
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
+
         scrollView.backgroundColor = .white
         scrollView.showsVerticalScrollIndicator = false
-        
         return scrollView
     }()
     
     private lazy var contentView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
+        
         return view
     }()
     
     private lazy var travelTitleStackView: UIStackView = {
         let stackView = UIStackView()
         
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fill
@@ -42,7 +40,6 @@ final class TravelAddViewController: UIViewController {
     private lazy var travelDateStackView: UIStackView = {
         let stackView = UIStackView()
         
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fill
@@ -52,8 +49,7 @@ final class TravelAddViewController: UIViewController {
     
     private lazy var travelDateLabelStackView: UIStackView = {
         let stackView = UIStackView()
-        
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fill
@@ -64,7 +60,6 @@ final class TravelAddViewController: UIViewController {
     private lazy var travelTitleLabel: UILabel = {
         let label = UILabel()
         
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "여행 제목"
         label.textColor = .black
         label.font = .systemFont(ofSize: 20, weight: .bold)
@@ -75,7 +70,6 @@ final class TravelAddViewController: UIViewController {
     private lazy var travelTitleTextField: UITextField = {
         let textField = UITextField()
         
-        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "여행 제목을 입력해주세요."
         textField.layer.cornerRadius = 10
         textField.backgroundColor = .grey1
@@ -89,7 +83,6 @@ final class TravelAddViewController: UIViewController {
     private lazy var travelDateLabel: UILabel = {
         let label = UILabel()
         
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "날짜"
         label.textColor = .black
         label.font = .systemFont(ofSize: 20, weight: .bold)
@@ -100,7 +93,6 @@ final class TravelAddViewController: UIViewController {
     private lazy var travelDateStartLabel: UILabel = {
         let label = UILabel()
         
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
         label.clipsToBounds = true
         label.layer.cornerRadius = 8
@@ -113,7 +105,6 @@ final class TravelAddViewController: UIViewController {
     private lazy var travelDateEndLabel: UILabel = {
         let label = UILabel()
         
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
         label.clipsToBounds = true
         label.layer.cornerRadius = 8
@@ -125,8 +116,7 @@ final class TravelAddViewController: UIViewController {
     
     private lazy var waveLabel: UILabel = {
         let label = UILabel()
-        
-        label.translatesAutoresizingMaskIntoConstraints = false
+
         label.text = "~"
         label.textColor = .black
         label.font = .systemFont(ofSize: 30, weight: .regular)
@@ -137,28 +127,57 @@ final class TravelAddViewController: UIViewController {
     
     private lazy var addButton: UIButton = {
         let button = UIButton()
-        
-        button.translatesAutoresizingMaskIntoConstraints = false
+
         button.setTitle("여행 추가", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .primaryOrange
+        button.backgroundColor = .grey3
+        button.isEnabled = false
         button.layer.cornerRadius = 10
         return button
     }()
     
     private lazy var customCalendar: CustomCalendar = {
-        let customCalendar = CustomCalendar(frame: .zero, collectionViewLayout: CustomCalendar.createLayout())
+        let customCalendar = CustomCalendar(
+            frame: .zero,
+            collectionViewLayout: CustomCalendar.createLayout(),
+            touchOption: .double
+        )
+        
+        // 2개 날짜 선택시 라벨에 나타나도록
+        customCalendar.completionHandler = { [weak self] dates in
+            guard let self, dates.count > 1 else {
+                self?.viewModel.isVaildDate = false
+                return
+            }
+            self.travelDateStartLabel.text = dates[0]
+            self.travelDateEndLabel.text = dates[1]
+            self.viewModel.isVaildDate = true
+        }
         return customCalendar
     }()
     
     // MARK: - Properties
     
+    private let viewModel: TravelAddViewModel
+    
     // MARK: - Lifecycles
+    
+    init() {
+        viewModel = TravelAddViewModel()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.delegate = self
         configureViews()
         setKeyboardNotification()
+        travelTitleTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        addButton.addTarget(self, action: #selector(addButtonTouchUpInside), for: .touchUpInside)
     }
     
     // MARK: - Configure Functions
@@ -282,11 +301,49 @@ extension TravelAddViewController {
     }
 }
 
+// MARK: - Actions
+
+extension TravelAddViewController {
+    @objc func textFieldDidChange(_ sender: UITextField) {
+        guard let text = sender.text, !text.isEmpty else {
+            viewModel.isVaildTextField = false
+            return
+        }
+        viewModel.isVaildTextField = true
+    }
+    
+    @objc func addButtonTouchUpInside() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        guard let name = travelTitleTextField.text,
+              let startDateString = travelDateStartLabel.text,
+              let startDate = dateFormatter.date(from: startDateString),
+              let endDateString = travelDateEndLabel.text,
+              let endDate = dateFormatter.date(from: endDateString) else { return }
+        
+        let travelDTO = TravelDTO(name: name, startDate: startDate, endDate: endDate)
+        
+        viewModel.postTravel(travel: travelDTO) { [weak self] in
+            guard let self else { return }
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+}
+
 // MARK: - TextField Delegate
 
 extension TravelAddViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+// MARK: TravelAddViewDelegate
+
+extension TravelAddViewController: TravelAddViewDelegate {
+    func isVaildView(isVaild: Bool) {
+        addButton.isEnabled = isVaild
+        addButton.backgroundColor = isVaild ? .primaryOrange : .grey3
     }
 }

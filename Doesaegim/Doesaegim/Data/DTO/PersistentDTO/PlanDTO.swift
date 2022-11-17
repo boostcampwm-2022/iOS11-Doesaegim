@@ -13,4 +13,5 @@ struct PlanDTO {
     let date: Date
     let isComplete: Bool = false
     let content: String
+    let travel: Travel
 }
