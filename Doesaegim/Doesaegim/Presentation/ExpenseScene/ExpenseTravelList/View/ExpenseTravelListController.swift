@@ -36,6 +36,8 @@ final class ExpenseTravelListController: UIViewController {
     
     var travelDataSource: DataSource?
     
+    var selectedID: UUID?
+    
     var viewModel: ExpenseTravelViewModelProtocol? = ExpenseTravelViewModel()
     
     // MARK: - Life Cycle
@@ -45,6 +47,7 @@ final class ExpenseTravelListController: UIViewController {
         view.backgroundColor = .white
         
         viewModel?.delegate = self
+        collectionView.delegate = self
         
         configureNavigationBar()
         configureSubviews()
@@ -77,6 +80,19 @@ final class ExpenseTravelListController: UIViewController {
         collectionView.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview().inset(16)
             $0.verticalEdges.equalToSuperview().inset(0)
+        }
+    }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationViewController = segue.destination
+        
+        switch destinationViewController {
+        case let viewController as ExpenseListViewController:
+            print("ExpenseListViewcontroller로 이동합니다.")
+            viewController.travelID = selectedID
+        default:
+            print("잘못된 접근입니다.")
         }
     }
     
@@ -118,6 +134,18 @@ final class ExpenseTravelListController: UIViewController {
         )   
     }
 }
+
+// MARK: - UICollectionViewDelegate
+
+extension ExpenseTravelListController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let viewModel = viewModel else { return }
+        
+        selectedID = viewModel.travelInfos[indexPath.row].uuid
+        navigationController?.pushViewController(ExpenseListViewController(), animated: true)
+    }
+}
+
 
 // MARK: - ExpenseTravelViewModelDelegate
 

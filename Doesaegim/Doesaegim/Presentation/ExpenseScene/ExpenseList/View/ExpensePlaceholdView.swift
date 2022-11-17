@@ -44,6 +44,7 @@ final class ExpensePlaceholdView: UIView {
     }
     
     private func configureStyle() {
+        backgroundColor = .white
         layer.cornerRadius = 7
         layer.borderColor = UIColor.primaryOrange?.cgColor
         layer.borderWidth = 1
@@ -52,7 +53,7 @@ final class ExpensePlaceholdView: UIView {
     private func configureContstraints() {
         mainLabel.snp.makeConstraints {
             $0.centerX.equalTo(self.snp.centerX)
-            $0.centerY.equalTo(self.snp.centerX)
+            $0.centerY.equalTo(self.snp.centerY)
         }
     }
 }
