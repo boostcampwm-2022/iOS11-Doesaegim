@@ -15,7 +15,7 @@ final class TravelListViewController: UIViewController {
 
     private typealias DataSource = UICollectionViewDiffableDataSource<String, TravelInfoViewModel>
     private typealias SnapShot = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>
-    private typealias CellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, TravelInfoViewModel>
+    private typealias CellRegistration = UICollectionView.CellRegistration<TravelListCell, TravelInfoViewModel>
     
     // MARK: - Properties
     
@@ -112,29 +112,9 @@ final class TravelListViewController: UIViewController {
     
     private func configureCollectionViewDataSource() {
         let travelCell = CellRegistration { cell, indexPath, identifier in
-//            cell.configureLabel(with: identifier)
-            var content = cell.defaultContentConfiguration()
-            content.image = UIImage(systemName: "airplane.departure")
-            content.imageProperties.tintColor = .primaryOrange
-            content.attributedText = NSAttributedString(
-                string: identifier.title,
-                attributes: [
-                    .font: UIFont.systemFont(ofSize: 18),
-                    .foregroundColor: UIColor.black!
-                ]
-            )
-            content.secondaryAttributedText = NSAttributedString(
-                string: Date.convertTravelString(
-                    start: identifier.startDate,
-                    end: identifier.endDate
-                ),
-                attributes: [
-                    .font: UIFont.systemFont(ofSize: 12),
-                    .foregroundColor: UIColor.grey4!
-                ]
-            )
-            cell.contentConfiguration = content
-                        
+
+            cell.configure(with: identifier)
+            
             if let viewModel = self.viewModel,
                indexPath.row == viewModel.travelInfos.count - 3 {
                 DispatchQueue.main.async {
