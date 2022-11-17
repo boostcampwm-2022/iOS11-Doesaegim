@@ -218,8 +218,13 @@ extension CustomCalendar: UICollectionViewDelegate {
         
         switch touchOption {
         case .single:
-            // TODO: 싱글터치일 때 작성
-            return
+            completionHandler?(selectedDates)
+            selectedDates.removeAll()
+            selectedCount = 0
+            configureSnapshot()
+            for index in 0..<days.count {
+                days[index].isSelected = false
+            }
         case .double:
             if selectedCount == 2 {
                 completionHandler?(selectedDates)
@@ -229,9 +234,7 @@ extension CustomCalendar: UICollectionViewDelegate {
                     days[index].isSelected = false
                 }
             }
+            configureSnapshot()
         }
-        
-        configureSnapshot()
     }
-
 }

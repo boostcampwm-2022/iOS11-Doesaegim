@@ -96,6 +96,42 @@ final class PlanAddViewController: UIViewController {
         return button
     }()
     
+    private lazy var dateStackView: UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.spacing = 12
+        return stackView
+    }()
+    
+    private lazy var dateTitleLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "날짜와 시간"
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.textAlignment = .left
+        return label
+    }()
+    
+    private lazy var dateInputButton: UIButton = {
+        let button = UIButton()
+        
+        button.layer.cornerRadius = 10
+        button.backgroundColor = .grey1
+        button.setTitleColor(.grey3, for: .normal)
+        button.setTitle("날짜와 시간을 입력해주세요.", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
+        button.setImage(UIImage(systemName: "calendar"), for: .normal)
+        button.titleEdgeInsets = .init(top: 0, left: 15, bottom: 0, right: -5)
+        button.imageEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 5)
+        button.tintColor = .grey3
+        button.contentHorizontalAlignment = .left
+        return button
+    }()
+    
     // MARK: - Properties
     
     // MARK: - Lifecycles
@@ -103,6 +139,11 @@ final class PlanAddViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
+        dateInputButton.addTarget(
+            self,
+            action: #selector(dateInputButtonTouchUpInside),
+            for: .touchUpInside
+        )
     }
     
     // MARK: - Configure Functions
@@ -116,9 +157,10 @@ final class PlanAddViewController: UIViewController {
     private func configureSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubviews(planTitleStackView, placeTitleStackView)
+        contentView.addSubviews(planTitleStackView, placeTitleStackView, dateStackView)
         planTitleStackView.addArrangedSubviews(planTitleLabel, planTitleTextField)
         placeTitleStackView.addArrangedSubviews(placeTitleLabel, placeSearchButton)
+        dateStackView.addArrangedSubviews(dateTitleLabel, dateInputButton)
     }
     
     private func configureConstraint() {
@@ -148,6 +190,15 @@ final class PlanAddViewController: UIViewController {
         }
         
         placeSearchButton.snp.makeConstraints {
+            $0.height.equalTo(36)
+        }
+        
+        dateStackView.snp.makeConstraints {
+            $0.top.equalTo(placeTitleStackView.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview().inset(16)
+        }
+        
+        dateInputButton.snp.makeConstraints {
             $0.height.equalTo(36)
         }
         
@@ -196,6 +247,17 @@ extension PlanAddViewController {
         view.endEditing(true)
     }
 }
+
+// MARK: - Action
+
+extension PlanAddViewController {
+    @objc func dateInputButtonTouchUpInside() {
+        let calendarViewController = CalendarViewController(touchOption: .single)
+        calendarViewController.delegate = self
+        present(calendarViewController, animated: true)
+    }
+}
+
 // MARK: - TextField Delegate
 
 extension PlanAddViewController: UITextFieldDelegate {
@@ -205,3 +267,9 @@ extension PlanAddViewController: UITextFieldDelegate {
     }
 }
 
+// MARK: - Calendar Delegate
+extension PlanAddViewController: CalendarViewDelegate {
+    func fetchDate(dateString: String) {
+        dateInputButton.setTitle(dateString, for: .normal)
+    }
+}
