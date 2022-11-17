@@ -192,7 +192,13 @@ final class PlanAddViewController: UIViewController {
         planTitleTextField.addTarget(
             self,
             action: #selector(textFieldDidChange),
-            for: .editingChanged)
+            for: .editingChanged
+        )
+        placeSearchButton.addTarget(
+            self,
+            action: #selector(placeButtonTouchUpInside),
+            for: .touchUpInside
+        )
         viewModel.delegate = self
     }
     
@@ -328,6 +334,11 @@ extension PlanAddViewController {
     
     @objc func textFieldDidChange(_ sender: UITextField) {
         viewModel.isValidPlanName(name: sender.text)
+    }
+    
+    @objc func placeButtonTouchUpInside() {
+        let searchingLocationViewController = SearchingLocationViewController()
+        navigationController?.pushViewController(searchingLocationViewController, animated: true)
     }
 }
 
