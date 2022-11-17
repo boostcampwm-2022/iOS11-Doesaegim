@@ -13,7 +13,7 @@ final class ExpenseTravelListController: UIViewController {
 
     typealias DataSource = UICollectionViewDiffableDataSource<String, TravelInfoViewModel>
     typealias SnapShot = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>
-    typealias CellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, TravelInfoViewModel>
+    typealias CellRegistration = UICollectionView.CellRegistration<ExpenseTravelListCell, TravelInfoViewModel>
     
     // MARK: - Properties
     
@@ -92,28 +92,8 @@ final class ExpenseTravelListController: UIViewController {
     
     private func configureCollectionViewDataSource() {
         let travelCell =  CellRegistration { cell, indexPath, identifier in
-            var content = cell.defaultContentConfiguration()
-            content.image = UIImage(systemName: "airplane.departure")
-            content.imageProperties.tintColor = .primaryOrange
-            content.attributedText = NSAttributedString(
-                string: identifier.title,
-                attributes: [
-                    .font: UIFont.systemFont(ofSize: 18),
-                    .foregroundColor: UIColor.black!
-                ]
-            )
-            content.secondaryAttributedText = NSAttributedString(
-                string: Date.convertTravelString(
-                    start: identifier.startDate,
-                    end: identifier.endDate
-                ),
-                attributes: [
-                    .font: UIFont.systemFont(ofSize: 12),
-                    .foregroundColor: UIColor.grey4!
-                        
-                ]
-            )
-            cell.contentConfiguration = content
+            
+            cell.configureContent(with: identifier)
             
             // TODO: - 페이지 네이션 기준도 상수로 만들어서 사용하면 좋겠다.
             // pagination

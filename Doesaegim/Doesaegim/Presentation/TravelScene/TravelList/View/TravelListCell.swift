@@ -24,7 +24,7 @@ final class TravelListCell: UICollectionViewListCell {
     
     /// 셀의 기본적인 정보를 설정해주는 메서드
     /// - Parameter identifier: 여행 정보를 가지고 있는 `TravelInfoViewModel` 인스턴스
-    func configure(with identifier: TravelInfoViewModel) {
+    func configureContent(with identifier: TravelInfoViewModel) {
         
         contentConfiguration = createContentConfiguration(of: identifier)
     }

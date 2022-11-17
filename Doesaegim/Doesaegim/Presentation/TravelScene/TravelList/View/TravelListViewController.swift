@@ -113,7 +113,7 @@ final class TravelListViewController: UIViewController {
     private func configureCollectionViewDataSource() {
         let travelCell = CellRegistration { cell, indexPath, identifier in
 
-            cell.configure(with: identifier)
+            cell.configureContent(with: identifier)
             
             if let viewModel = self.viewModel,
                indexPath.row == viewModel.travelInfos.count - 3 {
