@@ -16,8 +16,8 @@ final class ExpenseTravelViewModel: ExpenseTravelViewModelProtocol {
     
     var travelInfos: [TravelInfoViewModel] {
         didSet {
-            delegate?.applyTravelSnapshot()
-            delegate?.applyPlaceholdLabel()
+            delegate?.travelListSnapshotShouldChange()
+            delegate?.travelPlaceholderShouldChange()
         }
     }
     
@@ -26,27 +26,16 @@ final class ExpenseTravelViewModel: ExpenseTravelViewModelProtocol {
     }
     
     func fetchTravelInfo() {
-        print(#function)
-        let travels = PersistentManager.shared.fetch(request: Travel.fetchRequest())
+        
+        let travels = PersistentManager.shared.fetch(request: Travel.fetchRequest(), offset: travelInfos.count, limit: 10)
         var newTravelInfos: [TravelInfoViewModel] = []
         
         // TODO: - Travel 익스텐션으로
         for travel in travels {
-            if let id = travel.id,
-               let title = travel.name,
-               let startDate = travel.startDate,
-               let endDate = travel.endDate {
-                let travelInfo = TravelInfoViewModel(
-                    uuid: id,
-                    title: title,
-                    startDate: startDate,
-                    endDate: endDate
-                )
-                newTravelInfos.append(travelInfo)
-            }
+            guard let travelInfo = Travel.convertToViewModel(with: travel) else { continue }
+            newTravelInfos.append(travelInfo)
         }
         
-        travelInfos = newTravelInfos
-        print(travelInfos)
+        travelInfos.append(contentsOf: newTravelInfos)
     }
 }

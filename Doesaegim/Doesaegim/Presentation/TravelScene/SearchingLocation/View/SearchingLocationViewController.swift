@@ -8,13 +8,19 @@
 import UIKit
 
 final class SearchingLocationViewController: UIViewController {
+    
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, SearchResultCellViewModel>
+    typealias SnapShot = NSDiffableDataSourceSnapshot<Section, SearchResultCellViewModel>
+    typealias CellRegistration = UICollectionView
+                                    .CellRegistration<SearchResultCell, SearchResultCellViewModel>
+    
     // MARK: - UI Properties
     
     private let rootView = SearchingLocationView()
     
     // MARK: - Properties
     
-    private var resultViewDataSource: UICollectionViewDiffableDataSource<Section, SearchResultCellViewModel>?
+    private var resultViewDataSource: DataSource?
     
     private let viewModel = SearchingLocationViewModel()
     
@@ -28,7 +34,7 @@ final class SearchingLocationViewController: UIViewController {
         super.viewDidLoad()
         
         configureNavigationBar()
-        configureSearchBarFieldDelegate()
+        configureSearchController()
         configureCollectionView()
         configureViewModelDelegate()
     }
@@ -36,12 +42,19 @@ final class SearchingLocationViewController: UIViewController {
     // MARK: - Configure Functions
     
     private func configureNavigationBar() {
-        title = "장소 검색"
+        title = StringLiteral.title
     }
     
-    /// 서치바의 UITextFieldDelegate를 지정한다.
-    private func configureSearchBarFieldDelegate() {
-        rootView.searchBarField.delegate = self
+    /// 서치바가 포함된 UISearchController를 설정한다.
+    private func configureSearchController() {
+        let searchController = UISearchController()
+        searchController.searchBar.delegate = self
+        
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.placeholder = StringLiteral.searchBarPlaceholder
+        
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
     
     /// 컬렉션뷰 셀 등록, DiffableDataSource 정의, 델리게이트 지정을 수행한다.
@@ -60,13 +73,11 @@ final class SearchingLocationViewController: UIViewController {
     
     /// 컬렉션뷰에 사용될 셀을 등록하고, DiffableDataSource를 정의한다.
     private func configureCollectionViewDataSource() {
-        let cellRegistration = UICollectionView
-            .CellRegistration<SearchResultCell, SearchResultCellViewModel>(
-                handler: { cell, _, viewModel in
+        let cellRegistration = CellRegistration(handler: { cell, _, viewModel in
             cell.setupLabels(name: viewModel.name, address: viewModel.address)
         })
         
-        resultViewDataSource = UICollectionViewDiffableDataSource<Section, SearchResultCellViewModel>(
+        resultViewDataSource = DataSource(
             collectionView: rootView.searchResultCollectionView
         ) { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueConfiguredReusableCell(
@@ -87,12 +98,21 @@ final class SearchingLocationViewController: UIViewController {
     
     /// 설정한 DiffableDataSource에 snapshot을 적용한다.
     private func configureSnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, SearchResultCellViewModel>()
+        var snapshot = SnapShot()
         
         snapshot.appendSections([.main])
         snapshot.appendItems(viewModel.searchResultCellViewModels)
         
         resultViewDataSource?.apply(snapshot)
+    }
+}
+
+// MARK: - Namespaces
+
+extension SearchingLocationViewController {
+    enum StringLiteral {
+        static let title = "장소 검색"
+        static let searchBarPlaceholder = "장소명을 입력해주세요."
     }
 }
 
@@ -104,18 +124,14 @@ extension SearchingLocationViewController {
     }
 }
 
-// MARK: - UITextFieldDelegate
+// MARK: - UISearchBarDelegate
 
-extension SearchingLocationViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        
-        guard let keyword = textField.text
-        else { return true }
+extension SearchingLocationViewController: UISearchBarDelegate {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        guard let keyword = searchBar.text
+        else { return }
         
         viewModel.fetchSearchResults(with: keyword)
-        
-        return true
     }
 }
 
@@ -128,10 +144,14 @@ extension SearchingLocationViewController: UICollectionViewDelegate {
     }
 }
 
-// MARK: - SearchingLocationViewControllerDelegate
+// MARK: - SearchingLocationViewModelDelegate
 
-extension SearchingLocationViewController: SearchingLocationViewControllerDelegate {
-    func refreshSnapshot() {
+extension SearchingLocationViewController: SearchingLocationViewModelDelegate {
+    func searchLocaitonResultDidChange() {
+        rootView.searchResultCollectionView.isEmpty = viewModel.searchResultCellViewModels.isEmpty
+    }
+    
+    func searchLocationSnapshotDidRefresh() {
         configureSnapshot()
     }
 }

@@ -54,6 +54,24 @@ final class PersistentManager {
             return []
         }
     }
+    
+    /// NSManagedObject를 상속하는 CoreDataClass를 영구저장소에 요청한다. `offset`번째 레코드부터 최대 `limit`개의 레코드를 배열로 반환한다.
+    /// - Parameters:
+    ///   - request: Fetch Request
+    ///   - offset: 불러올 레코드의 시작 오프셋
+    ///   - limit: 불러올 레코드의 최대 갯수
+    /// - Returns: `NSManagedObject` 배열
+    func fetch<T: NSManagedObject>(request: NSFetchRequest<T>, offset: Int, limit: Int) -> [T] {
+        do {
+            request.fetchOffset = offset
+            request.fetchLimit = limit
+            let items = try context.fetch(request)
+            return items
+        } catch {
+            print(error.localizedDescription)
+            return []
+        }
+    }
 
     // MARK: - Core Data Deleting support
     /// TODO: 개발 단계 편의를 위한 메서드로 추후 삭제

@@ -13,6 +13,7 @@ final class ExpenseTravelListController: UIViewController {
 
     typealias DataSource = UICollectionViewDiffableDataSource<String, TravelInfoViewModel>
     typealias SnapShot = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>
+    typealias CellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, TravelInfoViewModel>
     
     // MARK: - Properties
     
@@ -90,10 +91,7 @@ final class ExpenseTravelListController: UIViewController {
     }
     
     private func configureCollectionViewDataSource() {
-        let travelCell = UICollectionView.CellRegistration<UICollectionViewListCell, TravelInfoViewModel> {
-            cell, indexPath, identifier in
-            
-            // TODO: - 과정 처리 셀 클래스로 넘기는 것 고민
+        let travelCell =  CellRegistration { cell, indexPath, identifier in
             var content = cell.defaultContentConfiguration()
             content.image = UIImage(systemName: "airplane.departure")
             content.imageProperties.tintColor = .primaryOrange
@@ -101,7 +99,7 @@ final class ExpenseTravelListController: UIViewController {
                 string: identifier.title,
                 attributes: [
                     .font: UIFont.boldSystemFont(ofSize: 20),
-                    .foregroundColor: UIColor.black
+                    .foregroundColor: UIColor.black!
                 ]
             )
             content.secondaryAttributedText = NSAttributedString(
@@ -111,14 +109,24 @@ final class ExpenseTravelListController: UIViewController {
                 ),
                 attributes: [
                     .font: UIFont.systemFont(ofSize: 14),
-                    .foregroundColor: UIColor.grey2
+                    .foregroundColor: UIColor.grey4!
                         
                 ]
             )
             cell.contentConfiguration = content
+            
+            // TODO: - 페이지 네이션 기준도 상수로 만들어서 사용하면 좋겠다.
+            // pagination
+            if let viewModel = self.viewModel,
+               indexPath.row == viewModel.travelInfos.count - 3 {
+                DispatchQueue.main.async {
+                    viewModel.fetchTravelInfo()
+                }
+            }
+            
         }
         
-        travelDataSource = DataSource (
+        travelDataSource = DataSource(
             collectionView: collectionView,
             cellProvider: { collectionView, indexPath, item in
                 return collectionView.dequeueConfiguredReusableCell(
@@ -127,19 +135,16 @@ final class ExpenseTravelListController: UIViewController {
                     item: item
                 )
             }
-        )
-        
+        )   
     }
-    
 }
 
 // MARK: - ExpenseTravelViewModelDelegate
 
 extension ExpenseTravelListController: ExpenseTravelViewModelDelegate {
     
-    func applyTravelSnapshot() {
-        // TODO: - ViewModel 작성 후 identifierItem 작성
-        print(#function)
+    func travelListSnapshotShouldChange() {
+
         guard let viewModel = viewModel else {
             return
         }
@@ -152,8 +157,8 @@ extension ExpenseTravelListController: ExpenseTravelViewModelDelegate {
         travelDataSource?.apply(snapshot, animatingDifferences: true)
     }
     
-    func applyPlaceholdLabel() {
-        print(#function)
+    func travelPlaceholderShouldChange() {
+        
         guard let viewModel = viewModel else {
             return
         }

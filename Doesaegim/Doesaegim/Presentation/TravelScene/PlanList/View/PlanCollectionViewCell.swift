@@ -17,7 +17,7 @@ final class PlanCollectionViewCell: UICollectionViewCell {
 
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = label.font.withSize(FontSize.body)
+        label.changeFontSize(to: FontSize.body)
         label.numberOfLines = .zero
         label.lineBreakMode = .byWordWrapping
 
@@ -26,7 +26,7 @@ final class PlanCollectionViewCell: UICollectionViewCell {
 
     private let timeLabel: UILabel = {
         let label = UILabel()
-        label.font = label.font.withSize(FontSize.caption)
+        label.changeFontSize(to: FontSize.caption)
         label.textColor = .grey2
         label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 
@@ -35,7 +35,7 @@ final class PlanCollectionViewCell: UICollectionViewCell {
 
     private let locationLabel: UILabel = {
         let label = UILabel()
-        label.font = label.font.withSize(FontSize.caption)
+        label.changeFontSize(to: FontSize.caption)
         label.numberOfLines = .zero
         label.lineBreakMode = .byWordWrapping
         label.textColor = .grey2
@@ -45,7 +45,7 @@ final class PlanCollectionViewCell: UICollectionViewCell {
 
     private let contentLabel: UILabel = {
         let label = UILabel()
-        label.font = label.font.withSize(FontSize.caption)
+        label.changeFontSize(to: FontSize.caption)
         label.numberOfLines = .zero
         label.lineBreakMode = .byWordWrapping
         label.textColor = .grey2
@@ -56,7 +56,6 @@ final class PlanCollectionViewCell: UICollectionViewCell {
     /// 체크박스와 모든 레이블을 담고 있는 최상위 스택 뷰
     private let contentStack: UIStackView = {
         let view = UIStackView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.spacing = Metric.contentStackSpacing
 
         return view
@@ -84,6 +83,18 @@ final class PlanCollectionViewCell: UICollectionViewCell {
     var viewModel: PlanViewModel? {
         didSet {
             render()
+            viewModel?.checkBoxToggleHandler = { [weak self] in self?.render() }
+        }
+    }
+
+    var checkBoxAction: UIAction? {
+        didSet {
+            guard let action = checkBoxAction
+            else {
+                return
+            }
+
+            checkBox.addAction(action, for: .touchUpInside)
         }
     }
 
@@ -108,14 +119,20 @@ final class PlanCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
-        render()
+        viewModel = nil
+        guard let action = checkBoxAction
+        else {
+            return
+        }
+
+        checkBox.removeAction(action, for: .touchUpInside)
     }
 
 
     // MARK: - Rendering Functions
 
     /// 뷰모델로부터 데이터를 받아와 그림, 뷰모델이 없는 경우 전부 nil로 초기화
-    func render() {
+    private func render() {
         checkBox.isChecked = viewModel?.isComplete == true
         nameLabel.text = viewModel?.name
         timeLabel.text = viewModel?.timeString
@@ -139,7 +156,7 @@ final class PlanCollectionViewCell: UICollectionViewCell {
     }
 
     private func configureConstraints() {
-        contentStack.snp.makeConstraints { $0.edges.equalToSuperview() }
+        contentStack.snp.makeConstraints { $0.edges.equalToSuperview().inset(Metric.inset) }
     }
 }
 
@@ -153,7 +170,7 @@ fileprivate extension PlanCollectionViewCell {
 
         static let contentStackSpacing: CGFloat = 8
 
-        static let horizontalInset: CGFloat = 20
+        static let inset: CGFloat = 10
 
         static let checkBoxWidth: CGFloat = 30
     }
