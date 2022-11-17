@@ -17,9 +17,9 @@ struct PlanLocalRepository: PlanRepository {
 
     // MARK: - CRUD Functions
 
-    func fetchPlans(ofTravelID id: UUID) throws -> [Plan] {
+    func fetchPlans(ofTravelID id: UUID, batchSize: Int) throws -> [Plan] {
         let request = Plan.fetchRequest(travelID: id)
-
+        request.fetchBatchSize = batchSize
         // TODO: 코어데이터 메서드 바꾸자고 하기(에러 던지는 방식으로)
         return persistentManager.fetch(request: request)
     }
