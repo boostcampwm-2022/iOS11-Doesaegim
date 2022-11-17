@@ -46,7 +46,7 @@ final class ExpenseTravelListCell: UICollectionViewListCell {
     private func configureConstraint() {
         priceLabel.snp.makeConstraints {
             $0.centerY.equalTo(self.snp.centerY)
-            $0.trailing.equalTo(self.snp.trailing).offset(-6)
+            $0.trailing.equalTo(self.snp.trailing).offset(-12)
         }
     }
     

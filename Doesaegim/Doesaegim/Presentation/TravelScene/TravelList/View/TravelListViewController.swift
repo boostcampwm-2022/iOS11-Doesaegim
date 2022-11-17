@@ -35,7 +35,7 @@ final class TravelListViewController: UIViewController {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
-        collectionView.layer.cornerRadius = 7
+        collectionView.layer.cornerRadius = 12
         return collectionView
         
     }()

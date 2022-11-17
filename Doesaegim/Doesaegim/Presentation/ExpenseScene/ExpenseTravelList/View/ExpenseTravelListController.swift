@@ -29,7 +29,7 @@ final class ExpenseTravelListController: UIViewController {
         let layout = collectionViewListLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
-        collectionView.layer.cornerRadius = 7
+        collectionView.layer.cornerRadius = 12
         
         return collectionView
     }()
@@ -78,8 +78,15 @@ final class ExpenseTravelListController: UIViewController {
         }
         
         collectionView.snp.makeConstraints {
-            $0.horizontalEdges.equalToSuperview().inset(16)
-            $0.verticalEdges.equalToSuperview().inset(0)
+//            $0.horizontalEdges.equalToSuperview().inset(16)
+//            $0.verticalEdges.equalToSuperview().inset(0)
+            
+            // TODO: - 위의 방법으로 constraint를 지정했더니 corenrradius가 적용되지 않습니다.
+            
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.equalTo(view.snp.leading).offset(16)
+            $0.trailing.equalTo(view.snp.trailing).offset(-16)
         }
     }
     

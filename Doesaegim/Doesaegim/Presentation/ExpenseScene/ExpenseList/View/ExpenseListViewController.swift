@@ -21,8 +21,8 @@ class ExpenseListViewController: UIViewController {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         // TODO: - cornerRadius 적용되지 않는 것 고민
-        collectionView.backgroundColor = .blue
-        collectionView.layer.cornerRadius = 7
+        collectionView.backgroundColor = .white
+        collectionView.layer.cornerRadius = 12
         return collectionView
     }()
     
@@ -53,7 +53,7 @@ class ExpenseListViewController: UIViewController {
     
     private func configureConstraints() {
         expenseCollectionView.snp.makeConstraints {
-            $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
+            $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
             $0.verticalEdges.equalTo(view.safeAreaLayoutGuide)
         }
         
@@ -62,7 +62,7 @@ class ExpenseListViewController: UIViewController {
             $0.centerX.equalTo(view.snp.centerX)
             $0.centerY.equalTo(view.snp.centerY)
             $0.width.equalTo(view.bounds.width - 100)
-            $0.height.equalTo(60)
+            $0.height.equalTo(50)
         }
     }
     
