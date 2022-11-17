@@ -207,14 +207,14 @@ extension TravelListViewController: UICollectionViewDelegate {
         }
 
         // MARK: - 일정 있었으면 좋겠는 화면만
-        (1...20).forEach {
+//        (1...20).forEach {
 //            try? Plan.addAndSave(with: PlanDTO(
 //                name: "일정",
 //                date: $0 < 10 ? Date() : Date().addingTimeInterval(-60 * 60 * 30),
 //                content: "내용",
 //                travel: travel)
 //            )
-        }
+//        }
         let viewModel = PlanListViewModel(travel: travel, repository: PlanLocalRepository())
         let planListViewController = PlanListViewController(viewModel: viewModel)
         show(planListViewController, sender: self)
