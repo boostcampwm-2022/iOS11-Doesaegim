@@ -9,9 +9,19 @@ import UIKit
 
 final class ExpenseListViewController: UIViewController {
 
+    private typealias DataSource = UICollectionViewDiffableDataSource<String, ExpenseInfoViewModel>
+    private typealias SnapShot = NSDiffableDataSourceSnapshot<String, ExpenseInfoViewModel>
+    private typealias CellRegistration
+        = UICollectionView.CellRegistration<ExpenseListCell, ExpenseInfoViewModel>
+//    private typealias HeaderRegistration
+//    = UICollectionView.SupplementaryRegistration<
+    
+    
     // MARK: - Properties
     
     let placeholdView: ExpensePlaceholdView = ExpensePlaceholdView()
+    
+    private var expenseDataSource: DataSource?
     
     let expenseCollectionView: UICollectionView = {
         var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
@@ -69,9 +79,68 @@ final class ExpenseListViewController: UIViewController {
             $0.width.equalTo(view.bounds.width - 100)
             $0.height.equalTo(50)
         }
+        
+        
+    }
+    
+    private func configureCollectionView() {
+        
+        // 셀 등록
+        expenseCollectionView.register(
+            ExpenseListCell.self,
+            forCellWithReuseIdentifier: ExpenseListCell.identifier
+        )
+        
+        // 섹션 헤더 등록
+        expenseCollectionView.register(
+            ExpenseSectionHeaderView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: ExpenseSectionHeaderView.identifier
+        )
+        
+        
     }
     
     // MARK: - Collection View
+    
+    private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
+        var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+        configuration.showsSeparators = true
+        configuration.headerMode = .supplementary
+        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
+        
+        return layout
+    }
+    
+    private func configureCollectionViewDataSource() {
+        let expenseCell = CellRegistration { cell, indexPath, restorationIdentifier in
+            cell.configureContent()
+            
+            // TODO: - 페이지네이션
+        }
+        
+        expenseDataSource = DataSource(
+            collectionView: expenseCollectionView,
+            cellProvider: { collectionView, indexPath, item in
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: expenseCell,
+                    for: indexPath,
+                    item: item
+                )
+            }
+        )
+        
+        expenseDataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
+            guard kind == UICollectionView.elementKindSectionHeader else { return nil }
+            let view = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: ExpenseSectionHeaderView.identifier,
+                for: indexPath
+            )
+            let section = self.expenseDataSource?.snapshot().sectionIdentifiers[indexPath.section]
+            return view
+        }
+    }
     
     
     // MARK: - Action

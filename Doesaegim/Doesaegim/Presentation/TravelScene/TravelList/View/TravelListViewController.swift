@@ -125,7 +125,8 @@ final class TravelListViewController: UIViewController {
         }
         
         travelDataSource = DataSource(
-            collectionView: planCollectionView, cellProvider: { collectionView, indexPath, item in
+            collectionView: planCollectionView,
+            cellProvider: { collectionView, indexPath, item in
                 return collectionView.dequeueConfiguredReusableCell(
                     using: travelCell,
                     for: indexPath,

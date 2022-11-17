@@ -11,9 +11,9 @@ import SnapKit
 
 final class ExpenseTravelListController: UIViewController {
 
-    typealias DataSource = UICollectionViewDiffableDataSource<String, TravelInfoViewModel>
-    typealias SnapShot = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>
-    typealias CellRegistration = UICollectionView.CellRegistration<ExpenseTravelListCell, TravelInfoViewModel>
+    private typealias DataSource = UICollectionViewDiffableDataSource<String, TravelInfoViewModel>
+    private typealias SnapShot = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>
+    private typealias CellRegistration = UICollectionView.CellRegistration<ExpenseTravelListCell, TravelInfoViewModel>
     
     // MARK: - Properties
     
@@ -26,7 +26,7 @@ final class ExpenseTravelListController: UIViewController {
     }()
     
     lazy var collectionView: UICollectionView = {
-        let layout = collectionViewListLayout()
+        let layout = createCollectionViewListLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
         collectionView.layer.cornerRadius = 12
@@ -34,11 +34,11 @@ final class ExpenseTravelListController: UIViewController {
         return collectionView
     }()
     
-    var travelDataSource: DataSource?
+    private var travelDataSource: DataSource?
     
     var selectedID: UUID?
     
-    var viewModel: ExpenseTravelViewModelProtocol? = ExpenseTravelViewModel()
+    private var viewModel: ExpenseTravelViewModelProtocol? = ExpenseTravelViewModel()
     
     // MARK: - Life Cycle
     
@@ -105,7 +105,7 @@ final class ExpenseTravelListController: UIViewController {
     
     // MARK: - Collection View
     
-    private func collectionViewListLayout() -> UICollectionViewCompositionalLayout {
+    private func createCollectionViewListLayout() -> UICollectionViewCompositionalLayout {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
         listConfiguration.showsSeparators = false
         listConfiguration.backgroundColor = .white

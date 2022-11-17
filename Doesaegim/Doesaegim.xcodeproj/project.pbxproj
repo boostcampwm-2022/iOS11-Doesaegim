@@ -56,6 +56,9 @@
 		BBD0D061291DE988007D0D82 /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D060291DE988007D0D82 /* DiaryViewController.swift */; };
 		BBD0D063291DE991007D0D82 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D062291DE991007D0D82 /* SettingViewController.swift */; };
 		BBD0D066291DED6A007D0D82 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D065291DED6A007D0D82 /* UIColor+.swift */; };
+		BBDB2E922926222100752924 /* ExpenseInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDB2E912926222100752924 /* ExpenseInfoViewModel.swift */; };
+		BBDB2E9429262BB300752924 /* ExpenseCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDB2E9329262BB300752924 /* ExpenseCollectionHeaderView.swift */; };
+		BBDB2E96292635FD00752924 /* ExpenseSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDB2E95292635FD00752924 /* ExpenseSectionHeaderView.swift */; };
 		BBE695D629227C8D0015FAD4 /* TravelInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE695D529227C8D0015FAD4 /* TravelInfoViewModel.swift */; };
 		BBE695D829228B560015FAD4 /* TravelListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE695D729228B560015FAD4 /* TravelListViewModel.swift */; };
 		BBE695DA29228C570015FAD4 /* TravelListViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE695D929228C570015FAD4 /* TravelListViewModelProtocol.swift */; };
@@ -146,6 +149,9 @@
 		BBD0D060291DE988007D0D82 /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
 		BBD0D062291DE991007D0D82 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		BBD0D065291DED6A007D0D82 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		BBDB2E912926222100752924 /* ExpenseInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseInfoViewModel.swift; sourceTree = "<group>"; };
+		BBDB2E9329262BB300752924 /* ExpenseCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCollectionHeaderView.swift; sourceTree = "<group>"; };
+		BBDB2E95292635FD00752924 /* ExpenseSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseSectionHeaderView.swift; sourceTree = "<group>"; };
 		BBE695D529227C8D0015FAD4 /* TravelInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelInfoViewModel.swift; sourceTree = "<group>"; };
 		BBE695D729228B560015FAD4 /* TravelListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListViewModel.swift; sourceTree = "<group>"; };
 		BBE695D929228C570015FAD4 /* TravelListViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListViewModelProtocol.swift; sourceTree = "<group>"; };
@@ -425,6 +431,7 @@
 			isa = PBXGroup;
 			children = (
 				BBE695D529227C8D0015FAD4 /* TravelInfoViewModel.swift */,
+				BBDB2E912926222100752924 /* ExpenseInfoViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -444,6 +451,8 @@
 				BBB31A3D2926007D00C9E3A9 /* ExpenseListViewController.swift */,
 				BB7D9A252926088A00BF2BD6 /* ExpensePlaceholdView.swift */,
 				BB7D9A2929261C0600BF2BD6 /* ExpenseListCell.swift */,
+				BBDB2E9329262BB300752924 /* ExpenseCollectionHeaderView.swift */,
+				BBDB2E95292635FD00752924 /* ExpenseSectionHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -797,6 +806,7 @@
 				B5C096C429238091007426B1 /* SearchingLocationViewModel.swift in Sources */,
 				A4CC04A429221EEE00BB678B /* Plan+CoreDataClass.swift in Sources */,
 				EE116C5E2924CB6B0017B519 /* TravelAddViewProtocol.swift in Sources */,
+				BBDB2E96292635FD00752924 /* ExpenseSectionHeaderView.swift in Sources */,
 				EE3E29BC2923C870007C7FC7 /* TravelAddViewController.swift in Sources */,
 				BBD0D063291DE991007D0D82 /* SettingViewController.swift in Sources */,
 				A4CC04D32923308600BB678B /* DateCollectionHeaderView.swift in Sources */,
@@ -805,6 +815,7 @@
 				A4CC04CD2922818900BB678B /* UIView+AddSubviews.swift in Sources */,
 				BBFAC091291CBDD700D7FD57 /* Doesaegim.xcdatamodeld in Sources */,
 				A4CC04D5292332C600BB678B /* UILabel+ChangeFontSize.swift in Sources */,
+				BBDB2E9429262BB300752924 /* ExpenseCollectionHeaderView.swift in Sources */,
 				BBB31A372925F5E400C9E3A9 /* TravelListCell.swift in Sources */,
 				A4CC04C62922799600BB678B /* CheckBox.swift in Sources */,
 				A4CC04D1292324B000BB678B /* EmptyLabeledCollectionView.swift in Sources */,
@@ -823,6 +834,7 @@
 				A48E9948292515020029D57D /* UIViewController+PresentAlert.swift in Sources */,
 				A4CC04E02923738500BB678B /* PlanLocalRepository.swift in Sources */,
 				B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */,
+				BBDB2E922926222100752924 /* ExpenseInfoViewModel.swift in Sources */,
 				BBE695D629227C8D0015FAD4 /* TravelInfoViewModel.swift in Sources */,
 				A4CC04A829221EEE00BB678B /* Expense+CoreDataClass.swift in Sources */,
 				A4CC04E22923777B00BB678B /* NSObject+Name.swift in Sources */,
