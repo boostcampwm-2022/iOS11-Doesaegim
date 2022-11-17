@@ -45,7 +45,25 @@ final class TravelListViewModel: TravelListViewModelProtocol {
         
         if !deleteTravel.isEmpty {
             PersistentManager.shared.delete(deleteTravel.last!)
-            fetchTravelInfo()
+//            fetchTravelInfo()
+            reloadTravelInfo()
         }
+    }
+    
+    func reloadTravelInfo() {
+        
+        let number = travelInfos.count
+        travelInfos = []
+        let travels = PersistentManager.shared.fetch(request: Travel.fetchRequest(), offset: 0, limit: number)
+//        let travels = PersistentManager.shared.fetch(request: Travel.fetchRequest())
+        var newTravelInfos: [TravelInfoViewModel] = []
+        
+        // TODO: - Travel 익스텐션으로
+        for travel in travels {
+            guard let travelInfo = Travel.convertToViewModel(with: travel) else { continue }
+            newTravelInfos.append(travelInfo)
+        }
+        
+        travelInfos = newTravelInfos
     }
 }
