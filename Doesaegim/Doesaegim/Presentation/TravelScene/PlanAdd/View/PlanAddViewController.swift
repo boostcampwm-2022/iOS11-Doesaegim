@@ -50,7 +50,7 @@ final class PlanAddViewController: UIViewController {
     private lazy var planTitleTextField: UITextField = {
         let textField = UITextField()
         
-        textField.placeholder = "일정의 이름을 입력해주세요."
+        textField.placeholder = StringLiteral.planTextFieldPlaceHolder
         textField.layer.cornerRadius = 10
         textField.backgroundColor = .grey1
         textField.textColor = .black
@@ -132,6 +132,40 @@ final class PlanAddViewController: UIViewController {
         return button
     }()
     
+    private lazy var descriptionTitleLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "설명"
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.textAlignment = .left
+        return label
+    }()
+    
+    private lazy var descriptionTextView: UITextView = {
+        let textView = UITextView()
+        
+        textView.layer.cornerRadius = 10
+        textView.text = StringLiteral.descriptionTextViewPlaceHolder
+        textView.textColor = .grey3
+        textView.font = .systemFont(ofSize: 14, weight: .regular)
+        textView.backgroundColor = .grey1
+        textView.contentInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        textView.delegate = self
+        return textView
+    }()
+    
+    private lazy var addButton: UIButton = {
+        let button = UIButton()
+
+        button.setTitle("여행 추가", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .grey3
+        button.isEnabled = false
+        button.layer.cornerRadius = 10
+        return button
+    }()
+    
     // MARK: - Properties
     
     // MARK: - Lifecycles
@@ -151,13 +185,17 @@ final class PlanAddViewController: UIViewController {
     private func configureViews() {
         configureSubviews()
         configureConstraint()
+        setKeyboardNotification()
         navigationItem.title = "일정 추가"
     }
     
     private func configureSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubviews(planTitleStackView, placeTitleStackView, dateStackView)
+        contentView.addSubviews(
+            planTitleStackView, placeTitleStackView, dateStackView,
+            descriptionTitleLabel, descriptionTextView, addButton
+        )
         planTitleStackView.addArrangedSubviews(planTitleLabel, planTitleTextField)
         placeTitleStackView.addArrangedSubviews(placeTitleLabel, placeSearchButton)
         dateStackView.addArrangedSubviews(dateTitleLabel, dateInputButton)
@@ -171,8 +209,6 @@ final class PlanAddViewController: UIViewController {
         contentView.snp.makeConstraints {
             $0.edges.equalTo(scrollView.contentLayoutGuide)
             $0.width.equalTo(scrollView.frameLayoutGuide)
-            // TODO: 레이아웃 다 그리고 변경
-            $0.height.equalTo(1500)
         }
         
         planTitleStackView.snp.makeConstraints {
@@ -202,6 +238,23 @@ final class PlanAddViewController: UIViewController {
             $0.height.equalTo(36)
         }
         
+        descriptionTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(dateStackView.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview().inset(16)
+        }
+        
+        descriptionTextView.snp.makeConstraints {
+            $0.top.equalTo(descriptionTitleLabel.snp.bottom).offset(12)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(200)
+        }
+        
+        addButton.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().offset(-30)
+            $0.top.equalTo(descriptionTextView.snp.bottom).offset(40)
+            $0.height.equalTo(48)
+        }
     }
     
 }
@@ -267,9 +320,38 @@ extension PlanAddViewController: UITextFieldDelegate {
     }
 }
 
+// MARK: - TextView Delegate
+
+extension PlanAddViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == StringLiteral.descriptionTextViewPlaceHolder {
+            textView.text = nil
+            textView.textColor = .black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            textView.text = StringLiteral.descriptionTextViewPlaceHolder
+            textView.textColor = .grey3
+        }
+    }
+}
+
+
 // MARK: - Calendar Delegate
+
 extension PlanAddViewController: CalendarViewDelegate {
     func fetchDate(dateString: String) {
         dateInputButton.setTitle(dateString, for: .normal)
+    }
+}
+
+// MARK: - Namespaces
+
+extension PlanAddViewController {
+    enum StringLiteral {
+        static let planTextFieldPlaceHolder = "일정의 이름을 입력해주세요."
+        static let descriptionTextViewPlaceHolder = "설명을 입력해주세요."
     }
 }
