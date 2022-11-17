@@ -9,4 +9,53 @@ import UIKit
 
 final class ExpenseListCell: UICollectionViewListCell {
     
+    // MARK: - Properties
+    
+    let priceLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .systemRed
+        label.font = label.font.withSize(12)
+        
+        return label
+
+    }()
+    
+    // MARK: - Initializer
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configure()
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    // MARK: - Configuration
+    
+    private func configure() {
+        configureSubviews()
+        configureConstraints()
+    }
+    
+    private func configureSubviews() {
+        addSubview(priceLabel)
+    }
+    
+    private func configureConstraints() {
+        priceLabel.snp.makeConstraints {
+            $0.centerY.equalTo(self.snp.centerY)
+            $0.trailing.equalTo(self.snp.trailing).offset(-12)
+        }
+    }
+    
+    func configureContent() {
+        
+    }
+    
+//    private func createContentConfiguration() -> UIContentConfiguration {
+//
+//    }
+    
 }
