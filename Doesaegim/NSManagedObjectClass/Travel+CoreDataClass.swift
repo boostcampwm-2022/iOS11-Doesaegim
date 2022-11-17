@@ -27,4 +27,21 @@ public class Travel: NSManagedObject {
         
         return travel
     }
+    
+    static func convertToViewModel(with travel: Travel) -> TravelInfoViewModel? {
+        
+        guard let id = travel.id,
+              let title = travel.name,
+              let startDate = travel.startDate,
+              let endDate = travel.endDate else { return nil }
+        
+        let travelInfo = TravelInfoViewModel(
+            uuid: id,
+            title: title,
+            startDate: startDate,
+            endDate: endDate
+        )
+        
+        return travelInfo
+    }
 }

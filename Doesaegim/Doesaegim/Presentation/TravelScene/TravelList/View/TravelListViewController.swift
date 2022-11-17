@@ -15,6 +15,7 @@ final class TravelListViewController: UIViewController {
 
     private typealias DataSource = UICollectionViewDiffableDataSource<String, TravelInfoViewModel>
     private typealias SnapShot = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>
+    private typealias CellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, TravelInfoViewModel>
     
     // MARK: - Properties
     
@@ -41,7 +42,7 @@ final class TravelListViewController: UIViewController {
     
     private var travelDataSource: DataSource?
     
-    private var viewModel: TravelListControllerProtocol? = TravelListViewModel()
+    private var viewModel: TravelListViewModelProtocol? = TravelListViewModel()
     
     // MARK: - Life Cycle
     
@@ -49,6 +50,7 @@ final class TravelListViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        planCollectionView.delegate = self
         viewModel?.delegate = self
         
         configureSubviews()
@@ -58,13 +60,17 @@ final class TravelListViewController: UIViewController {
         
         // TODO: - 임시 데이터 저장, 추후 삭제
         do {
-//            try Travel.addAndSave(with: TravelDTO(name: "일본여행", startDate: Date(), endDate: Date()))
-//            try Travel.addAndSave(with: TravelDTO(name: "프랑스여행", startDate: Date(), endDate: Date()))
-//            try Travel.addAndSave(with: TravelDTO(name: "필리핀여행", startDate: Date(), endDate: Date()))
-//            try Travel.addAndSave(with: TravelDTO(name: "하와이여행", startDate: Date(), endDate: Date()))
+//            for index in 1...100 {
+//                try Travel.addAndSave(with: TravelDTO(name: "\(index)번째 여행!", startDate: Date(), endDate: Date()))
+//            }
         } catch {
             print(error.localizedDescription)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel?.fetchTravelInfo()
     }
     
     // MARK: - Configure
@@ -104,22 +110,41 @@ final class TravelListViewController: UIViewController {
     
     // MARK: - Configure CollectionView
     
-    private func configureCollectionView() {
-        
-        // 셀 등록
-        planCollectionView.register(
-            TravelCollectionViewCell.self,
-            forCellWithReuseIdentifier: TravelCollectionViewCell.identifier
-        )
-    }
-    
     private func configureCollectionViewDataSource() {
-        let travelCell = UICollectionView.CellRegistration<TravelCollectionViewCell, TravelInfoViewModel> {
-            (cell, indexPath, identifier) in
-            cell.configureLabel(with: identifier)
+        let travelCell = CellRegistration { cell, indexPath, identifier in
+//            cell.configureLabel(with: identifier)
+            var content = cell.defaultContentConfiguration()
+            content.image = UIImage(systemName: "airplane.departure")
+            content.imageProperties.tintColor = .primaryOrange
+            content.attributedText = NSAttributedString(
+                string: identifier.title,
+                attributes: [
+                    .font: UIFont.boldSystemFont(ofSize: 20),
+                    .foregroundColor: UIColor.black!
+                ]
+            )
+            content.secondaryAttributedText = NSAttributedString(
+                string: Date.convertTravelString(
+                    start: identifier.startDate,
+                    end: identifier.endDate
+                ),
+                attributes: [
+                    .font: UIFont.systemFont(ofSize: 14),
+                    .foregroundColor: UIColor.grey4!
+                ]
+            )
+            cell.contentConfiguration = content
+                        
+            if let viewModel = self.viewModel,
+               indexPath.row == viewModel.travelInfos.count - 3 {
+                DispatchQueue.main.async {
+                    viewModel.fetchTravelInfo()
+                }
+            }
+            
         }
         
-        travelDataSource = DataSource (
+        travelDataSource = DataSource(
             collectionView: planCollectionView, cellProvider: { collectionView, indexPath, item in
                 return collectionView.dequeueConfiguredReusableCell(
                     using: travelCell,
@@ -131,17 +156,15 @@ final class TravelListViewController: UIViewController {
     // MARK: - Actions
     
     @objc func didAddTravelButtonTap() {
-        print("여행 추가 버튼이 탭 되었습니다.")
-        // TODO - 임시로 여행목록 패치. 추후 제거
-        viewModel?.fetchTravelInfo()
-        print(viewModel?.travelInfos)
+        // 여행 추가 뷰컨트롤러 이동
+        navigationController?.pushViewController(TravelAddViewController(), animated: true)
     }
 }
 
 // MARK: - TravelListControllerDelegate
 
-extension TravelListViewController: TravelListControllerDelegate {
-    func applyTravelSnapshot() {
+extension TravelListViewController: TravelListViewModelDelegate {
+    func travelListSnapshotShouldChange() {
         // TODO: - ViewModel 작성 후 identifierItem 작성
         
         guard let viewModel = viewModel else {
@@ -153,10 +176,11 @@ extension TravelListViewController: TravelListControllerDelegate {
         
         snapshot.appendSections(["main section"])
         snapshot.appendItems(travelInfos)
-        travelDataSource?.apply(snapshot, animatingDifferences: true)
+        self.travelDataSource?.apply(snapshot, animatingDifferences: true)
+        
     }
     
-    func applyPlaceholdLabel() {
+    func travelPlaceholderShouldChange() {
         
         guard let viewModel = viewModel else {
             return
@@ -168,6 +192,14 @@ extension TravelListViewController: TravelListControllerDelegate {
         } else {
             placeholdLabel.isHidden = true
         }
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension TravelListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // TODO: - 적당한 Plan으로 이동. 선택한 데이터의 UUID를 넘겨서 이동한 컨트롤러에서 데이터를 불러온다.
     }
 }
 
