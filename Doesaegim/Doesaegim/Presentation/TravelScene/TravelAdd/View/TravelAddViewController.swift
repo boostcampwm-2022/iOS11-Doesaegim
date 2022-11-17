@@ -313,8 +313,7 @@ extension TravelAddViewController {
     }
     
     @objc func addButtonTouchUpInside() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateFormatter = Date.yearMonthDayDateFormatter
         guard let name = travelTitleTextField.text,
               let startDateString = travelDateStartLabel.text,
               let startDate = dateFormatter.date(from: startDateString),
