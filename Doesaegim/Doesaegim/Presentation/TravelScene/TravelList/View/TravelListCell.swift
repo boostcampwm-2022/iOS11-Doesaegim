@@ -26,6 +26,11 @@ final class TravelListCell: UICollectionViewListCell {
     /// - Parameter identifier: 여행 정보를 가지고 있는 `TravelInfoViewModel` 인스턴스
     func configure(with identifier: TravelInfoViewModel) {
         
+        contentConfiguration = createContentConfiguration(of: identifier)
+    }
+    
+    private func createContentConfiguration(of identifier: TravelInfoViewModel) -> UIListContentConfiguration {
+        
         var configuration = defaultContentConfiguration()
         configuration.image = UIImage(systemName: "airplane.departure")
         configuration.imageProperties.tintColor = .primaryOrange
@@ -46,7 +51,8 @@ final class TravelListCell: UICollectionViewListCell {
                 .foregroundColor: UIColor.grey4!
             ]
         )
-        contentConfiguration = configuration
+        
+        return configuration
     }
     
 }
