@@ -119,7 +119,7 @@ final class TravelListViewController: UIViewController {
             content.attributedText = NSAttributedString(
                 string: identifier.title,
                 attributes: [
-                    .font: UIFont.boldSystemFont(ofSize: 20),
+                    .font: UIFont.systemFont(ofSize: 18),
                     .foregroundColor: UIColor.black!
                 ]
             )
@@ -129,7 +129,7 @@ final class TravelListViewController: UIViewController {
                     end: identifier.endDate
                 ),
                 attributes: [
-                    .font: UIFont.systemFont(ofSize: 14),
+                    .font: UIFont.systemFont(ofSize: 12),
                     .foregroundColor: UIColor.grey4!
                 ]
             )
