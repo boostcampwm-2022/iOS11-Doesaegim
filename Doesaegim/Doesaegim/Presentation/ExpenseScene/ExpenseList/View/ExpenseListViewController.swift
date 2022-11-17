@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ExpenseListViewController: UIViewController {
+final class ExpenseListViewController: UIViewController {
 
     // MARK: - Properties
     
@@ -36,7 +36,6 @@ class ExpenseListViewController: UIViewController {
         configureNavigationBar()
         configureSubviews()
         configureConstraints()
-
     }
     
     // MARK: - Configuration
@@ -44,6 +43,12 @@ class ExpenseListViewController: UIViewController {
     private func configureNavigationBar() {
         // TODO: - 여행 이름도 네비게이션 타이틀에 포함하기 "(여행이름) - 지출내역"
         navigationItem.title = "지출 내역"
+        navigationController?.navigationBar.tintColor = .primaryOrange
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(didAddExpenseButtonTap)
+        )
     }
     
     private func configureSubviews() {
@@ -60,7 +65,7 @@ class ExpenseListViewController: UIViewController {
         placeholdView.snp.makeConstraints {
             // TODO: - 뷰의 위치 추후 다시 설정
             $0.centerX.equalTo(view.snp.centerX)
-            $0.centerY.equalTo(view.snp.centerY)
+            $0.centerY.equalTo(view.snp.centerY).multipliedBy(1.3)
             $0.width.equalTo(view.bounds.width - 100)
             $0.height.equalTo(50)
         }
@@ -68,4 +73,11 @@ class ExpenseListViewController: UIViewController {
     
     // MARK: - Collection View
     
+    
+    // MARK: - Action
+    
+    @objc func didAddExpenseButtonTap() {
+        // TODO: - 지출 추가 화면으로 이동
+        print("지출 추가버튼이 탭 되었습니다.")
+    }
 }
