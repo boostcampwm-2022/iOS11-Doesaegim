@@ -67,7 +67,7 @@ final class CalendarViewController: UIViewController, CalendarProtocol {
     weak var delegate: CalendarViewDelegate?
     private var date: String?
     private let touchOption: CustomCalendar.TouchOption
-    private let dateFormatter = DateFormatter()
+    private let dateFormatter = Date.timeDateFormatter
     
     // MARK: - Lifecycles
     
@@ -85,7 +85,6 @@ final class CalendarViewController: UIViewController, CalendarProtocol {
         view.backgroundColor = .clear
         completeButton.addTarget(self, action: #selector(completeButtonTouchUpInside), for: .touchUpInside)
         configureViews()
-        setDateFormatter()
     }
     
     // MARK: - Configure Functions
@@ -121,12 +120,6 @@ final class CalendarViewController: UIViewController, CalendarProtocol {
             $0.top.equalTo(calendarView.snp.bottom).offset(16)
             $0.leading.equalToSuperview().offset(16)
         }
-    }
-    
-    // MARK: - Helper
-    private func setDateFormatter() {
-        dateFormatter.locale = Locale(identifier: "ko_KR")
-        dateFormatter.dateFormat = "a hh:mm"
     }
 }
 

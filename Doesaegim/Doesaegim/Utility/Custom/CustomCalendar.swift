@@ -155,7 +155,7 @@ final class CustomCalendar: UICollectionView {
     private func configureCalendar() {
         dateComponents.year = calendar.component(.year, from: today)
         dateComponents.month = calendar.component(.month, from: today)
-        dateFormmater.dateFormat = "yyyy년 MM월"
+        dateFormmater = Date.yearMonthDayDateFormatter
         setupCalendar()
         configureSnapshot()
     }
@@ -210,7 +210,7 @@ extension CustomCalendar: UICollectionViewDelegate {
         
         let currentMonth = String(format: "%02d", month)
         let currentDay = String(format: "%02d", indexPath.row - startDay + 1)
-        let date = "\(currentYear)-\(currentMonth)-\(currentDay)"
+        let date = "\(currentYear)년 \(currentMonth)월 \(currentDay)일"
         days[indexPath.row].isSelected.toggle()
         selectedCount += 1
         
