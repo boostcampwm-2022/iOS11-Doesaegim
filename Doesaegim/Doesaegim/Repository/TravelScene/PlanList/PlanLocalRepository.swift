@@ -27,4 +27,9 @@ struct PlanLocalRepository: PlanRepository {
     func save() throws {
         try persistentManager.saveContext()
     }
+
+    func deletePlan(_ plan: Plan) throws {
+        // TODO: 코어데이터 메서드 바꾸자고 하기(에러 던지는 방식으로)
+        persistentManager.delete(plan)
+    }
 }

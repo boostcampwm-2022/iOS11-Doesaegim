@@ -13,7 +13,11 @@ final class PlanListViewModel {
 
     let navigationTitle: String?
 
-    var viewModelDidChange: ((Bool) -> Void)?
+    /// 일정 데이터를 성공적으로 받아왔을 때 호출하는 클로저
+    var planFetchHandler: ((Bool) -> Void)?
+
+    /// 일정을 성공적으로 삭제했을 때 호출하는 클로저
+    var planDeleteHandler: ((UUID) -> Void)?
 
     private(set) var planViewModels = [[PlanViewModel]]()
 
@@ -39,6 +43,7 @@ final class PlanListViewModel {
         return sectionDateFormatter.string(from: date)
     }
 
+    
     // MARK: - Init(s)
 
     init(travel: Travel, repository: PlanRepository) {
@@ -66,10 +71,13 @@ final class PlanListViewModel {
         return item.id == id ? item : nil
     }
 
+
+    // MARK: - Plan Fetching Functions
+
     func fetch() throws {
         let plans = try repository.fetchPlans(ofTravel: travel)
         convertPlansToPlanViewModelsAndAppend(plans)
-        viewModelDidChange?(planViewModels.isEmpty)
+        planFetchHandler?(planViewModels.isEmpty)
     }
 
     private func convertPlansToPlanViewModelsAndAppend(_ plans: [Plan]) {
@@ -88,6 +96,26 @@ final class PlanListViewModel {
                 planViewModels.append([viewModel])
             }
         }
+    }
+
+
+    // MARK: - Plan Deleting Functions
+
+    func deletePlan(at indexPath: IndexPath) throws {
+        let section = indexPath.section
+        let index = indexPath.row
+
+        guard section < planViewModels.count,
+              index < planViewModels[section].count
+        else { return }
+
+        let planViewModel = planViewModels[section][index]
+        try repository.deletePlan(planViewModel.plan)
+        planViewModels[section].remove(at: index)
+        if planViewModels[section].isEmpty {
+            planViewModels.remove(at: section)
+        }
+        planDeleteHandler?(planViewModel.id)
     }
 }
 
