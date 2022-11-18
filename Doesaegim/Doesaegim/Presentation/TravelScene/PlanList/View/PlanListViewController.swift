@@ -10,7 +10,7 @@ import UIKit
 /// 일정을 조회, 추가, 삭제할 수 있는 뷰 컨트롤러
 final class PlanListViewController: UIViewController {
     typealias DataSource =  UICollectionViewDiffableDataSource<Section, ItemID>
-    typealias Section = Int
+    typealias Section = String
     typealias ItemID = UUID
 
     // MARK: - UI Properties
@@ -27,6 +27,10 @@ final class PlanListViewController: UIViewController {
 
     private let viewModel: PlanListViewModel
 
+    private var sectionIdentifiers: [Section] {
+        dataSource.snapshot().sectionIdentifiers
+    }
+
 
     // MARK: - Init(s)
 
@@ -41,6 +45,7 @@ final class PlanListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    
     // MARK: - Life Cycle
 
     override func loadView() {
@@ -51,6 +56,7 @@ final class PlanListViewController: UIViewController {
         super.viewDidLoad()
 
         configureNavigationBar()
+        configureCollectionView()
         bindToViewModel()
         fetchPlans()
     }
@@ -60,6 +66,7 @@ final class PlanListViewController: UIViewController {
 
     private func configureNavigationBar() {
         navigationItem.title = viewModel.navigationTitle
+        setRightBarAddButton(showing: PlanAddViewController())
     }
 
 
@@ -74,7 +81,11 @@ final class PlanListViewController: UIViewController {
                 title: StringLiteral.deleteActionTitle
             ) { _, _, _ in
                 do {
-                    try self.viewModel.deletePlan(at: indexPath)
+                    guard let id = self.dataSource.itemIdentifier(for: indexPath)
+                    else { return }
+
+                    let section = self.sectionIdentifiers[indexPath.section]
+                    try self.viewModel.deletePlan(in: section, id: id)
                 } catch let error {
                     self.presentErrorAlert(
                         title: CoreDataError.deleteFailure.localizedDescription,
@@ -93,7 +104,8 @@ final class PlanListViewController: UIViewController {
 
         let cellRegistration = UICollectionView
             .CellRegistration<PlanCollectionViewCell, ItemID> { cell, indexPath, identifier in
-                let viewModel = self.viewModel.item(at: indexPath, withID: identifier)
+                let section = self.sectionIdentifiers[indexPath.section]
+                let viewModel = self.viewModel.item(in: section, id: identifier)
                 cell.viewModel = viewModel
                 cell.checkBoxAction = UIAction { _ in
                     do {
@@ -122,7 +134,7 @@ final class PlanListViewController: UIViewController {
         let headerRegistration = UICollectionView.SupplementaryRegistration<DateCollectionHeaderView>(
             elementKind: StringLiteral.sectionHeaderElementKind
         ) { supplementaryView, _, indexPath in
-            supplementaryView.dateString = self.viewModel.title(forSection: indexPath.section)
+            supplementaryView.dateString = self.sectionIdentifiers[indexPath.section]
         }
 
         dataSource.supplementaryViewProvider = { collectionView, _, indexPath in
@@ -135,25 +147,23 @@ final class PlanListViewController: UIViewController {
         return dataSource
     }
 
-    private func applySnapshot() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, ItemID>()
+    /// 새롭게 추가된 데이터만을 반영해서 스냅샷을 갱신
+    private func applySnapshot(usingData data: [(Section, ItemID)]) {
+        var snapshot = self.dataSource.snapshot()
 
-        viewModel.planViewModels.enumerated().forEach { section, items in
-            let itemIdentifiers = items.map { $0.id }
-            guard !itemIdentifiers.isEmpty
-            else {
-                return
+        data.forEach { section, itemID in
+            if !snapshot.sectionIdentifiers.contains(section) {
+                snapshot.appendSections([section])
             }
 
-            snapshot.appendSections([section])
-            snapshot.appendItems(itemIdentifiers, toSection: section)
+            snapshot.appendItems([itemID], toSection: section)
         }
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 
     private func fetchPlans() {
         do {
-            try viewModel.fetch()
+            try viewModel.fetchPlans()
         } catch let error {
             self.presentErrorAlert(
                 title: CoreDataError.fetchFailure.localizedDescription,
@@ -162,18 +172,28 @@ final class PlanListViewController: UIViewController {
         }
     }
 
+    private func configureCollectionView() {
+        collectionView.delegate = self
+    }
+
 
     // MARK: - ViewModel Configuration Functions
 
     private func bindToViewModel() {
-        viewModel.planFetchHandler = { [weak self] isEmpty in
-            self?.applySnapshot()
-            self?.collectionView.isEmpty = isEmpty
+        viewModel.planFetchHandler = { [weak self] in
+            self?.applySnapshot(usingData: $0)
+            self?.collectionView.isEmpty = self?.viewModel.planViewModels.isEmpty == true
         }
+
         viewModel.planDeleteHandler = { [weak self] in
             guard var snapshot = self?.dataSource.snapshot()
             else { return }
 
+            /// 섹션이 빈 경우 섹션도 삭제
+            if let section = snapshot.sectionIdentifier(containingItem: $0),
+               self?.viewModel.planViewModels[section] == nil {
+                snapshot.deleteSections([section])
+            }
             snapshot.deleteItems([$0])
             self?.dataSource.apply(snapshot, animatingDifferences: true)
             self?.collectionView.isEmpty = self?.viewModel.planViewModels.isEmpty == true
@@ -192,5 +212,17 @@ fileprivate extension PlanListViewController {
         static let sectionHeaderElementKind = "UICollectionElementKindSectionHeader"
 
         static let deleteActionTitle = "일정 삭제"
+    }
+}
+
+
+// MARK: - UICollectionViewDelegate 
+extension PlanListViewController: UICollectionViewDelegate {
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView.didPassPoint()
+        else { return }
+
+        viewModel.userDidScrollToEnd()
     }
 }

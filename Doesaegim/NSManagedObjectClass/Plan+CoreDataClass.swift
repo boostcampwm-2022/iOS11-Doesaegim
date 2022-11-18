@@ -45,11 +45,10 @@ public class Plan: NSManagedObject {
 
     /// 특정 Travel 엔티티의 모든 Plan을 호출하는 리퀘스트로 순서를 지정하지 않으면 (오래된) 날짜 순서로 정렬
     static func fetchRequest(
-        travel: Travel,
+        travelID: UUID,
         sortDescriptors: [NSSortDescriptor] = [.init(key: "date", ascending: false)]
     ) -> NSFetchRequest<Plan> {
-
-        let predicate = NSPredicate(format: "travel == %@", argumentArray: [travel])
+        let predicate = NSPredicate(format: "travel.id == %@", argumentArray: [travelID])
         return fetchRequest(predicate: predicate, sortDescriptors: sortDescriptors)
     }
 }
