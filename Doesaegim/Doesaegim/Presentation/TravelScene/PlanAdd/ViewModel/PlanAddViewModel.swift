@@ -21,6 +21,14 @@ final class PlanAddViewModel: PlanAddViewProtocol {
     var isValidPlace: Bool
     var isValidDate: Bool
     
+    var selectedLocation: LocationDTO? {
+        didSet {
+            guard let selectedLocation = selectedLocation
+            else { return }
+            delegate?.planAddViewDidSelectLocation(locationName: selectedLocation.name)
+        }
+    }
+    
     // MARK: - Lifecycles
     
     init() {
@@ -45,8 +53,14 @@ final class PlanAddViewModel: PlanAddViewProtocol {
         isValidName = true
     }
     
-    func isValidPlace(place: String?) {
-        //
+    func isValidPlace(place: LocationDTO?) {
+        guard let place = place else {
+            isValidPlace = false
+            return
+        }
+        
+        selectedLocation = place
+        isValidPlace = true
     }
     
     func isValidDate(date: Date?) {

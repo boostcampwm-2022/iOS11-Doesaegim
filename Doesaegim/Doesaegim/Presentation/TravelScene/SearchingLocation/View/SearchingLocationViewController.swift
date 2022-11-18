@@ -24,6 +24,8 @@ final class SearchingLocationViewController: UIViewController {
     
     private let viewModel = SearchingLocationViewModel()
     
+    weak var delegate: SearchingLocationViewControllerDelegate?
+    
     // MARK: - Life Cycles
     
     override func loadView() {
@@ -139,7 +141,14 @@ extension SearchingLocationViewController: UISearchBarDelegate {
 
 extension SearchingLocationViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: 선택된 셀의 장소 데이터를 가지고 이전 화면으로 돌아가기 구현 필요
+        let selectedItem = viewModel.searchResultCellViewModels[indexPath.row]
+        let selectedLocation = LocationDTO(
+            name: selectedItem.name,
+            latitude: selectedItem.latitude,
+            longitude: selectedItem.longitude
+        )
+        delegate?.searchingLocationViewController(didSelect: selectedLocation)
+        
         navigationController?.popViewController(animated: true)
     }
 }

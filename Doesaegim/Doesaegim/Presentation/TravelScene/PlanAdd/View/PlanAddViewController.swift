@@ -338,6 +338,7 @@ extension PlanAddViewController {
     
     @objc func placeButtonTouchUpInside() {
         let searchingLocationViewController = SearchingLocationViewController()
+        searchingLocationViewController.delegate = self
         navigationController?.pushViewController(searchingLocationViewController, animated: true)
     }
 }
@@ -376,8 +377,19 @@ extension PlanAddViewController: PlanAddViewDelegate {
         addButton.isEnabled = isValid
         addButton.backgroundColor = isValid ? .primaryOrange : .grey3
     }
+    
+    func planAddViewDidSelectLocation(locationName: String) {
+        placeSearchButton.setTitle(locationName, for: .normal)
+    }
 }
 
+// MARK: - SearchingLocationViewControllerDelegate
+
+extension PlanAddViewController: SearchingLocationViewControllerDelegate {
+    func searchingLocationViewController(didSelect location: LocationDTO) {
+        viewModel.isValidPlace(place: location)
+    }
+}
 
 // MARK: - Calendar Delegate
 
