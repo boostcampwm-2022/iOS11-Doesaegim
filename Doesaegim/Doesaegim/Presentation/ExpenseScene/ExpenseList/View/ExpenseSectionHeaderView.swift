@@ -31,6 +31,7 @@ final class ExpenseSectionHeaderView: UICollectionReusableView {
     }
     
     private func configure() {
+        backgroundColor = .red
         configureSubviews()
         configureConstraints()
     }

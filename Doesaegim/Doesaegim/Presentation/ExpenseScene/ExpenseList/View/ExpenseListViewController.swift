@@ -110,7 +110,7 @@ final class ExpenseListViewController: UIViewController {
     private func createLayoutConfiguration() ->  UICollectionViewCompositionalLayoutConfiguration {
         let globalHeaderSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(100)
+            heightDimension: .absolute(200)
         )
         let sectionHeaderSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
