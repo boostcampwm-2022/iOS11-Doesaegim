@@ -112,10 +112,10 @@ final class ExpenseListViewController: UIViewController {
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .absolute(200)
         )
-        let sectionHeaderSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(40)
-        )
+//        let sectionHeaderSize = NSCollectionLayoutSize(
+//            widthDimension: .fractionalWidth(1.0),
+//            heightDimension: .absolute(40)
+//        )
         
         let globalHeader = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: globalHeaderSize,
@@ -124,15 +124,15 @@ final class ExpenseListViewController: UIViewController {
         )
         globalHeader.pinToVisibleBounds = true
         
-        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: sectionHeaderSize,
-            elementKind: HeaderKind.sectionHeader,
-            alignment: .top
-        )
+//        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+//            layoutSize: sectionHeaderSize,
+//            elementKind: HeaderKind.sectionHeader,
+//            alignment: .top
+//        )
         
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
         configuration.interSectionSpacing = 20
-        configuration.boundarySupplementaryItems = [globalHeader, sectionHeader]
+        configuration.boundarySupplementaryItems = [globalHeader]
         
         return configuration
     }
