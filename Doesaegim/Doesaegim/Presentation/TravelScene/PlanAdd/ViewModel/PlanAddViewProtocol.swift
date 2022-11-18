@@ -15,10 +15,11 @@ protocol PlanAddViewProtocol: AnyObject {
     var isValidDate: Bool { get set }
     
     func isValidPlanName(name: String?)
-    func isValidPlace(place: String?)
+    func isValidPlace(place: LocationDTO?)
     func isValidDate(date: Date?)
 }
 
 protocol PlanAddViewDelegate: AnyObject {
     func isVaildInputs(isValid: Bool)
+    func planAddViewDidSelectLocation(locationName: String)
 }
