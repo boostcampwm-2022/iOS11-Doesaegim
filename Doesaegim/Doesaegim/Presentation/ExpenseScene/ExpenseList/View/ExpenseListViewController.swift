@@ -96,11 +96,11 @@ final class ExpenseListViewController: UIViewController {
         )
         
         // 섹션 헤더 등록
-        expenseCollectionView.register(
-            ExpenseSectionHeaderView.self,
-            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: ExpenseSectionHeaderView.identifier
-        )
+//        expenseCollectionView.register(
+//            ExpenseSectionHeaderView.self,
+//            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+//            withReuseIdentifier: ExpenseSectionHeaderView.identifier
+//        )
         
         
     }
@@ -135,6 +135,7 @@ final class ExpenseListViewController: UIViewController {
         configuration.boundarySupplementaryItems = [globalHeader]
         
         return configuration
+        
     }
     
     private func configureCollectionViewDataSource() {
@@ -162,7 +163,8 @@ final class ExpenseListViewController: UIViewController {
             supplementaryView.configureData()
         }
         
-        let sectionHeaderRgistration = SectionHeaderRegistration(
+        // TODO: - section Header 타이틀 바꾸기
+        let sectionHeaderRegistration = SectionHeaderRegistration(
             elementKind: HeaderKind.sectionHeader
         ) { supplementaryView, _, _ in
             supplementaryView.configureData(dateString: "날짜입니다.")
@@ -175,9 +177,9 @@ final class ExpenseListViewController: UIViewController {
                     for: indexPath
                 )
             }
-            
+
             return self?.expenseCollectionView.dequeueConfiguredReusableSupplementary(
-                using: sectionHeaderRgistration,
+                using: sectionHeaderRegistration,
                 for: indexPath
             )
         }

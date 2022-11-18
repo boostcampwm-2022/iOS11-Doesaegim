@@ -90,19 +90,6 @@ final class ExpenseTravelListController: UIViewController {
         }
     }
     
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationViewController = segue.destination
-        
-        switch destinationViewController {
-        case let viewController as ExpenseListViewController:
-            print("ExpenseListViewcontroller로 이동합니다.")
-            viewController.travelID = selectedID
-        default:
-            print("잘못된 접근입니다.")
-        }
-    }
-    
     // MARK: - Collection View
     
     private func createCollectionViewListLayout() -> UICollectionViewCompositionalLayout {
@@ -148,8 +135,10 @@ extension ExpenseTravelListController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let viewModel = viewModel else { return }
         
+        let expenseListViewController = ExpenseListViewController()
         selectedID = viewModel.travelInfos[indexPath.row].uuid
-        navigationController?.pushViewController(ExpenseListViewController(), animated: true)
+        expenseListViewController.travelID = selectedID
+        navigationController?.pushViewController(expenseListViewController, animated: true)
     }
 }
 
