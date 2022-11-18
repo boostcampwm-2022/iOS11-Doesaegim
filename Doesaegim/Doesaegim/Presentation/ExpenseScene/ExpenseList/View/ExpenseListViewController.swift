@@ -13,9 +13,10 @@ final class ExpenseListViewController: UIViewController {
     private typealias SnapShot = NSDiffableDataSourceSnapshot<String, ExpenseInfoViewModel>
     private typealias CellRegistration
         = UICollectionView.CellRegistration<ExpenseListCell, ExpenseInfoViewModel>
-//    private typealias HeaderRegistration
-//    = UICollectionView.SupplementaryRegistration<
-    
+    private typealias GlobalHeaderRegistration
+        = UICollectionView.SupplementaryRegistration<ExpenseCollectionHeaderView>
+    private typealias SectionHeaderRegistration
+        = UICollectionView.SupplementaryRegistration<ExpenseSectionHeaderView>
     
     // MARK: - Properties
     
@@ -23,14 +24,15 @@ final class ExpenseListViewController: UIViewController {
     
     private var expenseDataSource: DataSource?
     
-    let expenseCollectionView: UICollectionView = {
+    lazy var expenseCollectionView: UICollectionView = {
+        
         var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
-        configuration.showsSeparators = true
-//        configuration.trailingSwipeActionsConfigurationProvider
+        configuration.showsSeparators = false
         let layout = UICollectionViewCompositionalLayout.list(using: configuration)
+        layout.configuration = createLayoutConfiguration()
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        // TODO: - cornerRadius 적용되지 않는 것 고민
+        
         collectionView.backgroundColor = .white
         collectionView.layer.cornerRadius = 12
         return collectionView
@@ -46,6 +48,8 @@ final class ExpenseListViewController: UIViewController {
         configureNavigationBar()
         configureSubviews()
         configureConstraints()
+        configureCollectionView()
+        configureCollectionViewDataSource()
     }
     
     // MARK: - Configuration
@@ -103,13 +107,34 @@ final class ExpenseListViewController: UIViewController {
     
     // MARK: - Collection View
     
-    private func createCompositionalLayout() -> UICollectionViewCompositionalLayout {
-        var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
-        configuration.showsSeparators = true
-        configuration.headerMode = .supplementary
-        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
+    private func createLayoutConfiguration() ->  UICollectionViewCompositionalLayoutConfiguration {
+        let globalHeaderSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(100)
+        )
+        let sectionHeaderSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(40)
+        )
         
-        return layout
+        let globalHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: globalHeaderSize,
+            elementKind: HeaderKind.globalHeader,
+            alignment: .top
+        )
+        globalHeader.pinToVisibleBounds = true
+        
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: sectionHeaderSize,
+            elementKind: HeaderKind.sectionHeader,
+            alignment: .top
+        )
+        
+        let configuration = UICollectionViewCompositionalLayoutConfiguration()
+        configuration.interSectionSpacing = 20
+        configuration.boundarySupplementaryItems = [globalHeader, sectionHeader]
+        
+        return configuration
     }
     
     private func configureCollectionViewDataSource() {
@@ -130,23 +155,51 @@ final class ExpenseListViewController: UIViewController {
             }
         )
         
-        expenseDataSource?.supplementaryViewProvider = { collectionView, kind, indexPath in
-            guard kind == UICollectionView.elementKindSectionHeader else { return nil }
-            let view = collectionView.dequeueReusableSupplementaryView(
-                ofKind: kind,
-                withReuseIdentifier: ExpenseSectionHeaderView.identifier,
+        let globalHeaderRegistration = GlobalHeaderRegistration(
+            elementKind: HeaderKind.globalHeader
+        ) { supplementaryView, _, _ in
+            // 세번째 파라미터는 indexPath
+            supplementaryView.configureData()
+        }
+        
+        let sectionHeaderRgistration = SectionHeaderRegistration(
+            elementKind: HeaderKind.sectionHeader
+        ) { supplementaryView, _, _ in
+            supplementaryView.configureData(dateString: "날짜입니다.")
+        }
+        
+        expenseDataSource?.supplementaryViewProvider = { [weak self] (_, kind, indexPath) in
+            if kind == HeaderKind.globalHeader {
+                return self?.expenseCollectionView.dequeueConfiguredReusableSupplementary(
+                    using: globalHeaderRegistration,
+                    for: indexPath
+                )
+            }
+            
+            return self?.expenseCollectionView.dequeueConfiguredReusableSupplementary(
+                using: sectionHeaderRgistration,
                 for: indexPath
             )
-            let section = self.expenseDataSource?.snapshot().sectionIdentifiers[indexPath.section]
-            return view
         }
+        
     }
-    
     
     // MARK: - Action
     
     @objc func didAddExpenseButtonTap() {
         // TODO: - 지출 추가 화면으로 이동
         print("지출 추가버튼이 탭 되었습니다.")
+    }
+}
+
+// MARK: - Constant
+fileprivate extension ExpenseListViewController {
+    enum StringLiteral {
+        static let sectionHeaderElementKind = "UICollectionElementKindSectionHeader"
+    }
+    
+    enum HeaderKind {
+        static let globalHeader = "CollectionViewGlobalHeader"
+        static let sectionHeader = "CollectionViewSectionHeader"
     }
 }

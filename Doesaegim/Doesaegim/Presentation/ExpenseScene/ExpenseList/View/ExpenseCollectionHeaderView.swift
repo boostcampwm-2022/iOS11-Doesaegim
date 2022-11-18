@@ -23,4 +23,8 @@ final class ExpenseCollectionHeaderView: UICollectionReusableView {
         backgroundColor = .blue
     }
     
+    func configureData() {
+        print(#function)
+    }
+    
 }

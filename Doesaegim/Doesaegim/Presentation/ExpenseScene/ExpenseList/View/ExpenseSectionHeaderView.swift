@@ -13,7 +13,7 @@ final class ExpenseSectionHeaderView: UICollectionReusableView {
     
     let dateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.text = "날짜날짜"
         label.textColor = .black
         
@@ -44,5 +44,9 @@ final class ExpenseSectionHeaderView: UICollectionReusableView {
             $0.centerY.equalTo(self.snp.centerY)
             $0.leading.equalTo(self.snp.leading)
         }
+    }
+    
+    func configureData(dateString: String) {
+        dateLabel.text = dateString
     }
 }

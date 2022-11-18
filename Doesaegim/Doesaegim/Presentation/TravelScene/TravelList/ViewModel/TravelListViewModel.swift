@@ -49,8 +49,5 @@ final class TravelListViewModel: TravelListViewModelProtocol {
             fetchTravelInfo()
         }
     }
-    
-    func reloadTravelInfo() {
-        
-    }
+
 }
