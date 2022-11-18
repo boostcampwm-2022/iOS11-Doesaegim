@@ -10,7 +10,7 @@ import Foundation
 /// Plan 엔티티에 대한 CRUD 작업을 수행하는 저장소
 protocol PlanRepository {
 
-    func fetchPlans(ofTravel travel: Travel) throws -> [Plan]
+    func fetchPlans(ofTravelID id: UUID) throws -> [Plan]
 
     func save() throws
 

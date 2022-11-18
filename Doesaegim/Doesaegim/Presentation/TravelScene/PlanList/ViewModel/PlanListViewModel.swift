@@ -21,7 +21,7 @@ final class PlanListViewModel {
 
     private(set) var planViewModels = [[PlanViewModel]]()
 
-    private let travel: Travel
+    private let travelID: UUID
 
     private let repository: PlanRepository
 
@@ -46,10 +46,10 @@ final class PlanListViewModel {
     
     // MARK: - Init(s)
 
-    init(travel: Travel, repository: PlanRepository) {
+    init(travelID: UUID, navgiationTitle: String, repository: PlanRepository) {
         self.repository = repository
-        self.travel = travel
-        self.navigationTitle = travel.name
+        self.travelID = travelID
+        self.navigationTitle = navgiationTitle
     }
 
 
@@ -75,7 +75,7 @@ final class PlanListViewModel {
     // MARK: - Plan Fetching Functions
 
     func fetch() throws {
-        let plans = try repository.fetchPlans(ofTravel: travel)
+        let plans = try repository.fetchPlans(ofTravelID: travelID)
         convertPlansToPlanViewModelsAndAppend(plans)
         planFetchHandler?(planViewModels.isEmpty)
     }
