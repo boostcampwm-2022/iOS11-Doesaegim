@@ -170,8 +170,6 @@ final class PlanAddViewController: UIViewController {
     
     private let viewModel: PlanAddViewModel
     
-    private var selectedLocation: LocationDTO?
-    
     // MARK: - Lifecycles
     
     init() {
