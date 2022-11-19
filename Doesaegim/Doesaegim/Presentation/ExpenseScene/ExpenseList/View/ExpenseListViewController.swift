@@ -22,8 +22,6 @@ final class ExpenseListViewController: UIViewController {
     
     let placeholdView: ExpensePlaceholdView = ExpensePlaceholdView()
     
-    private var expenseDataSource: DataSource?
-    
     lazy var expenseCollectionView: UICollectionView = {
         
         var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
@@ -39,17 +37,32 @@ final class ExpenseListViewController: UIViewController {
     }()
     
     var travelID: UUID? // 여행목록에서 선택한 여행의 ID. 지출목록을 가져오는데에 사용한다.
+    private var expenseDataSource: DataSource?
+    private let viewModel: ExpenseListViewModelProtocol? = ExpenseListViewModel()
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel?.delegate = self
+        
         configureNavigationBar()
         configureSubviews()
         configureConstraints()
         configureCollectionView()
         configureCollectionViewDataSource()
+        
+        viewModel?.fetchCurrentTravel(with: travelID)
+//        viewModel?.addExpenseData()
+        viewModel?.fetchExpenseData()
+        
+        print(viewModel?.expenseInfos)
+        
+        // TODO: - 임시 데이터 추가코드 추후 삭제
+        for _ in 0..<10 {
+            
+        }
     }
     
     // MARK: - Configuration
@@ -83,8 +96,6 @@ final class ExpenseListViewController: UIViewController {
             $0.width.equalTo(view.bounds.width - 100)
             $0.height.equalTo(50)
         }
-        
-        
     }
     
     private func configureCollectionView() {
@@ -139,8 +150,8 @@ final class ExpenseListViewController: UIViewController {
     }
     
     private func configureCollectionViewDataSource() {
-        let expenseCell = CellRegistration { cell, indexPath, restorationIdentifier in
-            cell.configureContent()
+        let expenseCell = CellRegistration { cell, indexPath, identifier in
+            cell.configureContent(with: identifier)
             
             // TODO: - 페이지네이션
         }
@@ -191,6 +202,31 @@ final class ExpenseListViewController: UIViewController {
     @objc func didAddExpenseButtonTap() {
         // TODO: - 지출 추가 화면으로 이동
         print("지출 추가버튼이 탭 되었습니다.")
+    }
+}
+
+// MARK: - ExpenseListViweModelDelegate
+
+extension ExpenseListViewController: ExpenseListViewModelDelegate {
+    
+    func expenseListDidChanged() {
+        print(#function)
+        guard let viewModel = viewModel else { return }
+        
+        let expenseInfos = viewModel.expenseInfos
+        
+        if expenseInfos.isEmpty {
+            placeholdView.isHidden = false
+        } else {
+            placeholdView.isHidden = true
+        }
+        
+        var snapshot = SnapShot()
+        
+        snapshot.appendSections(["mainSection"])
+        snapshot.appendItems(expenseInfos)
+        
+        expenseDataSource?.apply(snapshot)
     }
 }
 

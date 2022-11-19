@@ -39,6 +39,12 @@ final class PersistentRepository: PersistnetRepositoryProtocol {
         return manager.fetch(request: request)
     }
     
+    func fetchTravel(with id: UUID) -> [Travel] {
+        let request = Travel.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", id.uuidString)
+        return manager.fetch(request: request)
+    }
+    
 //    func delete(type: EntityType) {
 //        <#code#>
 //    }

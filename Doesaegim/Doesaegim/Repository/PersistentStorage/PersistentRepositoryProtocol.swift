@@ -26,8 +26,6 @@ protocol PersistnetRepositoryProtocol {
     func fetchTravel(offset: Int, limit: Int) -> [Travel]
     func fetchExpense(offset: Int, limit: Int) -> [Expense]
     
-    // TODO: - 추후 Result타입 반환하도록 생각
-//    /// NSManagedObject를 상속하는 T타입의 엔티티를 영구저장소로부터삭제한다.
-//    /// - Parameter with: 삭제할 데이터
-//    func delete(type: EntityType)
+    func fetchTravel(with id: UUID) -> [Travel]
+    
 }

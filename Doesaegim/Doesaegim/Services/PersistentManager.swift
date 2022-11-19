@@ -100,3 +100,11 @@ final class PersistentManager {
     }
 
 }
+
+enum EntityType {
+    case travel
+    case plan
+    case expense
+    case diary
+    case location
+}

@@ -52,8 +52,10 @@ final class ExpenseListCell: UICollectionViewListCell {
         }
     }
     
-    func configureContent() {
-        
+    func configureContent(with data: ExpenseInfoViewModel) {
+        var configuration = self.defaultContentConfiguration()
+        configuration.text = data.name
+        contentConfiguration = configuration
     }
     
 //    private func createContentConfiguration() -> UIContentConfiguration {
