@@ -30,4 +30,22 @@ public class Expense: NSManagedObject {
         
         return expense
     }
+    
+    static func convertToViewModel(from expense: Expense) -> ExpenseInfoViewModel? {
+        
+        guard let id = expense.id,
+              let name = expense.name,
+              let content = expense.content,
+              let date = expense.date else { return nil }
+        
+        let viewModel = ExpenseInfoViewModel(
+            uuid: id,
+            name: name,
+            content: content,
+            cost: Int(expense.cost),
+            date: date
+        )
+        
+        return viewModel
+    }
 }
