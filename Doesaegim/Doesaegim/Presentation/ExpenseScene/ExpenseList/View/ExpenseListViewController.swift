@@ -122,7 +122,7 @@ final class ExpenseListViewController: UIViewController {
             elementKind: HeaderKind.globalHeader,
             alignment: .top
         )
-        globalHeader.pinToVisibleBounds = true
+//        globalHeader.pinToVisibleBounds = true
         
 //        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
 //            layoutSize: sectionHeaderSize,
