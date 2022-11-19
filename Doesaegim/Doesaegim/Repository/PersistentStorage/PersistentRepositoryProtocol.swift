@@ -22,7 +22,7 @@ protocol PersistnetRepositoryProtocol {
     ///   - offset: 불로어기 시작할 엔티티의 레코드번호
     ///   - limit: 최대로 불러올 수 있는 갯수
     /// - Returns: `NSManagedObject`타입 배열
-    ///
+    
     func fetchTravel(offset: Int, limit: Int) -> [Travel]
     func fetchExpense(offset: Int, limit: Int) -> [Expense]
     

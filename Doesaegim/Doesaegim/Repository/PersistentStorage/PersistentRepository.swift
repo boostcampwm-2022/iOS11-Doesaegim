@@ -10,7 +10,8 @@ import CoreData
 
 final class PersistentRepository: PersistnetRepositoryProtocol {
     
-    
+    static let shared: PersistentRepository = PersistentRepository()
+    private init() {  }
     
     let manager = PersistentManager.shared
     
