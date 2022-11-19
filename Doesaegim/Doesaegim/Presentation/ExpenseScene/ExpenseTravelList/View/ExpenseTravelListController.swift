@@ -11,9 +11,9 @@ import SnapKit
 
 final class ExpenseTravelListController: UIViewController {
 
-    typealias DataSource = UICollectionViewDiffableDataSource<String, TravelInfoViewModel>
-    typealias SnapShot = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>
-    typealias CellRegistration = UICollectionView.CellRegistration<UICollectionViewListCell, TravelInfoViewModel>
+    private typealias DataSource = UICollectionViewDiffableDataSource<String, TravelInfoViewModel>
+    private typealias SnapShot = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>
+    private typealias CellRegistration = UICollectionView.CellRegistration<ExpenseTravelListCell, TravelInfoViewModel>
     
     // MARK: - Properties
     
@@ -26,17 +26,19 @@ final class ExpenseTravelListController: UIViewController {
     }()
     
     lazy var collectionView: UICollectionView = {
-        let layout = collectionViewListLayout()
+        let layout = createCollectionViewListLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
-        collectionView.layer.cornerRadius = 7
+        collectionView.layer.cornerRadius = 12
         
         return collectionView
     }()
     
-    var travelDataSource: DataSource?
+    private var travelDataSource: DataSource?
     
-    var viewModel: ExpenseTravelViewModelProtocol? = ExpenseTravelViewModel()
+    var selectedID: UUID?
+    
+    private var viewModel: ExpenseTravelViewModelProtocol? = ExpenseTravelViewModel()
     
     // MARK: - Life Cycle
     
@@ -45,6 +47,7 @@ final class ExpenseTravelListController: UIViewController {
         view.backgroundColor = .white
         
         viewModel?.delegate = self
+        collectionView.delegate = self
         
         configureNavigationBar()
         configureSubviews()
@@ -75,14 +78,21 @@ final class ExpenseTravelListController: UIViewController {
         }
         
         collectionView.snp.makeConstraints {
-            $0.horizontalEdges.equalToSuperview().inset(16)
-            $0.verticalEdges.equalToSuperview().inset(0)
+//            $0.horizontalEdges.equalToSuperview().inset(16)
+//            $0.verticalEdges.equalToSuperview().inset(0)
+            
+            // TODO: - 위의 방법으로 constraint를 지정했더니 corenrradius가 적용되지 않습니다.
+            
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.equalTo(view.snp.leading).offset(16)
+            $0.trailing.equalTo(view.snp.trailing).offset(-16)
         }
     }
     
     // MARK: - Collection View
     
-    private func collectionViewListLayout() -> UICollectionViewCompositionalLayout {
+    private func createCollectionViewListLayout() -> UICollectionViewCompositionalLayout {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
         listConfiguration.showsSeparators = false
         listConfiguration.backgroundColor = .white
@@ -92,28 +102,8 @@ final class ExpenseTravelListController: UIViewController {
     
     private func configureCollectionViewDataSource() {
         let travelCell =  CellRegistration { cell, indexPath, identifier in
-            var content = cell.defaultContentConfiguration()
-            content.image = UIImage(systemName: "airplane.departure")
-            content.imageProperties.tintColor = .primaryOrange
-            content.attributedText = NSAttributedString(
-                string: identifier.title,
-                attributes: [
-                    .font: UIFont.boldSystemFont(ofSize: 20),
-                    .foregroundColor: UIColor.black!
-                ]
-            )
-            content.secondaryAttributedText = NSAttributedString(
-                string: Date.convertTravelString(
-                    start: identifier.startDate,
-                    end: identifier.endDate
-                ),
-                attributes: [
-                    .font: UIFont.systemFont(ofSize: 14),
-                    .foregroundColor: UIColor.grey4!
-                        
-                ]
-            )
-            cell.contentConfiguration = content
+            
+            cell.configureContent(with: identifier)
             
             // TODO: - 페이지 네이션 기준도 상수로 만들어서 사용하면 좋겠다.
             // pagination
@@ -138,6 +128,20 @@ final class ExpenseTravelListController: UIViewController {
         )   
     }
 }
+
+// MARK: - UICollectionViewDelegate
+
+extension ExpenseTravelListController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let viewModel = viewModel else { return }
+        
+        let expenseListViewController = ExpenseListViewController()
+        selectedID = viewModel.travelInfos[indexPath.row].uuid
+        expenseListViewController.travelID = selectedID
+        navigationController?.pushViewController(expenseListViewController, animated: true)
+    }
+}
+
 
 // MARK: - ExpenseTravelViewModelDelegate
 

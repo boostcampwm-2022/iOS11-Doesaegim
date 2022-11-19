@@ -40,6 +40,7 @@ final class TravelListViewModel: TravelListViewModelProtocol {
     }
     
     func deleteTravel(with id: UUID) {
+        print(#function)
         let travels = PersistentManager.shared.fetch(request: Travel.fetchRequest())
         let deleteTravel = travels.filter { $0.id == id }
         
@@ -48,4 +49,5 @@ final class TravelListViewModel: TravelListViewModelProtocol {
             fetchTravelInfo()
         }
     }
+
 }
