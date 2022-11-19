@@ -180,7 +180,18 @@ extension TravelListViewController: TravelListViewModelDelegate {
 
 extension TravelListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: - 적당한 Plan으로 이동. 선택한 데이터의 UUID를 넘겨서 이동한 컨트롤러에서 데이터를 불러온다.
+        guard let travelViewModel = travelDataSource?.itemIdentifier(for: indexPath)
+        else {
+            return
+        }
+
+        let planListViewModel = PlanListViewModel(
+            travelID: travelViewModel.uuid,
+            navgiationTitle: travelViewModel.title,
+            repository: PlanLocalRepository()
+        )
+
+        show(PlanListViewController(viewModel: planListViewModel), sender: self)
     }
 }
 

@@ -7,22 +7,19 @@
 
 import Foundation
 
-enum CoreDataError {
+enum CoreDataError: LocalizedError {
     case fetchFailure
     case saveFailure
     case deleteFailure
-}
 
-extension CoreDataError: CustomStringConvertible {
-
-    var description: String {
+    var errorDescription: String? {
         switch self {
         case .fetchFailure:
-            return "정보를 불러오는 데 실패했습니다"
+            return NSLocalizedString("정보를 불러오는 데 실패했습니다", comment: "fetch failure")
         case .saveFailure:
-            return "변경사항을 저장하는 데 실패했습니다"
+            return NSLocalizedString("변경사항을 저장하는 데 실패했습니다", comment: "save failure")
         case .deleteFailure:
-            return "정보를 삭제하는 데 실패했습니다"
+            return NSLocalizedString("정보를 삭제하는 데 실패했습니다", comment: "delete failure")
         }
     }
 }

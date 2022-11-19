@@ -155,7 +155,7 @@ final class CustomCalendar: UICollectionView {
     private func configureCalendar() {
         dateComponents.year = calendar.component(.year, from: today)
         dateComponents.month = calendar.component(.month, from: today)
-        dateFormmater.dateFormat = "yyyy년 MM월"
+        dateFormmater = Date.yearMonthDayDateFormatter
         setupCalendar()
         configureSnapshot()
     }
@@ -210,7 +210,7 @@ extension CustomCalendar: UICollectionViewDelegate {
         
         let currentMonth = String(format: "%02d", month)
         let currentDay = String(format: "%02d", indexPath.row - startDay + 1)
-        let date = "\(currentYear)-\(currentMonth)-\(currentDay)"
+        let date = "\(currentYear)년 \(currentMonth)월 \(currentDay)일"
         days[indexPath.row].isSelected.toggle()
         selectedCount += 1
         
@@ -218,8 +218,13 @@ extension CustomCalendar: UICollectionViewDelegate {
         
         switch touchOption {
         case .single:
-            // TODO: 싱글터치일 때 작성
-            return
+            completionHandler?(selectedDates)
+            selectedDates.removeAll()
+            selectedCount = 0
+            configureSnapshot()
+            for index in 0..<days.count {
+                days[index].isSelected = false
+            }
         case .double:
             if selectedCount == 2 {
                 completionHandler?(selectedDates)
@@ -229,9 +234,7 @@ extension CustomCalendar: UICollectionViewDelegate {
                     days[index].isSelected = false
                 }
             }
+            configureSnapshot()
         }
-        
-        configureSnapshot()
     }
-
 }
