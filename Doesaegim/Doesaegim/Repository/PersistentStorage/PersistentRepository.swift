@@ -6,19 +6,40 @@
 //
 
 import Foundation
+import CoreData
 
 final class PersistentRepository: PersistnetRepositoryProtocol {
-    func fetch<T>(with: T) -> [T] where T : NSManagedObject {
-        <#code#>
+    
+    
+    
+    let manager = PersistentManager.shared
+    
+    func fetchTravel() -> [Travel] {
+        let request = Travel.fetchRequest()
+        return manager.fetch(request: request)
     }
     
-    func fetch<T>(with: T, offset: Int, limit: Int) -> [T] where T : NSManagedObject {
-        <#code#>
+    func fetchExpense() -> [Expense] {
+        let request = Expense.fetchRequest()
+        return manager.fetch(request: request)
     }
     
-    func delete<T>(with: T) where T : NSManagedObject {
-        <#code#>
+    func fetchTravel(offset: Int, limit: Int) -> [Travel] {
+        let request = Travel.fetchRequest()
+        request.fetchOffset = offset
+        request.fetchLimit = limit
+        return manager.fetch(request: request)
     }
     
+    func fetchExpense(offset: Int, limit: Int) -> [Expense] {
+        let request = Expense.fetchRequest()
+        request.fetchOffset = offset
+        request.fetchLimit = limit
+        return manager.fetch(request: request)
+    }
+    
+//    func delete(type: EntityType) {
+//        <#code#>
+//    }
     
 }
