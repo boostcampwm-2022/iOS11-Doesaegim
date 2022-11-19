@@ -1,0 +1,32 @@
+//
+//  PersistentRepositoryProtocol.swift
+//  Doesaegim
+//
+//  Created by Jaehoon So on 2022/11/19.
+//
+
+import Foundation
+import CoreData
+
+protocol PersistnetRepositoryProtocol {
+    
+    /// `NSManagedObject`타입의 데이터를 영구저장소로부터 패치해온다. 내부에서 request를 생성하고 PersistentManager에 요청을 보낸다.
+    /// - Parameter with: 패치할 엔티티타입
+    /// - Returns: `NSManagedObject` 타입 배열
+    func fetch<T: NSManagedObject>(with: T) -> [T]
+    
+    /// `NSManagedObject`타입의 데이터를 영구저장소로부터 불로온다. `offset`번째 레코드부터
+    /// 최대 `limit`개의 데이터를 불러온다. 내부에서 request를 생성하고 PersistentManager에
+    /// 요청을 보낸다.
+    /// - Parameters:
+    ///   - with: 패치할 엔티티 타입
+    ///   - offset: 불로어기 시작할 엔티티의 레코드번호
+    ///   - limit: 최대로 불러올 수 있는 갯수
+    /// - Returns: `NSManagedObject`타입 배열
+    func fetch<T: NSManagedObject>(with: T, offset: Int, limit: Int) -> [T]
+    
+    // TODO: - 추후 Result타입 반환하도록 생각
+    /// NSManagedObject를 상속하는 T타입의 엔티티를 영구저장소로부터삭제한다.
+    /// - Parameter with: 삭제할 데이터
+    func delete<T: NSManagedObject>(with: T)
+}
