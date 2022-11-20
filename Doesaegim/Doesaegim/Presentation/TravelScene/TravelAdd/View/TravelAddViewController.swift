@@ -159,6 +159,7 @@ final class TravelAddViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel: TravelAddViewModel
+    private let dateFormatter: DateFormatter = Date.yearMonthDayDateFormatter
     
     // MARK: - Lifecycles
     
@@ -313,8 +314,6 @@ extension TravelAddViewController {
     }
     
     @objc func addButtonTouchUpInside() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
         guard let name = travelTitleTextField.text,
               let startDateString = travelDateStartLabel.text,
               let startDate = dateFormatter.date(from: startDateString),
