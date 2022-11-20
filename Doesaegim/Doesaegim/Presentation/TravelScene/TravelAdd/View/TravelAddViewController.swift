@@ -30,7 +30,7 @@ final class TravelAddViewController: UIViewController {
     private lazy var travelTitleStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 12
+        stackView.spacing = Metric.spacing
         
         return stackView
     }()
@@ -40,7 +40,7 @@ final class TravelAddViewController: UIViewController {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fill
-        stackView.spacing = 12
+        stackView.spacing = Metric.spacing
         
         return stackView
     }()
@@ -50,7 +50,6 @@ final class TravelAddViewController: UIViewController {
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fill
-        stackView.spacing = 0
         
         return stackView
     }()
@@ -67,8 +66,8 @@ final class TravelAddViewController: UIViewController {
     
     private lazy var travelTitleTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "여행 제목을 입력해주세요."
-        textField.layer.cornerRadius = 10
+        textField.placeholder = StringLiteral.travelTitlePlaceholder
+        textField.layer.cornerRadius = Metric.cornerRadius
         textField.backgroundColor = .grey1
         textField.textColor = .black
         textField.font = .systemFont(ofSize: 17, weight: .regular)
@@ -92,7 +91,7 @@ final class TravelAddViewController: UIViewController {
         let label = UILabel()
         label.textColor = .black
         label.clipsToBounds = true
-        label.layer.cornerRadius = 8
+        label.layer.cornerRadius = Metric.cornerRadius
         label.font = .systemFont(ofSize: 17, weight: .regular)
         label.backgroundColor = .grey1
         label.textAlignment = .center
@@ -104,7 +103,7 @@ final class TravelAddViewController: UIViewController {
         let label = UILabel()
         label.textColor = .black
         label.clipsToBounds = true
-        label.layer.cornerRadius = 8
+        label.layer.cornerRadius = Metric.cornerRadius
         label.font = .systemFont(ofSize: 17, weight: .regular)
         label.backgroundColor = .grey1
         label.textAlignment = .center
@@ -129,7 +128,7 @@ final class TravelAddViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .grey3
         button.isEnabled = false
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = Metric.cornerRadius
         
         return button
     }()
@@ -342,5 +341,19 @@ extension TravelAddViewController: TravelAddViewDelegate {
     func isVaildView(isVaild: Bool) {
         addButton.isEnabled = isVaild
         addButton.backgroundColor = isVaild ? .primaryOrange : .grey3
+    }
+}
+
+// MARK: - Constants
+
+fileprivate extension TravelAddViewController {
+    
+    enum StringLiteral {
+        static let travelTitlePlaceholder = "여행 제목을 입력해주세요."
+    }
+    
+    enum Metric {
+        static let spacing: CGFloat = 12
+        static let cornerRadius: CGFloat = 10
     }
 }
