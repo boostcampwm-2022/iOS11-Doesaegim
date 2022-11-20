@@ -9,10 +9,10 @@ import Foundation
 
 protocol TravelAddViewProtocol: AnyObject {
     var delegate: TravelAddViewDelegate? { get set }
-    var isVaildTextField: Bool { get set }
-    var isVaildDate: Bool { get set }
+    var isValidTextField: Bool { get set }
+    var isValidDate: Bool { get set }
 }
 
 protocol TravelAddViewDelegate: AnyObject {
-    func isVaildView(isVaild: Bool)
+    func isValidView(isVaild: Bool)
 }

@@ -13,23 +13,23 @@ final class TravelAddViewModel: TravelAddViewProtocol {
     
     weak var delegate: TravelAddViewDelegate?
     
-    var isVaildTextField: Bool {
+    var isValidTextField: Bool {
         didSet {
-            delegate?.isVaildView(isVaild: isVaildTextField && isVaildDate)
+            delegate?.isValidView(isVaild: isValidTextField && isValidDate)
         }
     }
     
-    var isVaildDate: Bool {
+    var isValidDate: Bool {
         didSet {
-            delegate?.isVaildView(isVaild: isVaildTextField && isVaildDate)
+            delegate?.isValidView(isVaild: isValidTextField && isValidDate)
         }
     }
     
     // MARK: - Lifecycles
     
     init() {
-        isVaildTextField = false
-        isVaildDate = false
+        isValidTextField = false
+        isValidDate = false
     }
     
     // MARK: - CoreData Function
