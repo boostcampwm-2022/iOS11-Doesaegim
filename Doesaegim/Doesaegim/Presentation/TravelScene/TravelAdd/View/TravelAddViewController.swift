@@ -190,26 +190,12 @@ final class TravelAddViewController: UIViewController {
     }
     
     private func configureSubviews() {
-        [scrollView].forEach {
-            view.addSubview($0)
-        }
+        view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        
-        [travelTitleStackView, travelDateStackView, addButton, customCalendar].forEach {
-            contentView.addSubview($0)
-        }
-        
-        [travelTitleLabel, travelTitleTextField].forEach {
-            travelTitleStackView.addArrangedSubview($0)
-        }
-        
-        [travelDateLabel, travelDateLabelStackView].forEach {
-            travelDateStackView.addArrangedSubview($0)
-        }
-        
-        [travelDateStartLabel, waveLabel, travelDateEndLabel].forEach {
-            travelDateLabelStackView.addArrangedSubview($0)
-        }
+        contentView.addSubviews(travelTitleStackView, travelDateStackView, addButton, customCalendar)
+        travelTitleStackView.addArrangedSubviews(travelTitleLabel, travelTitleTextField)
+        travelDateStackView.addArrangedSubviews(travelDateLabel, travelDateLabelStackView)
+        travelDateLabelStackView.addArrangedSubviews(travelDateStartLabel, waveLabel, travelDateEndLabel)
     }
     
     private func configureConstraint() {
