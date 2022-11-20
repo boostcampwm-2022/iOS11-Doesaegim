@@ -15,9 +15,9 @@ final class TravelAddViewController: UIViewController {
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-
         scrollView.backgroundColor = .white
         scrollView.showsVerticalScrollIndicator = false
+        
         return scrollView
     }()
     
@@ -29,47 +29,44 @@ final class TravelAddViewController: UIViewController {
     
     private lazy var travelTitleStackView: UIStackView = {
         let stackView = UIStackView()
-        
         stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fill
         stackView.spacing = 12
+        
         return stackView
     }()
     
     private lazy var travelDateStackView: UIStackView = {
         let stackView = UIStackView()
-        
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fill
         stackView.spacing = 12
+        
         return stackView
     }()
     
     private lazy var travelDateLabelStackView: UIStackView = {
         let stackView = UIStackView()
-
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fill
         stackView.spacing = 0
+        
         return stackView
     }()
     
     private lazy var travelTitleLabel: UILabel = {
         let label = UILabel()
-        
         label.text = "여행 제목"
         label.textColor = .black
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textAlignment = .left
+        
         return label
     }()
     
     private lazy var travelTitleTextField: UITextField = {
         let textField = UITextField()
-        
         textField.placeholder = "여행 제목을 입력해주세요."
         textField.layer.cornerRadius = 10
         textField.backgroundColor = .grey1
@@ -77,62 +74,63 @@ final class TravelAddViewController: UIViewController {
         textField.font = .systemFont(ofSize: 17, weight: .regular)
         textField.addPadding(witdh: 8)
         textField.delegate = self
+        
         return textField
     }()
     
     private lazy var travelDateLabel: UILabel = {
         let label = UILabel()
-        
         label.text = "날짜"
         label.textColor = .black
         label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textAlignment = .left
+        
         return label
     }()
     
     private lazy var travelDateStartLabel: UILabel = {
         let label = UILabel()
-        
         label.textColor = .black
         label.clipsToBounds = true
         label.layer.cornerRadius = 8
         label.font = .systemFont(ofSize: 17, weight: .regular)
         label.backgroundColor = .grey1
         label.textAlignment = .center
+        
         return label
     }()
     
     private lazy var travelDateEndLabel: UILabel = {
         let label = UILabel()
-        
         label.textColor = .black
         label.clipsToBounds = true
         label.layer.cornerRadius = 8
         label.font = .systemFont(ofSize: 17, weight: .regular)
         label.backgroundColor = .grey1
         label.textAlignment = .center
+        
         return label
     }()
     
     private lazy var waveLabel: UILabel = {
         let label = UILabel()
-
         label.text = "~"
         label.textColor = .black
         label.font = .systemFont(ofSize: 30, weight: .regular)
         label.backgroundColor = .white
         label.textAlignment = .center
+        
         return label
     }()
     
     private lazy var addButton: UIButton = {
         let button = UIButton()
-
         button.setTitle("여행 추가", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .grey3
         button.isEnabled = false
         button.layer.cornerRadius = 10
+        
         return button
     }()
     
