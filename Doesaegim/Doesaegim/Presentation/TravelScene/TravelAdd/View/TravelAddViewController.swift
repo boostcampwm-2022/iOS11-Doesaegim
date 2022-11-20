@@ -142,13 +142,15 @@ final class TravelAddViewController: UIViewController {
         
         // 2개 날짜 선택시 라벨에 나타나도록
         customCalendar.completionHandler = { [weak self] dates in
-            guard let self, dates.count > 1 else {
-                self?.viewModel.isValidDate = false
-                return
+            self?.viewModel.travelDateTapped(dates: dates) { isSuccess in
+                if isSuccess {
+                    self?.travelDateStartLabel.text = dates[0]
+                    self?.travelDateEndLabel.text = dates[1]
+                } else {
+                    self?.presentErrorAlert(title: "날짜를 다시 입력해주세요")
+                }
+                
             }
-            self.travelDateStartLabel.text = dates[0]
-            self.travelDateEndLabel.text = dates[1]
-            self.viewModel.isValidDate = true
         }
         return customCalendar
     }()
@@ -303,11 +305,7 @@ extension TravelAddViewController {
 
 extension TravelAddViewController {
     @objc func textFieldDidChange(_ sender: UITextField) {
-        guard let text = sender.text, !text.isEmpty else {
-            viewModel.isValidTextField = false
-            return
-        }
-        viewModel.isValidTextField = true
+        viewModel.travelTitleDidChanged(title: sender.text)
     }
     
     @objc func addButtonTouchUpInside() {
@@ -338,9 +336,9 @@ extension TravelAddViewController: UITextFieldDelegate {
 // MARK: TravelAddViewDelegate
 
 extension TravelAddViewController: TravelAddViewDelegate {
-    func isValidView(isVaild: Bool) {
-        addButton.isEnabled = isVaild
-        addButton.backgroundColor = isVaild ? .primaryOrange : .grey3
+    func travelAddFormDidChange(isValid: Bool) {
+        addButton.isEnabled = isValid
+        addButton.backgroundColor = isValid ? .primaryOrange : .grey3
     }
 }
 

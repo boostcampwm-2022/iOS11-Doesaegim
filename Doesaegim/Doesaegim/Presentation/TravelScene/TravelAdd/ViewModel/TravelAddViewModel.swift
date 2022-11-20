@@ -13,15 +13,11 @@ final class TravelAddViewModel: TravelAddViewProtocol {
     
     weak var delegate: TravelAddViewDelegate?
     
-    var isValidTextField: Bool {
+    var isValidTextField: Bool
+    var isValidDate: Bool
+    var isValidInput: Bool {
         didSet {
-            delegate?.isValidView(isVaild: isValidTextField && isValidDate)
-        }
-    }
-    
-    var isValidDate: Bool {
-        didSet {
-            delegate?.isValidView(isVaild: isValidTextField && isValidDate)
+            delegate?.travelAddFormDidChange(isValid: isValidInput)
         }
     }
     
@@ -30,6 +26,32 @@ final class TravelAddViewModel: TravelAddViewProtocol {
     init() {
         isValidTextField = false
         isValidDate = false
+        isValidInput = isValidTextField && isValidDate
+    }
+    
+    // MARK: - Functions
+    
+    func travelTitleDidChanged(title: String?) {
+        defer { isValidInput = isValidTextField && isValidDate }
+        guard let title, !title.isEmpty else {
+            isValidTextField = false
+            return
+        }
+        isValidTextField = true
+    }
+    
+    
+    func travelDateTapped(dates: [String], completion: @escaping ((Bool) -> Void)) {
+        defer {
+            isValidInput = isValidTextField && isValidDate
+            completion(isValidDate)
+        }
+        guard dates.count > 1 else {
+            isValidDate = false
+            return
+        }
+        isValidDate = true
+        
     }
     
     // MARK: - CoreData Function
