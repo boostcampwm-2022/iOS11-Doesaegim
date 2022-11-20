@@ -54,13 +54,15 @@ extension ExpenseListViewModel {
 //        print(#function)
         guard let travel = currentTravel else { return }
         for count in 1...10 {
+            let dateComponents = DateComponents(year: 2022, month: 12, day: 25, hour: 17)
+            let date = Calendar.current.date(from: dateComponents)!
             let dto = ExpenseDTO(
                 name: "\(count)번째 지출",
                 category: "식비",
                 content: "식비입니다 콘텐츠 콘텐츠 콘텐츠",
                 cost: 10000,
                 currency: "KR",
-                date: Date()
+                date: date
             )
             do {
                 let expense = try Expense.addAndSave(with: dto)
