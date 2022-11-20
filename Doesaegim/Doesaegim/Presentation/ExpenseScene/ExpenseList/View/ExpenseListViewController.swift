@@ -58,8 +58,6 @@ final class ExpenseListViewController: UIViewController {
 //        viewModel?.addExpenseData()
         viewModel?.fetchExpenseData()
         
-        print(viewModel?.expenseInfos)
-        
         // TODO: - 임시 데이터 추가코드 추후 삭제
         for _ in 0..<10 {
             
@@ -111,8 +109,11 @@ final class ExpenseListViewController: UIViewController {
     // MARK: - Collection View
     
     private func createCompositionalLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout {
-            (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+        let layout
+        = UICollectionViewCompositionalLayout { (
+            sectionIndex: Int,
+            layoutEnvironment: NSCollectionLayoutEnvironment
+        ) -> NSCollectionLayoutSection? in
             
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
@@ -160,7 +161,7 @@ final class ExpenseListViewController: UIViewController {
         return layout
     }
     
-    private func createLayoutConfiguration() ->  UICollectionViewCompositionalLayoutConfiguration {
+    private func createLayoutConfiguration() -> UICollectionViewCompositionalLayoutConfiguration {
         let globalHeaderSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .absolute(200)
@@ -180,7 +181,7 @@ final class ExpenseListViewController: UIViewController {
     }
     
     private func configureCollectionViewDataSource() {
-        let expenseCell = CellRegistration { cell, indexPath, identifier in
+        let expenseCell = CellRegistration { cell, _, identifier in
             cell.configureContent(with: identifier)
             // TODO: - 페이지네이션
         }
@@ -206,11 +207,11 @@ final class ExpenseListViewController: UIViewController {
         // TODO: - section Header 타이틀 바꾸기
         let sectionHeaderRegistration = SectionHeaderRegistration(
             elementKind: HeaderKind.sectionHeader
-        ) { supplementaryView, _, _ in
+        ) { _, _, _ in
         }
 
-        expenseDataSource?.supplementaryViewProvider = { [weak self] (collectionView, kind, indexPath) in
-            
+        // TODO: - 추후 self에 접근한다면 [weak self] 작성
+        expenseDataSource?.supplementaryViewProvider = { (collectionView, kind, indexPath) in
             
             if kind == HeaderKind.globalHeader {
                 let globalHeader = collectionView.dequeueConfiguredReusableSupplementary(

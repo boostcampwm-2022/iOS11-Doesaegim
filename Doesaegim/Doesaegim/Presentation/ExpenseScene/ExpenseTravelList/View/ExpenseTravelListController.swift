@@ -11,9 +11,12 @@ import SnapKit
 
 final class ExpenseTravelListController: UIViewController {
 
-    private typealias DataSource = UICollectionViewDiffableDataSource<String, TravelInfoViewModel>
-    private typealias SnapShot = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>
-    private typealias CellRegistration = UICollectionView.CellRegistration<ExpenseTravelListCell, TravelInfoViewModel>
+    private typealias DataSource
+        = UICollectionViewDiffableDataSource<String, TravelInfoViewModel>
+    private typealias SnapShot
+        = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>
+    private typealias CellRegistration
+        = UICollectionView.CellRegistration<ExpenseTravelListCell, TravelInfoViewModel>
     
     // MARK: - Properties
     
