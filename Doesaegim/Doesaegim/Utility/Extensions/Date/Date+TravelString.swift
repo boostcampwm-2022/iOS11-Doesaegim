@@ -39,6 +39,13 @@ extension Date {
         return formatter
     }()
     
+    static let yearMonthDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy년 MM월"
+        
+        return formatter
+    }()
+    
     /// 시작일 Date인스턴스와 종료일 Date 인스턴스를 받아 여행 목록시 부제목으로 사용되는 문자열을 반환한다.
     /// - Parameters:
     ///   - start: 시작일 `Date`인스턴스

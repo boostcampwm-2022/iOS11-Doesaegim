@@ -9,10 +9,17 @@ import Foundation
 
 protocol TravelAddViewProtocol: AnyObject {
     var delegate: TravelAddViewDelegate? { get set }
-    var isVaildTextField: Bool { get set }
-    var isVaildDate: Bool { get set }
+    
+    var isValidTextField: Bool { get set }
+    var isValidDate: Bool { get set }
+    var isValidInput: Bool { get set }
+    
+    func travelTitleDidChanged(title: String?)
+    func travelDateTapped(dates: [String], completion: @escaping ((Bool) -> Void))
+    
+    func postTravel(travel: TravelDTO, completion: @escaping (() -> Void))
 }
 
 protocol TravelAddViewDelegate: AnyObject {
-    func isVaildView(isVaild: Bool)
+    func travelAddFormDidChange(isValid: Bool)
 }
