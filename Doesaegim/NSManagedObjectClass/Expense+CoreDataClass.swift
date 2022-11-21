@@ -15,7 +15,7 @@ public class Expense: NSManagedObject {
     // MARK: - Functions
     
     @discardableResult
-    static func addAndSave(with object: ExpenseDTO) throws -> Expense {
+    static func addAndSave(with object: ExpenseDTO) -> Result<Expense, Error> {
         let context = PersistentManager.shared.context
         let expense = Expense(context: context)
         expense.id = object.id
@@ -26,9 +26,17 @@ public class Expense: NSManagedObject {
         expense.currency = object.currency
         expense.cost = object.cost
         
-        try PersistentManager.shared.saveContext()
+        let result = PersistentManager.shared.saveContext()
         
-        return expense
+        switch result {
+        case .success(let isSuccess):
+            if isSuccess {
+                return .success(expense)
+            }
+        case .failure(let error):
+            return .failure(error)
+        }
+        return .failure(CoreDataError.saveFailure(.expense))
     }
     
     static func convertToViewModel(from expense: Expense) -> ExpenseInfoViewModel? {

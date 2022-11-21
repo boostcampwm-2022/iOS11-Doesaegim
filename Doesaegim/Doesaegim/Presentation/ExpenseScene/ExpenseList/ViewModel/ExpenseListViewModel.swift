@@ -72,11 +72,14 @@ extension ExpenseListViewModel {
                 currency: "KR",
                 date: date
             )
-            do {
-                let expense = try Expense.addAndSave(with: dto)
+            
+            let result = Expense.addAndSave(with: dto)
+            switch result {
+            case .success(let expense):
                 travel.addToExpense(expense)
-            } catch {
+            case .failure(let error):
                 print(error.localizedDescription)
+                // TODO: 사용자 에러 알림 추가
             }
         }
         

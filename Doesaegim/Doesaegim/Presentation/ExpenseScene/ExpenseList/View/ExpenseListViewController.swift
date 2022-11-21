@@ -8,15 +8,15 @@
 import UIKit
 
 final class ExpenseListViewController: UIViewController {
-
+    
     private typealias DataSource = UICollectionViewDiffableDataSource<String, ExpenseInfoViewModel>
     private typealias SnapShot = NSDiffableDataSourceSnapshot<String, ExpenseInfoViewModel>
     private typealias CellRegistration
-        = UICollectionView.CellRegistration<ExpenseListCell, ExpenseInfoViewModel>
+    = UICollectionView.CellRegistration<ExpenseListCell, ExpenseInfoViewModel>
     private typealias GlobalHeaderRegistration
-        = UICollectionView.SupplementaryRegistration<ExpenseCollectionHeaderView>
+    = UICollectionView.SupplementaryRegistration<ExpenseCollectionHeaderView>
     private typealias SectionHeaderRegistration
-        = UICollectionView.SupplementaryRegistration<ExpenseSectionHeaderView>
+    = UICollectionView.SupplementaryRegistration<ExpenseSectionHeaderView>
     
     // MARK: - Properties
     
@@ -24,10 +24,10 @@ final class ExpenseListViewController: UIViewController {
     
     lazy var expenseCollectionView: UICollectionView = {
         
-//        var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
-//        configuration.showsSeparators = false
-//        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
-//        layout.configuration = createLayoutConfiguration()
+        //        var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+        //        configuration.showsSeparators = false
+        //        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
+        //        layout.configuration = createLayoutConfiguration()
         let layout = createCompositionalLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
@@ -55,7 +55,7 @@ final class ExpenseListViewController: UIViewController {
         configureCollectionViewDataSource()
         
         viewModel?.fetchCurrentTravel(with: travelID)
-//        viewModel?.addExpenseData()
+        //        viewModel?.addExpenseData()
         viewModel?.fetchExpenseData()
         
         // TODO: - 임시 데이터 추가코드 추후 삭제
@@ -109,12 +109,7 @@ final class ExpenseListViewController: UIViewController {
     // MARK: - Collection View
     
     private func createCompositionalLayout() -> UICollectionViewLayout {
-        let layout
-        = UICollectionViewCompositionalLayout { (
-            sectionIndex: Int,
-            layoutEnvironment: NSCollectionLayoutEnvironment
-        ) -> NSCollectionLayoutSection? in
-            
+        let layout = UICollectionViewCompositionalLayout { _, _ -> NSCollectionLayoutSection? in
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
                 heightDimension: .absolute(45)
@@ -203,13 +198,13 @@ final class ExpenseListViewController: UIViewController {
             // 세번째 파라미터는 indexPath
             supplementaryView.configureData()
         }
-
+        
         // TODO: - section Header 타이틀 바꾸기
         let sectionHeaderRegistration = SectionHeaderRegistration(
             elementKind: HeaderKind.sectionHeader
         ) { _, _, _ in
         }
-
+        
         // TODO: - 추후 self에 접근한다면 [weak self] 작성
         expenseDataSource?.supplementaryViewProvider = { (collectionView, kind, indexPath) in
             

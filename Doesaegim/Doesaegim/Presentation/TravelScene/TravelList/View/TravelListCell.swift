@@ -29,7 +29,9 @@ final class TravelListCell: UICollectionViewListCell {
         contentConfiguration = createContentConfiguration(of: identifier)
     }
     
-    private func createContentConfiguration(of identifier: TravelInfoViewModel) -> UIListContentConfiguration {
+    private func createContentConfiguration(
+        of identifier: TravelInfoViewModel
+    ) -> UIListContentConfiguration {
         
         var configuration = defaultContentConfiguration()
         configuration.image = UIImage(systemName: "airplane.departure")
