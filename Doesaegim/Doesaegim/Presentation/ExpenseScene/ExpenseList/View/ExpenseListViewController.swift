@@ -48,6 +48,7 @@ final class ExpenseListViewController: UIViewController {
         expenseCollectionView.delegate = self
         viewModel?.delegate = self
         
+        configureView()
         configureNavigationBar()
         configureSubviews()
         configureConstraints()
@@ -65,6 +66,10 @@ final class ExpenseListViewController: UIViewController {
     }
     
     // MARK: - Configuration
+    
+    private func configureView() {
+        view.backgroundColor = .white
+    }
     
     private func configureNavigationBar() {
         // TODO: - 여행 이름도 네비게이션 타이틀에 포함하기 "(여행이름) - 지출내역"
@@ -112,13 +117,13 @@ final class ExpenseListViewController: UIViewController {
         let layout = UICollectionViewCompositionalLayout { _, _ -> NSCollectionLayoutSection? in
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(45)
+                heightDimension: .absolute(50)
             )
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(45)
+                heightDimension: .absolute(50)
             )
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
             
@@ -126,7 +131,7 @@ final class ExpenseListViewController: UIViewController {
             
             let sectionHeaderSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(60)
+                heightDimension: .absolute(40)
             )
             let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: sectionHeaderSize,
@@ -141,7 +146,7 @@ final class ExpenseListViewController: UIViewController {
         
         let globalHeaderSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(200)
+            heightDimension: .absolute(350)
         )
         let globalHeader = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: globalHeaderSize,
@@ -176,9 +181,12 @@ final class ExpenseListViewController: UIViewController {
     }
     
     private func configureCollectionViewDataSource() {
+        
+        var date: Date?
         let expenseCell = CellRegistration { cell, _, identifier in
             cell.configureContent(with: identifier)
             // TODO: - 페이지네이션
+            date = identifier.date
         }
         
         expenseDataSource = DataSource(
@@ -220,6 +228,7 @@ final class ExpenseListViewController: UIViewController {
                 using: sectionHeaderRegistration,
                 for: indexPath
             )
+            sectionHeader.configureData(date: date)
             return sectionHeader
         }
         

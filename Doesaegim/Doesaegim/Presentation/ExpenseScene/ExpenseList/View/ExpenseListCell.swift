@@ -36,6 +36,8 @@ final class ExpenseListCell: UICollectionViewListCell {
         
         label.font = label.font.withSize(16)
         label.textColor = .black
+        label.lineBreakMode = .byTruncatingTail
+        label.numberOfLines = 1
         
         return label
     }()
@@ -45,6 +47,8 @@ final class ExpenseListCell: UICollectionViewListCell {
         
         label.font = label.font.withSize(12)
         label.textColor = .grey4
+        label.lineBreakMode = .byTruncatingTail
+        label.numberOfLines = 1
         
         return label
     }()
@@ -81,6 +85,7 @@ final class ExpenseListCell: UICollectionViewListCell {
     // MARK: - Configuration
     
     private func configure() {
+        backgroundColor = .white
         configureSubviews()
         configureConstraints()
     }
@@ -117,9 +122,6 @@ final class ExpenseListCell: UICollectionViewListCell {
     }
     
     func configureContent(with data: ExpenseInfoViewModel) {
-//        var configuration = self.defaultContentConfiguration()
-//        configuration.text = data.name
-//        contentConfiguration = configuration
         
         configureImageView(with: data.category)
         configureTitle(with: data.name)
