@@ -23,11 +23,6 @@ final class ExpenseListViewController: UIViewController {
     let placeholdView: ExpensePlaceholdView = ExpensePlaceholdView()
     
     lazy var expenseCollectionView: UICollectionView = {
-        
-        //        var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
-        //        configuration.showsSeparators = false
-        //        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
-        //        layout.configuration = createLayoutConfiguration()
         let layout = createCompositionalLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
@@ -56,7 +51,7 @@ final class ExpenseListViewController: UIViewController {
         configureCollectionViewDataSource()
         
         viewModel?.fetchCurrentTravel(with: travelID)
-        //        viewModel?.addExpenseData()
+//        viewModel?.addExpenseData()
         viewModel?.fetchExpenseData()
         
         // TODO: - 임시 데이터 추가코드 추후 삭제
@@ -259,21 +254,12 @@ extension ExpenseListViewController: ExpenseListViewModelDelegate {
         }
         
         var snapshot = SnapShot()
-        
-        var sections: [String] = []
-        for info in expenseInfos {
-            let date = info.date
-            let formatter = Date.yearMonthDayDateFormatter
-            let dateString = formatter.string(from: date)
-            if !sections.contains(dateString) {
-                sections.append(dateString)
-            }
-        }
-        
-        snapshot.appendSections(sections)
+        snapshot.appendSections(viewModel.sections)
+        print(viewModel.sections)
         for info in expenseInfos {
             let formatter = Date.yearMonthDayDateFormatter
             let dateString = formatter.string(from: info.date)
+            print(dateString)
             snapshot.appendItems([info], toSection: dateString)
         }
         
