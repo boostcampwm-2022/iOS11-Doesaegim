@@ -36,9 +36,15 @@ final class PieceTextLayer: CATextLayer {
     
     private func configureText() {
         string = text
-        fontSize = 16
+        fontSize = Metric.textFontSize
         alignmentMode = .center
         foregroundColor = UIColor.label.cgColor
         frame = rect
+    }
+}
+
+extension PieceTextLayer {
+    enum Metric {
+        static let textFontSize: CGFloat = 16
     }
 }

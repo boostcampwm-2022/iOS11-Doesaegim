@@ -58,8 +58,8 @@ final class CustomPieChart: UIView {
             
             let pieceLayer = PieceLayer(
                 rect: rect,
-                start: startAngle,
-                ratio: angleRatio,
+                startAngle: startAngle,
+                angleRatio: angleRatio,
                 color: items[idx].category.color.cgColor
             )
             layer.addSublayer(pieceLayer)

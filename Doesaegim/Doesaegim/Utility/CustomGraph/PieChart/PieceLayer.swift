@@ -13,18 +13,18 @@ final class PieceLayer: CAShapeLayer {
     
     private let rect: CGRect
     
-    private let start: CGFloat
+    private let startAngle: CGFloat
     
-    private let ratio: CGFloat
+    private let angleRatio: CGFloat
     
     private let color: CGColor
     
     // MARK: - Init
     
-    init(rect: CGRect, start: CGFloat, ratio: CGFloat, color: CGColor) {
+    init(rect: CGRect, startAngle: CGFloat, angleRatio: CGFloat, color: CGColor) {
         self.rect = rect
-        self.start = start
-        self.ratio = ratio
+        self.startAngle = startAngle
+        self.angleRatio = angleRatio
         self.color = color
         
         super.init()
@@ -52,8 +52,8 @@ final class PieceLayer: CAShapeLayer {
         piecePath.addArc(
             withCenter: center,
             radius: radius,
-            startAngle: start,
-            endAngle: start + ratio,
+            startAngle: startAngle,
+            endAngle: startAngle + angleRatio,
             clockwise: true
         )
         piecePath.close()
