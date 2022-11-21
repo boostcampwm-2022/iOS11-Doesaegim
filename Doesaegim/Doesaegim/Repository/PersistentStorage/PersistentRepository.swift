@@ -17,36 +17,77 @@ final class PersistentRepository: PersistentRepositoryProtocol {
     
     func fetchTravel() -> [Travel] {
         let request = Travel.fetchRequest()
-        return manager.fetch(request: request)
+        
+        let result = manager.fetch(request: request)
+        switch result {
+        case .success(let travels):
+            return travels
+        case .failure(let error):
+            print(error.localizedDescription)
+        }
+        
+        return []
     }
     
     func fetchExpense() -> [Expense] {
         let request = Expense.fetchRequest()
-        return manager.fetch(request: request)
+        
+        let result = manager.fetch(request: request)
+        switch result {
+        case .success(let expenses):
+            return expenses
+        case .failure(let error):
+            print(error.localizedDescription)
+        }
+        
+        return []
     }
     
     func fetchTravel(offset: Int, limit: Int) -> [Travel] {
         let request = Travel.fetchRequest()
         request.fetchOffset = offset
         request.fetchLimit = limit
-        return manager.fetch(request: request)
+        
+        let result = manager.fetch(request: request)
+        switch result {
+        case .success(let travels):
+            return travels
+        case .failure(let error):
+            print(error.localizedDescription)
+        }
+        
+        return []
     }
     
     func fetchExpense(offset: Int, limit: Int) -> [Expense] {
         let request = Expense.fetchRequest()
         request.fetchOffset = offset
         request.fetchLimit = limit
-        return manager.fetch(request: request)
+        
+        let result = manager.fetch(request: request)
+        switch result {
+        case .success(let expenses):
+            return expenses
+        case .failure(let error):
+            print(error.localizedDescription)
+        }
+        
+        return []
     }
     
     func fetchTravel(with id: UUID) -> [Travel] {
         let request = Travel.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@", id.uuidString)
-        return manager.fetch(request: request)
+        
+        let result = manager.fetch(request: request)
+        switch result {
+        case .success(let travels):
+            return travels
+        case .failure(let error):
+            print(error.localizedDescription)
+        }
+        
+        return []
     }
-    
-//    func delete(type: EntityType) {
-//        <#code#>
-//    }
     
 }
