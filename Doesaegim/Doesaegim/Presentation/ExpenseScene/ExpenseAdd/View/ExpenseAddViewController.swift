@@ -30,3 +30,46 @@ final class ExpenseAddViewController: UIViewController {
     // MARK: - Helpers
     
 }
+
+// MARK: - Keyboard
+
+extension ExpenseAddViewController {
+    private func setKeyboardNotification() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardDidShow),
+            name: UIResponder.keyboardDidShowNotification, object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification, object: nil
+        )
+    }
+  
+    @objc private func keyboardDidShow(notification: NSNotification) {
+        if let keyboardFrame: NSValue = notification
+            .userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            self.view.frame.size.height -= keyboardHeight
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+            view.addGestureRecognizer(tapGesture)
+        }
+    }
+
+    @objc private func keyboardWillHide(notification: NSNotification) {
+        if let keyboardFrame: NSValue = notification
+            .userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            self.view.frame.size.height += keyboardHeight
+            view.gestureRecognizers?.removeAll()
+        }
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
