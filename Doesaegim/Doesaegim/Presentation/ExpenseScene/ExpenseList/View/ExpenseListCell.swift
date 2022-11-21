@@ -153,6 +153,6 @@ final class ExpenseListCell: UICollectionViewListCell {
     }
     
     private func configurePrice(with price: Int) {
-        
+        priceLabel.text = price.convertCostString()
     }
 }
