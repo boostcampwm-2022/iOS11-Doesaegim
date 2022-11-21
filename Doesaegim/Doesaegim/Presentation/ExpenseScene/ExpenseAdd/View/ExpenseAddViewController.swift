@@ -24,10 +24,14 @@ final class ExpenseAddViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureNavigation()
         setKeyboardNotification()
     }
     
-    // MARK: - Helpers
+    // MARK: - Configure Function
+    private func configureNavigation() {
+        navigationItem.title = "지출 추가"
+    }
     
 }
 

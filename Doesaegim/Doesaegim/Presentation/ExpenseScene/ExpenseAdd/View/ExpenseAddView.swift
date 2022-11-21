@@ -28,8 +28,6 @@ final class ExpenseAddView: UIView {
         let stackView = UIStackView()
         
         stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fill
         stackView.spacing = 12
         return stackView
     }()
@@ -60,8 +58,6 @@ final class ExpenseAddView: UIView {
         let stackView = UIStackView()
         
         stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fill
         stackView.spacing = 12
         return stackView
     }()
@@ -93,8 +89,6 @@ final class ExpenseAddView: UIView {
         let stackView = UIStackView()
         
         stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fill
         stackView.spacing = 12
         return stackView
     }()
@@ -111,7 +105,6 @@ final class ExpenseAddView: UIView {
     
     lazy var moneyUnitPickerView: UIPickerView = {
         let pickerView = UIPickerView()
-        
         return pickerView
     }()
     
@@ -119,8 +112,6 @@ final class ExpenseAddView: UIView {
         let stackView = UIStackView()
         
         stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fill
         stackView.spacing = 12
         return stackView
     }()
@@ -137,8 +128,83 @@ final class ExpenseAddView: UIView {
     
     lazy var categoryPickerView: UIPickerView = {
         let pickerView = UIPickerView()
-        
         return pickerView
+    }()
+    
+    private lazy var dateStackView: UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.axis = .vertical
+        stackView.spacing = 12
+        return stackView
+    }()
+    
+    
+    private lazy var dateLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "날짜"
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.textAlignment = .left
+        return label
+    }()
+    
+    private lazy var dateButton: UIButton = {
+        let button = UIButton()
+        
+        button.layer.cornerRadius = 10
+        button.backgroundColor = .grey1
+        button.setTitleColor(.grey3, for: .normal)
+        button.setTitle("날짜를 입력해주세요.", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
+        button.setImage(UIImage(systemName: "calendar"), for: .normal)
+        button.titleEdgeInsets = .init(top: 0, left: 15, bottom: 0, right: -5)
+        button.imageEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 5)
+        button.tintColor = .grey3
+        button.contentHorizontalAlignment = .left
+        return button
+    }()
+    
+    private lazy var descriptionStackView: UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.axis = .vertical
+        stackView.spacing = 12
+        return stackView
+    }()
+    
+    private lazy var descriptionTitleLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "설명"
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.textAlignment = .left
+        return label
+    }()
+    
+    private lazy var descriptionTextView: UITextView = {
+        let textView = UITextView()
+        
+        textView.layer.cornerRadius = 10
+        textView.text = "설명을 입력해주세요."
+        textView.textColor = .grey3
+        textView.font = .systemFont(ofSize: 14, weight: .regular)
+        textView.backgroundColor = .grey1
+        textView.contentInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        return textView
+    }()
+    
+    lazy var addButton: UIButton = {
+        let button = UIButton()
+
+        button.setTitle("지출 추가", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .grey3
+        button.isEnabled = false
+        button.layer.cornerRadius = 10
+        return button
     }()
     
     // MARK: - Properties
@@ -167,13 +233,15 @@ final class ExpenseAddView: UIView {
         addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubviews(
-            titleStackView, amountStackView,
-            moneyUnitStackView, categoryStackView
+            titleStackView, amountStackView, moneyUnitStackView, categoryStackView,
+            dateStackView, descriptionStackView, addButton
         )
         titleStackView.addArrangedSubviews(titleLabel, titleTextField)
         amountStackView.addArrangedSubviews(amountLabel, amountTextField)
         moneyUnitStackView.addArrangedSubviews(moneyUnitLabel, moneyUnitPickerView)
         categoryStackView.addArrangedSubviews(categoryLabel, categoryPickerView)
+        dateStackView.addArrangedSubviews(dateLabel, dateButton)
+        descriptionStackView.addArrangedSubviews(descriptionTitleLabel, descriptionTextView)
     }
     
     private func configureConstraints() {
@@ -184,7 +252,6 @@ final class ExpenseAddView: UIView {
         contentView.snp.makeConstraints {
             $0.edges.equalTo(scrollView.contentLayoutGuide)
             $0.width.equalTo(scrollView.frameLayoutGuide)
-            $0.height.equalTo(2000)
         }
         
         titleStackView.snp.makeConstraints {
@@ -221,6 +288,31 @@ final class ExpenseAddView: UIView {
         
         categoryPickerView.snp.makeConstraints {
             $0.height.equalTo(180)
+        }
+        
+        dateStackView.snp.makeConstraints {
+            $0.top.equalTo(categoryPickerView.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview().inset(16)
+        }
+        
+        dateButton.snp.makeConstraints {
+            $0.height.equalTo(36)
+        }
+        
+        descriptionStackView.snp.makeConstraints {
+            $0.top.equalTo(dateStackView.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview().inset(16)
+        }
+        
+        descriptionTextView.snp.makeConstraints {
+            $0.height.equalTo(200)
+        }
+        
+        addButton.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().offset(-30)
+            $0.top.equalTo(descriptionTextView.snp.bottom).offset(40)
+            $0.height.equalTo(48)
         }
     }
 }
