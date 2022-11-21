@@ -65,15 +65,28 @@ final class PlanAddViewModel: PlanAddViewProtocol {
         isValidPlace = true
     }
     
-    func isValidDate(date: Date?) {
+    func isValidDate(dateString: String) {
         defer {
             isValidInput = isValidName && isValidPlace && isValidDate
         }
-        guard let date else {
+        guard let date = Date.convertDateStringToDate(
+            dateString: dateString,
+            formatter: Date.yearMonthDayTimeDateFormatter
+        ) else {
             isValidDate = false
             return
         }
         isValidDate = true
     }
     
+    func postPlan(plan: PlanDTO, completion: @escaping () -> Void) {
+        let result = Plan.addAndSave(with: plan)
+        switch result {
+        case .success:
+            completion()
+        case .failure(let error):
+            print(error.localizedDescription)
+            
+        }
+    }
 }

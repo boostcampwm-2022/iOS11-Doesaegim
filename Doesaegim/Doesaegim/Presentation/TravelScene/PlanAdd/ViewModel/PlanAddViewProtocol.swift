@@ -16,7 +16,9 @@ protocol PlanAddViewProtocol: AnyObject {
     
     func isValidPlanName(name: String?)
     func isValidPlace(place: LocationDTO?)
-    func isValidDate(date: Date?)
+    func isValidDate(dateString: String)
+    
+    func postPlan(plan: PlanDTO, completion: @escaping () -> Void)
 }
 
 protocol PlanAddViewDelegate: AnyObject {

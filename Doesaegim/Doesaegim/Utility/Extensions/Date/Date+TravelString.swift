@@ -61,4 +61,8 @@ extension Date {
 
         return periodString
     }
+    
+    static func convertDateStringToDate(dateString: String, formatter: DateFormatter) -> Date? {
+        return formatter.date(from: dateString)
+    }
 }

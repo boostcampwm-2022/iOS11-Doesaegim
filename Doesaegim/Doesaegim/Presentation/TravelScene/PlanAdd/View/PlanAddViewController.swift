@@ -171,11 +171,13 @@ final class PlanAddViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel: PlanAddViewModel
+    private let travel: Travel?
     
     // MARK: - Lifecycles
     
-    init() {
+    init(travel: Travel?) {
         viewModel = PlanAddViewModel()
+        self.travel = travel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -201,6 +203,10 @@ final class PlanAddViewController: UIViewController {
             action: #selector(placeButtonTouchUpInside),
             for: .touchUpInside
         )
+        addButton.addTarget(
+            self,
+            action: #selector(addButtonTouchUpInside),
+            for: .touchUpInside)
         viewModel.delegate = self
     }
     
@@ -343,6 +349,24 @@ extension PlanAddViewController {
         searchingLocationViewController.delegate = self
         navigationController?.pushViewController(searchingLocationViewController, animated: true)
     }
+    
+    @objc func addButtonTouchUpInside() {
+        guard let name = planTitleTextField.text,
+              let dateString = dateInputButton.titleLabel?.text,
+              let date = Date.convertDateStringToDate(
+                dateString: dateString,
+                formatter: Date.yearMonthDayTimeDateFormatter
+              ),
+              let content = descriptionTextView.text,
+              let travel = travel
+        else {
+            return
+        }
+        let dto = PlanDTO(name: name, date: date, content: content, travel: travel)
+        viewModel.postPlan(plan: dto) {
+            print("저장 성공!")
+        }
+    }
 }
 
 // MARK: - TextField Delegate
@@ -398,9 +422,7 @@ extension PlanAddViewController: SearchingLocationViewControllerDelegate {
 extension PlanAddViewController: CalendarViewDelegate {
     func fetchDate(dateString: String) {
         dateInputButton.setTitle(dateString, for: .normal)
-        let dateFormatter = Date.yearMonthDayTimeDateFormatter
-        let date = dateFormatter.date(from: dateString)
-        viewModel.isValidDate(date: date)
+        viewModel.isValidDate(dateString: dateString)
     }
 }
 
