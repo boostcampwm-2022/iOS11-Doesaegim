@@ -25,12 +25,8 @@ final class TravelListViewModel: TravelListViewModelProtocol {
     
     func fetchTravelInfo() {
         
-        let travels = PersistentManager.shared.fetch(
-            request: Travel.fetchRequest(),
-            offset: travelInfos.count,
-            limit: 10
-        )
-//        let travels = PersistentManager.shared.fetch(request: Travel.fetchRequest())
+        let travels = PersistentRepository.shared.fetchTravel(offset: travelInfos.count, limit: 10)
+        
         var newTravelInfos: [TravelInfoViewModel] = []
         
         // TODO: - Travel 익스텐션으로
@@ -45,7 +41,7 @@ final class TravelListViewModel: TravelListViewModelProtocol {
     
     func deleteTravel(with id: UUID) {
         print(#function)
-        let travels = PersistentManager.shared.fetch(request: Travel.fetchRequest())
+        let travels = PersistentRepository.shared.fetchTravel()
         let deleteTravel = travels.filter { $0.id == id }
         
         if !deleteTravel.isEmpty {
