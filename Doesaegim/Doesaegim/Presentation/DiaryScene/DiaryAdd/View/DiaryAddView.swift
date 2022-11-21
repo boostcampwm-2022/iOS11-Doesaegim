@@ -22,24 +22,15 @@ final class DiaryAddView: UIView {
         return scrollView
     }()
 
-    private let contentStack: UIStackView = {
-        let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .vertical
-        stack.spacing = Metric.spacing
-        stack.alignment = .center
+    let travelPicker = UIPickerView()
 
-        return stack
-    }()
-
-    private let travelTextField: UITextField = {
+    let travelTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = StringLiteral.travelTextFieldPlaceholder
+        textField.font = textField.font?.withSize(FontSize.title)
 
         return textField
     }()
-
-    private let travelPicker = UIPickerView()
 
     private let placeSearchButton = PlaceSearchButton()
 
@@ -109,7 +100,17 @@ final class DiaryAddView: UIView {
         return view
     }()
 
+    private let contentStack: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        stack.spacing = Metric.spacing
+        stack.alignment = .center
 
+        return stack
+    }()
+
+    
     // MARK: - Properties
 
 

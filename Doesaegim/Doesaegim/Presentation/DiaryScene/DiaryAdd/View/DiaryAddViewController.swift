@@ -16,6 +16,7 @@ final class DiaryAddViewController: UIViewController {
 
     // MARK: - Properties
 
+    private let viewModel = DiaryAddViewModel(repository: DiaryAddLocalRepository())
 
 
     // MARK: - Life Cycle
@@ -29,15 +30,25 @@ final class DiaryAddViewController: UIViewController {
         super.viewDidLoad()
 
         configureNavigationBar()
+        bindToViewModel()
         observeKeyBoardAppearance()
+        configureTravelPicker()
     }
-
 
 
     // MARK: - Configuration Functions
 
     private func configureNavigationBar() {
         navigationItem.title = StringLiteral.navigationTitle
+    }
+
+    private func bindToViewModel() {
+        viewModel.delegate = self
+    }
+
+    private func configureTravelPicker() {
+        rootView.travelPicker.delegate = self
+        rootView.travelPicker.dataSource = viewModel.travelPickerDataSource
     }
 
 
@@ -80,6 +91,36 @@ final class DiaryAddViewController: UIViewController {
     @objc private func keyboardWillHide(notification: NSNotification) {
         rootView.scrollView.contentInset = .zero
         rootView.scrollView.scrollIndicatorInsets = .zero
+    }
+}
+
+
+// MARK: - UIPickerViewDelegate
+extension DiaryAddViewController: UIPickerViewDelegate {
+    func pickerView(
+        _ pickerView: UIPickerView,
+        titleForRow row: Int,
+        forComponent component: Int
+    ) -> String? {
+        viewModel.travelPickerDataSource.itemForRow(row)?.name
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        guard let travel = viewModel.travelPickerDataSource.itemForRow(row)
+        else {
+            return
+        }
+
+        viewModel.travelDidSelect(travel)
+    }
+}
+
+
+// MARK: - ViewModelDelegate
+extension DiaryAddViewController: DiaryAddViewModelDelegate {
+
+    func diaryValuesDidChange(_ diary: TemporaryDiary) {
+        rootView.travelTextField.text = diary.travel?.name
     }
 }
 

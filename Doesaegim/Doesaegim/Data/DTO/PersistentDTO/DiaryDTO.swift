@@ -13,4 +13,5 @@ struct DiaryDTO {
     let date: Date
     let images: [String]
     let title: String
+    let travel: Travel
 }

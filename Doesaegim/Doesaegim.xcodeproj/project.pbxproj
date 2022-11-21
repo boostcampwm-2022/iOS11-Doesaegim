@@ -37,6 +37,12 @@
 		B53763D5292B61A40073BF46 /* CustomChartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763D4292B61A40073BF46 /* CustomChartItem.swift */; };
 		B53763E3292B99B80073BF46 /* PieceShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763E2292B99B80073BF46 /* PieceShapeLayer.swift */; };
 		B53763E8292BA0760073BF46 /* PieceTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763E7292BA0760073BF46 /* PieceTextLayer.swift */; };
+		A4EB25BF292BB4F1002D129A /* DiaryAddRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB25BE292BB4F1002D129A /* DiaryAddRepository.swift */; };
+		A4EB25C2292BB518002D129A /* DiaryAddLocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB25C1292BB518002D129A /* DiaryAddLocalRepository.swift */; };
+		A4EB25C4292BB828002D129A /* DiaryAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB25C3292BB828002D129A /* DiaryAddViewModel.swift */; };
+		A4EB25C9292C92CC002D129A /* DiaryAddViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB25C8292C92CC002D129A /* DiaryAddViewModelDelegate.swift */; };
+		A4EB25CB292C92F1002D129A /* PickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB25CA292C92F1002D129A /* PickerDataSource.swift */; };
+		A4EB25CD292C9775002D129A /* TemporaryDiary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB25CC292C9775002D129A /* TemporaryDiary.swift */; };
 		B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D96252922301E00B510B8 /* TravelDTO.swift */; };
 		B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D9627292230CA00B510B8 /* PlanDTO.swift */; };
 		B57D962C2922315500B510B8 /* LocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962B2922315500B510B8 /* LocationDTO.swift */; };
@@ -167,6 +173,12 @@
 		B53763D4292B61A40073BF46 /* CustomChartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChartItem.swift; sourceTree = "<group>"; };
 		B53763E2292B99B80073BF46 /* PieceShapeLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceShapeLayer.swift; sourceTree = "<group>"; };
 		B53763E7292BA0760073BF46 /* PieceTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceTextLayer.swift; sourceTree = "<group>"; };
+		A4EB25BE292BB4F1002D129A /* DiaryAddRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddRepository.swift; sourceTree = "<group>"; };
+		A4EB25C1292BB518002D129A /* DiaryAddLocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddLocalRepository.swift; sourceTree = "<group>"; };
+		A4EB25C3292BB828002D129A /* DiaryAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddViewModel.swift; sourceTree = "<group>"; };
+		A4EB25C8292C92CC002D129A /* DiaryAddViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddViewModelDelegate.swift; sourceTree = "<group>"; };
+		A4EB25CA292C92F1002D129A /* PickerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDataSource.swift; sourceTree = "<group>"; };
+		A4EB25CC292C9775002D129A /* TemporaryDiary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryDiary.swift; sourceTree = "<group>"; };
 		B57D96252922301E00B510B8 /* TravelDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDTO.swift; sourceTree = "<group>"; };
 		B57D9627292230CA00B510B8 /* PlanDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDTO.swift; sourceTree = "<group>"; };
 		B57D962B2922315500B510B8 /* LocationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDTO.swift; sourceTree = "<group>"; };
@@ -387,6 +399,7 @@
 			children = (
 				BB9DB8132928D0C300102EC8 /* PersistentStorage */,
 				A4CC04DB292351E700BB678B /* TravelScene */,
+				A4EB25C0292BB4F7002D129A /* DiaryScene */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -427,6 +440,25 @@
 			path = PieChart;
 			sourceTree = "<group>";
 		};
+		A4EB25C0292BB4F7002D129A /* DiaryScene */ = {
+			isa = PBXGroup;
+			children = (
+				A4EB25BE292BB4F1002D129A /* DiaryAddRepository.swift */,
+				A4EB25C1292BB518002D129A /* DiaryAddLocalRepository.swift */,
+			);
+			path = DiaryScene;
+			sourceTree = "<group>";
+		};
+		A4EB25C5292BCD26002D129A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A4EB25C3292BB828002D129A /* DiaryAddViewModel.swift */,
+				A4EB25C8292C92CC002D129A /* DiaryAddViewModelDelegate.swift */,
+				A4EB25CA292C92F1002D129A /* PickerDataSource.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		B57D962229222FC500B510B8 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -440,6 +472,7 @@
 			isa = PBXGroup;
 			children = (
 				B57D96242922300400B510B8 /* PersistentDTO */,
+				A4EB25CC292C9775002D129A /* TemporaryDiary.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -490,6 +523,7 @@
 			isa = PBXGroup;
 			children = (
 				B5D64E5D292DF06400E1CC81 /* View */,
+				A4EB25C5292BCD26002D129A /* ViewModel */,
 			);
 			path = DiaryAdd;
 			sourceTree = "<group>";
@@ -1099,6 +1133,7 @@
 				B5D64E62292DF06400E1CC81 /* DiaryAddViewController.swift in Sources */,
 				BBD0D063291DE991007D0D82 /* SettingViewController.swift in Sources */,
 				BB3DB919292C649600C70D62 /* UIView+Frame.swift in Sources */,
+				A4EB25CD292C9775002D129A /* TemporaryDiary.swift in Sources */,
 				EEDB75312925F56D0069A7F5 /* CalendarProtocol.swift in Sources */,
 				A4CC04D32923308600BB678B /* DateCollectionHeaderView.swift in Sources */,
 				A4CC04CF292281B400BB678B /* UIStackView+AddArrangedSubviews.swift in Sources */,
@@ -1110,6 +1145,7 @@
 				BBDB2E9429262BB300752924 /* ExpenseCollectionHeaderView.swift in Sources */,
 				B5D64E61292DF06400E1CC81 /* PlaceSearchButton.swift in Sources */,
 				BBB31A372925F5E400C9E3A9 /* TravelListCell.swift in Sources */,
+				A4EB25CB292C92F1002D129A /* PickerDataSource.swift in Sources */,
 				BB9DB8122928D0BA00102EC8 /* PersistentRepositoryProtocol.swift in Sources */,
 				A4CC04C62922799600BB678B /* CheckBox.swift in Sources */,
 				BB3DB922292CA79500C70D62 /* DiaryMapInfoViewModel.swift in Sources */,
@@ -1117,6 +1153,7 @@
 				A4CC04D1292324B000BB678B /* EmptyLabeledCollectionView.swift in Sources */,
 				BBFAC08B291CBDD700D7FD57 /* MainTabBarController.swift in Sources */,
 				BB3DB928292D092000C70D62 /* TempDiaryViewController.swift in Sources */,
+				A4EB25C2292BB518002D129A /* DiaryAddLocalRepository.swift in Sources */,
 				B5C096C629238A0B007426B1 /* SearchingLocationViewModelDelegate.swift in Sources */,
 				B53763D5292B61A40073BF46 /* CustomChartItem.swift in Sources */,
 				B5C096B829235428007426B1 /* SearchingLocationView.swift in Sources */,
@@ -1156,6 +1193,7 @@
 				BB7D9A262926088A00BF2BD6 /* ExpensePlaceholdView.swift in Sources */,
 				BBFAC089291CBDD700D7FD57 /* SceneDelegate.swift in Sources */,
 				EE85FBC3292BA9B600FF0C7C /* ExpenseAddViewController.swift in Sources */,
+				A4EB25C9292C92CC002D129A /* DiaryAddViewModelDelegate.swift in Sources */,
 				EE116C592924AA0D0017B519 /* CustomCalendarHeaderView.swift in Sources */,
 				A4CC04A229221EEE00BB678B /* Diary+CoreDataClass.swift in Sources */,
 				EE116C5A2924AA0D0017B519 /* CustomCalendar.swift in Sources */,
@@ -1173,6 +1211,8 @@
 				BBD0D066291DED6A007D0D82 /* UIColor+.swift in Sources */,
 				BBB31A402926008D00C9E3A9 /* ExpenseListViewModel.swift in Sources */,
 				A4CC04C429226FC100BB678B /* String+Placeholders.swift in Sources */,
+				A4EB25C4292BB828002D129A /* DiaryAddViewModel.swift in Sources */,
+				A4EB25BF292BB4F1002D129A /* DiaryAddRepository.swift in Sources */,
 				EEDB752F2925E8DD0069A7F5 /* CalendarViewController.swift in Sources */,
 				EEB6C4F4292C8CC50060A459 /* PickerViewController.swift in Sources */,
 				EEB6C4FD292CC29B0060A459 /* NetworkManager.swift in Sources */,
