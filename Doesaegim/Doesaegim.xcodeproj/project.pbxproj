@@ -33,6 +33,9 @@
 		A4CC04E02923738500BB678B /* PlanLocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04DF2923738500BB678B /* PlanLocalRepository.swift */; };
 		A4CC04E22923777B00BB678B /* NSObject+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04E12923777B00BB678B /* NSObject+Name.swift */; };
 		A4EB00DC2926456D00A83936 /* UIScrollView+DidPassPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB00DB2926456D00A83936 /* UIScrollView+DidPassPoint.swift */; };
+		A4EB25B8292B6149002D129A /* DiaryAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB25B7292B6149002D129A /* DiaryAddView.swift */; };
+		A4EB25BB292B742D002D129A /* PlaceSearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB25BA292B742D002D129A /* PlaceSearchButton.swift */; };
+		A4EB25BD292BB314002D129A /* DiaryAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB25BC292BB313002D129A /* DiaryAddViewController.swift */; };
 		B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D96252922301E00B510B8 /* TravelDTO.swift */; };
 		B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D9627292230CA00B510B8 /* PlanDTO.swift */; };
 		B57D962C2922315500B510B8 /* LocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962B2922315500B510B8 /* LocationDTO.swift */; };
@@ -141,6 +144,9 @@
 		A4CC04DF2923738500BB678B /* PlanLocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanLocalRepository.swift; sourceTree = "<group>"; };
 		A4CC04E12923777B00BB678B /* NSObject+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Name.swift"; sourceTree = "<group>"; };
 		A4EB00DB2926456D00A83936 /* UIScrollView+DidPassPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+DidPassPoint.swift"; sourceTree = "<group>"; };
+		A4EB25B7292B6149002D129A /* DiaryAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddView.swift; sourceTree = "<group>"; };
+		A4EB25BA292B742D002D129A /* PlaceSearchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceSearchButton.swift; sourceTree = "<group>"; };
+		A4EB25BC292BB313002D129A /* DiaryAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddViewController.swift; sourceTree = "<group>"; };
 		B57D96252922301E00B510B8 /* TravelDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDTO.swift; sourceTree = "<group>"; };
 		B57D9627292230CA00B510B8 /* PlanDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDTO.swift; sourceTree = "<group>"; };
 		B57D962B2922315500B510B8 /* LocationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDTO.swift; sourceTree = "<group>"; };
@@ -279,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				BBD0D060291DE988007D0D82 /* DiaryViewController.swift */,
+				A4EB25B6292B6139002D129A /* DiaryAdd */,
 			);
 			path = DiaryScene;
 			sourceTree = "<group>";
@@ -356,6 +363,24 @@
 				A4CC04DF2923738500BB678B /* PlanLocalRepository.swift */,
 			);
 			path = PlanList;
+			sourceTree = "<group>";
+		};
+		A4EB25B6292B6139002D129A /* DiaryAdd */ = {
+			isa = PBXGroup;
+			children = (
+				A4EB25B9292B6187002D129A /* View */,
+			);
+			path = DiaryAdd;
+			sourceTree = "<group>";
+		};
+		A4EB25B9292B6187002D129A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A4EB25B7292B6149002D129A /* DiaryAddView.swift */,
+				A4EB25BA292B742D002D129A /* PlaceSearchButton.swift */,
+				A4EB25BC292BB313002D129A /* DiaryAddViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		B57D962229222FC500B510B8 /* Data */ = {
@@ -906,6 +931,7 @@
 				BB9DB80E2928CA6A00102EC8 /* ExpenseListViewModelProtocol.swift in Sources */,
 				B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */,
 				B5C096C429238091007426B1 /* SearchingLocationViewModel.swift in Sources */,
+				A4EB25B8292B6149002D129A /* DiaryAddView.swift in Sources */,
 				A4CC04A429221EEE00BB678B /* Plan+CoreDataClass.swift in Sources */,
 				EE116C5E2924CB6B0017B519 /* TravelAddViewProtocol.swift in Sources */,
 				BBDB2E96292635FD00752924 /* ExpenseSectionHeaderView.swift in Sources */,
@@ -937,6 +963,7 @@
 				BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */,
 				BBFE4BA62924B25D003F5CCE /* Date+TravelString.swift in Sources */,
 				B5C096BC29235B08007426B1 /* SearchResultCell.swift in Sources */,
+				A4EB25BD292BB314002D129A /* DiaryAddViewController.swift in Sources */,
 				B5DE4D4029271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift in Sources */,
 				BBE695DA29228C570015FAD4 /* TravelListViewModelProtocol.swift in Sources */,
 				B5C096C029236BC0007426B1 /* SearchResultCellViewModel.swift in Sources */,
@@ -977,6 +1004,7 @@
 				A4CC04C429226FC100BB678B /* String+Placeholders.swift in Sources */,
 				EEDB752F2925E8DD0069A7F5 /* CalendarViewController.swift in Sources */,
 				EE85FBC6292BAADC00FF0C7C /* ExpenseAddView.swift in Sources */,
+				A4EB25BB292B742D002D129A /* PlaceSearchButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
