@@ -362,9 +362,9 @@ extension PlanAddViewController {
         else {
             return
         }
-        let dto = PlanDTO(name: name, date: date, content: content, travel: travel)
-        viewModel.postPlan(plan: dto) {
-            print("저장 성공!")
+        let planDTO = PlanDTO(name: name, date: date, content: content, travel: travel)
+        viewModel.postPlan(plan: planDTO) { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
         }
     }
 }

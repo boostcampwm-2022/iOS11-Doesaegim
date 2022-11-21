@@ -61,12 +61,11 @@ final class PlanListViewController: UIViewController {
         viewModel.fetchPlans()
     }
 
-
     // MARK: - NavigationBar Configuration Functions
 
     private func configureNavigationBar() {
         navigationItem.title = viewModel.navigationTitle
-        setRightBarAddButton(showing: PlanAddViewController())
+        setRightBarAddButton(showing: PlanAddViewController(travel: viewModel.travel))
     }
 
 

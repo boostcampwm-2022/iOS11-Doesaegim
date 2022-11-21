@@ -193,14 +193,21 @@ extension TravelListViewController: UICollectionViewDelegate {
         else {
             return
         }
+        let result = PersistentManager.shared.fetch(request: Travel.fetchRequest())
+        switch result {
+        case .success(let response):
+            guard let travel = response.first(where: { $0.id == travelViewModel.uuid }) else {
+                return
+            }
+            let planListViewModel = PlanListViewModel(
+                travel: travel,
+                repository: PlanLocalRepository()
+            )
+            show(PlanListViewController(viewModel: planListViewModel), sender: nil)
+        case .failure(let error):
+            print(error.localizedDescription)
+        }
 
-        let planListViewModel = PlanListViewModel(
-            travelID: travelViewModel.uuid,
-            navgiationTitle: travelViewModel.title,
-            repository: PlanLocalRepository()
-        )
-
-        show(PlanListViewController(viewModel: planListViewModel), sender: self)
     }
 }
 
