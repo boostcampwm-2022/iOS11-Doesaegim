@@ -25,29 +25,47 @@ final class TravelListViewModel: TravelListViewModelProtocol {
     
     func fetchTravelInfo() {
         
-        let travels = PersistentRepository.shared.fetchTravel(offset: travelInfos.count, limit: 10)
-        
-        var newTravelInfos: [TravelInfoViewModel] = []
-        
-        // TODO: - Travel 익스텐션으로
-        for travel in travels {
-            guard let travelInfo = Travel.convertToViewModel(with: travel) else { continue }
-            newTravelInfos.append(travelInfo)
+        let result = PersistentRepository.shared.fetchTravel(offset: travelInfos.count, limit: 10)
+        switch result {
+        case .success(let travels):
+            var newTravelInfos: [TravelInfoViewModel] = []
+            
+            // TODO: - Travel 익스텐션으로
+            for travel in travels {
+                guard let travelInfo = Travel.convertToViewModel(with: travel) else { continue }
+                newTravelInfos.append(travelInfo)
+            }
+            
+            travelInfos.append(contentsOf: newTravelInfos)
+            
+        case .failure(let error):
+            print(error.localizedDescription)
+            // TODO: - 사용자 에러처리, 알림 등 delegate 메서드 실행
         }
-        
-        travelInfos.append(contentsOf: newTravelInfos)
         
     }
     
     func deleteTravel(with id: UUID) {
         print(#function)
-        let travels = PersistentRepository.shared.fetchTravel()
-        let deleteTravel = travels.filter { $0.id == id }
         
-        if !deleteTravel.isEmpty {
-            PersistentManager.shared.delete(deleteTravel.last!)
-            fetchTravelInfo()
+        let result = PersistentRepository.shared.fetchTravel()
+        switch result {
+        case .success(let travels):
+            let deleteTravel = travels.filter { $0.id == id }
+            if !deleteTravel.isEmpty {
+                let deleteResult = PersistentManager.shared.delete(deleteTravel.last!)
+                switch deleteResult {
+                case .success(let isDeleteComplete):
+                    if isDeleteComplete { fetchTravelInfo() }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        case .failure(let error):
+            print(error.localizedDescription)
+            // TODO: - 사용자 에러처리, 알림 등 delegate 메서드 실행
         }
+        
     }
 
 }
