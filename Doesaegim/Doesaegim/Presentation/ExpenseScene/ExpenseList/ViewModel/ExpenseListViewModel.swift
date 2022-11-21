@@ -32,10 +32,18 @@ extension ExpenseListViewModel {
         print(#function)
         guard let id = travelID else { return }
         
-        let travel = PersistentRepository.shared.fetchTravel(with: id)
-        if !travel.isEmpty {
-            currentTravel = travel.first!
+        let result = PersistentRepository.shared.fetchTravel(with: id)
+        switch result {
+        case .success(let travels):
+            if !travels.isEmpty {
+                currentTravel = travels.first!
+            }
+            
+        case .failure(let error):
+            print(error.localizedDescription)
+            // TODO: - 사용자 에러처리, 알림 등 delegate 메서드 실행
         }
+        
     }
     
     func fetchExpenseData() {

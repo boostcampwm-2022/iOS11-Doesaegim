@@ -81,10 +81,7 @@ final class PlanCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
 
     var viewModel: PlanViewModel? {
-        didSet {
-            render()
-            viewModel?.checkBoxToggleHandler = { [weak self] in self?.render() }
-        }
+        didSet { render() }
     }
 
     var checkBoxAction: UIAction? {
@@ -120,6 +117,8 @@ final class PlanCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
 
         viewModel = nil
+        viewModel?.checkBoxToggleHandler = nil
+        
         guard let action = checkBoxAction
         else {
             return
@@ -132,7 +131,7 @@ final class PlanCollectionViewCell: UICollectionViewCell {
     // MARK: - Rendering Functions
 
     /// 뷰모델로부터 데이터를 받아와 그림, 뷰모델이 없는 경우 전부 nil로 초기화
-    private func render() {
+    func render() {
         checkBox.isChecked = viewModel?.isComplete == true
         nameLabel.text = viewModel?.name
         timeLabel.text = viewModel?.timeString

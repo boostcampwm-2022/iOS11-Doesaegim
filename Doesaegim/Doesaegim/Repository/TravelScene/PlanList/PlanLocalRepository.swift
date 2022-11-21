@@ -17,19 +17,17 @@ struct PlanLocalRepository: PlanRepository {
 
     // MARK: - CRUD Functions
 
-    func fetchPlans(ofTravelID id: UUID, batchSize: Int) throws -> [Plan] {
+    func fetchPlans(ofTravelID id: UUID, batchSize: Int) -> Result<[Plan], Error> {
         let request = Plan.fetchRequest(travelID: id)
         request.fetchBatchSize = batchSize
-        // TODO: 코어데이터 메서드 바꾸자고 하기(에러 던지는 방식으로)
         return persistentManager.fetch(request: request)
     }
 
-    func save() throws {
-        try persistentManager.saveContext()
+    func save() -> Result<Bool, Error> {
+        persistentManager.saveContext()
     }
 
-    func deletePlan(_ plan: Plan) throws {
-        // TODO: 코어데이터 메서드 바꾸자고 하기(에러 던지는 방식으로)
+    func deletePlan(_ plan: Plan)  -> Result<Bool, Error> {
         persistentManager.delete(plan)
     }
 }
