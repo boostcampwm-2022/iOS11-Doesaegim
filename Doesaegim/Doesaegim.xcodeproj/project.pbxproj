@@ -38,6 +38,7 @@
 		B53763D5292B61A40073BF46 /* CustomChartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763D4292B61A40073BF46 /* CustomChartItem.swift */; };
 		B53763DE292B6F6F0073BF46 /* SampleCustomGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763DC292B6F6F0073BF46 /* SampleCustomGraphView.swift */; };
 		B53763DF292B6F6F0073BF46 /* CustomGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763DD292B6F6F0073BF46 /* CustomGraphViewController.swift */; };
+		B53763E3292B99B80073BF46 /* PieceLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763E2292B99B80073BF46 /* PieceLayer.swift */; };
 		B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D96252922301E00B510B8 /* TravelDTO.swift */; };
 		B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D9627292230CA00B510B8 /* PlanDTO.swift */; };
 		B57D962C2922315500B510B8 /* LocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962B2922315500B510B8 /* LocationDTO.swift */; };
@@ -151,6 +152,7 @@
 		B53763D4292B61A40073BF46 /* CustomChartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChartItem.swift; sourceTree = "<group>"; };
 		B53763DC292B6F6F0073BF46 /* SampleCustomGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleCustomGraphView.swift; sourceTree = "<group>"; };
 		B53763DD292B6F6F0073BF46 /* CustomGraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomGraphViewController.swift; sourceTree = "<group>"; };
+		B53763E2292B99B80073BF46 /* PieceLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceLayer.swift; sourceTree = "<group>"; };
 		B57D96252922301E00B510B8 /* TravelDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDTO.swift; sourceTree = "<group>"; };
 		B57D9627292230CA00B510B8 /* PlanDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDTO.swift; sourceTree = "<group>"; };
 		B57D962B2922315500B510B8 /* LocationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDTO.swift; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 				B53763C9292B56600073BF46 /* SampleExpenseCategory.swift */,
 				B53763D4292B61A40073BF46 /* CustomChartItem.swift */,
 				B53763CA292B56600073BF46 /* CustomPieChart.swift */,
+				B53763E4292B99D10073BF46 /* PieChart */,
 			);
 			path = CustomGraph;
 			sourceTree = "<group>";
@@ -386,6 +389,14 @@
 				B53763DD292B6F6F0073BF46 /* CustomGraphViewController.swift */,
 			);
 			path = CustomGraphTest;
+			sourceTree = "<group>";
+		};
+		B53763E4292B99D10073BF46 /* PieChart */ = {
+			isa = PBXGroup;
+			children = (
+				B53763E2292B99B80073BF46 /* PieceLayer.swift */,
+			);
+			path = PieChart;
 			sourceTree = "<group>";
 		};
 		B57D962229222FC500B510B8 /* Data */ = {
@@ -941,6 +952,7 @@
 				EE116C5E2924CB6B0017B519 /* TravelAddViewProtocol.swift in Sources */,
 				BBDB2E96292635FD00752924 /* ExpenseSectionHeaderView.swift in Sources */,
 				B53763CC292B56600073BF46 /* CustomPieChart.swift in Sources */,
+				B53763E3292B99B80073BF46 /* PieceLayer.swift in Sources */,
 				EE3E29BC2923C870007C7FC7 /* TravelAddViewController.swift in Sources */,
 				BBD0D063291DE991007D0D82 /* SettingViewController.swift in Sources */,
 				BB3DB919292C649600C70D62 /* UIView+Frame.swift in Sources */,

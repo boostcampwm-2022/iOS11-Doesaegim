@@ -50,52 +50,22 @@ final class CustomPieChart: UIView {
     /// 주어진 rect에 맞게 원형 차트를 그린다. 원형 차트는 정원 형태로영역에 꽉 채워서 그려진다.
     /// - Parameter rect: 원형 차트를 그릴 영역.
     override func draw(_ rect: CGRect) {
-        let center = CGPoint(x: rect.midX, y: rect.midY)
-        
         var startAngle: CGFloat = Metric.initialStartAngle
         
         for idx in items.indices {
-            let ratio = drawOnePieceOfPie(
-                center: center,
-                radius: rect.width/2,
+            let ratio = (items[idx].value / total) * Metric.angleRatio
+            let pieceLayer = PieceLayer(
+                rect: rect,
                 start: startAngle,
-                item: items[idx]
+                ratio: ratio,
+                color: items[idx].category.color.cgColor
             )
+            
+            layer.addSublayer(pieceLayer)
             
             startAngle += ratio
         }
-        
-    }
-    
-    /// 주어진 비율에 맞게 원형 차트의 한 조각을 그린다.
-    private func drawOnePieceOfPie(
-        center: CGPoint,
-        radius: CGFloat,
-        start startAngle: CGFloat,
-        item: CustomChartItem
-    ) -> CGFloat {
-        let ratio = (item.value / total) * Metric.angleRatio
-        
-        let path = UIBezierPath()
-        path.lineWidth = Metric.pieChartSpacing
-        
-        path.move(to: center)
-        path.addArc(
-            withCenter: center,
-            radius: radius,
-            startAngle: startAngle, 
-            endAngle: startAngle + ratio,
-            clockwise: true
-        )
-        path.close()
-        
-        item.category.color.set()
-        path.fill()
-        
-        UIColor.systemBackground.set()
-        path.stroke()
-        
-        return ratio
+
     }
     
     // MARK: - Configure Functions
@@ -111,11 +81,7 @@ final class CustomPieChart: UIView {
 
 extension CustomPieChart {
     enum Metric {
-        static let pieChartSpacing: CGFloat = 5
-        static let pieChartRadius: CGFloat = 70
-        
         static let initialStartAngle: CGFloat = (.pi) * 3 / 2
-        
         static let angleRatio: CGFloat = .pi * 2
     }
 }
