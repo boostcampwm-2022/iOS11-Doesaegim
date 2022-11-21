@@ -228,8 +228,7 @@ final class ExpenseListViewController: UIViewController {
     // MARK: - Action
     
     @objc func didAddExpenseButtonTap() {
-        // TODO: - 지출 추가 화면으로 이동
-        print("지출 추가버튼이 탭 되었습니다.")
+        navigationController?.pushViewController(ExpenseAddViewController(), animated: true)
     }
 }
 
