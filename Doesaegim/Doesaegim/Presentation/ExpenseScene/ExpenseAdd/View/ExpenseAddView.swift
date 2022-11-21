@@ -56,6 +56,39 @@ final class ExpenseAddView: UIView {
         return textField
     }()
     
+    private lazy var amountStackView: UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.spacing = 12
+        return stackView
+    }()
+    
+    lazy var amountLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "지출 액수"
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.textAlignment = .left
+        return label
+    }()
+    
+    private lazy var amountTextField: UITextField = {
+        let textField = UITextField()
+        
+        textField.placeholder = "지출의 액수를 입력해주세요."
+        textField.layer.cornerRadius = 10
+        textField.backgroundColor = .grey1
+        textField.textColor = .black
+        textField.font = .systemFont(ofSize: 17, weight: .regular)
+        textField.addPadding(witdh: 8)
+        textField.keyboardType = .numberPad
+        return textField
+    }()
+    
     // MARK: - Properties
     
     // MARK: - Lifecycles
@@ -81,8 +114,9 @@ final class ExpenseAddView: UIView {
     private func configureSubviews() {
         addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubviews(titleStackView)
+        contentView.addSubviews(titleStackView, amountStackView)
         titleStackView.addArrangedSubviews(titleLabel, titleTextField)
+        amountStackView.addArrangedSubviews(amountLabel, amountTextField)
     }
     
     private func configureConstraints() {
@@ -102,6 +136,15 @@ final class ExpenseAddView: UIView {
         }
         
         titleTextField.snp.makeConstraints {
+            $0.height.equalTo(36)
+        }
+        
+        amountStackView.snp.makeConstraints {
+            $0.top.equalTo(titleStackView.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview().inset(16)
+        }
+        
+        amountTextField.snp.makeConstraints {
             $0.height.equalTo(36)
         }
     }
