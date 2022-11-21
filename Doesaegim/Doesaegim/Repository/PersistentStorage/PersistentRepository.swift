@@ -24,7 +24,7 @@ final class PersistentRepository: PersistentRepositoryProtocol {
             return .success(travels)
         case .failure(let error):
             print(error.localizedDescription)
-            return .failure(Errors.canNotGetTravelDataException)
+            return .failure(CoreDataError.fetchFailure(.travel))
         }
         
         return .success([])
@@ -39,7 +39,7 @@ final class PersistentRepository: PersistentRepositoryProtocol {
             return .success(expenses)
         case .failure(let error):
             print(error.localizedDescription)
-            return .failure(Errors.canNotGetExpenseDataException)
+            return .failure(CoreDataError.fetchFailure(.expense))
         }
         
         return .success([])
@@ -56,7 +56,7 @@ final class PersistentRepository: PersistentRepositoryProtocol {
             return .success(travels)
         case .failure(let error):
             print(error.localizedDescription)
-            return .failure(Errors.canNotGetTravelDataException)
+            return .failure(CoreDataError.fetchFailure(.travel))
         }
         
         return .success([])
@@ -73,7 +73,7 @@ final class PersistentRepository: PersistentRepositoryProtocol {
             return .success(expenses)
         case .failure(let error):
             print(error.localizedDescription)
-            return .failure(Errors.canNotGetExpenseDataException)
+            return .failure(CoreDataError.fetchFailure(.expense))
         }
         
         return .success([])
@@ -89,7 +89,7 @@ final class PersistentRepository: PersistentRepositoryProtocol {
             return .success(travels)
         case .failure(let error):
             print(error.localizedDescription)
-            return .failure(Errors.canNotGetTravelDataException)
+            return .failure(CoreDataError.fetchFailure(.travel))
         }
         
         return .success([])

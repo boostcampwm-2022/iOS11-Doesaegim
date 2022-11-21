@@ -102,10 +102,10 @@ final class PlanListViewController: UIViewController {
                 viewModel?.checkBoxToggleHandler = { [weak self, cell] result in
                     switch result {
                     case .success:
-                        cell?.render()
+                        cell.render()
                     case .failure(let error):
                         self?.presentErrorAlert(
-                            title: CoreDataError.saveFailure.localizedDescription,
+                            title: CoreDataError.saveFailure(.plan).localizedDescription,
                             message: error.localizedDescription
                         )
                     }
@@ -170,8 +170,8 @@ final class PlanListViewController: UIViewController {
                 self?.applySnapshot(usingData: data)
                 self?.collectionView.isEmpty = self?.viewModel.planViewModels.isEmpty == true
             case .failure(let error):
-                self.presentErrorAlert(
-                    title: CoreDataError.fetchFailure.localizedDescription,
+                self?.presentErrorAlert(
+                    title: CoreDataError.fetchFailure(.plan).localizedDescription,
                     message: error.localizedDescription
                 )
             }
@@ -193,7 +193,7 @@ final class PlanListViewController: UIViewController {
                 self?.collectionView.isEmpty = self?.viewModel.planViewModels.isEmpty == true
             case .failure(let error):
                 self?.presentErrorAlert(
-                    title: CoreDataError.deleteFailure.localizedDescription,
+                    title: CoreDataError.deleteFailure(.plan).localizedDescription,
                     message: error.localizedDescription
                 )
             }
