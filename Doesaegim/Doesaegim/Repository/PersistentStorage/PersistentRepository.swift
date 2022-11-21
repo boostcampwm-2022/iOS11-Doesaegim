@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-final class PersistentRepository: PersistnetRepositoryProtocol {
+final class PersistentRepository: PersistentRepositoryProtocol {
     
     static let shared: PersistentRepository = PersistentRepository()
     private init() {  }

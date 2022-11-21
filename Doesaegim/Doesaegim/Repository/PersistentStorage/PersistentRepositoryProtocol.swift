@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-protocol PersistnetRepositoryProtocol {
+protocol PersistentRepositoryProtocol {
     
     /// 엔티티를 영구저장소로부터 패치해온다. 내부에서 request를 생성하고 PersistentManager에 요청을 보낸다.
 
