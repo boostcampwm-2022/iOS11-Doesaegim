@@ -17,8 +17,11 @@ extension Int {
         let costString = String(self)
         costString.reversed().enumerated().forEach { (index, number) in
             result += String(number)
-            if index % 3 == 2 { result += "," }
+            let isNotLastCharacter = index != costString.count-1
+            if index % 3 == 2 && isNotLastCharacter{
+                result += ","
+            }
         }
-        return "-" + String(result.reversed())
+        return String(result.reversed())
     }
 }
