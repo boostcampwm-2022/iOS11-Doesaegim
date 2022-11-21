@@ -13,7 +13,7 @@ final class ExpenseAddView: UIView {
     
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-
+        
         scrollView.backgroundColor = .white
         scrollView.showsVerticalScrollIndicator = false
         return scrollView
@@ -34,7 +34,7 @@ final class ExpenseAddView: UIView {
         return stackView
     }()
     
-    lazy var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         
         label.text = "지출 이름"
@@ -66,7 +66,7 @@ final class ExpenseAddView: UIView {
         return stackView
     }()
     
-    lazy var amountLabel: UILabel = {
+    private lazy var amountLabel: UILabel = {
         let label = UILabel()
         
         label.text = "지출 액수"
@@ -87,6 +87,58 @@ final class ExpenseAddView: UIView {
         textField.addPadding(witdh: 8)
         textField.keyboardType = .numberPad
         return textField
+    }()
+    
+    private lazy var moneyUnitStackView: UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.spacing = 12
+        return stackView
+    }()
+    
+    private lazy var moneyUnitLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "화폐 단위"
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.textAlignment = .left
+        return label
+    }()
+    
+    lazy var moneyUnitPickerView: UIPickerView = {
+        let pickerView = UIPickerView()
+        
+        return pickerView
+    }()
+    
+    private lazy var categoryStackView: UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.distribution = .fill
+        stackView.spacing = 12
+        return stackView
+    }()
+    
+    private lazy var categoryLabel: UILabel = {
+        let label = UILabel()
+        
+        label.text = "카테고리"
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.textAlignment = .left
+        return label
+    }()
+    
+    lazy var categoryPickerView: UIPickerView = {
+        let pickerView = UIPickerView()
+        
+        return pickerView
     }()
     
     // MARK: - Properties
@@ -114,9 +166,14 @@ final class ExpenseAddView: UIView {
     private func configureSubviews() {
         addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubviews(titleStackView, amountStackView)
+        contentView.addSubviews(
+            titleStackView, amountStackView,
+            moneyUnitStackView, categoryStackView
+        )
         titleStackView.addArrangedSubviews(titleLabel, titleTextField)
         amountStackView.addArrangedSubviews(amountLabel, amountTextField)
+        moneyUnitStackView.addArrangedSubviews(moneyUnitLabel, moneyUnitPickerView)
+        categoryStackView.addArrangedSubviews(categoryLabel, categoryPickerView)
     }
     
     private func configureConstraints() {
@@ -146,6 +203,24 @@ final class ExpenseAddView: UIView {
         
         amountTextField.snp.makeConstraints {
             $0.height.equalTo(36)
+        }
+        
+        moneyUnitStackView.snp.makeConstraints {
+            $0.top.equalTo(amountStackView.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview().inset(16)
+        }
+        
+        moneyUnitPickerView.snp.makeConstraints {
+            $0.height.equalTo(180)
+        }
+        
+        categoryStackView.snp.makeConstraints {
+            $0.top.equalTo(moneyUnitPickerView.snp.bottom).offset(24)
+            $0.leading.trailing.equalToSuperview().inset(16)
+        }
+        
+        categoryPickerView.snp.makeConstraints {
+            $0.height.equalTo(180)
         }
     }
 }
