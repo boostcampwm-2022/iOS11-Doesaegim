@@ -374,7 +374,6 @@
 			children = (
 				B53763C9292B56600073BF46 /* SampleExpenseCategory.swift */,
 				B53763D4292B61A40073BF46 /* CustomChartItem.swift */,
-				B53763CA292B56600073BF46 /* CustomPieChart.swift */,
 				B53763E4292B99D10073BF46 /* PieChart */,
 			);
 			path = CustomGraph;
@@ -383,6 +382,7 @@
 		B53763E4292B99D10073BF46 /* PieChart */ = {
 			isa = PBXGroup;
 			children = (
+				B53763CA292B56600073BF46 /* CustomPieChart.swift */,
 				B53763E2292B99B80073BF46 /* PieceLayer.swift */,
 				B53763E7292BA0760073BF46 /* PieceTextLayer.swift */,
 			);
