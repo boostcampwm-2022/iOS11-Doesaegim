@@ -53,24 +53,26 @@ final class CustomPieChart: UIView {
         var startAngle: CGFloat = Metric.initialStartAngle
         
         for idx in items.indices {
-            let ratio = (items[idx].value / total) * Metric.angleRatio
+            let ratio: CGFloat = items[idx].value / total
+            let angleRatio = ratio * Metric.angleRatio
+            
             let pieceLayer = PieceLayer(
                 rect: rect,
                 start: startAngle,
-                ratio: ratio,
+                ratio: angleRatio,
                 color: items[idx].category.color.cgColor
             )
+            layer.addSublayer(pieceLayer)
             
+            // TODO: 각 원형 차트 조각의 중앙에 텍스트가 위치하도록 Rect값 수정
             let textRect = rect
             let textLayer = PieceTextLayer(
                 rect: textRect,
-                text: items[idx].category.description
+                text: "\(items[idx].category.description)\n\(String(format: "%.2f", ratio * 100))%"
             )
+//            layer.addSublayer(textLayer) // 현재는 텍스트 위치가 제대로 표시되지 않아 주석처리 했습니다,,
             
-            layer.addSublayer(pieceLayer)
-            layer.addSublayer(textLayer)
-            
-            startAngle += ratio
+            startAngle += angleRatio
         }
 
     }

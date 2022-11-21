@@ -38,7 +38,7 @@ final class PieceTextLayer: CATextLayer {
         string = text
         fontSize = 16
         alignmentMode = .center
-        foregroundColor = UIColor.systemBackground.cgColor
+        foregroundColor = UIColor.label.cgColor
         frame = rect
     }
 }
