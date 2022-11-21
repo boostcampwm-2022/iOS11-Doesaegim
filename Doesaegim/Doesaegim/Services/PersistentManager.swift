@@ -8,13 +8,13 @@
 import CoreData
 
 final class PersistentManager {
-
+    
     // MARK: - Properties
-
+    
     static let shared: PersistentManager = PersistentManager()
-
+    
     var context: NSManagedObjectContext { persistentContainer.viewContext }
-
+    
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Doesaegim")
         _ = container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -26,24 +26,24 @@ final class PersistentManager {
         container.viewContext.automaticallyMergesChangesFromParent = true
         return container
     }()
-
-
+    
+    
     // MARK: - Init(s)
-
+    
     private init() { }
-
-
+    
+    
     // MARK: - Core Data Saving support
-
+    
     func saveContext() throws {
         if context.hasChanges {
             try context.save()
         }
     }
-
-
+    
+    
     // MARK: - Core Data Fetching support
-
+    
     /// 코어데이터를 불러오기 위한 syntactic sugar
     func fetch<T: NSManagedObject>(request: NSFetchRequest<T>) -> [T] {
         do {
@@ -72,10 +72,10 @@ final class PersistentManager {
             return []
         }
     }
-
+    
     // MARK: - Core Data Deleting support
     /// TODO: 개발 단계 편의를 위한 메서드로 추후 삭제
-
+    
     /// 엔티티 인스턴스 삭제
     func delete(_ object: NSManagedObject) {
         context.delete(object)
@@ -98,5 +98,5 @@ final class PersistentManager {
         }
         
     }
-
+    
 }

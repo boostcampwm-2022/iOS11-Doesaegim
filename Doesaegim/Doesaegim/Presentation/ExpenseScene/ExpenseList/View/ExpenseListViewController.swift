@@ -22,15 +22,13 @@ final class ExpenseListViewController: UIViewController {
     
     let placeholdView: ExpensePlaceholdView = ExpensePlaceholdView()
     
-    private var expenseDataSource: DataSource?
-    
     lazy var expenseCollectionView: UICollectionView = {
         
-        var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
-        configuration.showsSeparators = false
-        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
-        layout.configuration = createLayoutConfiguration()
-        
+//        var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+//        configuration.showsSeparators = false
+//        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
+//        layout.configuration = createLayoutConfiguration()
+        let layout = createCompositionalLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         collectionView.backgroundColor = .white
@@ -39,17 +37,31 @@ final class ExpenseListViewController: UIViewController {
     }()
     
     var travelID: UUID? // 여행목록에서 선택한 여행의 ID. 지출목록을 가져오는데에 사용한다.
+    private var expenseDataSource: DataSource?
+    private let viewModel: ExpenseListViewModelProtocol? = ExpenseListViewModel()
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        expenseCollectionView.delegate = self
+        viewModel?.delegate = self
+        
         configureNavigationBar()
         configureSubviews()
         configureConstraints()
         configureCollectionView()
         configureCollectionViewDataSource()
+        
+        viewModel?.fetchCurrentTravel(with: travelID)
+//        viewModel?.addExpenseData()
+        viewModel?.fetchExpenseData()
+        
+        // TODO: - 임시 데이터 추가코드 추후 삭제
+        for _ in 0..<10 {
+            
+        }
     }
     
     // MARK: - Configuration
@@ -83,8 +95,6 @@ final class ExpenseListViewController: UIViewController {
             $0.width.equalTo(view.bounds.width - 100)
             $0.height.equalTo(50)
         }
-        
-        
     }
     
     private func configureCollectionView() {
@@ -94,44 +104,76 @@ final class ExpenseListViewController: UIViewController {
             ExpenseListCell.self,
             forCellWithReuseIdentifier: ExpenseListCell.identifier
         )
-        
-        // 섹션 헤더 등록
-//        expenseCollectionView.register(
-//            ExpenseSectionHeaderView.self,
-//            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-//            withReuseIdentifier: ExpenseSectionHeaderView.identifier
-//        )
-        
-        
     }
     
     // MARK: - Collection View
     
-    private func createLayoutConfiguration() ->  UICollectionViewCompositionalLayoutConfiguration {
+    private func createCompositionalLayout() -> UICollectionViewLayout {
+        let layout
+        = UICollectionViewCompositionalLayout { (
+            sectionIndex: Int,
+            layoutEnvironment: NSCollectionLayoutEnvironment
+        ) -> NSCollectionLayoutSection? in
+            
+            let itemSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .absolute(45)
+            )
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            
+            let groupSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .absolute(45)
+            )
+            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+            
+            let section = NSCollectionLayoutSection(group: group)
+            
+            let sectionHeaderSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .absolute(60)
+            )
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: sectionHeaderSize,
+                elementKind: HeaderKind.sectionHeader,
+                alignment: .top
+            )
+            
+            section.boundarySupplementaryItems = [sectionHeader]
+            
+            return section
+        }
+        
         let globalHeaderSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .absolute(200)
         )
-//        let sectionHeaderSize = NSCollectionLayoutSize(
-//            widthDimension: .fractionalWidth(1.0),
-//            heightDimension: .absolute(40)
-//        )
+        let globalHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: globalHeaderSize,
+            elementKind: HeaderKind.globalHeader,
+            alignment: .top
+        )
+        
+        let configuration = UICollectionViewCompositionalLayoutConfiguration()
+        configuration.boundarySupplementaryItems = [globalHeader]
+        layout.configuration = configuration
+        
+        return layout
+    }
+    
+    private func createLayoutConfiguration() -> UICollectionViewCompositionalLayoutConfiguration {
+        let globalHeaderSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(200)
+        )
         
         let globalHeader = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: globalHeaderSize,
             elementKind: HeaderKind.globalHeader,
             alignment: .top
         )
-        globalHeader.pinToVisibleBounds = true
-        
-//        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-//            layoutSize: sectionHeaderSize,
-//            elementKind: HeaderKind.sectionHeader,
-//            alignment: .top
-//        )
         
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
-        configuration.interSectionSpacing = 20
         configuration.boundarySupplementaryItems = [globalHeader]
         
         return configuration
@@ -139,9 +181,8 @@ final class ExpenseListViewController: UIViewController {
     }
     
     private func configureCollectionViewDataSource() {
-        let expenseCell = CellRegistration { cell, indexPath, restorationIdentifier in
-            cell.configureContent()
-            
+        let expenseCell = CellRegistration { cell, _, identifier in
+            cell.configureContent(with: identifier)
             // TODO: - 페이지네이션
         }
         
@@ -162,26 +203,29 @@ final class ExpenseListViewController: UIViewController {
             // 세번째 파라미터는 indexPath
             supplementaryView.configureData()
         }
-        
+
         // TODO: - section Header 타이틀 바꾸기
         let sectionHeaderRegistration = SectionHeaderRegistration(
             elementKind: HeaderKind.sectionHeader
-        ) { supplementaryView, _, _ in
-            supplementaryView.configureData(dateString: "날짜입니다.")
+        ) { _, _, _ in
         }
-        
-        expenseDataSource?.supplementaryViewProvider = { [weak self] (_, kind, indexPath) in
+
+        // TODO: - 추후 self에 접근한다면 [weak self] 작성
+        expenseDataSource?.supplementaryViewProvider = { (collectionView, kind, indexPath) in
+            
             if kind == HeaderKind.globalHeader {
-                return self?.expenseCollectionView.dequeueConfiguredReusableSupplementary(
+                let globalHeader = collectionView.dequeueConfiguredReusableSupplementary(
                     using: globalHeaderRegistration,
                     for: indexPath
                 )
+                return globalHeader
             }
-
-            return self?.expenseCollectionView.dequeueConfiguredReusableSupplementary(
+            
+            let sectionHeader = collectionView.dequeueConfiguredReusableSupplementary(
                 using: sectionHeaderRegistration,
                 for: indexPath
             )
+            return sectionHeader
         }
         
     }
@@ -191,6 +235,53 @@ final class ExpenseListViewController: UIViewController {
     @objc func didAddExpenseButtonTap() {
         // TODO: - 지출 추가 화면으로 이동
         print("지출 추가버튼이 탭 되었습니다.")
+    }
+}
+
+// MARK: - ExpenseListViweModelDelegate
+
+extension ExpenseListViewController: ExpenseListViewModelDelegate {
+    
+    func expenseListDidChanged() {
+        print(#function)
+        guard let viewModel = viewModel else { return }
+        
+        let expenseInfos = viewModel.expenseInfos
+        
+        if expenseInfos.isEmpty {
+            placeholdView.isHidden = false
+        } else {
+            placeholdView.isHidden = true
+        }
+        
+        var snapshot = SnapShot()
+        
+        var sections: [String] = []
+        for info in expenseInfos {
+            let date = info.date
+            let formatter = Date.yearMonthDayDateFormatter
+            let dateString = formatter.string(from: date)
+            if !sections.contains(dateString) {
+                sections.append(dateString)
+            }
+        }
+        
+        snapshot.appendSections(sections)
+        for info in expenseInfos {
+            let formatter = Date.yearMonthDayDateFormatter
+            let dateString = formatter.string(from: info.date)
+            snapshot.appendItems([info], toSection: dateString)
+        }
+        
+        expenseDataSource?.apply(snapshot)
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension ExpenseListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath)
     }
 }
 

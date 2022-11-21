@@ -49,6 +49,9 @@
 		BB5771AC2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5771AB2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift */; };
 		BB7D9A262926088A00BF2BD6 /* ExpensePlaceholdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7D9A252926088A00BF2BD6 /* ExpensePlaceholdView.swift */; };
 		BB7D9A2A29261C0600BF2BD6 /* ExpenseListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7D9A2929261C0600BF2BD6 /* ExpenseListCell.swift */; };
+		BB9DB80E2928CA6A00102EC8 /* ExpenseListViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9DB80D2928CA6A00102EC8 /* ExpenseListViewModelProtocol.swift */; };
+		BB9DB8102928D09200102EC8 /* PersistentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9DB80F2928D09200102EC8 /* PersistentRepository.swift */; };
+		BB9DB8122928D0BA00102EC8 /* PersistentRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9DB8112928D0BA00102EC8 /* PersistentRepositoryProtocol.swift */; };
 		BBB31A372925F5E400C9E3A9 /* TravelListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB31A362925F5E400C9E3A9 /* TravelListCell.swift */; };
 		BBB31A392925F77900C9E3A9 /* ExpenseTravelListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB31A382925F77900C9E3A9 /* ExpenseTravelListCell.swift */; };
 		BBB31A3E2926007D00C9E3A9 /* ExpenseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB31A3D2926007D00C9E3A9 /* ExpenseListViewController.swift */; };
@@ -150,6 +153,9 @@
 		BB5771AB2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelViewModelProtocol.swift; sourceTree = "<group>"; };
 		BB7D9A252926088A00BF2BD6 /* ExpensePlaceholdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensePlaceholdView.swift; sourceTree = "<group>"; };
 		BB7D9A2929261C0600BF2BD6 /* ExpenseListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListCell.swift; sourceTree = "<group>"; };
+		BB9DB80D2928CA6A00102EC8 /* ExpenseListViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListViewModelProtocol.swift; sourceTree = "<group>"; };
+		BB9DB80F2928D09200102EC8 /* PersistentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentRepository.swift; sourceTree = "<group>"; };
+		BB9DB8112928D0BA00102EC8 /* PersistentRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentRepositoryProtocol.swift; sourceTree = "<group>"; };
 		BBB31A362925F5E400C9E3A9 /* TravelListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListCell.swift; sourceTree = "<group>"; };
 		BBB31A382925F77900C9E3A9 /* ExpenseTravelListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelListCell.swift; sourceTree = "<group>"; };
 		BBB31A3D2926007D00C9E3A9 /* ExpenseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListViewController.swift; sourceTree = "<group>"; };
@@ -320,6 +326,7 @@
 		A4CC04DA292351DC00BB678B /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				BB9DB8132928D0C300102EC8 /* PersistentStorage */,
 				A4CC04DB292351E700BB678B /* TravelScene */,
 			);
 			path = Repository;
@@ -454,9 +461,19 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		BB9DB8132928D0C300102EC8 /* PersistentStorage */ = {
+			isa = PBXGroup;
+			children = (
+				BB9DB8112928D0BA00102EC8 /* PersistentRepositoryProtocol.swift */,
+				BB9DB80F2928D09200102EC8 /* PersistentRepository.swift */,
+			);
+			path = PersistentStorage;
+			sourceTree = "<group>";
+		};
 		BBB31A3A2926003700C9E3A9 /* ExpenseList */ = {
 			isa = PBXGroup;
 			children = (
+				BB9DB80D2928CA6A00102EC8 /* ExpenseListViewModelProtocol.swift */,
 				BBB31A3C2926005F00C9E3A9 /* ViewModel */,
 				BBB31A3B2926005B00C9E3A9 /* View */,
 			);
@@ -850,6 +867,7 @@
 				B5C096B629235416007426B1 /* SearchingLocationViewController.swift in Sources */,
 				BBD0D05B291DE956007D0D82 /* TravelListViewController.swift in Sources */,
 				BBE695D829228B560015FAD4 /* TravelListViewModel.swift in Sources */,
+				BB9DB80E2928CA6A00102EC8 /* ExpenseListViewModelProtocol.swift in Sources */,
 				B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */,
 				B5C096C429238091007426B1 /* SearchingLocationViewModel.swift in Sources */,
 				A4CC04A429221EEE00BB678B /* Plan+CoreDataClass.swift in Sources */,
@@ -866,6 +884,7 @@
 				A4CC04D5292332C600BB678B /* UILabel+ChangeFontSize.swift in Sources */,
 				BBDB2E9429262BB300752924 /* ExpenseCollectionHeaderView.swift in Sources */,
 				BBB31A372925F5E400C9E3A9 /* TravelListCell.swift in Sources */,
+				BB9DB8122928D0BA00102EC8 /* PersistentRepositoryProtocol.swift in Sources */,
 				A4CC04C62922799600BB678B /* CheckBox.swift in Sources */,
 				A4CC04D1292324B000BB678B /* EmptyLabeledCollectionView.swift in Sources */,
 				BBFAC08B291CBDD700D7FD57 /* MainTabBarController.swift in Sources */,
@@ -912,6 +931,7 @@
 				A4CC04C929227C7200BB678B /* PlanCollectionViewCell.swift in Sources */,
 				A4CC04D72923347E00BB678B /* PlanListViewController.swift in Sources */,
 				A48E9946292512BC0029D57D /* CoreDataError.swift in Sources */,
+				BB9DB8102928D09200102EC8 /* PersistentRepository.swift in Sources */,
 				BBB31A3E2926007D00C9E3A9 /* ExpenseListViewController.swift in Sources */,
 				BBD0D066291DED6A007D0D82 /* UIColor+.swift in Sources */,
 				BBB31A402926008D00C9E3A9 /* ExpenseListViewModel.swift in Sources */,

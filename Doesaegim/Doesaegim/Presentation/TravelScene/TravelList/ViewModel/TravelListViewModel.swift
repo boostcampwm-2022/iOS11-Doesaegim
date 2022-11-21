@@ -25,7 +25,11 @@ final class TravelListViewModel: TravelListViewModelProtocol {
     
     func fetchTravelInfo() {
         
-        let travels = PersistentManager.shared.fetch(request: Travel.fetchRequest(), offset: travelInfos.count, limit: 10)
+        let travels = PersistentManager.shared.fetch(
+            request: Travel.fetchRequest(),
+            offset: travelInfos.count,
+            limit: 10
+        )
 //        let travels = PersistentManager.shared.fetch(request: Travel.fetchRequest())
         var newTravelInfos: [TravelInfoViewModel] = []
         
