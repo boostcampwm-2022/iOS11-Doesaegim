@@ -5,6 +5,8 @@
 //  Created by 김민석 on 2022/11/16.
 //
 
+// swiftlint:disable file_length
+
 import UIKit
 
 import SnapKit

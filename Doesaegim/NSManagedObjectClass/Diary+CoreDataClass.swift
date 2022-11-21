@@ -15,7 +15,7 @@ public class Diary: NSManagedObject {
     // MARK: - Functions
     
     @discardableResult
-    static func addAndSave(with object: DiaryDTO) throws -> Diary {
+    static func addAndSave(with object: DiaryDTO) -> Result<Diary, Error> {
         let context = PersistentManager.shared.context
         let diary = Diary(context: context)
         diary.id = object.id
@@ -24,8 +24,16 @@ public class Diary: NSManagedObject {
         diary.title = object.title
         diary.content = object.content
         
-        try PersistentManager.shared.saveContext()
+        let result = PersistentManager.shared.saveContext()
         
-        return diary
+        switch result {
+        case .success(let isSuccess):
+            if isSuccess {
+                return .success(diary)
+            }
+        case .failure(let error):
+            return .failure(error)
+        }
+        return .failure(CoreDataError.saveFailure(.diary))
     }
 }

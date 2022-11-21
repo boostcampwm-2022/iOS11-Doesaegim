@@ -26,8 +26,6 @@ final class PersistentRepository: PersistentRepositoryProtocol {
             print(error.localizedDescription)
             return .failure(CoreDataError.fetchFailure(.travel))
         }
-        
-        return .success([])
     }
     
     func fetchExpense() -> Result<[Expense], Error> {
@@ -41,8 +39,6 @@ final class PersistentRepository: PersistentRepositoryProtocol {
             print(error.localizedDescription)
             return .failure(CoreDataError.fetchFailure(.expense))
         }
-        
-        return .success([])
     }
     
     func fetchTravel(offset: Int, limit: Int) -> Result<[Travel], Error> {
@@ -58,8 +54,6 @@ final class PersistentRepository: PersistentRepositoryProtocol {
             print(error.localizedDescription)
             return .failure(CoreDataError.fetchFailure(.travel))
         }
-        
-        return .success([])
     }
     
     func fetchExpense(offset: Int, limit: Int) -> Result<[Expense], Error> {
@@ -75,8 +69,6 @@ final class PersistentRepository: PersistentRepositoryProtocol {
             print(error.localizedDescription)
             return .failure(CoreDataError.fetchFailure(.expense))
         }
-        
-        return .success([])
     }
     
     func fetchTravel(with id: UUID) -> Result<[Travel], Error> {
@@ -91,8 +83,6 @@ final class PersistentRepository: PersistentRepositoryProtocol {
             print(error.localizedDescription)
             return .failure(CoreDataError.fetchFailure(.travel))
         }
-        
-        return .success([])
     }
     
 }

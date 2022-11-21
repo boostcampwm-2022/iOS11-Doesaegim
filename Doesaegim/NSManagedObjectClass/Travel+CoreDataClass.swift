@@ -15,7 +15,7 @@ public class Travel: NSManagedObject {
     // MARK: - Functions
     
     @discardableResult
-    static func addAndSave(with object: TravelDTO) throws -> Travel {
+    static func addAndSave(with object: TravelDTO) -> Result<Travel, Error> {
         let context = PersistentManager.shared.context
         let travel = Travel(context: context)
         travel.id = object.id
@@ -23,9 +23,17 @@ public class Travel: NSManagedObject {
         travel.startDate = object.startDate
         travel.endDate = object.endDate
         
-        try PersistentManager.shared.saveContext()
+        let result = PersistentManager.shared.saveContext()
         
-        return travel
+        switch result {
+        case .success(let isSuccess):
+            if isSuccess {
+                return .success(travel)
+            }
+        case .failure(let error):
+            return .failure(error)
+        }
+        return .failure(CoreDataError.saveFailure(.travel))
     }
     
     static func convertToViewModel(with travel: Travel) -> TravelInfoViewModel? {
