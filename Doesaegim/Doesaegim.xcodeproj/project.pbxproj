@@ -39,6 +39,7 @@
 		B53763DE292B6F6F0073BF46 /* SampleCustomGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763DC292B6F6F0073BF46 /* SampleCustomGraphView.swift */; };
 		B53763DF292B6F6F0073BF46 /* CustomGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763DD292B6F6F0073BF46 /* CustomGraphViewController.swift */; };
 		B53763E3292B99B80073BF46 /* PieceLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763E2292B99B80073BF46 /* PieceLayer.swift */; };
+		B53763E8292BA0760073BF46 /* PieceTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763E7292BA0760073BF46 /* PieceTextLayer.swift */; };
 		B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D96252922301E00B510B8 /* TravelDTO.swift */; };
 		B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D9627292230CA00B510B8 /* PlanDTO.swift */; };
 		B57D962C2922315500B510B8 /* LocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962B2922315500B510B8 /* LocationDTO.swift */; };
@@ -153,6 +154,7 @@
 		B53763DC292B6F6F0073BF46 /* SampleCustomGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleCustomGraphView.swift; sourceTree = "<group>"; };
 		B53763DD292B6F6F0073BF46 /* CustomGraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomGraphViewController.swift; sourceTree = "<group>"; };
 		B53763E2292B99B80073BF46 /* PieceLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceLayer.swift; sourceTree = "<group>"; };
+		B53763E7292BA0760073BF46 /* PieceTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceTextLayer.swift; sourceTree = "<group>"; };
 		B57D96252922301E00B510B8 /* TravelDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDTO.swift; sourceTree = "<group>"; };
 		B57D9627292230CA00B510B8 /* PlanDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDTO.swift; sourceTree = "<group>"; };
 		B57D962B2922315500B510B8 /* LocationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDTO.swift; sourceTree = "<group>"; };
@@ -395,6 +397,7 @@
 			isa = PBXGroup;
 			children = (
 				B53763E2292B99B80073BF46 /* PieceLayer.swift */,
+				B53763E7292BA0760073BF46 /* PieceTextLayer.swift */,
 			);
 			path = PieChart;
 			sourceTree = "<group>";
@@ -1020,6 +1023,7 @@
 				A48E9946292512BC0029D57D /* CoreDataError.swift in Sources */,
 				BB9DB8102928D09200102EC8 /* PersistentRepository.swift in Sources */,
 				BBB31A3E2926007D00C9E3A9 /* ExpenseListViewController.swift in Sources */,
+				B53763E8292BA0760073BF46 /* PieceTextLayer.swift in Sources */,
 				BBD0D066291DED6A007D0D82 /* UIColor+.swift in Sources */,
 				BBB31A402926008D00C9E3A9 /* ExpenseListViewModel.swift in Sources */,
 				A4CC04C429226FC100BB678B /* String+Placeholders.swift in Sources */,

@@ -47,7 +47,7 @@ final class CustomPieChart: UIView {
     
     // MARK: - Draw Functions
     
-    /// 주어진 rect에 맞게 원형 차트를 그린다. 원형 차트는 정원 형태로영역에 꽉 채워서 그려진다.
+    /// 주어진 rect에 맞게 원형 차트를 그린다. 원형 차트는 정원 형태로 영역에 꽉 채워서 그려진다.
     /// - Parameter rect: 원형 차트를 그릴 영역.
     override func draw(_ rect: CGRect) {
         var startAngle: CGFloat = Metric.initialStartAngle
@@ -61,7 +61,14 @@ final class CustomPieChart: UIView {
                 color: items[idx].category.color.cgColor
             )
             
+            let textRect = rect
+            let textLayer = PieceTextLayer(
+                rect: textRect,
+                text: items[idx].category.description
+            )
+            
             layer.addSublayer(pieceLayer)
+            layer.addSublayer(textLayer)
             
             startAngle += ratio
         }
