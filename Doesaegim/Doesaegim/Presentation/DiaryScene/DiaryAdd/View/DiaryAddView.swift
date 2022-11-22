@@ -32,7 +32,7 @@ final class DiaryAddView: UIView {
         return textField
     }()
 
-    private let placeSearchButton = PlaceSearchButton()
+    let placeSearchButton = PlaceSearchButton()
 
     private let addPhotoButton: UIButton = {
         let button = UIButton()
@@ -164,6 +164,7 @@ final class DiaryAddView: UIView {
         [travelTextField, placeSearchButton, divider, nameTextField, contentTextView].forEach { view in
             view.snp.makeConstraints { $0.leading.trailing.equalToSuperview().inset(Metric.inset) }
         }
+        placeSearchButton.snp.makeConstraints { $0.height.equalTo(Metric.placeSearchButtonHeight) }
         imageSlider.snp.makeConstraints {
             $0.width.equalToSuperview()
             $0.height.equalTo(imageSlider.snp.width)
@@ -187,6 +188,8 @@ fileprivate extension DiaryAddView {
         static let inset: CGFloat = 16
 
         static let cornerRadius: CGFloat = 8
+
+        static let placeSearchButtonHeight: CGFloat = 37
     }
 
     enum StringLiteral {

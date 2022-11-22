@@ -33,6 +33,7 @@ final class DiaryAddViewController: UIViewController {
         bindToViewModel()
         observeKeyBoardAppearance()
         configureTravelPicker()
+        configurePlaceSearchButton()
     }
 
 
@@ -51,6 +52,15 @@ final class DiaryAddViewController: UIViewController {
         rootView.travelPicker.dataSource = viewModel.travelPickerDataSource
     }
 
+    private func configurePlaceSearchButton() {
+        let action = UIAction { _ in
+            self.rootView.endEditing(true)
+            let controller = SearchingLocationViewController()
+            controller.delegate = self
+            self.show(controller, sender: self)
+        }
+        rootView.placeSearchButton.addAction(action, for: .touchUpInside)
+    }
 
     // MARK: - Keyboard Appearance Observing Functions
 
@@ -116,14 +126,22 @@ extension DiaryAddViewController: UIPickerViewDelegate {
 }
 
 
-// MARK: - ViewModelDelegate
+// MARK: - DiaryAddViewModelDelegate
 extension DiaryAddViewController: DiaryAddViewModelDelegate {
 
     func diaryValuesDidChange(_ diary: TemporaryDiary) {
         rootView.travelTextField.text = diary.travel?.name
+        rootView.placeSearchButton.setTitle(diary.location?.name, for: .normal)
     }
 }
 
+
+// MARK: - SearchingLocationViewControllerDelegate
+extension DiaryAddViewController: SearchingLocationViewControllerDelegate {
+    func searchingLocationViewController(didSelect location: LocationDTO) {
+        viewModel.locationDidSelect(location)
+    }
+}
 
 // MARK: - Constants
 

@@ -37,10 +37,15 @@ final class DiaryAddViewModel {
     }
 
 
-    // MARK: - Functions
+    // MARK: - User Interaction Handling Functions
 
     func travelDidSelect(_ travel: Travel) {
         temporaryDiary.travel = travel
+        delegate?.diaryValuesDidChange(temporaryDiary)
+    }
+
+    func locationDidSelect(_ location: LocationDTO) {
+        temporaryDiary.location = location
         delegate?.diaryValuesDidChange(temporaryDiary)
     }
 }
