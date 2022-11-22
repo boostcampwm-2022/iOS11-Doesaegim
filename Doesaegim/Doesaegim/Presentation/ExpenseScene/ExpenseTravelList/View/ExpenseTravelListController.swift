@@ -61,7 +61,7 @@ final class ExpenseTravelListController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print(#function)
+        
         super.viewWillAppear(animated)
         viewModel?.fetchTravelInfo()
         

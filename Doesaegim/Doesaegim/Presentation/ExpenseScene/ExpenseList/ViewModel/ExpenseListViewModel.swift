@@ -31,7 +31,7 @@ final class ExpenseListViewModel: ExpenseListViewModelProtocol {
 extension ExpenseListViewModel {
     
     func fetchCurrentTravel(with travelID: UUID?) {
-        print(#function)
+        
         guard let id = travelID else { return }
         
         let result = PersistentRepository.shared.fetchTravel(with: id)
@@ -49,7 +49,7 @@ extension ExpenseListViewModel {
     }
     
     func fetchExpenseData() {
-//        print(#function)
+
         guard let expenses = currentTravel?.expense?.allObjects as? [Expense] else { return }
         var newExpenses: [ExpenseInfoViewModel] = []
         var newSections: [String] = []
@@ -72,7 +72,7 @@ extension ExpenseListViewModel {
     
     // 임시로 작성한 메서드. 추후 삭제 더미 지출 데이터를 추가한다.
     func addExpenseData() {
-//        print(#function)
+
         guard let travel = currentTravel else { return }
         for count in 1...3 {
             let dateComponents = DateComponents(year: 2022, month: 12, day: 25, hour: 17)

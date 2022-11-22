@@ -242,7 +242,7 @@ final class ExpenseListViewController: UIViewController {
 extension ExpenseListViewController: ExpenseListViewModelDelegate {
     
     func expenseListDidChanged() {
-        print(#function)
+        
         guard let viewModel = viewModel else { return }
         
         let expenseInfos = viewModel.expenseInfos
@@ -255,11 +255,11 @@ extension ExpenseListViewController: ExpenseListViewModelDelegate {
         
         var snapshot = SnapShot()
         snapshot.appendSections(viewModel.sections)
-        print(viewModel.sections)
+        
         for info in expenseInfos {
             let formatter = Date.yearMonthDayDateFormatter
             let dateString = formatter.string(from: info.date)
-            print(dateString)
+            
             snapshot.appendItems([info], toSection: dateString)
         }
         
