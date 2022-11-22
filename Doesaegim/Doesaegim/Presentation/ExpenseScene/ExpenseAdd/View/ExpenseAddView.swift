@@ -172,7 +172,7 @@ final class ExpenseAddView: UIView {
         return label
     }()
     
-    private lazy var dateButton: UIButton = {
+    lazy var dateButton: UIButton = {
         let button = UIButton()
         
         button.layer.cornerRadius = 10

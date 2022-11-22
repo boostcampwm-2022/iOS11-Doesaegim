@@ -335,7 +335,7 @@ extension PlanAddViewController {
 
 extension PlanAddViewController {
     @objc func dateInputButtonTouchUpInside() {
-        let calendarViewController = CalendarViewController(touchOption: .single)
+        let calendarViewController = CalendarViewController(touchOption: .single, type: .dateAndTime)
         calendarViewController.delegate = self
         present(calendarViewController, animated: true)
     }
