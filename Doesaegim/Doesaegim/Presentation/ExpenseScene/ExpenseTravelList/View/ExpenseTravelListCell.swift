@@ -14,7 +14,7 @@ final class ExpenseTravelListCell: UICollectionViewListCell {
     let priceLabel: UILabel = {
         let label = UILabel()
         label.text = "000,000원"
-        label.textColor = .grey4
+        label.textColor = .systemRed
         label.font = label.font.withSize(12)
         
         return label
@@ -50,8 +50,8 @@ final class ExpenseTravelListCell: UICollectionViewListCell {
         }
     }
     
-    func configureContent(with identifier: TravelInfoViewModel) {
-        
+    func configureContent(with identifier: TravelInfoViewModel, cost: Int) {
+        priceLabel.text = cost.numberFormatter()
         contentConfiguration = createContentConfiguration(of: identifier)
     }
     
@@ -65,7 +65,7 @@ final class ExpenseTravelListCell: UICollectionViewListCell {
             string: identifier.title,
             attributes: [
                 .font: UIFont.systemFont(ofSize: 18),
-                .foregroundColor: UIColor.black!
+                .foregroundColor: UIColor.black!,
             ]
         )
         configuration.secondaryAttributedText = NSAttributedString(

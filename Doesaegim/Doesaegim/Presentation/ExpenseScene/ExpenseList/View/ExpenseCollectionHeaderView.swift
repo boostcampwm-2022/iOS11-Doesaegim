@@ -24,7 +24,7 @@ final class ExpenseCollectionHeaderView: UICollectionReusableView {
     }
     
     func configureData() {
-        print(#function)
+        
     }
     
 }

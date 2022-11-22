@@ -16,6 +16,13 @@ extension Date {
         return formatter
     }()
     
+    static let yearTominuteDateFormatterWithoutSeparator: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMddHHmm"
+        
+        return formatter
+    }()
+    
     static let monthDayDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "MM월 dd일"

@@ -45,8 +45,10 @@
 		B5C096C429238091007426B1 /* SearchingLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096C329238091007426B1 /* SearchingLocationViewModel.swift */; };
 		B5C096C629238A0B007426B1 /* SearchingLocationViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096C529238A0B007426B1 /* SearchingLocationViewModelDelegate.swift */; };
 		B5DE4D4029271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DE4D3F29271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift */; };
+		BB3DB919292C649600C70D62 /* UIView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3DB918292C649600C70D62 /* UIView+Frame.swift */; };
 		BB5771A42923A08F0034047D /* ExpenseTravelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5771A32923A08F0034047D /* ExpenseTravelViewModel.swift */; };
 		BB5771AC2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5771AB2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift */; };
+		BB5DE44C292B8E86001DA6F6 /* Int+convertCostString.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5DE44B292B8E86001DA6F6 /* Int+convertCostString.swift */; };
 		BB7D9A262926088A00BF2BD6 /* ExpensePlaceholdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7D9A252926088A00BF2BD6 /* ExpensePlaceholdView.swift */; };
 		BB7D9A2A29261C0600BF2BD6 /* ExpenseListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7D9A2929261C0600BF2BD6 /* ExpenseListCell.swift */; };
 		BB9DB80E2928CA6A00102EC8 /* ExpenseListViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9DB80D2928CA6A00102EC8 /* ExpenseListViewModelProtocol.swift */; };
@@ -149,8 +151,10 @@
 		B5C096C329238091007426B1 /* SearchingLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationViewModel.swift; sourceTree = "<group>"; };
 		B5C096C529238A0B007426B1 /* SearchingLocationViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationViewModelDelegate.swift; sourceTree = "<group>"; };
 		B5DE4D3F29271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationViewControllerDelegate.swift; sourceTree = "<group>"; };
+		BB3DB918292C649600C70D62 /* UIView+Frame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Frame.swift"; sourceTree = "<group>"; };
 		BB5771A32923A08F0034047D /* ExpenseTravelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelViewModel.swift; sourceTree = "<group>"; };
 		BB5771AB2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelViewModelProtocol.swift; sourceTree = "<group>"; };
+		BB5DE44B292B8E86001DA6F6 /* Int+convertCostString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+convertCostString.swift"; sourceTree = "<group>"; };
 		BB7D9A252926088A00BF2BD6 /* ExpensePlaceholdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensePlaceholdView.swift; sourceTree = "<group>"; };
 		BB7D9A2929261C0600BF2BD6 /* ExpenseListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListCell.swift; sourceTree = "<group>"; };
 		BB9DB80D2928CA6A00102EC8 /* ExpenseListViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListViewModelProtocol.swift; sourceTree = "<group>"; };
@@ -461,6 +465,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		BB5DE44A292B8DF4001DA6F6 /* Int */ = {
+			isa = PBXGroup;
+			children = (
+				BB5DE44B292B8E86001DA6F6 /* Int+convertCostString.swift */,
+			);
+			path = Int;
+			sourceTree = "<group>";
+		};
 		BB9DB8132928D0C300102EC8 /* PersistentStorage */ = {
 			isa = PBXGroup;
 			children = (
@@ -528,6 +540,7 @@
 		BBD0D064291DED61007D0D82 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				BB5DE44A292B8DF4001DA6F6 /* Int */,
 				BBFE4BA42924B252003F5CCE /* Date */,
 				BBD0D065291DED6A007D0D82 /* UIColor+.swift */,
 				EE3E29A729235F6B007C7FC7 /* UITextField+.swift */,
@@ -539,6 +552,7 @@
 				A48E9947292515020029D57D /* UIViewController+PresentAlert.swift */,
 				A48E9949292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift */,
 				A4EB00DB2926456D00A83936 /* UIScrollView+DidPassPoint.swift */,
+				BB3DB918292C649600C70D62 /* UIView+Frame.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -875,6 +889,7 @@
 				BBDB2E96292635FD00752924 /* ExpenseSectionHeaderView.swift in Sources */,
 				EE3E29BC2923C870007C7FC7 /* TravelAddViewController.swift in Sources */,
 				BBD0D063291DE991007D0D82 /* SettingViewController.swift in Sources */,
+				BB3DB919292C649600C70D62 /* UIView+Frame.swift in Sources */,
 				EEDB75312925F56D0069A7F5 /* CalendarProtocol.swift in Sources */,
 				A4CC04D32923308600BB678B /* DateCollectionHeaderView.swift in Sources */,
 				A4CC04CF292281B400BB678B /* UIStackView+AddArrangedSubviews.swift in Sources */,
@@ -892,6 +907,7 @@
 				B5C096B829235428007426B1 /* SearchingLocationView.swift in Sources */,
 				EE116C632924EC860017B519 /* PlanAddViewController.swift in Sources */,
 				A4CC04AA29221EEE00BB678B /* Location+CoreDataClass.swift in Sources */,
+				BB5DE44C292B8E86001DA6F6 /* Int+convertCostString.swift in Sources */,
 				A4CC04A629221EEE00BB678B /* Travel+CoreDataClass.swift in Sources */,
 				BB5771AC2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift in Sources */,
 				BB5771A42923A08F0034047D /* ExpenseTravelViewModel.swift in Sources */,

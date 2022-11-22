@@ -21,8 +21,11 @@ final class ExpenseTravelViewModel: ExpenseTravelViewModelProtocol {
         }
     }
     
+    var costs: [Int]
+    
     init() {
-        travelInfos = []
+        self.travelInfos = []
+        self.costs = []
     }
     
     func fetchTravelInfo() {
@@ -39,6 +42,18 @@ final class ExpenseTravelViewModel: ExpenseTravelViewModelProtocol {
             }
             
             travelInfos.append(contentsOf: newTravelInfos)
+            
+            // 가격 정보 계산
+            for travel in travels {
+                guard let expenses: [Expense] = travel.expense?.allObjects as? [Expense] else { continue }
+                var sum = 0
+                
+                for expense in expenses {
+                    guard let expenseInfo = Expense.convertToViewModel(from: expense) else { continue }
+                    sum += expenseInfo.cost
+                }
+                costs.append(sum)
+            }
             
         case .failure(let error):
             print(error.localizedDescription)

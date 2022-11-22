@@ -52,15 +52,19 @@ final class ExpenseTravelListController: UIViewController {
         viewModel?.delegate = self
         collectionView.delegate = self
         
+        viewModel?.fetchTravelInfo()
         configureNavigationBar()
         configureSubviews()
         configureConstratins()
         configureCollectionViewDataSource()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         super.viewWillAppear(animated)
         viewModel?.fetchTravelInfo()
+        
     }
 
     // MARK: - Configure
@@ -105,8 +109,8 @@ final class ExpenseTravelListController: UIViewController {
     
     private func configureCollectionViewDataSource() {
         let travelCell =  CellRegistration { cell, indexPath, identifier in
-            
-            cell.configureContent(with: identifier)
+            let cost = self.viewModel?.costs[indexPath.row]
+            cell.configureContent(with: identifier, cost: cost ?? 0)
             
             // TODO: - 페이지 네이션 기준도 상수로 만들어서 사용하면 좋겠다.
             // pagination

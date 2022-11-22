@@ -12,6 +12,7 @@ protocol ExpenseListViewModelProtocol: AnyObject {
     var delegate: ExpenseListViewModelDelegate? { get set }
     var expenseInfos: [ExpenseInfoViewModel] { get set }
     var currentTravel: Travel? { get set }
+    var sections: [String] { get set }
     
     func fetchCurrentTravel(with travelID: UUID?)
     func fetchExpenseData()

@@ -14,16 +14,18 @@ struct ExpenseInfoViewModel: Hashable {
         case food
     }
     
-    var uuid: UUID // 뺄수있다면 뺀다. -> hash 메서드때문에 못빼려나...?
-    var name: String
-    var cost: Int
-    var content: String
-    var date: Date
+    let uuid: UUID // 뺄수있다면 뺀다. -> hash 메서드때문에 못빼려나...?
+    let name: String
+    let cost: Int
+    let content: String
+    let category: String
+    let date: Date
     
-    init(uuid: UUID, name: String, content: String, cost: Int, date: Date) {
+    init(uuid: UUID, name: String, content: String, category: String,cost: Int, date: Date) {
         self.uuid = uuid
         self.name = name
         self.content = content
+        self.category = category
         self.cost = cost
         self.date = date
     }
@@ -31,4 +33,20 @@ struct ExpenseInfoViewModel: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(uuid)
     }
+}
+
+// TODO: - 정수로 관리하고싶음
+//enum ExpenseType: Int {
+//    case food = 0
+//    case transportation = 1
+//    case room = 2
+//    case other = 3
+//}
+
+// MARK: - ExpenseType: 지금은 문자열로 구분
+enum ExpenseType: String {
+    case food = "식비"
+    case transportation = "교통비"
+    case room = "숙박비"
+    case other = "기타"
 }

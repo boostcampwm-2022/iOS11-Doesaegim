@@ -44,12 +44,14 @@ public class Expense: NSManagedObject {
         guard let id = expense.id,
               let name = expense.name,
               let content = expense.content,
+              let category = expense.category,
               let date = expense.date else { return nil }
         
         let viewModel = ExpenseInfoViewModel(
             uuid: id,
             name: name,
             content: content,
+            category: category,
             cost: Int(expense.cost),
             date: date
         )
