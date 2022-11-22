@@ -16,7 +16,7 @@ extension Date {
         return formatter
     }()
     
-    static let yearTominuteDateFormatterWithoutSeparator: DateFormatter = {
+    static let yearTominuteFormatterWithoutSeparator: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyyMMddHHmm"
         

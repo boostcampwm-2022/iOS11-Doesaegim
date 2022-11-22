@@ -172,5 +172,3 @@ extension MapViewController: MKMapViewDelegate {
     }
 
 }
-
-

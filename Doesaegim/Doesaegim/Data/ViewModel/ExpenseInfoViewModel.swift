@@ -35,14 +35,6 @@ struct ExpenseInfoViewModel: Hashable {
     }
 }
 
-// TODO: - 정수로 관리하고싶음
-//enum ExpenseType: Int {
-//    case food = 0
-//    case transportation = 1
-//    case room = 2
-//    case other = 3
-//}
-
 // MARK: - ExpenseType: 지금은 문자열로 구분
 enum ExpenseType: String {
     case food = "식비"
