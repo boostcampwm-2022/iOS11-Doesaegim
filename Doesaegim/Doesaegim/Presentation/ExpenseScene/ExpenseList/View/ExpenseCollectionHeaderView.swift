@@ -35,13 +35,13 @@ final class ExpenseCollectionHeaderView: UICollectionReusableView {
     func configureData(with data: [ExpenseInfoViewModel]?) {
         guard let data else { return }
         
-        let graphData: [CustomChartItem] = data.map {
+        let graphData: [CustomChartItem] = data.compactMap({
             let value = CGFloat($0.cost)
-            let category = ExpenseType(rawValue: $0.content)!
+            guard let category = ExpenseType(rawValue: $0.content) else { return nil }
             
             let item = CustomChartItem(category: category, value: value)
             return item
-        }
+        })
         graphView.setupChartData(graphData)
     }
     
