@@ -51,7 +51,7 @@ final class ExpenseTravelListCell: UICollectionViewListCell {
     }
     
     func configureContent(with identifier: TravelInfoViewModel, cost: Int) {
-        priceLabel.text = cost.convertCostString()
+        priceLabel.text = cost.numberFormatter()
         contentConfiguration = createContentConfiguration(of: identifier)
     }
     

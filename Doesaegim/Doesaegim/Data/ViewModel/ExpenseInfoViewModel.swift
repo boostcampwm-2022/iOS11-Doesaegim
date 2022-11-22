@@ -14,12 +14,12 @@ struct ExpenseInfoViewModel: Hashable {
         case food
     }
     
-    var uuid: UUID // 뺄수있다면 뺀다. -> hash 메서드때문에 못빼려나...?
-    var name: String
-    var cost: Int
-    var content: String
-    var category: String
-    var date: Date
+    let uuid: UUID // 뺄수있다면 뺀다. -> hash 메서드때문에 못빼려나...?
+    let name: String
+    let cost: Int
+    let content: String
+    let category: String
+    let date: Date
     
     init(uuid: UUID, name: String, content: String, category: String,cost: Int, date: Date) {
         self.uuid = uuid
