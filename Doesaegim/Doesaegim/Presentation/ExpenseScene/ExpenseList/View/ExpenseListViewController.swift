@@ -199,7 +199,7 @@ final class ExpenseListViewController: UIViewController {
             elementKind: HeaderKind.globalHeader
         ) { [weak self] supplementaryView, _, _ in
             // 세번째 파라미터는 indexPath
-            supplementaryView.configureData(with: self?.viewModel?.expenseInfos)
+            supplementaryView.configureData(with: self?.viewModel)
         }
         
         // TODO: - section Header 타이틀 바꾸기

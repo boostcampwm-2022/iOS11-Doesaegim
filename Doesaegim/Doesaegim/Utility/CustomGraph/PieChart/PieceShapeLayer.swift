@@ -43,7 +43,7 @@ final class PieceShapeLayer: CAShapeLayer {
     /// 레이어의 path를 지정한다. 원형 차트의 조각을 여기서 그린다.
     private func configurePath() {
         let center = CGPoint(x: rect.midX, y: rect.midY)
-        let radius = rect.width/2
+        let radius = (rect.width < rect.height ? rect.width : rect.height) * Metric.radiusRatio
         
         let piecePath = UIBezierPath()
         piecePath.lineWidth = Metric.spacing
@@ -75,5 +75,6 @@ final class PieceShapeLayer: CAShapeLayer {
 extension PieceShapeLayer {
     enum Metric {
         static let spacing: CGFloat = 5
+        static let radiusRatio: CGFloat = 0.4
     }
 }

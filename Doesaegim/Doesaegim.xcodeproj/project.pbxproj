@@ -42,7 +42,6 @@
 		B57D962C2922315500B510B8 /* LocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962B2922315500B510B8 /* LocationDTO.swift */; };
 		B57D962E2922318F00B510B8 /* ExpenseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962D2922318F00B510B8 /* ExpenseDTO.swift */; };
 		B57D9630292231FC00B510B8 /* DiaryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962F292231FC00B510B8 /* DiaryDTO.swift */; };
-		B595A97D292C79AD00C3B897 /* ExpenseGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B595A97B292C79AD00C3B897 /* ExpenseGraphView.swift */; };
 		B595A984292CE53100C3B897 /* ExpenseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B595A983292CE53100C3B897 /* ExpenseType.swift */; };
 		B5C096B629235416007426B1 /* SearchingLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096B529235416007426B1 /* SearchingLocationViewController.swift */; };
 		B5C096B829235428007426B1 /* SearchingLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096B729235428007426B1 /* SearchingLocationView.swift */; };
@@ -156,7 +155,6 @@
 		B57D962B2922315500B510B8 /* LocationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDTO.swift; sourceTree = "<group>"; };
 		B57D962D2922318F00B510B8 /* ExpenseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDTO.swift; sourceTree = "<group>"; };
 		B57D962F292231FC00B510B8 /* DiaryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDTO.swift; sourceTree = "<group>"; };
-		B595A97B292C79AD00C3B897 /* ExpenseGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseGraphView.swift; sourceTree = "<group>"; };
 		B595A983292CE53100C3B897 /* ExpenseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseType.swift; sourceTree = "<group>"; };
 		B5C096B529235416007426B1 /* SearchingLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationViewController.swift; sourceTree = "<group>"; };
 		B5C096B729235428007426B1 /* SearchingLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationView.swift; sourceTree = "<group>"; };
@@ -420,14 +418,6 @@
 			path = PersistentDTO;
 			sourceTree = "<group>";
 		};
-		B595A97A292C79AD00C3B897 /* ExpenseGraph */ = {
-			isa = PBXGroup;
-			children = (
-				B595A97B292C79AD00C3B897 /* ExpenseGraphView.swift */,
-			);
-			path = ExpenseGraph;
-			sourceTree = "<group>";
-		};
 		B5C096B2292353EE007426B1 /* SearchingLocation */ = {
 			isa = PBXGroup;
 			children = (
@@ -541,7 +531,6 @@
 		BBB31A3B2926005B00C9E3A9 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B595A97A292C79AD00C3B897 /* ExpenseGraph */,
 				BBB31A3D2926007D00C9E3A9 /* ExpenseListViewController.swift */,
 				BB7D9A252926088A00BF2BD6 /* ExpensePlaceholdView.swift */,
 				BB7D9A2929261C0600BF2BD6 /* ExpenseListCell.swift */,
@@ -1010,7 +999,6 @@
 				A4CC04A229221EEE00BB678B /* Diary+CoreDataClass.swift in Sources */,
 				EE116C5A2924AA0D0017B519 /* CustomCalendar.swift in Sources */,
 				A4EB00DC2926456D00A83936 /* UIScrollView+DidPassPoint.swift in Sources */,
-				B595A97D292C79AD00C3B897 /* ExpenseGraphView.swift in Sources */,
 				EE3E29A829235F6B007C7FC7 /* UITextField+.swift in Sources */,
 				A4CC04822922191300BB678B /* PersistentManager.swift in Sources */,
 				BB7D9A2A29261C0600BF2BD6 /* ExpenseListCell.swift in Sources */,
