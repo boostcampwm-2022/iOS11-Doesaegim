@@ -68,7 +68,7 @@ final class CustomPieChart: UIView {
             let textRect = rect
             let textLayer = PieceTextLayer(
                 rect: textRect,
-                text: "\(items[idx].category.description)\n\(String(format: "%.2f", ratio * 100))%"
+                text: "\(items[idx].category.rawValue)\n\(String(format: "%.2f", ratio * 100))%"
             )
 //            layer.addSublayer(textLayer) // 현재는 텍스트 위치가 제대로 표시되지 않아 주석처리 했습니다,,
             

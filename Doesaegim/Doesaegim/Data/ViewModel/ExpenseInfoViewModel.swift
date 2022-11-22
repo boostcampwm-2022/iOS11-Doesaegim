@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct ExpenseInfoViewModel: Hashable {
     
@@ -48,5 +49,16 @@ enum ExpenseType: String {
     case food = "식비"
     case transportation = "교통비"
     case room = "숙박비"
+    case shopping = "관광비"
     case other = "기타"
+    
+    var color: UIColor {
+        switch self {
+        case .food: return .systemRed
+        case .transportation: return .systemOrange
+        case .shopping: return .systemYellow
+        case .room: return .systemGreen
+        case .other: return .systemBlue
+        }
+    }
 }

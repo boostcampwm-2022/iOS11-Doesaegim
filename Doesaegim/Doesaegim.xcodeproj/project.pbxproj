@@ -33,7 +33,6 @@
 		A4CC04E02923738500BB678B /* PlanLocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04DF2923738500BB678B /* PlanLocalRepository.swift */; };
 		A4CC04E22923777B00BB678B /* NSObject+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04E12923777B00BB678B /* NSObject+Name.swift */; };
 		A4EB00DC2926456D00A83936 /* UIScrollView+DidPassPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB00DB2926456D00A83936 /* UIScrollView+DidPassPoint.swift */; };
-		B53763CB292B56600073BF46 /* SampleExpenseCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763C9292B56600073BF46 /* SampleExpenseCategory.swift */; };
 		B53763CC292B56600073BF46 /* CustomPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763CA292B56600073BF46 /* CustomPieChart.swift */; };
 		B53763D5292B61A40073BF46 /* CustomChartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763D4292B61A40073BF46 /* CustomChartItem.swift */; };
 		B53763E3292B99B80073BF46 /* PieceLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763E2292B99B80073BF46 /* PieceLayer.swift */; };
@@ -147,7 +146,6 @@
 		A4CC04DF2923738500BB678B /* PlanLocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanLocalRepository.swift; sourceTree = "<group>"; };
 		A4CC04E12923777B00BB678B /* NSObject+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Name.swift"; sourceTree = "<group>"; };
 		A4EB00DB2926456D00A83936 /* UIScrollView+DidPassPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+DidPassPoint.swift"; sourceTree = "<group>"; };
-		B53763C9292B56600073BF46 /* SampleExpenseCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleExpenseCategory.swift; sourceTree = "<group>"; };
 		B53763CA292B56600073BF46 /* CustomPieChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPieChart.swift; sourceTree = "<group>"; };
 		B53763D4292B61A40073BF46 /* CustomChartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChartItem.swift; sourceTree = "<group>"; };
 		B53763E2292B99B80073BF46 /* PieceLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceLayer.swift; sourceTree = "<group>"; };
@@ -374,7 +372,6 @@
 		B53763C8292B56600073BF46 /* CustomGraph */ = {
 			isa = PBXGroup;
 			children = (
-				B53763C9292B56600073BF46 /* SampleExpenseCategory.swift */,
 				B53763D4292B61A40073BF46 /* CustomChartItem.swift */,
 				B53763E4292B99D10073BF46 /* PieChart */,
 			);
@@ -975,7 +972,6 @@
 				EE116C632924EC860017B519 /* PlanAddViewController.swift in Sources */,
 				A4CC04AA29221EEE00BB678B /* Location+CoreDataClass.swift in Sources */,
 				BB5DE44C292B8E86001DA6F6 /* Int+convertCostString.swift in Sources */,
-				B53763CB292B56600073BF46 /* SampleExpenseCategory.swift in Sources */,
 				A4CC04A629221EEE00BB678B /* Travel+CoreDataClass.swift in Sources */,
 				BB5771AC2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift in Sources */,
 				BB5771A42923A08F0034047D /* ExpenseTravelViewModel.swift in Sources */,

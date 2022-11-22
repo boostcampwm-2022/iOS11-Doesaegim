@@ -22,9 +22,9 @@ class ExpenseGraphView: UIView {
     private var data: [CustomChartItem] = [
         CustomChartItem(category: .food, value: 70),
         CustomChartItem(category: .shopping, value: 30),
-        CustomChartItem(category: .transport, value: 50),
-        CustomChartItem(category: .lodgment, value: 60),
-        CustomChartItem(category: .etc, value: 20)
+        CustomChartItem(category: .transportation, value: 50),
+        CustomChartItem(category: .room, value: 60),
+        CustomChartItem(category: .other, value: 20)
     ]
 
     // MARK: - Init
