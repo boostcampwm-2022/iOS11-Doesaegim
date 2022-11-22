@@ -34,6 +34,13 @@ final class DiaryAddView: UIView {
 
     let placeSearchButton = PlaceSearchButton()
 
+    let titleTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = StringLiteral.titleTextFieldPlaceholder
+
+        return textField
+    }()
+
     private let addPhotoButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -75,13 +82,6 @@ final class DiaryAddView: UIView {
         control.currentPageIndicatorTintColor = .primaryOrange
 
         return control
-    }()
-
-    private let nameTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = StringLiteral.nameTextFieldPlaceholder
-
-        return textField
     }()
 
     private let contentTextView: UITextView = {
@@ -143,7 +143,7 @@ final class DiaryAddView: UIView {
         let contentStackSubviews = [
             travelTextField, placeSearchButton,
             imageSlider, pageControl,
-            nameTextField, divider, contentTextView
+            titleTextField, divider, contentTextView
         ]
         contentStack.addArrangedSubviews(contentStackSubviews)
         travelTextField.inputView = travelPicker
@@ -161,7 +161,7 @@ final class DiaryAddView: UIView {
     private func configureConstraints() {
         scrollView.snp.makeConstraints { $0.edges.equalToSuperview() }
         contentStack.snp.makeConstraints { $0.edges.width.equalToSuperview() }
-        [travelTextField, placeSearchButton, divider, nameTextField, contentTextView].forEach { view in
+        [travelTextField, placeSearchButton, divider, titleTextField, contentTextView].forEach { view in
             view.snp.makeConstraints { $0.leading.trailing.equalToSuperview().inset(Metric.inset) }
         }
         placeSearchButton.snp.makeConstraints { $0.height.equalTo(Metric.placeSearchButtonHeight) }
@@ -197,6 +197,6 @@ fileprivate extension DiaryAddView {
 
         static let squaredPlus = "plus.app"
 
-        static let nameTextFieldPlaceholder = "제목"
+        static let titleTextFieldPlaceholder = "제목"
     }
 }

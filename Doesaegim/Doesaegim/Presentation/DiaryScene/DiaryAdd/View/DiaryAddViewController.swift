@@ -34,6 +34,7 @@ final class DiaryAddViewController: UIViewController {
         observeKeyBoardAppearance()
         configureTravelPicker()
         configurePlaceSearchButton()
+        configureNameTextField()
     }
 
 
@@ -60,6 +61,12 @@ final class DiaryAddViewController: UIViewController {
             self.show(controller, sender: self)
         }
         rootView.placeSearchButton.addAction(action, for: .touchUpInside)
+    }
+
+    private func configureNameTextField() {
+        let textField = rootView.titleTextField
+        let action = UIAction { _ in self.viewModel.titleDidChange(to: textField.text) }
+        textField.addAction(action, for: .editingChanged)
     }
 
     // MARK: - Keyboard Appearance Observing Functions
@@ -143,8 +150,8 @@ extension DiaryAddViewController: SearchingLocationViewControllerDelegate {
     }
 }
 
-// MARK: - Constants
 
+// MARK: - Constants
 fileprivate extension DiaryAddViewController {
 
     enum Metric {

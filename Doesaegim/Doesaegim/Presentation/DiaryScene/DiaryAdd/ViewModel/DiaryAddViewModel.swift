@@ -48,4 +48,9 @@ final class DiaryAddViewModel {
         temporaryDiary.location = location
         delegate?.diaryValuesDidChange(temporaryDiary)
     }
+
+    func titleDidChange(to title: String?) {
+        temporaryDiary.title = title
+        delegate?.diaryValuesDidChange(temporaryDiary)
+    }
 }
