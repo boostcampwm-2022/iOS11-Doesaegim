@@ -56,7 +56,7 @@ final class PickerViewController: UIViewController, PickerViewProtocol {
     
     // MARK: - Properties
     
-    private let value: [String] = [1, 2, 3, 4, 5].map { String($0) }
+    private var value: [String] = []
     private let type: PickerType
     private var item: String?
     var delegate: PickerViewDelegate?
@@ -78,6 +78,9 @@ final class PickerViewController: UIViewController, PickerViewProtocol {
         view.backgroundColor = .clear
         configureViews()
         setAddTargets()
+        if type == .moneyUnit {
+            fetchExchangeInfo()
+        }
     }
     
     // MARK: - Configure Functions
@@ -111,7 +114,7 @@ final class PickerViewController: UIViewController, PickerViewProtocol {
         
         pickerView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(15)
-            $0.horizontalEdges.equalToSuperview().offset(10)
+            $0.horizontalEdges.equalToSuperview().inset(10)
             $0.bottom.equalTo(addButton.snp.top).offset(-20)
         }
         
@@ -139,6 +142,28 @@ final class PickerViewController: UIViewController, PickerViewProtocol {
     private func setAddTargets() {
         exitButton.addTarget(self, action: #selector(exitButtonTouchUpInside), for: .touchUpInside)
         addButton.addTarget(self, action: #selector(addButtonTouchUpInside), for: .touchUpInside)
+    }
+    
+    
+    // MARK: - Network
+    
+    func fetchExchangeInfo() {
+        let network = NetworkManager(configuration: .default)
+        var paramaters: [String: String] = [:]
+        paramaters["authkey"] = ExchangeAPI.authkey
+        paramaters["data"] = ExchangeAPI.dataCode
+        let resource = Resource<ExchangeResponse>(
+            base: ExchangeAPI.exchangeURL,
+            paramaters: paramaters,
+            header: [:])
+        network.loadArray(resource) { [weak self] result in
+            self?.value = result
+                .map { "\(ExchangeRateType(currencyCode: $0.currencyCode)!.icon) \($0.currencyName)" }
+            DispatchQueue.main.async {
+                self?.pickerView.reloadAllComponents()
+            }
+            
+        }
     }
     
 }

@@ -40,21 +40,6 @@ final class ExpenseAddViewController: UIViewController {
         setKeyboardNotification()
         setAddTarget()
         viewModel.delegate = self
-        test()
-    }
-    
-    func test() {
-        let network = NetworkManager(configuration: .default)
-        var paramaters: [String: String] = [:]
-        paramaters["authkey"] = ExchangeAPI.authkey
-        paramaters["data"] = ExchangeAPI.dataCode
-        let resource = Resource<ExchangeResponse>(
-            base: ExchangeAPI.exchangeURL,
-            paramaters: paramaters,
-            header: [:])
-        network.loadArray(resource) { result in
-            print(result)
-        }
     }
     
     // MARK: - Configure Function

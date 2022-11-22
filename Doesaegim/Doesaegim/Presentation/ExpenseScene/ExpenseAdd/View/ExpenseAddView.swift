@@ -111,9 +111,7 @@ final class ExpenseAddView: UIView {
         button.setTitleColor(.grey3, for: .normal)
         button.setTitle("화폐 단위를 입력해주세요.", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
-        button.setImage(UIImage(systemName: "dollarsign"), for: .normal)
-        button.titleEdgeInsets = .init(top: 0, left: 15, bottom: 0, right: -5)
-        button.imageEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: 5)
+        button.titleEdgeInsets = .init(top: 0, left: 7, bottom: 0, right: 0)
         button.tintColor = .grey3
         button.contentHorizontalAlignment = .left
         return button

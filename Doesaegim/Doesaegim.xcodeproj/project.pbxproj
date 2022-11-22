@@ -98,6 +98,7 @@
 		EEB6C4FD292CC29B0060A459 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4FC292CC29B0060A459 /* NetworkManager.swift */; };
 		EEB6C500292CC4910060A459 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4FF292CC4910060A459 /* Resource.swift */; };
 		EEB6C503292CC88B0060A459 /* ExchangeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C502292CC88B0060A459 /* ExchangeResponse.swift */; };
+		EEB6C506292CCE410060A459 /* ExchangeRateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C505292CCE410060A459 /* ExchangeRateType.swift */; };
 		EEDB752F2925E8DD0069A7F5 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDB752E2925E8DD0069A7F5 /* CalendarViewController.swift */; };
 		EEDB75312925F56D0069A7F5 /* CalendarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDB75302925F56D0069A7F5 /* CalendarProtocol.swift */; };
 		EEDB753329260DFB0069A7F5 /* PlanAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDB753229260DFB0069A7F5 /* PlanAddViewModel.swift */; };
@@ -219,6 +220,7 @@
 		EEB6C4FC292CC29B0060A459 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		EEB6C4FF292CC4910060A459 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		EEB6C502292CC88B0060A459 /* ExchangeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeResponse.swift; sourceTree = "<group>"; };
+		EEB6C505292CCE410060A459 /* ExchangeRateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRateType.swift; sourceTree = "<group>"; };
 		EEDB752E2925E8DD0069A7F5 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		EEDB75302925F56D0069A7F5 /* CalendarProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarProtocol.swift; sourceTree = "<group>"; };
 		EEDB753229260DFB0069A7F5 /* PlanAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanAddViewModel.swift; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 		A4CC04B6292268BB00BB678B /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				EEB6C504292CCE0C0060A459 /* Enum */,
 				EEB6C4FE292CC4830060A459 /* Resource */,
 				EE116C542924AA0D0017B519 /* Custom */,
 				BBD0D064291DED61007D0D82 /* Extensions */,
@@ -789,6 +792,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		EEB6C504292CCE0C0060A459 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				EEB6C505292CCE410060A459 /* ExchangeRateType.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
 		EEDB753429260DFF0069A7F5 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1030,6 +1041,7 @@
 				A4CC04A229221EEE00BB678B /* Diary+CoreDataClass.swift in Sources */,
 				EE116C5A2924AA0D0017B519 /* CustomCalendar.swift in Sources */,
 				A4EB00DC2926456D00A83936 /* UIScrollView+DidPassPoint.swift in Sources */,
+				EEB6C506292CCE410060A459 /* ExchangeRateType.swift in Sources */,
 				EE3E29A829235F6B007C7FC7 /* UITextField+.swift in Sources */,
 				A4CC04822922191300BB678B /* PersistentManager.swift in Sources */,
 				BB7D9A2A29261C0600BF2BD6 /* ExpenseListCell.swift in Sources */,
