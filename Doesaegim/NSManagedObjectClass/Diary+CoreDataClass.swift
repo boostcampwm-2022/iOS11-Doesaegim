@@ -36,4 +36,18 @@ public class Diary: NSManagedObject {
         }
         return .failure(CoreDataError.saveFailure(.diary))
     }
+    
+    static func convertToMapViewModel(with diary: Diary) -> DiaryMapInfoViewModel? {
+        guard let title = diary.title,
+              let content = diary.content else { return nil }
+        // imagepath의 배열은 이미지가 없는 다이어리가 있을 수 있으므로 따로 검사하지 않는다.
+        let diaryMapInfo = DiaryMapInfoViewModel(
+            imagePaths: diary.images,
+            title: title,
+            content: content
+        )
+        
+        return diaryMapInfo
+        
+    }
 }
