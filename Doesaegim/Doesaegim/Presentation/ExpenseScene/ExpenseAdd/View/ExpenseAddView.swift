@@ -103,9 +103,20 @@ final class ExpenseAddView: UIView {
         return label
     }()
     
-    lazy var moneyUnitPickerView: UIPickerView = {
-        let pickerView = UIPickerView()
-        return pickerView
+    private lazy var moneyUnitButton: UIButton = {
+        let button = UIButton()
+        
+        button.layer.cornerRadius = 10
+        button.backgroundColor = .grey1
+        button.setTitleColor(.grey3, for: .normal)
+        button.setTitle("화폐 단위를 입력해주세요.", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
+        button.setImage(UIImage(systemName: "dollarsign"), for: .normal)
+        button.titleEdgeInsets = .init(top: 0, left: 15, bottom: 0, right: -5)
+        button.imageEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: 5)
+        button.tintColor = .grey3
+        button.contentHorizontalAlignment = .left
+        return button
     }()
     
     private lazy var categoryStackView: UIStackView = {
@@ -126,9 +137,20 @@ final class ExpenseAddView: UIView {
         return label
     }()
     
-    lazy var categoryPickerView: UIPickerView = {
-        let pickerView = UIPickerView()
-        return pickerView
+    private lazy var categoryButton: UIButton = {
+        let button = UIButton()
+        
+        button.layer.cornerRadius = 10
+        button.backgroundColor = .grey1
+        button.setTitleColor(.grey3, for: .normal)
+        button.setTitle("카테고리를 입력해주세요.", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
+        button.setImage(UIImage(systemName: "c.circle"), for: .normal)
+        button.titleEdgeInsets = .init(top: 0, left: 15, bottom: 0, right: -5)
+        button.imageEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: 5)
+        button.tintColor = .grey3
+        button.contentHorizontalAlignment = .left
+        return button
     }()
     
     private lazy var dateStackView: UIStackView = {
@@ -160,7 +182,7 @@ final class ExpenseAddView: UIView {
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
         button.setImage(UIImage(systemName: "calendar"), for: .normal)
         button.titleEdgeInsets = .init(top: 0, left: 15, bottom: 0, right: -5)
-        button.imageEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 5)
+        button.imageEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: 5)
         button.tintColor = .grey3
         button.contentHorizontalAlignment = .left
         return button
@@ -238,8 +260,8 @@ final class ExpenseAddView: UIView {
         )
         titleStackView.addArrangedSubviews(titleLabel, titleTextField)
         amountStackView.addArrangedSubviews(amountLabel, amountTextField)
-        moneyUnitStackView.addArrangedSubviews(moneyUnitLabel, moneyUnitPickerView)
-        categoryStackView.addArrangedSubviews(categoryLabel, categoryPickerView)
+        moneyUnitStackView.addArrangedSubviews(moneyUnitLabel, moneyUnitButton)
+        categoryStackView.addArrangedSubviews(categoryLabel, categoryButton)
         dateStackView.addArrangedSubviews(dateLabel, dateButton)
         descriptionStackView.addArrangedSubviews(descriptionTitleLabel, descriptionTextView)
     }
@@ -277,21 +299,21 @@ final class ExpenseAddView: UIView {
             $0.leading.trailing.equalToSuperview().inset(16)
         }
         
-        moneyUnitPickerView.snp.makeConstraints {
-            $0.height.equalTo(180)
+        moneyUnitButton.snp.makeConstraints {
+            $0.height.equalTo(36)
         }
         
         categoryStackView.snp.makeConstraints {
-            $0.top.equalTo(moneyUnitPickerView.snp.bottom).offset(24)
+            $0.top.equalTo(moneyUnitStackView.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
         
-        categoryPickerView.snp.makeConstraints {
-            $0.height.equalTo(180)
+        categoryButton.snp.makeConstraints {
+            $0.height.equalTo(36)
         }
         
         dateStackView.snp.makeConstraints {
-            $0.top.equalTo(categoryPickerView.snp.bottom).offset(24)
+            $0.top.equalTo(categoryStackView.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
         

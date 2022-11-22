@@ -29,9 +29,15 @@ final class ExpenseAddViewController: UIViewController {
     }
     
     // MARK: - Configure Function
+    
     private func configureNavigation() {
         navigationItem.title = "지출 추가"
     }
+}
+
+// MARK: - Actions
+
+extension ExpenseAddViewController {
     
 }
 
