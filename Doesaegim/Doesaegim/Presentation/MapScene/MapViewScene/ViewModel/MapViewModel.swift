@@ -49,11 +49,32 @@ extension MapViewModel {
         }
     }
     
-    func addDummyDiaryData() {
-        // 3개의 데이터를 추가
-        (0..<3).forEach { _ in
-            <#code#>
-        }
-    }
+//    func addDummyDiaryData() {
+//        // 3개의 데이터를 추가
+//        (0..<3).forEach { _ in
+//
+//            let dto = DiaryDTO(
+//                content: "내용입니다.",
+//                date: Date(),
+//                images: [],
+//                title: "제목"
+//            )
+//            let result = Diary.addAndSave(with: dto)
+//            switch result {
+//            case .success(let diary):
+//                // 종로
+//                let locationDTO = LocationDTO(
+//                    name: "위치",
+//                    latitude: 37.5700,
+//                    longitude: 126.979
+//                )
+//                diary.location = Location.addAndSave(with: locationDTO)
+//
+//            case .failure(let error):
+//                print(error?.localizedDescription)
+//                // TODO: - 에러처리
+//            }
+//        }
+//    }
     
 }

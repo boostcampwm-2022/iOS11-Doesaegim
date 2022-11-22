@@ -10,6 +10,7 @@ import Foundation
 
 struct DiaryMapInfoViewModel {
     
+    let id: UUID
     let imagePaths: [String]?
     let title: String
     let content: String
