@@ -95,6 +95,9 @@
 		EEB6C4F6292CA3990060A459 /* PickerViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4F5292CA3990060A459 /* PickerViewProtocol.swift */; };
 		EEB6C4F8292CA8DB0060A459 /* ExpenseAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4F7292CA8DB0060A459 /* ExpenseAddViewModel.swift */; };
 		EEB6C4FB292CA9200060A459 /* ExpenseAddViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4FA292CA9200060A459 /* ExpenseAddViewProtocol.swift */; };
+		EEB6C4FD292CC29B0060A459 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4FC292CC29B0060A459 /* NetworkManager.swift */; };
+		EEB6C500292CC4910060A459 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4FF292CC4910060A459 /* Resource.swift */; };
+		EEB6C503292CC88B0060A459 /* ExchangeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C502292CC88B0060A459 /* ExchangeResponse.swift */; };
 		EEDB752F2925E8DD0069A7F5 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDB752E2925E8DD0069A7F5 /* CalendarViewController.swift */; };
 		EEDB75312925F56D0069A7F5 /* CalendarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDB75302925F56D0069A7F5 /* CalendarProtocol.swift */; };
 		EEDB753329260DFB0069A7F5 /* PlanAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDB753229260DFB0069A7F5 /* PlanAddViewModel.swift */; };
@@ -213,6 +216,9 @@
 		EEB6C4F5292CA3990060A459 /* PickerViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewProtocol.swift; sourceTree = "<group>"; };
 		EEB6C4F7292CA8DB0060A459 /* ExpenseAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddViewModel.swift; sourceTree = "<group>"; };
 		EEB6C4FA292CA9200060A459 /* ExpenseAddViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddViewProtocol.swift; sourceTree = "<group>"; };
+		EEB6C4FC292CC29B0060A459 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		EEB6C4FF292CC4910060A459 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		EEB6C502292CC88B0060A459 /* ExchangeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeResponse.swift; sourceTree = "<group>"; };
 		EEDB752E2925E8DD0069A7F5 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		EEDB75302925F56D0069A7F5 /* CalendarProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarProtocol.swift; sourceTree = "<group>"; };
 		EEDB753229260DFB0069A7F5 /* PlanAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanAddViewModel.swift; sourceTree = "<group>"; };
@@ -249,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				A4CC04812922191300BB678B /* PersistentManager.swift */,
+				EEB6C4FC292CC29B0060A459 /* NetworkManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -302,6 +309,7 @@
 		A4CC04B6292268BB00BB678B /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				EEB6C4FE292CC4830060A459 /* Resource */,
 				EE116C542924AA0D0017B519 /* Custom */,
 				BBD0D064291DED61007D0D82 /* Extensions */,
 				A4CC04CA29227E5C00BB678B /* Constants.swift */,
@@ -719,6 +727,7 @@
 		EE85FBC1292BA9A600FF0C7C /* ExpenseAdd */ = {
 			isa = PBXGroup;
 			children = (
+				EEB6C501292CC8730060A459 /* Model */,
 				EE85FBC4292BAA9F00FF0C7C /* View */,
 				EEB6C4F9292CA8DF0060A459 /* ViewModel */,
 			);
@@ -762,6 +771,22 @@
 				EEB6C4FA292CA9200060A459 /* ExpenseAddViewProtocol.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EEB6C4FE292CC4830060A459 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				EEB6C4FF292CC4910060A459 /* Resource.swift */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		EEB6C501292CC8730060A459 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EEB6C502292CC88B0060A459 /* ExchangeResponse.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		EEDB753429260DFF0069A7F5 /* ViewModel */ = {
@@ -943,7 +968,9 @@
 				B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */,
 				EEB6C4F8292CA8DB0060A459 /* ExpenseAddViewModel.swift in Sources */,
 				B5C096C429238091007426B1 /* SearchingLocationViewModel.swift in Sources */,
+				EEB6C503292CC88B0060A459 /* ExchangeResponse.swift in Sources */,
 				A4CC04A429221EEE00BB678B /* Plan+CoreDataClass.swift in Sources */,
+				EEB6C500292CC4910060A459 /* Resource.swift in Sources */,
 				EE116C5E2924CB6B0017B519 /* TravelAddViewProtocol.swift in Sources */,
 				EEB6C4FB292CA9200060A459 /* ExpenseAddViewProtocol.swift in Sources */,
 				BBDB2E96292635FD00752924 /* ExpenseSectionHeaderView.swift in Sources */,
@@ -1016,6 +1043,7 @@
 				A4CC04C429226FC100BB678B /* String+Placeholders.swift in Sources */,
 				EEDB752F2925E8DD0069A7F5 /* CalendarViewController.swift in Sources */,
 				EEB6C4F4292C8CC50060A459 /* PickerViewController.swift in Sources */,
+				EEB6C4FD292CC29B0060A459 /* NetworkManager.swift in Sources */,
 				EE85FBC6292BAADC00FF0C7C /* ExpenseAddView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
