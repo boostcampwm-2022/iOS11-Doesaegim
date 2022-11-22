@@ -41,6 +41,15 @@ final class DiaryAddView: UIView {
         return textField
     }()
 
+    let contentTextView: UITextView = {
+        let textView = UITextView()
+        textView.sizeToFit()
+        textView.isScrollEnabled = false
+        textView.layer.cornerRadius = 8
+        
+        return textView
+    }()
+
     private let addPhotoButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -82,15 +91,6 @@ final class DiaryAddView: UIView {
         control.currentPageIndicatorTintColor = .primaryOrange
 
         return control
-    }()
-
-    private let contentTextView: UITextView = {
-        let textView = UITextView()
-        textView.sizeToFit()
-        textView.isScrollEnabled = false
-        textView.layer.cornerRadius = 8
-
-        return textView
     }()
 
     private let divider: UIView = {

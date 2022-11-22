@@ -35,6 +35,7 @@ final class DiaryAddViewController: UIViewController {
         configureTravelPicker()
         configurePlaceSearchButton()
         configureNameTextField()
+        configureContentTextView()
     }
 
 
@@ -68,6 +69,11 @@ final class DiaryAddViewController: UIViewController {
         let action = UIAction { _ in self.viewModel.titleDidChange(to: textField.text) }
         textField.addAction(action, for: .editingChanged)
     }
+
+    private func configureContentTextView() {
+        rootView.contentTextView.delegate = self
+    }
+
 
     // MARK: - Keyboard Appearance Observing Functions
 
@@ -135,7 +141,6 @@ extension DiaryAddViewController: UIPickerViewDelegate {
 
 // MARK: - DiaryAddViewModelDelegate
 extension DiaryAddViewController: DiaryAddViewModelDelegate {
-
     func diaryValuesDidChange(_ diary: TemporaryDiary) {
         rootView.travelTextField.text = diary.travel?.name
         rootView.placeSearchButton.setTitle(diary.location?.name, for: .normal)
@@ -147,6 +152,13 @@ extension DiaryAddViewController: DiaryAddViewModelDelegate {
 extension DiaryAddViewController: SearchingLocationViewControllerDelegate {
     func searchingLocationViewController(didSelect location: LocationDTO) {
         viewModel.locationDidSelect(location)
+    }
+}
+
+// MARK: - UITextViewDelegate
+extension DiaryAddViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        viewModel.contentDidChange(to: textView.text)
     }
 }
 
