@@ -42,7 +42,7 @@ final class ExpenseAddView: UIView {
         return label
     }()
     
-    private lazy var titleTextField: UITextField = {
+    lazy var titleTextField: UITextField = {
         let textField = UITextField()
         
         textField.placeholder = "지출의 이름을 입력해주세요."
@@ -72,7 +72,7 @@ final class ExpenseAddView: UIView {
         return label
     }()
     
-    private lazy var amountTextField: UITextField = {
+    lazy var amountTextField: UITextField = {
         let textField = UITextField()
         
         textField.placeholder = "지출의 액수를 입력해주세요."

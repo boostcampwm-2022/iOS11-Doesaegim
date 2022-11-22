@@ -17,7 +17,18 @@ final class ExpenseAddViewController: UIViewController {
     
     // MARK: - Properties
     
+    private let viewModel: ExpenseAddViewModel
+    
     // MARK: - Lifecycles
+    
+    init() {
+        viewModel = ExpenseAddViewModel()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = rootView
@@ -27,6 +38,7 @@ final class ExpenseAddViewController: UIViewController {
         configureNavigation()
         setKeyboardNotification()
         setAddTarget()
+        viewModel.delegate = self
     }
     
     // MARK: - Configure Function
@@ -53,6 +65,16 @@ final class ExpenseAddViewController: UIViewController {
             action: #selector(dateButtonTouchUpInside),
             for: .touchUpInside
         )
+        rootView.titleTextField.addTarget(
+            self,
+            action: #selector(textFieldDidChange),
+            for: .editingChanged
+        )
+        rootView.amountTextField.addTarget(
+            self,
+            action: #selector(textFieldDidChange),
+            for: .editingChanged
+        )
     }
 }
 
@@ -72,6 +94,19 @@ extension ExpenseAddViewController {
         calendarViewController.delegate = self
         present(calendarViewController, animated: true)
     }
+    
+    @objc func textFieldDidChange(_ sender: UITextField) {
+        if sender == rootView.titleTextField {
+            viewModel.isValidNameTextField(text: sender.text)
+            return
+        }
+        
+        if sender == rootView.amountTextField {
+            viewModel.isValidAmountTextField(text: sender.text)
+            return
+        }
+    }
+    
 }
 
 // MARK: - CalendarDelegate
@@ -79,6 +114,7 @@ extension ExpenseAddViewController {
 extension ExpenseAddViewController: CalendarViewDelegate {
     func fetchDate(dateString: String) {
         rootView.dateButton.setTitle(dateString, for: .normal)
+        viewModel.isValidDate(dateString: dateString)
     }
 }
 
@@ -89,9 +125,20 @@ extension ExpenseAddViewController: PickerViewDelegate {
         switch type {
         case .category:
             rootView.categoryButton.setTitle(item, for: .normal)
+            viewModel.isValidCategoryItem(item: item)
         case .moneyUnit:
             rootView.moneyUnitButton.setTitle(item, for: .normal)
+            viewModel.isValidUnitItem(item: item)
         }
+    }
+}
+
+// MARK: - ViewModelDelegate
+
+extension ExpenseAddViewController: ExpenseAddViewDelegate {
+    func isValidInput(isValid: Bool) {
+        rootView.addButton.isEnabled = isValid
+        rootView.addButton.backgroundColor = isValid ? .primaryOrange : .grey3
     }
 }
 
