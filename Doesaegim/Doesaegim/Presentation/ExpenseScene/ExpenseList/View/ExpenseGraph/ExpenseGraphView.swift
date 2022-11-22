@@ -29,24 +29,19 @@ class ExpenseGraphView: UIView {
 
     // MARK: - Init
     
-    init(data: [CustomChartItem], frame: CGRect = .zero) {
-        super.init(frame: frame)
-        
-        if !data.isEmpty {
-            self.data = data
-            self.isBlur = false
-        }
-        configureViews()
-    }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        configureViews()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    // MARK: - Setup Functions
+    
+    func setupChartData(_ data: [CustomChartItem]) {
+        if !data.isEmpty { self.data = data }
+        isBlur = data.isEmpty
         
         configureViews()
     }
@@ -73,6 +68,7 @@ class ExpenseGraphView: UIView {
     private func configureBlurEffect(style: UIBlurEffect.Style = .regular) {
         let blurEffect = UIBlurEffect(style: style)
         let visualEffectView = UIVisualEffectView(effect: blurEffect)
+        visualEffectView.frame = bounds
         visualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         addSubview(visualEffectView)

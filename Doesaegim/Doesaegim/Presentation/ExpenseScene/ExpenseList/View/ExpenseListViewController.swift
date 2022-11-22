@@ -199,16 +199,7 @@ final class ExpenseListViewController: UIViewController {
             elementKind: HeaderKind.globalHeader
         ) { [weak self] supplementaryView, _, _ in
             // 세번째 파라미터는 indexPath
-            supplementaryView.configureData(
-                with: [
-                    ExpenseInfoViewModel(uuid: UUID(), name: "test", content: "식비", category: "식비", cost: 30000, date: Date()),
-                    ExpenseInfoViewModel(uuid: UUID(), name: "test", content: "교통비", category: "교통비", cost: 20000, date: Date()),
-                    ExpenseInfoViewModel(uuid: UUID(), name: "test", content: "숙박비", category: "숙박비", cost: 50000, date: Date()),
-                    ExpenseInfoViewModel(uuid: UUID(), name: "test", content: "관광비", category: "관광비", cost: 40000, date: Date()),
-                    ExpenseInfoViewModel(uuid: UUID(), name: "test", content: "기타", category: "기타", cost: 10000, date: Date()),
-                ]
-            )
-//            supplementaryView.configureData(with: self?.viewModel?.expenseInfos)
+            supplementaryView.configureData(with: self?.viewModel?.expenseInfos)
         }
         
         // TODO: - section Header 타이틀 바꾸기

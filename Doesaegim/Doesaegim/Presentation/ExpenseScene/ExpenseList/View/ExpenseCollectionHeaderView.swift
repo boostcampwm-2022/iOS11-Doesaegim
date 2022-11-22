@@ -11,11 +11,7 @@ final class ExpenseCollectionHeaderView: UICollectionReusableView {
     
     // MARK: - UI Properties
     
-    private var graphView = ExpenseGraphView() {
-        didSet {
-            configure()
-        }
-    }
+    private var graphView = ExpenseGraphView()
     
     // MARK: - Init
     
@@ -46,8 +42,7 @@ final class ExpenseCollectionHeaderView: UICollectionReusableView {
             let item = CustomChartItem(category: category, value: value)
             return item
         }
-        
-        graphView = ExpenseGraphView(data: graphData)
+        graphView.setupChartData(graphData)
     }
     
     private func configureSubviews() {
