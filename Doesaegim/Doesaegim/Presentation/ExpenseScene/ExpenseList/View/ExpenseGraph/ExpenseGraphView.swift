@@ -32,8 +32,10 @@ class ExpenseGraphView: UIView {
     init(data: [CustomChartItem], frame: CGRect = .zero) {
         super.init(frame: frame)
         
-        self.data = data
-        self.isBlur = false
+        if !data.isEmpty {
+            self.data = data
+            self.isBlur = false
+        }
         configureViews()
     }
     
