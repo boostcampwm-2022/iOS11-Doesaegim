@@ -13,6 +13,8 @@ protocol MapViewModelProtocol: AnyObject {
     var delegate: MapViewModelDelegate? { get set }
     var diaryInfos: [DiaryMapInfoViewModel] { get set }
     
+    func fetchDiary()
+    
 }
 
 protocol MapViewModelDelegate: AnyObject {

@@ -6,24 +6,130 @@
 //
 
 import UIKit
+import MapKit
+
 
 final class MapViewController: UIViewController {
-
+    
+    let mapView = MKMapView()
+    let coordinate = CLLocationCoordinate2D(latitude: 40.728, longitude: -74)
+    let viewModel: MapViewModelProtocol = MapViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemGreen
-        // Do any additional setup after loading the view.
+        
+        configureSubviews()
+        configureMap()
+        
+        viewModel.fetchDiary()
+        
+//        view.addSubview(map)
+//        map.frame = view.bounds
+//        map.delegate = self
+//        map.setRegion(
+//            MKCoordinateRegion(
+//                center: coordinate,
+//                span: MKCoordinateSpan(
+//                    latitudeDelta: 0.1,
+//                    longitudeDelta: 0.1
+//                )),
+//            animated: true
+//        )
+        addCustomPin()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // MARK: - Configuration
+    
+    func configureSubviews() {
+        view.addSubview(mapView)
     }
-    */
+    
+    func configureMap() {
+        mapView.frame = view.bounds
+        let jongRoCoordinate = CLLocationCoordinate2D(
+            latitude: 37.5700,
+            longitude: 126.9796
+        )
+        let defaultRegion = MKCoordinateRegion(
+            center: jongRoCoordinate,
+            span: MKCoordinateSpan(
+                latitudeDelta: 0.1,
+                longitudeDelta: 0.1
+            )
+        )
+        mapView.setRegion(defaultRegion, animated: true)
+    }
+    
+    
+    // MARK: - Functions
+    
+    
+    private func addCustomPin() {
+//        let pin = MKPointAnnotation()
+//        pin.coordinate = coordinate
+//        pin.title = "우하하"
+//        pin.subtitle = "다이어리내용내용"
+//        map.addAnnotation(pin)
+    }
+    
+    private func clearAnnotation() {
+        let annotations = mapView.annotations
+        mapView.removeAnnotations(annotations)
+    }
+    
+    private func addPin(with diaryInfo: DiaryMapInfoViewModel) {
+        let pin = MKPointAnnotation()
+        
+        let latitude = diaryInfo.latitude
+        let longitude = diaryInfo.longitude
+        let coordinate = CLLocationCoordinate2D(
+            latitude: latitude,
+            longitude: longitude
+        )
+        let title = diaryInfo.title
+        let content = diaryInfo.content
+        
+        pin.coordinate = coordinate
+        pin.title = title
+        pin.subtitle = content
+        mapView.addAnnotation(pin)
+    }
+    
+}
+
+
+extension MapViewController: MapViewModelDelegate {
+    func mapViewDairyInfoDidChage() {
+        clearAnnotation() // 어노테이션 삭제
+        viewModel.diaryInfos.forEach { diaryInfo in
+            self.addPin(with: diaryInfo)
+        }
+    }
+    
+}
+
+extension MapViewController: MKMapViewDelegate {
+//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//        guard !(annotation is MKUserLocation) else { return nil }
+//
+//        var annotationView = map.dequeueReusableAnnotationView(withIdentifier: "custom")
+//
+//        if annotationView == nil {
+//            // Create the view
+//            annotationView = MKAnnotationView(
+//                annotation: annotation,
+//                reuseIdentifier: "custom"
+//            )
+//            annotationView?.canShowCallout = true
+//        } else {
+//            annotationView?.annotation = annotation
+//        }
+//
+//        annotationView?.image = UIImage(systemName: "house")
+//
+//        return annotationView
+//    }
 
 }
+
+
