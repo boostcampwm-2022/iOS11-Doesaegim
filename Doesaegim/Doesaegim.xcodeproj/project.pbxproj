@@ -270,7 +270,7 @@
 		A4CC04AF292261D900BB678B /* MapScene */ = {
 			isa = PBXGroup;
 			children = (
-				BBD0D05E291DE97F007D0D82 /* MapViewController.swift */,
+				BB3DB91A292C815B00C70D62 /* MapViewScene */,
 			);
 			path = MapScene;
 			sourceTree = "<group>";
@@ -430,6 +430,30 @@
 			isa = PBXGroup;
 			children = (
 				BBE695D729228B560015FAD4 /* TravelListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BB3DB91A292C815B00C70D62 /* MapViewScene */ = {
+			isa = PBXGroup;
+			children = (
+				BB3DB91C292C835E00C70D62 /* ViewModel */,
+				BB3DB91B292C835600C70D62 /* View */,
+			);
+			path = MapViewScene;
+			sourceTree = "<group>";
+		};
+		BB3DB91B292C835600C70D62 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BBD0D05E291DE97F007D0D82 /* MapViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BB3DB91C292C835E00C70D62 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
