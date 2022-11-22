@@ -21,22 +21,25 @@ final class MapViewController: UIViewController {
         configureSubviews()
         configureMap()
         configureAnnotationView()
+        addDummyPins() // 더미 핀을 추가하고 싶을 때
         
         viewModel.fetchDiary()
         
-//        view.addSubview(map)
-//        map.frame = view.bounds
-//        map.delegate = self
-//        map.setRegion(
-//            MKCoordinateRegion(
-//                center: coordinate,
-//                span: MKCoordinateSpan(
-//                    latitudeDelta: 0.1,
-//                    longitudeDelta: 0.1
-//                )),
-//            animated: true
-//        )
-        addCustomPin()
+    }
+    
+    // 추후 지워질 함 수 더미 핀을 만드는 함수
+    private func addDummyPins() {
+        print(#function)
+        let diaryInfoViewModel = DiaryMapInfoViewModel(
+            id: UUID(),
+            imagePaths: nil,
+            title: "제목입니다.",
+            content: "콘텐츠 입니다",
+            date: Date(),
+            latitude: 37.57,
+            longitude: 126.9796
+        )
+        addPin(with: diaryInfoViewModel)
     }
     
     // MARK: - Configuration
@@ -47,7 +50,12 @@ final class MapViewController: UIViewController {
     
     private func configureMap() {
         mapView.frame = view.bounds
+        mapView.delegate = self
+        centerMapOnJongRo()
         
+    }
+    
+    private func centerMapOnJongRo() {
         let jongRoCoordinate = CLLocationCoordinate2D(
             latitude: 37.5700,
             longitude: 126.9796
@@ -64,19 +72,14 @@ final class MapViewController: UIViewController {
     
     private func configureAnnotationView() {
         print(#function)
+        mapView.register(
+            MKMarkerAnnotationView.self,
+            forAnnotationViewWithReuseIdentifier: NSStringFromClass(DiaryAnnotation.self)
+        )
     }
     
     
     // MARK: - Functions
-    
-    
-    private func addCustomPin() {
-//        let pin = MKPointAnnotation()
-//        pin.coordinate = coordinate
-//        pin.title = "우하하"
-//        pin.subtitle = "다이어리내용내용"
-//        map.addAnnotation(pin)
-    }
     
     private func clearAnnotation() {
         let annotations = mapView.annotations
@@ -84,7 +87,6 @@ final class MapViewController: UIViewController {
     }
     
     private func addPin(with diaryInfo: DiaryMapInfoViewModel) {
-        let pin = MKPointAnnotation()
         
         let latitude = diaryInfo.latitude
         let longitude = diaryInfo.longitude
@@ -92,12 +94,10 @@ final class MapViewController: UIViewController {
             latitude: latitude,
             longitude: longitude
         )
-        let title = diaryInfo.title
-        let content = diaryInfo.content
         
-        pin.coordinate = coordinate
-        pin.title = title
-        pin.subtitle = content
+        let pin = DiaryAnnotation(coordinate: coordinate)
+        pin.configure(with: diaryInfo)
+        // TODO: - 이미지 경로 이곳에서 설정하고 mapView(annotation:mapView) 메서드에서 경로로 이미지받아와서 붙인다.
         mapView.addAnnotation(pin)
     }
     
@@ -115,14 +115,60 @@ extension MapViewController: MapViewModelDelegate {
 }
 
 extension MapViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView,
+                 annotationView view: MKAnnotationView,
+                 calloutAccessoryControlTapped control: UIControl) {
+        
+        if let annotation = view.annotation, annotation.isKind(of: DiaryAnnotation.self) {
+            print("다이어리 어노테이션을 탭 했습니다.")
+            
+            let diaryViewController =  TempDiaryViewController()
+//            navigationController?.pushViewController(diaryViewController, animated: true)
+            diaryViewController.modalPresentationStyle = .popover
+            let presentationController =  diaryViewController.popoverPresentationController
+            presentationController?.permittedArrowDirections = .any
+
+            presentationController?.sourceRect = control.frame
+            presentationController?.sourceView = control
+
+            present(diaryViewController, animated: true, completion: nil)
+            
+        }
+    }
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard !annotation.isKind(of: MKUserLocation.self) else { return nil }
         
         var annotationView: MKAnnotationView?
+        if let annotation = annotation as? DiaryAnnotation {
+            annotationView = setupDiaryAnnotationView(for: annotation, on: mapView)
+        }
         
-//        if let annotaation = annotation as? Diary
+        print(type(of: annotation))
+        return annotationView
+    }
+    
+    private func setupDiaryAnnotationView(for annotation: DiaryAnnotation,
+                                          on mapView: MKMapView) -> MKAnnotationView {
         
-        
+        let identifier = NSStringFromClass(DiaryAnnotation.self)
+        let view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier, for: annotation)
+        if let markerAnnotationView = view as? MKMarkerAnnotationView {
+            markerAnnotationView.animatesWhenAdded = true
+            markerAnnotationView.canShowCallout = true
+            markerAnnotationView.markerTintColor = .primaryOrange
+            
+            // TODO: - 이미지 넣는 방식 결정
+//            let image = UIImage(systemName: "photo")
+//            markerAnnotationView.detailCalloutAccessoryView = UIImageView(image: image)
+            let thumbnailImageView: UIImageView = UIImageView(image: UIImage(systemName: "photo"))
+            markerAnnotationView.leftCalloutAccessoryView = thumbnailImageView
+            
+            let rightButton = UIButton(type: .detailDisclosure)
+            markerAnnotationView.rightCalloutAccessoryView = rightButton
+        }
+        return view
     }
 
 }

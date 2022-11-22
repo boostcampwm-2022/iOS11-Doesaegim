@@ -41,6 +41,7 @@ public class Diary: NSManagedObject {
         guard let id = diary.id,
               let title = diary.title,
               let content = diary.content,
+              let date = diary.date,
               let latitude = diary.location?.latitude,
               let longitude = diary.location?.longitude else { return nil }
     
@@ -50,6 +51,7 @@ public class Diary: NSManagedObject {
             imagePaths: diary.images,
             title: title,
             content: content,
+            date: date,
             latitude: latitude,
             longitude: longitude
         )
