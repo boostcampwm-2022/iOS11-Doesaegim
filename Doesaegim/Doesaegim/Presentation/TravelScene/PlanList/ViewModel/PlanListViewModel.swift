@@ -11,6 +11,8 @@ final class PlanListViewModel {
     typealias SectionAndPlanID = (section: String, planID: UUID)
 
     // MARK: - Properties
+    
+    let travel: Travel
 
     let navigationTitle: String?
 
@@ -28,8 +30,6 @@ final class PlanListViewModel {
     
     private let repository: PlanRepository
     
-    private let travelID: UUID
-
     private var plans = [Plan]()
 
     /// 아직 뷰모델로 변환되지 않은 Plan의 시작 인덱스
@@ -45,10 +45,10 @@ final class PlanListViewModel {
     
     // MARK: - Init(s)
 
-    init(travelID: UUID, navgiationTitle: String, repository: PlanRepository) {
+    init(travel: Travel, repository: PlanRepository) {
         self.repository = repository
-        self.travelID = travelID
-        self.navigationTitle = navgiationTitle
+        self.travel = travel
+        self.navigationTitle = travel.name
     }
 
 
@@ -63,6 +63,10 @@ final class PlanListViewModel {
 
     func fetchPlans() {
         // TODO: 디바이스 별로 batchSize 계산하면 더 좋을듯?
+        guard let travelID = travel.id else {
+            planFetchHandler?(.failure(CoreDataError.fetchFailure(.travel)))
+            return
+        }
         let result = repository.fetchPlans(ofTravelID: travelID, batchSize: Metric.batchSize)
         switch result {
         case .success(let plans):

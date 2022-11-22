@@ -57,11 +57,13 @@ final class TravelAddViewModel: TravelAddViewProtocol {
     // MARK: - CoreData Function
     
     func postTravel(travel: TravelDTO, completion: @escaping (() -> Void)) {
-        do {
-            try Travel.addAndSave(with: travel)
+        let result = Travel.addAndSave(with: travel)
+        switch result {
+        case .success:
             completion()
-        } catch {
+        case .failure(let error):
             print(error.localizedDescription)
+            
         }
     }
 }

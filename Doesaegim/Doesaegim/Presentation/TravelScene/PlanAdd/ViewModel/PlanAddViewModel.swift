@@ -35,15 +35,14 @@ final class PlanAddViewModel: PlanAddViewProtocol {
         isValidName = false
         isValidPlace = false
         isValidDate = false
-//        isValidInput = isValidName && isValidPlace && isValidDate
-        isValidInput = isValidName && isValidDate
+        isValidInput = isValidName && isValidPlace && isValidDate
     }
     
     // MARK: - Helpers
     
     func isValidPlanName(name: String?) {
         defer {
-            isValidInput = isValidName && isValidDate
+            isValidInput = isValidName && isValidPlace && isValidDate
         }
         guard let name,
               !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
@@ -54,24 +53,40 @@ final class PlanAddViewModel: PlanAddViewProtocol {
     }
     
     func isValidPlace(place: LocationDTO?) {
+        defer {
+            isValidInput = isValidName && isValidPlace && isValidDate
+        }
+        
         guard let place = place else {
             isValidPlace = false
             return
         }
-        
         selectedLocation = place
         isValidPlace = true
     }
     
-    func isValidDate(date: Date?) {
+    func isValidDate(dateString: String) {
         defer {
-            isValidInput = isValidName && isValidDate
+            isValidInput = isValidName && isValidPlace && isValidDate
         }
-        guard let date else {
+        guard let date = Date.convertDateStringToDate(
+            dateString: dateString,
+            formatter: Date.yearMonthDayTimeDateFormatter
+        ) else {
             isValidDate = false
             return
         }
         isValidDate = true
     }
     
+    func postPlan(plan: PlanDTO, completion: @escaping () -> Void) {
+        let result = Plan.addAndSave(with: plan)
+        switch result {
+        case .success:
+            completion()
+        case .failure(let error):
+            print(error.localizedDescription)
+            
+        }
+    }
 }
