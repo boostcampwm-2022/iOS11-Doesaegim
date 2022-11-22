@@ -99,6 +99,7 @@
 		EEB6C500292CC4910060A459 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4FF292CC4910060A459 /* Resource.swift */; };
 		EEB6C503292CC88B0060A459 /* ExchangeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C502292CC88B0060A459 /* ExchangeResponse.swift */; };
 		EEB6C506292CCE410060A459 /* ExchangeRateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C505292CCE410060A459 /* ExchangeRateType.swift */; };
+		EEBA25FB292D1AE3001F8B66 /* String+ConvertRemoveComma.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBA25FA292D1AE3001F8B66 /* String+ConvertRemoveComma.swift */; };
 		EEDB752F2925E8DD0069A7F5 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDB752E2925E8DD0069A7F5 /* CalendarViewController.swift */; };
 		EEDB75312925F56D0069A7F5 /* CalendarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDB75302925F56D0069A7F5 /* CalendarProtocol.swift */; };
 		EEDB753329260DFB0069A7F5 /* PlanAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDB753229260DFB0069A7F5 /* PlanAddViewModel.swift */; };
@@ -221,6 +222,7 @@
 		EEB6C4FF292CC4910060A459 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 		EEB6C502292CC88B0060A459 /* ExchangeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeResponse.swift; sourceTree = "<group>"; };
 		EEB6C505292CCE410060A459 /* ExchangeRateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRateType.swift; sourceTree = "<group>"; };
+		EEBA25FA292D1AE3001F8B66 /* String+ConvertRemoveComma.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ConvertRemoveComma.swift"; sourceTree = "<group>"; };
 		EEDB752E2925E8DD0069A7F5 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		EEDB75302925F56D0069A7F5 /* CalendarProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarProtocol.swift; sourceTree = "<group>"; };
 		EEDB753229260DFB0069A7F5 /* PlanAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanAddViewModel.swift; sourceTree = "<group>"; };
@@ -564,11 +566,11 @@
 		BBD0D064291DED61007D0D82 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				EEBA25F9292D1AB2001F8B66 /* String */,
 				BB5DE44A292B8DF4001DA6F6 /* Int */,
 				BBFE4BA42924B252003F5CCE /* Date */,
 				BBD0D065291DED6A007D0D82 /* UIColor+.swift */,
 				EE3E29A729235F6B007C7FC7 /* UITextField+.swift */,
-				A4CC04C329226FC100BB678B /* String+Placeholders.swift */,
 				A4CC04CC2922818900BB678B /* UIView+AddSubviews.swift */,
 				A4CC04CE292281B400BB678B /* UIStackView+AddArrangedSubviews.swift */,
 				A4CC04D4292332C600BB678B /* UILabel+ChangeFontSize.swift */,
@@ -800,6 +802,15 @@
 			path = Enum;
 			sourceTree = "<group>";
 		};
+		EEBA25F9292D1AB2001F8B66 /* String */ = {
+			isa = PBXGroup;
+			children = (
+				A4CC04C329226FC100BB678B /* String+Placeholders.swift */,
+				EEBA25FA292D1AE3001F8B66 /* String+ConvertRemoveComma.swift */,
+			);
+			path = String;
+			sourceTree = "<group>";
+		};
 		EEDB753429260DFF0069A7F5 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1010,6 +1021,7 @@
 				A4CC04A629221EEE00BB678B /* Travel+CoreDataClass.swift in Sources */,
 				BB5771AC2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift in Sources */,
 				BB5771A42923A08F0034047D /* ExpenseTravelViewModel.swift in Sources */,
+				EEBA25FB292D1AE3001F8B66 /* String+ConvertRemoveComma.swift in Sources */,
 				EEDB753329260DFB0069A7F5 /* PlanAddViewModel.swift in Sources */,
 				BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */,
 				BBFE4BA62924B25D003F5CCE /* Date+TravelString.swift in Sources */,

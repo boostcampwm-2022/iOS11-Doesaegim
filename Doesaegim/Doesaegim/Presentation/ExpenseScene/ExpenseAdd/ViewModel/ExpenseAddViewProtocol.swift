@@ -23,9 +23,12 @@ protocol ExpenseAddViewProtocol: AnyObject {
     func isValidCategoryItem(item: String?)
     func isValidDate(dateString: String?)
     
+    func exchangeLabelShow(amount: String?, unit: String)
+    
     func postExpense(expense: ExpenseDTO, completion: @escaping () -> Void)
 }
 
 protocol ExpenseAddViewDelegate: AnyObject {
     func isValidInput(isValid: Bool)
+    func exchangeLabelUpdate(result: Int)
 }

@@ -45,7 +45,7 @@ final class PickerViewController: UIViewController, PickerViewProtocol {
     
     private lazy var addButton: UIButton = {
         let button = UIButton()
-
+        
         button.setTitle("추가", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .primaryOrange
@@ -56,9 +56,14 @@ final class PickerViewController: UIViewController, PickerViewProtocol {
     
     // MARK: - Properties
     
-    private var value: [String] = []
+    private var exchangeInfo: [ExchangeResponse] = []
+    
+    // TODO: - category 항목이 정해지면 수정 Enum으로?
+    
+    private var category: [String] = ["식비", "경비", "숙박", "교통비", "항공비", "쇼핑", "관광", "기타"]
+    
     private let type: PickerType
-    private var item: String?
+    private var selectedIndex: Int = 0
     var delegate: PickerViewDelegate?
     
     // MARK: - Lifecycles
@@ -72,7 +77,7 @@ final class PickerViewController: UIViewController, PickerViewProtocol {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
@@ -132,8 +137,12 @@ final class PickerViewController: UIViewController, PickerViewProtocol {
     }
     
     @objc func addButtonTouchUpInside() {
-        guard let item else { return }
-        delegate?.selectedPickerItem(item: item, type: type)
+        if type == .moneyUnit {
+            guard selectedIndex < exchangeInfo.count else { return }
+            delegate?.selectedExchangeInfo(item: exchangeInfo[selectedIndex])
+        } else {
+            delegate?.selectedCategory(item: category[selectedIndex])
+        }
         dismiss(animated: true)
     }
     
@@ -157,12 +166,11 @@ final class PickerViewController: UIViewController, PickerViewProtocol {
             paramaters: paramaters,
             header: [:])
         network.loadArray(resource) { [weak self] result in
-            self?.value = result
-                .map { "\(ExchangeRateType(currencyCode: $0.currencyCode)!.icon) \($0.currencyName)" }
+            self?.exchangeInfo = result
+            result.forEach { print($0) }
             DispatchQueue.main.async {
                 self?.pickerView.reloadAllComponents()
             }
-            
         }
     }
     
@@ -174,7 +182,7 @@ extension PickerViewController: UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return value.count
+        return type == .moneyUnit ? exchangeInfo.count : category.count
     }
 }
 
@@ -184,11 +192,20 @@ extension PickerViewController: UIPickerViewDelegate {
         titleForRow row: Int,
         forComponent component: Int
     ) -> String? {
-        return value[row]
+        if type == .moneyUnit {
+            let value = exchangeInfo.map {
+                let exchangeRateType = ExchangeRateType(currencyCode: $0.currencyCode) ?? .AED
+                let icon = exchangeRateType.icon
+                return "\(icon) \($0.currencyName)"
+            }
+            return value[row]
+        } else {
+            return category[row]
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        item = value[row]
+        selectedIndex = row
     }
 }
 

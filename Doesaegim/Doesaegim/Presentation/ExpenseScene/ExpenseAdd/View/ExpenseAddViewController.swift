@@ -18,7 +18,7 @@ final class ExpenseAddViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel: ExpenseAddViewModel
-    private var exchangeUnit: [String] = []
+    private var exchangeInfo: ExchangeResponse?
     
     // MARK: - Lifecycles
     
@@ -104,6 +104,8 @@ extension ExpenseAddViewController {
         
         if sender == rootView.amountTextField {
             viewModel.isValidAmountTextField(text: sender.text)
+            guard let exchangeInfo else { return }
+            viewModel.exchangeLabelShow(amount: sender.text, unit: exchangeInfo.tradingStandardRate)
             return
         }
     }
@@ -122,15 +124,18 @@ extension ExpenseAddViewController: CalendarViewDelegate {
 // MARK: - PickerDelegate
 
 extension ExpenseAddViewController: PickerViewDelegate {
-    func selectedPickerItem(item: String, type: PickerViewController.PickerType) {
-        switch type {
-        case .category:
-            rootView.categoryButton.setTitle(item, for: .normal)
-            viewModel.isValidCategoryItem(item: item)
-        case .moneyUnit:
-            rootView.moneyUnitButton.setTitle(item, for: .normal)
-            viewModel.isValidUnitItem(item: item)
-        }
+    func selectedExchangeInfo(item: ExchangeResponse) {
+        guard let exchangeRateType = ExchangeRateType(currencyCode: item.currencyCode) else { return }
+        exchangeInfo = item
+        let title = "\(exchangeRateType.icon) \(item.currencyName)"
+        rootView.moneyUnitButton.setTitle(title, for: .normal)
+        viewModel.isValidUnitItem(item: title)
+        viewModel.exchangeLabelShow(amount: rootView.amountTextField.text, unit: item.tradingStandardRate)
+    }
+    
+    func selectedCategory(item: String) {
+        rootView.categoryButton.setTitle(item, for: .normal)
+        viewModel.isValidCategoryItem(item: item)
     }
 }
 
@@ -140,6 +145,12 @@ extension ExpenseAddViewController: ExpenseAddViewDelegate {
     func isValidInput(isValid: Bool) {
         rootView.addButton.isEnabled = isValid
         rootView.addButton.backgroundColor = isValid ? .primaryOrange : .grey3
+    }
+    
+    func exchangeLabelUpdate(result: Int) {
+        rootView.moneyUnitExchangeLabel.isHidden = result == -1
+        rootView.moneyUnitExchangeLabel.text = "원화로 계산하면 약 \(result.numberFormatter()) 원 입니다."
+        print(result)
     }
 }
 

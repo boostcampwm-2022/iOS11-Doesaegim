@@ -25,6 +25,12 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
         }
     }
     
+    var exchangeCalculataion: Int {
+        didSet {
+            delegate?.exchangeLabelUpdate(result: exchangeCalculataion)
+        }
+    }
+    
     init() {
         self.isValidName = false
         self.isValidAmount = false
@@ -32,6 +38,8 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
         self.isValidCategory = false
         self.isValidDate = false
         self.isValidInput = isValidName && isValidAmount && isValidUnit && isValidCategory && isValidDate
+        
+        exchangeCalculataion = 0
     }
     
     // MARK: - Helpers
@@ -97,6 +105,16 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
             return
         }
         isValidDate = true
+    }
+    
+    func exchangeLabelShow(amount: String?, unit: String) {
+        guard let amount,
+              let rationalAmount = Double(amount),
+              let rationalUnit = Double(unit.convertRemoveComma()) else {
+            exchangeCalculataion = -1
+            return
+        }
+        exchangeCalculataion = Int(rationalAmount * rationalUnit)
     }
     
     

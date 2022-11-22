@@ -12,5 +12,6 @@ protocol PickerViewProtocol: AnyObject {
 }
 
 protocol PickerViewDelegate: AnyObject {
-    func selectedPickerItem(item: String, type: PickerViewController.PickerType)
+    func selectedExchangeInfo(item: ExchangeResponse)
+    func selectedCategory(item: String)
 }

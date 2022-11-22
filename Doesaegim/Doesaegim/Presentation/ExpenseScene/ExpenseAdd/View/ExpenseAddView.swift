@@ -117,6 +117,16 @@ final class ExpenseAddView: UIView {
         return button
     }()
     
+    lazy var moneyUnitExchangeLabel: UILabel = {
+        let label = UILabel()
+        
+        label.textColor = .primaryOrange
+        label.font.withSize(9)
+        label.textAlignment = .right
+        label.isHidden = true
+        return label
+    }()
+    
     private lazy var categoryStackView: UIStackView = {
         let stackView = UIStackView()
         
@@ -258,7 +268,7 @@ final class ExpenseAddView: UIView {
         )
         titleStackView.addArrangedSubviews(titleLabel, titleTextField)
         amountStackView.addArrangedSubviews(amountLabel, amountTextField)
-        moneyUnitStackView.addArrangedSubviews(moneyUnitLabel, moneyUnitButton)
+        moneyUnitStackView.addArrangedSubviews(moneyUnitLabel, moneyUnitButton, moneyUnitExchangeLabel)
         categoryStackView.addArrangedSubviews(categoryLabel, categoryButton)
         dateStackView.addArrangedSubviews(dateLabel, dateButton)
         descriptionStackView.addArrangedSubviews(descriptionTitleLabel, descriptionTextView)
