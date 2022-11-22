@@ -14,5 +14,6 @@ struct TemporaryDiary {
     var date: Date?
     var images: [String]?
     var title: String?
+    var location: LocationDTO?
     var travel: Travel?
 }
