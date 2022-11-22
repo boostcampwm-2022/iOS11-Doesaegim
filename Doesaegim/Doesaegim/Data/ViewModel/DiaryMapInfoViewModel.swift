@@ -8,9 +8,9 @@
 import Foundation
 
 
-struct DiaryInfoViewModel {
+struct DiaryMapInfoViewModel {
     
-    let imagePaths: [String]
+    let imagePaths: [String]?
     let title: String
     let content: String
     
