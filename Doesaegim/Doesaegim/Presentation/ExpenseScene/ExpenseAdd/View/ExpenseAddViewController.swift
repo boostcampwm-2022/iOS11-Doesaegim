@@ -26,6 +26,7 @@ final class ExpenseAddViewController: UIViewController {
         super.viewDidLoad()
         configureNavigation()
         setKeyboardNotification()
+        setAddTarget()
     }
     
     // MARK: - Configure Function
@@ -33,12 +34,31 @@ final class ExpenseAddViewController: UIViewController {
     private func configureNavigation() {
         navigationItem.title = "지출 추가"
     }
+    
+    // MARK: - AddTarget
+    
+    private func setAddTarget() {
+        rootView.moneyUnitButton.addTarget(
+            self,
+            action: #selector(pickerViewButtonTouchUpInside),
+            for: .touchUpInside
+        )
+        rootView.categoryButton.addTarget(
+            self,
+            action: #selector(pickerViewButtonTouchUpInside),
+            for: .touchUpInside
+        )
+    }
 }
 
 // MARK: - Actions
 
 extension ExpenseAddViewController {
-    
+    @objc func pickerViewButtonTouchUpInside(_ sender: UIButton) {
+        let name = sender == rootView.moneyUnitButton ? "화폐 단위" : "카테고리"
+        let pickerViewController = PickerViewController(name: name, value: [1, 2, 3, 4, 5].map { String($0) })
+        present(pickerViewController, animated: true)
+    }
 }
 
 // MARK: - Keyboard
