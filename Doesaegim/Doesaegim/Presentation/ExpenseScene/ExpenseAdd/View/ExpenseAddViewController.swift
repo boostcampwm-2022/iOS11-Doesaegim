@@ -60,8 +60,10 @@ final class ExpenseAddViewController: UIViewController {
 
 extension ExpenseAddViewController {
     @objc func pickerViewButtonTouchUpInside(_ sender: UIButton) {
-        let name = sender == rootView.moneyUnitButton ? "화폐 단위" : "카테고리"
-        let pickerViewController = PickerViewController(name: name, value: [1, 2, 3, 4, 5].map { String($0) })
+        let type: PickerViewController.PickerType =
+        sender == rootView.moneyUnitButton ? .moneyUnit : .category
+        let pickerViewController = PickerViewController(type: type)
+        pickerViewController.delegate = self
         present(pickerViewController, animated: true)
     }
     
@@ -72,9 +74,24 @@ extension ExpenseAddViewController {
     }
 }
 
+// MARK: - CalendarDelegate
+
 extension ExpenseAddViewController: CalendarViewDelegate {
     func fetchDate(dateString: String) {
-        print(dateString)
+        rootView.dateButton.setTitle(dateString, for: .normal)
+    }
+}
+
+// MARK: - PickerDelegate
+
+extension ExpenseAddViewController: PickerViewDelegate {
+    func selectedPickerItem(item: String, type: PickerViewController.PickerType) {
+        switch type {
+        case .category:
+            rootView.categoryButton.setTitle(item, for: .normal)
+        case .moneyUnit:
+            rootView.moneyUnitButton.setTitle(item, for: .normal)
+        }
     }
 }
 

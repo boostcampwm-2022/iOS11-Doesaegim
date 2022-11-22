@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-final class PickerViewController: UIViewController {
+final class PickerViewController: UIViewController, PickerViewProtocol {
     
     // MARK: - UI properties
     
@@ -25,7 +25,7 @@ final class PickerViewController: UIViewController {
         label.font.withSize(15)
         label.textColor = .black
         label.textAlignment = .center
-        label.text = name
+        label.text = type == .category ? "카테고리" : "화폐 단위"
         return label
     }()
     
@@ -56,14 +56,15 @@ final class PickerViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let name: String
-    private let value: [String]
+    private let value: [String] = [1, 2, 3, 4, 5].map { String($0) }
+    private let type: PickerType
+    private var item: String?
+    var delegate: PickerViewDelegate?
     
     // MARK: - Lifecycles
     
-    init(name: String, value: [String]) {
-        self.name = name
-        self.value = value
+    init(type: PickerType) {
+        self.type = type
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -128,8 +129,11 @@ final class PickerViewController: UIViewController {
     }
     
     @objc func addButtonTouchUpInside() {
+        guard let item else { return }
+        delegate?.selectedPickerItem(item: item, type: type)
         dismiss(animated: true)
     }
+    
     // MARK: - AddTarget
     
     private func setAddTargets() {
@@ -156,5 +160,18 @@ extension PickerViewController: UIPickerViewDelegate {
         forComponent component: Int
     ) -> String? {
         return value[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        item = value[row]
+    }
+}
+
+// MARK: Enum
+
+extension PickerViewController {
+    enum PickerType {
+        case category
+        case moneyUnit
     }
 }
