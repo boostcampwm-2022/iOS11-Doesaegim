@@ -81,7 +81,7 @@ final class CustomPieChart: UIView {
     
     /// 차트 뷰의 배경색 지정
     private func configureBackgroundColor() {
-        backgroundColor = .systemBackground
+        backgroundColor = .white
     }
     
 }

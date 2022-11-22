@@ -64,7 +64,7 @@ class ExpenseGraphView: UIView {
     private func configureConstraint() {
         chart.snp.makeConstraints {
             $0.verticalEdges.equalTo(safeAreaLayoutGuide)
-            $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(10)
+            $0.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(Metric.chartInsets)
         }
     }
     
@@ -74,5 +74,11 @@ class ExpenseGraphView: UIView {
         visualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         addSubview(visualEffectView)
+    }
+}
+
+extension ExpenseGraphView {
+    enum Metric {
+        static let chartInsets: CGFloat = 46
     }
 }

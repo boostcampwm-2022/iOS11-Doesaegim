@@ -64,7 +64,7 @@ final class PieceLayer: CAShapeLayer {
     /// 레이어의 속성값을 지정한다.
     private func configureAttributes() {
         lineWidth = Metric.spacing
-        strokeColor = UIColor.systemBackground.cgColor
+        strokeColor = UIColor.white?.cgColor
         fillColor = color
     }
 }
