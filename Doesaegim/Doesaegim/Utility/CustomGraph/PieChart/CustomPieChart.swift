@@ -54,9 +54,9 @@ final class CustomPieChart: UIView {
         
         for idx in items.indices {
             let ratio: CGFloat = items[idx].value / total
-            let angleRatio = ratio * Metric.angleRatio
+            let angleRatio = ratio * Metric.angle
             
-            let pieceLayer = PieceLayer(
+            let pieceLayer = PieceShapeLayer(
                 rect: rect,
                 startAngle: startAngle,
                 angleRatio: angleRatio,
@@ -64,13 +64,12 @@ final class CustomPieChart: UIView {
             )
             layer.addSublayer(pieceLayer)
             
-            // TODO: 각 원형 차트 조각의 중앙에 텍스트가 위치하도록 Rect값 수정
-            let textRect = rect
+            guard let boundingBox = pieceLayer.path?.boundingBox else { continue }
             let textLayer = PieceTextLayer(
-                rect: textRect,
+                pieceBounds: boundingBox,
                 text: "\(items[idx].category.rawValue)\n\(String(format: "%.2f", ratio * 100))%"
             )
-//            layer.addSublayer(textLayer) // 현재는 텍스트 위치가 제대로 표시되지 않아 주석처리 했습니다,,
+            layer.addSublayer(textLayer)
             
             startAngle += angleRatio
         }
@@ -91,6 +90,6 @@ final class CustomPieChart: UIView {
 extension CustomPieChart {
     enum Metric {
         static let initialStartAngle: CGFloat = (.pi) * 3 / 2
-        static let angleRatio: CGFloat = .pi * 2
+        static let angle: CGFloat = .pi * 2
     }
 }

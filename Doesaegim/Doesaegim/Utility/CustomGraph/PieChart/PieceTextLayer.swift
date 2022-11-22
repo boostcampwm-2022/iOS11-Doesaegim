@@ -11,18 +11,19 @@ final class PieceTextLayer: CATextLayer {
     
     // MARK: - Properties
     
-    private let rect: CGRect
+    private let pieceBounds: CGRect
     
     private let text: String
     
     // MARK: - Init
     
-    init(rect: CGRect, text: String) {
-        self.rect = rect
+    init(pieceBounds: CGRect, text: String) {
+        self.pieceBounds = pieceBounds
         self.text = text
         
         super.init()
         
+        configureFrame()
         configureText()
     }
     
@@ -34,12 +35,21 @@ final class PieceTextLayer: CATextLayer {
     
     // MARK: - Configure Functions
     
+    private func configureFrame() {
+        let textFrame = CGRect(
+            x: pieceBounds.minX + pieceBounds.width * 0.15,
+            y: pieceBounds.minY + pieceBounds.height * 0.25,
+            width: pieceBounds.width/1.5,
+            height: pieceBounds.height/2
+        )
+        frame = textFrame
+    }
+    
     private func configureText() {
         string = text
         fontSize = Metric.textFontSize
         alignmentMode = .center
         foregroundColor = UIColor.label.cgColor
-        frame = rect
     }
 }
 

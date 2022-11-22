@@ -1,5 +1,5 @@
 //
-//  CustomPiePieceLayer.swift
+//  PieceShapeLayer.swift
 //  Doesaegim
 //
 //  Created by 서보경 on 2022/11/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PieceLayer: CAShapeLayer {
+final class PieceShapeLayer: CAShapeLayer {
     
     // MARK: - Properties
     
@@ -64,6 +64,7 @@ final class PieceLayer: CAShapeLayer {
     /// 레이어의 속성값을 지정한다.
     private func configureAttributes() {
         lineWidth = Metric.spacing
+        lineJoin = .bevel
         strokeColor = UIColor.white?.cgColor
         fillColor = color
     }
@@ -71,7 +72,7 @@ final class PieceLayer: CAShapeLayer {
 
 // MARK: - Namespaces
 
-extension PieceLayer {
+extension PieceShapeLayer {
     enum Metric {
         static let spacing: CGFloat = 5
     }
