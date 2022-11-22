@@ -20,6 +20,7 @@ final class MapViewController: UIViewController {
         
         configureSubviews()
         configureMap()
+        configureAnnotationView()
         
         viewModel.fetchDiary()
         
@@ -40,12 +41,13 @@ final class MapViewController: UIViewController {
     
     // MARK: - Configuration
     
-    func configureSubviews() {
+    private func configureSubviews() {
         view.addSubview(mapView)
     }
     
-    func configureMap() {
+    private func configureMap() {
         mapView.frame = view.bounds
+        
         let jongRoCoordinate = CLLocationCoordinate2D(
             latitude: 37.5700,
             longitude: 126.9796
@@ -58,6 +60,10 @@ final class MapViewController: UIViewController {
             )
         )
         mapView.setRegion(defaultRegion, animated: true)
+    }
+    
+    private func configureAnnotationView() {
+        print(#function)
     }
     
     
@@ -109,26 +115,15 @@ extension MapViewController: MapViewModelDelegate {
 }
 
 extension MapViewController: MKMapViewDelegate {
-//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//        guard !(annotation is MKUserLocation) else { return nil }
-//
-//        var annotationView = map.dequeueReusableAnnotationView(withIdentifier: "custom")
-//
-//        if annotationView == nil {
-//            // Create the view
-//            annotationView = MKAnnotationView(
-//                annotation: annotation,
-//                reuseIdentifier: "custom"
-//            )
-//            annotationView?.canShowCallout = true
-//        } else {
-//            annotationView?.annotation = annotation
-//        }
-//
-//        annotationView?.image = UIImage(systemName: "house")
-//
-//        return annotationView
-//    }
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard !annotation.isKind(of: MKUserLocation.self) else { return nil }
+        
+        var annotationView: MKAnnotationView?
+        
+//        if let annotaation = annotation as? Diary
+        
+        
+    }
 
 }
 

@@ -14,6 +14,7 @@ struct DiaryMapInfoViewModel {
     let imagePaths: [String]?
     let title: String
     let content: String
+    let date: Date
     let latitude: Double
     let longitude: Double
     
