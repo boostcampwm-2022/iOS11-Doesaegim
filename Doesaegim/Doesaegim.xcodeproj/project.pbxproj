@@ -33,6 +33,9 @@
 		A4CC04E02923738500BB678B /* PlanLocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04DF2923738500BB678B /* PlanLocalRepository.swift */; };
 		A4CC04E22923777B00BB678B /* NSObject+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04E12923777B00BB678B /* NSObject+Name.swift */; };
 		A4EB00DC2926456D00A83936 /* UIScrollView+DidPassPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB00DB2926456D00A83936 /* UIScrollView+DidPassPoint.swift */; };
+		B53763CB292B56600073BF46 /* SampleExpenseCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763C9292B56600073BF46 /* SampleExpenseCategory.swift */; };
+		B53763CC292B56600073BF46 /* CustomPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763CA292B56600073BF46 /* CustomPieChart.swift */; };
+		B53763D5292B61A40073BF46 /* CustomChartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763D4292B61A40073BF46 /* CustomChartItem.swift */; };
 		B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D96252922301E00B510B8 /* TravelDTO.swift */; };
 		B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D9627292230CA00B510B8 /* PlanDTO.swift */; };
 		B57D962C2922315500B510B8 /* LocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962B2922315500B510B8 /* LocationDTO.swift */; };
@@ -141,6 +144,9 @@
 		A4CC04DF2923738500BB678B /* PlanLocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanLocalRepository.swift; sourceTree = "<group>"; };
 		A4CC04E12923777B00BB678B /* NSObject+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Name.swift"; sourceTree = "<group>"; };
 		A4EB00DB2926456D00A83936 /* UIScrollView+DidPassPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+DidPassPoint.swift"; sourceTree = "<group>"; };
+		B53763C9292B56600073BF46 /* SampleExpenseCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleExpenseCategory.swift; sourceTree = "<group>"; };
+		B53763CA292B56600073BF46 /* CustomPieChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPieChart.swift; sourceTree = "<group>"; };
+		B53763D4292B61A40073BF46 /* CustomChartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChartItem.swift; sourceTree = "<group>"; };
 		B57D96252922301E00B510B8 /* TravelDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDTO.swift; sourceTree = "<group>"; };
 		B57D9627292230CA00B510B8 /* PlanDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDTO.swift; sourceTree = "<group>"; };
 		B57D962B2922315500B510B8 /* LocationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDTO.swift; sourceTree = "<group>"; };
@@ -294,6 +300,7 @@
 		A4CC04B6292268BB00BB678B /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				B53763C8292B56600073BF46 /* CustomGraph */,
 				EE116C542924AA0D0017B519 /* Custom */,
 				BBD0D064291DED61007D0D82 /* Extensions */,
 				A4CC04CA29227E5C00BB678B /* Constants.swift */,
@@ -356,6 +363,16 @@
 				A4CC04DF2923738500BB678B /* PlanLocalRepository.swift */,
 			);
 			path = PlanList;
+			sourceTree = "<group>";
+		};
+		B53763C8292B56600073BF46 /* CustomGraph */ = {
+			isa = PBXGroup;
+			children = (
+				B53763C9292B56600073BF46 /* SampleExpenseCategory.swift */,
+				B53763D4292B61A40073BF46 /* CustomChartItem.swift */,
+				B53763CA292B56600073BF46 /* CustomPieChart.swift */,
+			);
+			path = CustomGraph;
 			sourceTree = "<group>";
 		};
 		B57D962229222FC500B510B8 /* Data */ = {
@@ -909,6 +926,7 @@
 				A4CC04A429221EEE00BB678B /* Plan+CoreDataClass.swift in Sources */,
 				EE116C5E2924CB6B0017B519 /* TravelAddViewProtocol.swift in Sources */,
 				BBDB2E96292635FD00752924 /* ExpenseSectionHeaderView.swift in Sources */,
+				B53763CC292B56600073BF46 /* CustomPieChart.swift in Sources */,
 				EE3E29BC2923C870007C7FC7 /* TravelAddViewController.swift in Sources */,
 				BBD0D063291DE991007D0D82 /* SettingViewController.swift in Sources */,
 				BB3DB919292C649600C70D62 /* UIView+Frame.swift in Sources */,
@@ -926,10 +944,12 @@
 				A4CC04D1292324B000BB678B /* EmptyLabeledCollectionView.swift in Sources */,
 				BBFAC08B291CBDD700D7FD57 /* MainTabBarController.swift in Sources */,
 				B5C096C629238A0B007426B1 /* SearchingLocationViewModelDelegate.swift in Sources */,
+				B53763D5292B61A40073BF46 /* CustomChartItem.swift in Sources */,
 				B5C096B829235428007426B1 /* SearchingLocationView.swift in Sources */,
 				EE116C632924EC860017B519 /* PlanAddViewController.swift in Sources */,
 				A4CC04AA29221EEE00BB678B /* Location+CoreDataClass.swift in Sources */,
 				BB5DE44C292B8E86001DA6F6 /* Int+convertCostString.swift in Sources */,
+				B53763CB292B56600073BF46 /* SampleExpenseCategory.swift in Sources */,
 				A4CC04A629221EEE00BB678B /* Travel+CoreDataClass.swift in Sources */,
 				BB5771AC2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift in Sources */,
 				BB5771A42923A08F0034047D /* ExpenseTravelViewModel.swift in Sources */,
