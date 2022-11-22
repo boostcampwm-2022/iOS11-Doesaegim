@@ -40,29 +40,45 @@ final class ExpenseCollectionHeaderView: UICollectionReusableView {
         return stackView
     }()
     
+    /// 블러 처리 뷰
+    private lazy var blurEffectView: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .regular)
+        let visualEffectView = UIVisualEffectView(effect: blurEffect)
+        visualEffectView.frame = bounds
+        visualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        return visualEffectView
+    }()
+    
     // MARK: - Properties
     
     /// 블러처리 여부
-    private var isBlur: Bool = true
+    private var isBlur: Bool = true {
+        didSet {
+            blurEffectView.isHidden = !isBlur
+        }
+    }
     
     /// 차트 데이터
-    private var data: [CustomChartItem] = [
-        CustomChartItem(category: .food, value: 70),
-        CustomChartItem(category: .shopping, value: 30),
-        CustomChartItem(category: .transportation, value: 50),
-        CustomChartItem(category: .room, value: 60),
-        CustomChartItem(category: .other, value: 20)
-    ]
+    private var data: [CustomChartItem] = ExpenseCollectionHeaderView.dummyData {
+        didSet {
+            pieChart.setupData(with: data)
+        }
+    }
     
     // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        configure()
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        
+        configure()
     }
     
     // MARK: - Configure Functions
@@ -70,29 +86,17 @@ final class ExpenseCollectionHeaderView: UICollectionReusableView {
     private func configure() {
         configureSubviews()
         configureConstraints()
-        if isBlur { configureBlurEffect() }
     }
     
     /// 차트 뷰, 여행 타이틀 레이블, 예산 레이블 등의 서브 뷰들을 추가한다.
     private func configureSubviews() {
         contentStack.addArrangedSubviews(pieChart, travelTitleLabel, expenseBudgetLabel)
-        addSubview(contentStack)
+        addSubviews(contentStack, blurEffectView)
     }
     
     /// 서브뷰의 오토레이아웃/프레임을 설정한다.
     private func configureConstraints() {
         contentStack.frame = bounds
-    }
-    
-    /// 블러 스타일 값을 받아 생성한 비주얼 이펙트 뷰를 서브뷰로 추가해 블러처리 효과를 표현한다.
-    /// - Parameter style: 블러 스타일. 기본값은 `.regular`
-    private func configureBlurEffect(style: UIBlurEffect.Style = .regular) {
-        let blurEffect = UIBlurEffect(style: style)
-        let visualEffectView = UIVisualEffectView(effect: blurEffect)
-        visualEffectView.frame = bounds
-        visualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-        addSubview(visualEffectView)
     }
     
     // MARK: - Configure Functions With ViewModel
@@ -105,7 +109,7 @@ final class ExpenseCollectionHeaderView: UICollectionReusableView {
         let graphData: [CustomChartItem] = data.expenseInfos.compactMap({
             let value = CGFloat($0.cost)
             guard let category = ExpenseType(rawValue: $0.content) else { return nil }
-            
+
             let item = CustomChartItem(category: category, value: value)
             return item
         })
@@ -118,8 +122,6 @@ final class ExpenseCollectionHeaderView: UICollectionReusableView {
         
         if !graphData.isEmpty { self.data = graphData }
         isBlur = graphData.isEmpty
-        
-        configure()
     }
 }
 
@@ -134,4 +136,16 @@ extension ExpenseCollectionHeaderView {
         static let defaultTravelTitle = "되새김 여행"
         static let defaultExpenseBudgetText = "129,000 / 320,000"
     }
+}
+
+// MARK: - Chart dummy data
+
+extension ExpenseCollectionHeaderView {
+    static let dummyData = [
+        CustomChartItem(category: .food, value: 70),
+        CustomChartItem(category: .shopping, value: 30),
+        CustomChartItem(category: .transportation, value: 50),
+        CustomChartItem(category: .room, value: 60),
+        CustomChartItem(category: .other, value: 20)
+    ]
 }

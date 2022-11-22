@@ -83,6 +83,15 @@ final class CustomPieChart: UIView {
         backgroundColor = .white
     }
     
+    // MARK: - Setup Data & Redraw Functions
+    
+    /// 차트를 표시하는 데이터를 변경할 경우 실행하는 메서드. 데이터를 설정하고 차트를 다시 그린다.
+    /// - Parameter data: 변경할 차트 데이터
+    func setupData(with data: [CustomChartItem]) {
+        self.items = data
+        setNeedsDisplay()
+    }
+    
 }
 
 // MARK: - Namespaces
