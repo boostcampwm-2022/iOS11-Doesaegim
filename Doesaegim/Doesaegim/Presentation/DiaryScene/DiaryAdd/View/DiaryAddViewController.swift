@@ -5,9 +5,18 @@
 //  Created by sun on 2022/11/21.
 //
 
+import PhotosUI
 import UIKit
 
 final class DiaryAddViewController: UIViewController {
+    typealias ImageID = String
+    private typealias DataSource = UICollectionViewDiffableDataSource<Section, ImageID>
+
+    // MARK: - Enums
+
+    private enum Section {
+        case main
+    }
 
     // MARK: - UI Properties
 
@@ -16,7 +25,12 @@ final class DiaryAddViewController: UIViewController {
 
     // MARK: - Properties
 
-    private let viewModel = DiaryAddViewModel(repository: DiaryAddLocalRepository())
+    private let viewModel = DiaryAddViewModel(
+        repository: DiaryAddLocalRepository(),
+        imageManager: ImageManager()
+    )
+
+    private lazy var imageSliderDataSource = configureImageSliderDataSource()
 
 
     // MARK: - Life Cycle
@@ -34,6 +48,7 @@ final class DiaryAddViewController: UIViewController {
         observeKeyBoardAppearance()
         configureTravelPicker()
         configurePlaceSearchButton()
+        configureImageSlider()
         configureNameTextField()
         configureContentTextView()
     }
@@ -62,6 +77,47 @@ final class DiaryAddViewController: UIViewController {
             self.show(controller, sender: self)
         }
         rootView.placeSearchButton.addAction(action, for: .touchUpInside)
+    }
+
+    /// 이미지 슬라이더, 이미지 추가 버튼 관련 설정
+    private func configureImageSlider() {
+        let presentPhotoPicker = UIAction { _ in
+            var configuration = PHPickerConfiguration(photoLibrary: .shared())
+            configuration.filter = .images
+            configuration.selectionLimit = Metric.numberOfMaximumPhotos
+
+            let picker = PHPickerViewController(configuration: configuration)
+            picker.delegate = self
+            self.present(picker, animated: true)
+
+        }
+        rootView.addPhotoButton.addAction(presentPhotoPicker, for: .touchUpInside)
+    }
+
+    private func configureImageSliderDataSource() -> DataSource {
+        let cellRegistration = UICollectionView
+            .CellRegistration<ProgressiveImageCollectionViewCell, ImageID> { cell, _, id in
+                let imageStatus = self.viewModel.image(withID: id)
+                switch imageStatus {
+                case .inProgress(let progress):
+                    cell.progress = progress
+                case .complete(let image):
+                    cell.image = image
+                }
+        }
+        let collectionView = self.rootView.imageSlider
+
+        let dataSource = DataSource(
+            collectionView: collectionView
+        ) { collectionView, indexPath, itemIdentifier in
+            collectionView.dequeueConfiguredReusableCell(
+                using: cellRegistration,
+                for: indexPath,
+                item: itemIdentifier
+            )
+        }
+        collectionView.dataSource = dataSource
+        return dataSource
     }
 
     private func configureNameTextField() {
@@ -141,9 +197,32 @@ extension DiaryAddViewController: UIPickerViewDelegate {
 
 // MARK: - DiaryAddViewModelDelegate
 extension DiaryAddViewController: DiaryAddViewModelDelegate {
-    func diaryValuesDidChange(_ diary: TemporaryDiary) {
+
+    func diaryAddViewModlelValuesDidChange(_ diary: TemporaryDiary) {
         rootView.travelTextField.text = diary.travel?.name
         rootView.placeSearchButton.setTitle(diary.location?.name, for: .normal)
+    }
+
+    func diaryAddViewModelDidUpdateSelectedImageIDs(_ identifiers: [ImageID]) {
+        rootView.pageControl.numberOfPages = identifiers.count
+        applySnapshot(usingIDs: identifiers)
+    }
+
+    func diaryAddViewModelDidLoadImage(withId id: ImageID) {
+        reloadItem(withID: id)
+    }
+
+    private func applySnapshot(usingIDs identifiers: [ImageID]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, ImageID>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(identifiers)
+        imageSliderDataSource.apply(snapshot, animatingDifferences: true)
+    }
+
+    private func reloadItem(withID id: ImageID) {
+        var snapshot = imageSliderDataSource.snapshot()
+        snapshot.reloadItems([id])
+        imageSliderDataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 
@@ -154,6 +233,16 @@ extension DiaryAddViewController: SearchingLocationViewControllerDelegate {
         viewModel.locationDidSelect(location)
     }
 }
+
+
+// MARK: - PHPickerViewControllerDelegate
+extension DiaryAddViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        dismiss(animated: true)
+        viewModel.imageDidSelect(results.map { ($0.assetIdentifier ?? UUID().uuidString, $0.itemProvider) })
+    }
+}
+
 
 // MARK: - UITextViewDelegate
 extension DiaryAddViewController: UITextViewDelegate {
@@ -168,6 +257,8 @@ fileprivate extension DiaryAddViewController {
 
     enum Metric {
         static let spacing: CGFloat = 16
+
+        static let numberOfMaximumPhotos = 5
     }
 
     enum StringLiteral {
