@@ -108,10 +108,13 @@ final class DiaryDetailView: UIView {
     /// 다이어리 객체를 받아와 각 뷰의 요소를 설정한다.
     /// - Parameter diary: 화면에 표시할 다이어리 객체
     func setupData(diary: Diary) {
-        pageControl.numberOfPages = diary.images?.count ?? 0
         contentLabel.text = diary.content
         locationLabel.text = diary.location?.name
         dateLabel.text = diary.date?.description
+    }
+    
+    func setupNumberOfPages(_ count: Int) {
+        pageControl.numberOfPages = count
     }
     
     func setupCurrentPage(_ pageIndex: Int) {

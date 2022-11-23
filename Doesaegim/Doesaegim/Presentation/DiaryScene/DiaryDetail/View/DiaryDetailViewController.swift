@@ -124,9 +124,14 @@ extension DiaryDetailViewController: DiaryDetailViewModelDelegate {
         rootView.setupCurrentPage(page)
     }
     
+    func diaryDetailImageSliderPagesDidFetch(_ count: Int) {
+        rootView.setupNumberOfPages(count)
+    }
+    
     func diaryDetailImageSliderDidRefresh() {
         configureSnapshot()
     }
+    
 }
 
 

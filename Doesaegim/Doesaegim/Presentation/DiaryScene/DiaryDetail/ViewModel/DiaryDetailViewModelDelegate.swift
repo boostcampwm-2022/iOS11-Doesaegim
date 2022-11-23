@@ -13,8 +13,10 @@ protocol DiaryDetailViewModelDelegate: AnyObject {
     
     func diaryDetailDidFetch(diary: Diary)
     
-    func diaryDetailImageSliderDidRefresh()
-    
     func diaryDetailCurrentPageDidChange(to index: Int)
+    
+    func diaryDetailImageSliderPagesDidFetch(_ count: Int)
+    
+    func diaryDetailImageSliderDidRefresh()
     
 }

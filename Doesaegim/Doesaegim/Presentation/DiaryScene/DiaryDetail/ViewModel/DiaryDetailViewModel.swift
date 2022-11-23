@@ -17,6 +17,7 @@ final class DiaryDetailViewModel {
     
     var cellViewModels: [DetailImageCellViewModel] = [] {
         didSet {
+            delegate?.diaryDetailImageSliderPagesDidFetch(cellViewModels.count)
             delegate?.diaryDetailImageSliderDidRefresh()
         }
     }
