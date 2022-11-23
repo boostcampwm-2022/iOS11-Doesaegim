@@ -15,4 +15,6 @@ protocol DiaryDetailViewModelDelegate: AnyObject {
     
     func fetchImageData(with items: [Data])
     
+    func pageControlValueDidChange(to index: Int)
+    
 }

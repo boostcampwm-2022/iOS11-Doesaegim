@@ -12,12 +12,16 @@ import SnapKit
 final class DiaryDetailView: UIView {
     // MARK: - UI Properties
     
-    /// 이미지 슬라이더 뷰. 추후 컬렉션뷰로 변경 예정
-    private let imageSlider: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "heart.fill")
+    /// 이미지 슬라이더 뷰.
+    lazy var imageSlider: UICollectionView = {
+        let layout = configureCompositionalLayout()
         
-        return imageView
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
+        
+        return collectionView
     }()
     
     /// 페이지 컨트롤
@@ -25,7 +29,8 @@ final class DiaryDetailView: UIView {
         let pageControl = UIPageControl()
         pageControl.pageIndicatorTintColor = .grey2
         pageControl.currentPageIndicatorTintColor = .grey4
-        pageControl.numberOfPages = 5
+        pageControl.isUserInteractionEnabled = false
+        pageControl.hidesForSinglePage = true
         
         return pageControl
     }()
@@ -113,7 +118,11 @@ final class DiaryDetailView: UIView {
     /// - Parameter data: 이미지 데이터의 배열
     func setupImages(with data: [Data]) {
         guard let first = data.first else { return }
-        imageSlider.image = UIImage(data: first)
+//        imageSlider.image = UIImage(data: first)
+    }
+    
+    func setupCurrentPage(_ pageIndex: Int) {
+        pageControl.currentPage = pageIndex
     }
     
     // MARK: - Configure Functions
@@ -146,6 +155,32 @@ final class DiaryDetailView: UIView {
         scrollView.snp.makeConstraints { $0.edges.equalToSuperview() }
     }
     
+    // MARK: - Collection View
+    
+    private func configureCompositionalLayout() -> UICollectionViewCompositionalLayout {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .fractionalWidth(1))
+        let subitem = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .fractionalWidth(1)
+        )
+        
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitems: [subitem]
+        )
+        
+        let section = NSCollectionLayoutSection(group: group)
+        let configuration = UICollectionViewCompositionalLayoutConfiguration()
+        configuration.scrollDirection = .horizontal
+        
+        let layout = UICollectionViewCompositionalLayout(section: section, configuration: configuration)
+
+        return layout
+    }
 }
 
 // MARK: - Namespaces

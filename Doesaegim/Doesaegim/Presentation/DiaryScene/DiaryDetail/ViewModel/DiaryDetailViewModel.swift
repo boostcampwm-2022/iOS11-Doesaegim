@@ -13,9 +13,17 @@ final class DiaryDetailViewModel {
     
     weak var delegate: DiaryDetailViewModelDelegate?
     
+    var imageCount: Int { diary.images?.count ?? 0 }
+    
     private let navigationTitle: String?
     
     private let diary: Diary
+    
+    private var currentPage = 0 {
+        didSet {
+            delegate?.pageControlValueDidChange(to: currentPage)
+        }
+    }
     
     private let repository = DiaryDetailLocalRepository()
     
@@ -36,5 +44,9 @@ final class DiaryDetailViewModel {
               let imageItems = repository.getImageDatas(from: paths)
         else { return }
         delegate?.fetchImageData(with: imageItems)
+    }
+    
+    func currentPageDidChange(to page: Int) {
+        currentPage = page
     }
 }
