@@ -40,7 +40,9 @@ extension FileProcessManager {
     func fetchImage(with imagePath: String) -> Result<Data, Error> {
     
         // TODO: - 더미가 아닌 파라미터로 주어진 imagePath를 사용하기
-//        let imageURL = URL(string: imagePath) -> 주석을 해제 해주세용
+//        guard let imageURL = URL(string: imagePath) else {
+//            return .failure(FileManagerError.fetchFailure(.image))
+//        }
         guard let dummyImageURL = URL(string: "/Users/jaehoonso/Documents/default\\ image.png") else {
             return .failure(FileManagerError.fetchFailure(.image))
         }
