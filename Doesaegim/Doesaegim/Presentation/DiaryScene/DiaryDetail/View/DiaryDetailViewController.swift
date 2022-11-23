@@ -69,6 +69,7 @@ final class DiaryDetailViewController: UIViewController {
     private func configureImageSlider() {
         configureImageSliderDataSource()
         configureImageSliderDelegates()
+        configureSnapshot()
     }
     
     /// 이미지 슬라이더 컬렉션뷰의 데이터소스를 지정한다.
