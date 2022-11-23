@@ -17,6 +17,8 @@ final class DiaryDetailViewModel {
     
     private let diary: Diary
     
+    private let repository = DiaryDetailLocalRepository()
+    
     // MARK: - Init
     
     init(diary: Diary) {
@@ -27,9 +29,12 @@ final class DiaryDetailViewModel {
     // MARK: - Functions
     
     func fetchDiaryDetail() {
-        // TODO: FileManager를 통해 이미지 경로를 UIImage로 받아오는 작업 구현 필요 -> Repository 패턴 활용
-        
         delegate?.fetchNavigationTItle(with: navigationTitle)
         delegate?.fetchDiaryDetail(diary: diary)
+        
+        guard let paths = diary.images,
+              let imageItems = repository.getImageDatas(from: paths)
+        else { return }
+        delegate?.fetchImageData(with: imageItems)
     }
 }

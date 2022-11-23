@@ -8,6 +8,11 @@
 import Foundation
 
 protocol DiaryDetailViewModelDelegate: AnyObject {
+    
     func fetchDiaryDetail(diary: Diary)
+    
     func fetchNavigationTItle(with title: String?)
+    
+    func fetchImageData(with items: [Data])
+    
 }

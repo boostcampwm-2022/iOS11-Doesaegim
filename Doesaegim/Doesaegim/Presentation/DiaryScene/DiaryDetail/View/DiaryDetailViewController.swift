@@ -67,4 +67,8 @@ extension DiaryDetailViewController: DiaryDetailViewModelDelegate {
     func fetchDiaryDetail(diary: Diary) {
         rootView.setupData(diary: diary)
     }
+    
+    func fetchImageData(with items: [Data]) {
+        rootView.setupImages(with: items)
+    }
 }

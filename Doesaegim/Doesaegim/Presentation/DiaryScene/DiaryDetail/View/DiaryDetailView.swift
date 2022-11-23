@@ -100,11 +100,20 @@ final class DiaryDetailView: UIView {
     
     // MARK: - Setup Functions
     
+    /// 다이어리 객체를 받아와 각 뷰의 요소를 설정한다.
+    /// - Parameter diary: 화면에 표시할 다이어리 객체
     func setupData(diary: Diary) {
         pageControl.numberOfPages = diary.images?.count ?? 0
         contentLabel.text = diary.content
         locationLabel.text = diary.location?.name
         dateLabel.text = diary.date?.description
+    }
+    
+    /// 이미지 데이터를 받아와 슬라이더의 각 이미지에 지정한다.
+    /// - Parameter data: 이미지 데이터의 배열
+    func setupImages(with data: [Data]) {
+        guard let first = data.first else { return }
+        imageSlider.image = UIImage(data: first)
     }
     
     // MARK: - Configure Functions
@@ -125,10 +134,7 @@ final class DiaryDetailView: UIView {
     }
     
     private func configureConstraint() {
-        imageSlider.snp.makeConstraints {
-            $0.height.equalTo(imageSlider.snp.width)
-        }
-        
+        imageSlider.snp.makeConstraints { $0.height.equalTo(imageSlider.snp.width) }
         [contentLabel, infoStack].forEach {
             $0.snp.makeConstraints {
                 $0.leading.equalToSuperview().inset(Metric.contentInsets)
@@ -138,7 +144,6 @@ final class DiaryDetailView: UIView {
         imageStack.snp.makeConstraints { $0.horizontalEdges.equalToSuperview() }
         contentStack.snp.makeConstraints { $0.edges.width.equalToSuperview() }
         scrollView.snp.makeConstraints { $0.edges.equalToSuperview() }
-        
     }
     
 }

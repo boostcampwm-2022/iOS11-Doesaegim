@@ -56,6 +56,8 @@
 		B5D64E69292DFEF000E1CC81 /* DiaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E68292DFEF000E1CC81 /* DiaryDetailView.swift */; };
 		B5D64E6C292E22A400E1CC81 /* DiaryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E6B292E22A400E1CC81 /* DiaryDetailViewModel.swift */; };
 		B5D64E6E292E254A00E1CC81 /* DiaryDetailViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E6D292E254A00E1CC81 /* DiaryDetailViewModelDelegate.swift */; };
+		B5D64E72292E3B1300E1CC81 /* DiaryDetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E71292E3B1300E1CC81 /* DiaryDetailRepository.swift */; };
+		B5D64E76292E3B6C00E1CC81 /* DiaryDetailLocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E75292E3B6C00E1CC81 /* DiaryDetailLocalRepository.swift */; };
 		B5DE4D4029271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DE4D3F29271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift */; };
 		BB3DB919292C649600C70D62 /* UIView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3DB918292C649600C70D62 /* UIView+Frame.swift */; };
 		BB3DB91E292C83C400C70D62 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3DB91D292C83C400C70D62 /* MapViewModel.swift */; };
@@ -190,6 +192,8 @@
 		B5D64E68292DFEF000E1CC81 /* DiaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailView.swift; sourceTree = "<group>"; };
 		B5D64E6B292E22A400E1CC81 /* DiaryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailViewModel.swift; sourceTree = "<group>"; };
 		B5D64E6D292E254A00E1CC81 /* DiaryDetailViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailViewModelDelegate.swift; sourceTree = "<group>"; };
+		B5D64E71292E3B1300E1CC81 /* DiaryDetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailRepository.swift; sourceTree = "<group>"; };
+		B5D64E75292E3B6C00E1CC81 /* DiaryDetailLocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailLocalRepository.swift; sourceTree = "<group>"; };
 		B5DE4D3F29271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationViewControllerDelegate.swift; sourceTree = "<group>"; };
 		BB3DB918292C649600C70D62 /* UIView+Frame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Frame.swift"; sourceTree = "<group>"; };
 		BB3DB91D292C83C400C70D62 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -396,6 +400,7 @@
 			children = (
 				BB9DB8132928D0C300102EC8 /* PersistentStorage */,
 				A4CC04DB292351E700BB678B /* TravelScene */,
+				B5D64E73292E3B2100E1CC81 /* DiaryScene */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -538,6 +543,23 @@
 				B5D64E6D292E254A00E1CC81 /* DiaryDetailViewModelDelegate.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B5D64E73292E3B2100E1CC81 /* DiaryScene */ = {
+			isa = PBXGroup;
+			children = (
+				B5D64E74292E3B4600E1CC81 /* DiaryDetail */,
+			);
+			path = DiaryScene;
+			sourceTree = "<group>";
+		};
+		B5D64E74292E3B4600E1CC81 /* DiaryDetail */ = {
+			isa = PBXGroup;
+			children = (
+				B5D64E71292E3B1300E1CC81 /* DiaryDetailRepository.swift */,
+				B5D64E75292E3B6C00E1CC81 /* DiaryDetailLocalRepository.swift */,
+			);
+			path = DiaryDetail;
 			sourceTree = "<group>";
 		};
 		BB323E3329231DF100DFABC0 /* View */ = {
@@ -1143,11 +1165,13 @@
 				A4CC04CD2922818900BB678B /* UIView+AddSubviews.swift in Sources */,
 				BBFAC091291CBDD700D7FD57 /* Doesaegim.xcdatamodeld in Sources */,
 				EEB6C4F6292CA3990060A459 /* PickerViewProtocol.swift in Sources */,
+				B5D64E76292E3B6C00E1CC81 /* DiaryDetailLocalRepository.swift in Sources */,
 				A4CC04D5292332C600BB678B /* UILabel+ChangeFontSize.swift in Sources */,
 				BBDB2E9429262BB300752924 /* ExpenseCollectionHeaderView.swift in Sources */,
 				B5D64E61292DF06400E1CC81 /* PlaceSearchButton.swift in Sources */,
 				BBB31A372925F5E400C9E3A9 /* TravelListCell.swift in Sources */,
 				B5D64E69292DFEF000E1CC81 /* DiaryDetailView.swift in Sources */,
+				B5D64E72292E3B1300E1CC81 /* DiaryDetailRepository.swift in Sources */,
 				BB9DB8122928D0BA00102EC8 /* PersistentRepositoryProtocol.swift in Sources */,
 				A4CC04C62922799600BB678B /* CheckBox.swift in Sources */,
 				BB3DB922292CA79500C70D62 /* DiaryMapInfoViewModel.swift in Sources */,
