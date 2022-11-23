@@ -197,9 +197,9 @@ final class ExpenseListViewController: UIViewController {
         
         let globalHeaderRegistration = GlobalHeaderRegistration(
             elementKind: HeaderKind.globalHeader
-        ) { supplementaryView, _, _ in
+        ) { [weak self] supplementaryView, _, _ in
             // 세번째 파라미터는 indexPath
-            supplementaryView.configureData()
+            supplementaryView.configureData(with: self?.viewModel)
         }
         
         // TODO: - section Header 타이틀 바꾸기

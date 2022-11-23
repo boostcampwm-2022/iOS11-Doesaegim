@@ -65,7 +65,7 @@ final class ExpenseTravelListCell: UICollectionViewListCell {
             string: identifier.title,
             attributes: [
                 .font: UIFont.systemFont(ofSize: 18),
-                .foregroundColor: UIColor.black!,
+                .foregroundColor: UIColor.black!
             ]
         )
         configuration.secondaryAttributedText = NSAttributedString(

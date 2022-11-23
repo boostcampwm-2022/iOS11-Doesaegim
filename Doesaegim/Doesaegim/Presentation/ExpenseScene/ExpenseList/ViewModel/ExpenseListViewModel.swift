@@ -104,7 +104,7 @@ extension ExpenseListViewModel {
 extension ExpenseListViewModel {
     
     private func sortByDate(_ lhs: ExpenseInfoViewModel, _ rhs: ExpenseInfoViewModel) -> Bool {
-        let formatter = Date.yearTominuteDateFormatterWithoutSeparator
+        let formatter = Date.yearTominuteFormatterWithoutSeparator
         guard let leftDateValue: Int = Int(formatter.string(from: lhs.date)),
               let rightDateValue: Int = Int(formatter.string(from: rhs.date)) else {
             fatalError("ExpenseListViewModel - sortByDate date 정보를 받지 못했거나 dateFormatter에 이상이 있습니다.")
