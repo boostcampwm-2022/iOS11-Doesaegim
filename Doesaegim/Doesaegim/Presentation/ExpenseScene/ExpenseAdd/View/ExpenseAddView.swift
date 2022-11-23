@@ -42,7 +42,7 @@ final class ExpenseAddView: UIView {
         return label
     }()
     
-    private lazy var titleTextField: UITextField = {
+    lazy var titleTextField: UITextField = {
         let textField = UITextField()
         
         textField.placeholder = "지출의 이름을 입력해주세요."
@@ -72,7 +72,7 @@ final class ExpenseAddView: UIView {
         return label
     }()
     
-    private lazy var amountTextField: UITextField = {
+    lazy var amountTextField: UITextField = {
         let textField = UITextField()
         
         textField.placeholder = "지출의 액수를 입력해주세요."
@@ -103,9 +103,28 @@ final class ExpenseAddView: UIView {
         return label
     }()
     
-    lazy var moneyUnitPickerView: UIPickerView = {
-        let pickerView = UIPickerView()
-        return pickerView
+    lazy var moneyUnitButton: UIButton = {
+        let button = UIButton()
+        
+        button.layer.cornerRadius = 10
+        button.backgroundColor = .grey1
+        button.setTitleColor(.grey3, for: .normal)
+        button.setTitle("화폐 단위를 입력해주세요.", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
+        button.titleEdgeInsets = .init(top: 0, left: 7, bottom: 0, right: 0)
+        button.tintColor = .grey3
+        button.contentHorizontalAlignment = .left
+        return button
+    }()
+    
+    lazy var moneyUnitExchangeLabel: UILabel = {
+        let label = UILabel()
+        
+        label.textColor = .primaryOrange
+        label.font.withSize(9)
+        label.textAlignment = .right
+        label.isHidden = true
+        return label
     }()
     
     private lazy var categoryStackView: UIStackView = {
@@ -126,9 +145,20 @@ final class ExpenseAddView: UIView {
         return label
     }()
     
-    lazy var categoryPickerView: UIPickerView = {
-        let pickerView = UIPickerView()
-        return pickerView
+    lazy var categoryButton: UIButton = {
+        let button = UIButton()
+        
+        button.layer.cornerRadius = 10
+        button.backgroundColor = .grey1
+        button.setTitleColor(.grey3, for: .normal)
+        button.setTitle("카테고리를 입력해주세요.", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
+        button.setImage(UIImage(systemName: "c.circle"), for: .normal)
+        button.titleEdgeInsets = .init(top: 0, left: 15, bottom: 0, right: -5)
+        button.imageEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: 5)
+        button.tintColor = .grey3
+        button.contentHorizontalAlignment = .left
+        return button
     }()
     
     private lazy var dateStackView: UIStackView = {
@@ -150,7 +180,7 @@ final class ExpenseAddView: UIView {
         return label
     }()
     
-    private lazy var dateButton: UIButton = {
+    lazy var dateButton: UIButton = {
         let button = UIButton()
         
         button.layer.cornerRadius = 10
@@ -160,7 +190,7 @@ final class ExpenseAddView: UIView {
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
         button.setImage(UIImage(systemName: "calendar"), for: .normal)
         button.titleEdgeInsets = .init(top: 0, left: 15, bottom: 0, right: -5)
-        button.imageEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 5)
+        button.imageEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: 5)
         button.tintColor = .grey3
         button.contentHorizontalAlignment = .left
         return button
@@ -238,8 +268,8 @@ final class ExpenseAddView: UIView {
         )
         titleStackView.addArrangedSubviews(titleLabel, titleTextField)
         amountStackView.addArrangedSubviews(amountLabel, amountTextField)
-        moneyUnitStackView.addArrangedSubviews(moneyUnitLabel, moneyUnitPickerView)
-        categoryStackView.addArrangedSubviews(categoryLabel, categoryPickerView)
+        moneyUnitStackView.addArrangedSubviews(moneyUnitLabel, moneyUnitButton, moneyUnitExchangeLabel)
+        categoryStackView.addArrangedSubviews(categoryLabel, categoryButton)
         dateStackView.addArrangedSubviews(dateLabel, dateButton)
         descriptionStackView.addArrangedSubviews(descriptionTitleLabel, descriptionTextView)
     }
@@ -277,21 +307,21 @@ final class ExpenseAddView: UIView {
             $0.leading.trailing.equalToSuperview().inset(16)
         }
         
-        moneyUnitPickerView.snp.makeConstraints {
-            $0.height.equalTo(180)
+        moneyUnitButton.snp.makeConstraints {
+            $0.height.equalTo(36)
         }
         
         categoryStackView.snp.makeConstraints {
-            $0.top.equalTo(moneyUnitPickerView.snp.bottom).offset(24)
+            $0.top.equalTo(moneyUnitStackView.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
         
-        categoryPickerView.snp.makeConstraints {
-            $0.height.equalTo(180)
+        categoryButton.snp.makeConstraints {
+            $0.height.equalTo(36)
         }
         
         dateStackView.snp.makeConstraints {
-            $0.top.equalTo(categoryPickerView.snp.bottom).offset(24)
+            $0.top.equalTo(categoryStackView.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
         

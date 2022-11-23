@@ -195,6 +195,11 @@ extension CustomCalendar {
         case single
         case double
     }
+    
+    enum CalendarType {
+        case date
+        case dateAndTime
+    }
 }
 
 // MARK: Calendar Cell Tapped

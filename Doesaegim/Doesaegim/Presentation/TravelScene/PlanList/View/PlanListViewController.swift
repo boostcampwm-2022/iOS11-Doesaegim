@@ -65,7 +65,9 @@ final class PlanListViewController: UIViewController {
 
     private func configureNavigationBar() {
         navigationItem.title = viewModel.navigationTitle
-        setRightBarAddButton(showing: PlanAddViewController(travel: viewModel.travel))
+        setRightBarAddButton { [weak self] in
+            PlanAddViewController(travel: self?.viewModel.travel)
+        }
     }
 
 

@@ -21,6 +21,14 @@ final class CalendarViewController: UIViewController, CalendarProtocol {
         return view
     }()
     
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        
+        stackView.axis = .vertical
+        stackView.spacing = 12
+        return stackView
+    }()
+    
     private lazy var calendarView: CustomCalendar = {
         let calendar = CustomCalendar(
             frame: .zero,
@@ -45,8 +53,8 @@ final class CalendarViewController: UIViewController, CalendarProtocol {
     
     private lazy var completeButton: UIButton = {
         let button = UIButton()
-
-        button.setTitle("날짜 및 시간 추가", for: .normal)
+        let title = type == .date ? "날짜 추가" : "날짜 및 시간 추가"
+        button.setTitle(title, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .grey3
         button.isEnabled = false
@@ -59,6 +67,7 @@ final class CalendarViewController: UIViewController, CalendarProtocol {
         datePicker.datePickerMode = .time
         datePicker.locale = Locale(identifier: "ko_KR")
         datePicker.preferredDatePickerStyle = .compact
+        datePicker.isHidden = type == .date
         return datePicker
     }()
     
@@ -67,12 +76,15 @@ final class CalendarViewController: UIViewController, CalendarProtocol {
     weak var delegate: CalendarViewDelegate?
     private var date: String?
     private let touchOption: CustomCalendar.TouchOption
+    private let type: CustomCalendar.CalendarType
     private let dateFormatter = Date.timeDateFormatter
+    
     
     // MARK: - Lifecycles
     
-    init(touchOption: CustomCalendar.TouchOption) {
+    init(touchOption: CustomCalendar.TouchOption, type: CustomCalendar.CalendarType) {
         self.touchOption = touchOption
+        self.type = type
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -96,17 +108,23 @@ final class CalendarViewController: UIViewController, CalendarProtocol {
     
     private func configureSubviews() {
         view.addSubview(contentView)
-        contentView.addSubviews(calendarView, completeButton, timeDatepicker)
+        contentView.addSubviews(stackView, completeButton)
+        stackView.addArrangedSubviews(calendarView,timeDatepicker)
     }
     
     private func configureConstraint() {
         contentView.snp.makeConstraints {
             $0.bottom.leading.trailing.equalToSuperview()
-            $0.height.equalTo(600)
+//            $0.height.equalTo(600)
         }
+        
+        stackView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(15)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.bottom.equalTo(completeButton.snp.top).offset(-20)
+        }
+        
         calendarView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(16)
-            $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(400)
         }
         
@@ -115,11 +133,6 @@ final class CalendarViewController: UIViewController, CalendarProtocol {
             $0.bottom.equalToSuperview().offset(-30)
             $0.height.equalTo(48)
         }
-        
-        timeDatepicker.snp.makeConstraints {
-            $0.top.equalTo(calendarView.snp.bottom).offset(16)
-            $0.leading.equalToSuperview().offset(16)
-        }
     }
 }
 
@@ -127,12 +140,15 @@ final class CalendarViewController: UIViewController, CalendarProtocol {
 
 extension CalendarViewController {
     @objc func completeButtonTouchUpInside() {
-        let time = dateFormatter.string(from: timeDatepicker.date)
         guard let date else {
             return
         }
-        let dateString = "\(date) \(time)"
-        delegate?.fetchDate(dateString: dateString)
+        if type == .dateAndTime {
+            let time = dateFormatter.string(from: timeDatepicker.date)
+            let dateString = "\(date) \(time)"
+            delegate?.fetchDate(dateString: dateString)
+        } else { delegate?.fetchDate(dateString: date) }
         dismiss(animated: true)
+            
     }
 }

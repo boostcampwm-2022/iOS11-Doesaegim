@@ -92,7 +92,7 @@ final class PlanAddViewController: UIViewController {
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
         button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         button.titleEdgeInsets = .init(top: 0, left: 15, bottom: 0, right: -5)
-        button.imageEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 5)
+        button.imageEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: 5)
         button.tintColor = .grey3
         button.contentHorizontalAlignment = .left
         return button
@@ -128,7 +128,7 @@ final class PlanAddViewController: UIViewController {
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
         button.setImage(UIImage(systemName: "calendar"), for: .normal)
         button.titleEdgeInsets = .init(top: 0, left: 15, bottom: 0, right: -5)
-        button.imageEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 5)
+        button.imageEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: 5)
         button.tintColor = .grey3
         button.contentHorizontalAlignment = .left
         return button
@@ -335,7 +335,7 @@ extension PlanAddViewController {
 
 extension PlanAddViewController {
     @objc func dateInputButtonTouchUpInside() {
-        let calendarViewController = CalendarViewController(touchOption: .single)
+        let calendarViewController = CalendarViewController(touchOption: .single, type: .dateAndTime)
         calendarViewController.delegate = self
         present(calendarViewController, animated: true)
     }

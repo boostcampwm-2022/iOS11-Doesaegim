@@ -104,6 +104,15 @@
 		EE3E29BC2923C870007C7FC7 /* TravelAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E29BB2923C870007C7FC7 /* TravelAddViewController.swift */; };
 		EE85FBC3292BA9B600FF0C7C /* ExpenseAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE85FBC2292BA9B600FF0C7C /* ExpenseAddViewController.swift */; };
 		EE85FBC6292BAADC00FF0C7C /* ExpenseAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE85FBC5292BAADC00FF0C7C /* ExpenseAddView.swift */; };
+		EEB6C4F4292C8CC50060A459 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4F3292C8CC50060A459 /* PickerViewController.swift */; };
+		EEB6C4F6292CA3990060A459 /* PickerViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4F5292CA3990060A459 /* PickerViewProtocol.swift */; };
+		EEB6C4F8292CA8DB0060A459 /* ExpenseAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4F7292CA8DB0060A459 /* ExpenseAddViewModel.swift */; };
+		EEB6C4FB292CA9200060A459 /* ExpenseAddViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4FA292CA9200060A459 /* ExpenseAddViewProtocol.swift */; };
+		EEB6C4FD292CC29B0060A459 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4FC292CC29B0060A459 /* NetworkManager.swift */; };
+		EEB6C500292CC4910060A459 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4FF292CC4910060A459 /* Resource.swift */; };
+		EEB6C503292CC88B0060A459 /* ExchangeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C502292CC88B0060A459 /* ExchangeResponse.swift */; };
+		EEB6C506292CCE410060A459 /* ExchangeRateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C505292CCE410060A459 /* ExchangeRateType.swift */; };
+		EEBA25FB292D1AE3001F8B66 /* String+ConvertRemoveComma.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBA25FA292D1AE3001F8B66 /* String+ConvertRemoveComma.swift */; };
 		EEDB752F2925E8DD0069A7F5 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDB752E2925E8DD0069A7F5 /* CalendarViewController.swift */; };
 		EEDB75312925F56D0069A7F5 /* CalendarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDB75302925F56D0069A7F5 /* CalendarProtocol.swift */; };
 		EEDB753329260DFB0069A7F5 /* PlanAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDB753229260DFB0069A7F5 /* PlanAddViewModel.swift */; };
@@ -231,6 +240,15 @@
 		EE3E29BD2923C8A7007C7FC7 /* CustomCalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarHeaderView.swift; sourceTree = "<group>"; };
 		EE85FBC2292BA9B600FF0C7C /* ExpenseAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddViewController.swift; sourceTree = "<group>"; };
 		EE85FBC5292BAADC00FF0C7C /* ExpenseAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddView.swift; sourceTree = "<group>"; };
+		EEB6C4F3292C8CC50060A459 /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
+		EEB6C4F5292CA3990060A459 /* PickerViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewProtocol.swift; sourceTree = "<group>"; };
+		EEB6C4F7292CA8DB0060A459 /* ExpenseAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddViewModel.swift; sourceTree = "<group>"; };
+		EEB6C4FA292CA9200060A459 /* ExpenseAddViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddViewProtocol.swift; sourceTree = "<group>"; };
+		EEB6C4FC292CC29B0060A459 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		EEB6C4FF292CC4910060A459 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		EEB6C502292CC88B0060A459 /* ExchangeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeResponse.swift; sourceTree = "<group>"; };
+		EEB6C505292CCE410060A459 /* ExchangeRateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRateType.swift; sourceTree = "<group>"; };
+		EEBA25FA292D1AE3001F8B66 /* String+ConvertRemoveComma.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ConvertRemoveComma.swift"; sourceTree = "<group>"; };
 		EEDB752E2925E8DD0069A7F5 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		EEDB75302925F56D0069A7F5 /* CalendarProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarProtocol.swift; sourceTree = "<group>"; };
 		EEDB753229260DFB0069A7F5 /* PlanAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanAddViewModel.swift; sourceTree = "<group>"; };
@@ -267,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				A4CC04812922191300BB678B /* PersistentManager.swift */,
+				EEB6C4FC292CC29B0060A459 /* NetworkManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -321,6 +340,8 @@
 		A4CC04B6292268BB00BB678B /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				EEB6C504292CCE0C0060A459 /* Enum */,
+				EEB6C4FE292CC4830060A459 /* Resource */,
 				B53763C8292B56600073BF46 /* CustomGraph */,
 				EE116C542924AA0D0017B519 /* Custom */,
 				BBD0D064291DED61007D0D82 /* Extensions */,
@@ -640,11 +661,11 @@
 		BBD0D064291DED61007D0D82 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				EEBA25F9292D1AB2001F8B66 /* String */,
 				BB5DE44A292B8DF4001DA6F6 /* Int */,
 				BBFE4BA42924B252003F5CCE /* Date */,
 				BBD0D065291DED6A007D0D82 /* UIColor+.swift */,
 				EE3E29A729235F6B007C7FC7 /* UITextField+.swift */,
-				A4CC04C329226FC100BB678B /* String+Placeholders.swift */,
 				A4CC04CC2922818900BB678B /* UIView+AddSubviews.swift */,
 				A4CC04CE292281B400BB678B /* UIStackView+AddArrangedSubviews.swift */,
 				A4CC04D4292332C600BB678B /* UILabel+ChangeFontSize.swift */,
@@ -754,11 +775,8 @@
 		EE116C542924AA0D0017B519 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
-				EE116C552924AA0D0017B519 /* CustomCalendarCell.swift */,
-				EE116C562924AA0D0017B519 /* CustomCalendarHeaderView.swift */,
-				EE116C572924AA0D0017B519 /* CustomCalendar.swift */,
-				EEDB752E2925E8DD0069A7F5 /* CalendarViewController.swift */,
-				EEDB75302925F56D0069A7F5 /* CalendarProtocol.swift */,
+				EEB6C4F2292C8CAC0060A459 /* PickerView */,
+				EEB6C4F1292C8CA30060A459 /* Calendar */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -809,7 +827,9 @@
 		EE85FBC1292BA9A600FF0C7C /* ExpenseAdd */ = {
 			isa = PBXGroup;
 			children = (
+				EEB6C501292CC8730060A459 /* Model */,
 				EE85FBC4292BAA9F00FF0C7C /* View */,
+				EEB6C4F9292CA8DF0060A459 /* ViewModel */,
 			);
 			path = ExpenseAdd;
 			sourceTree = "<group>";
@@ -821,6 +841,69 @@
 				EE85FBC5292BAADC00FF0C7C /* ExpenseAddView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		EEB6C4F1292C8CA30060A459 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				EE116C552924AA0D0017B519 /* CustomCalendarCell.swift */,
+				EE116C562924AA0D0017B519 /* CustomCalendarHeaderView.swift */,
+				EE116C572924AA0D0017B519 /* CustomCalendar.swift */,
+				EEDB752E2925E8DD0069A7F5 /* CalendarViewController.swift */,
+				EEDB75302925F56D0069A7F5 /* CalendarProtocol.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		EEB6C4F2292C8CAC0060A459 /* PickerView */ = {
+			isa = PBXGroup;
+			children = (
+				EEB6C4F3292C8CC50060A459 /* PickerViewController.swift */,
+				EEB6C4F5292CA3990060A459 /* PickerViewProtocol.swift */,
+			);
+			path = PickerView;
+			sourceTree = "<group>";
+		};
+		EEB6C4F9292CA8DF0060A459 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EEB6C4F7292CA8DB0060A459 /* ExpenseAddViewModel.swift */,
+				EEB6C4FA292CA9200060A459 /* ExpenseAddViewProtocol.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EEB6C4FE292CC4830060A459 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				EEB6C4FF292CC4910060A459 /* Resource.swift */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		EEB6C501292CC8730060A459 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EEB6C502292CC88B0060A459 /* ExchangeResponse.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EEB6C504292CCE0C0060A459 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				EEB6C505292CCE410060A459 /* ExchangeRateType.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		EEBA25F9292D1AB2001F8B66 /* String */ = {
+			isa = PBXGroup;
+			children = (
+				A4CC04C329226FC100BB678B /* String+Placeholders.swift */,
+				EEBA25FA292D1AE3001F8B66 /* String+ConvertRemoveComma.swift */,
+			);
+			path = String;
 			sourceTree = "<group>";
 		};
 		EEDB753429260DFF0069A7F5 /* ViewModel */ = {
@@ -1002,9 +1085,13 @@
 				BBE695D829228B560015FAD4 /* TravelListViewModel.swift in Sources */,
 				BB9DB80E2928CA6A00102EC8 /* ExpenseListViewModelProtocol.swift in Sources */,
 				B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */,
+				EEB6C4F8292CA8DB0060A459 /* ExpenseAddViewModel.swift in Sources */,
 				B5C096C429238091007426B1 /* SearchingLocationViewModel.swift in Sources */,
+				EEB6C503292CC88B0060A459 /* ExchangeResponse.swift in Sources */,
 				A4CC04A429221EEE00BB678B /* Plan+CoreDataClass.swift in Sources */,
+				EEB6C500292CC4910060A459 /* Resource.swift in Sources */,
 				EE116C5E2924CB6B0017B519 /* TravelAddViewProtocol.swift in Sources */,
+				EEB6C4FB292CA9200060A459 /* ExpenseAddViewProtocol.swift in Sources */,
 				BBDB2E96292635FD00752924 /* ExpenseSectionHeaderView.swift in Sources */,
 				B53763CC292B56600073BF46 /* CustomPieChart.swift in Sources */,
 				B53763E3292B99B80073BF46 /* PieceShapeLayer.swift in Sources */,
@@ -1018,6 +1105,7 @@
 				A4CC04CB29227E5C00BB678B /* Constants.swift in Sources */,
 				A4CC04CD2922818900BB678B /* UIView+AddSubviews.swift in Sources */,
 				BBFAC091291CBDD700D7FD57 /* Doesaegim.xcdatamodeld in Sources */,
+				EEB6C4F6292CA3990060A459 /* PickerViewProtocol.swift in Sources */,
 				A4CC04D5292332C600BB678B /* UILabel+ChangeFontSize.swift in Sources */,
 				BBDB2E9429262BB300752924 /* ExpenseCollectionHeaderView.swift in Sources */,
 				B5D64E61292DF06400E1CC81 /* PlaceSearchButton.swift in Sources */,
@@ -1038,6 +1126,7 @@
 				A4CC04A629221EEE00BB678B /* Travel+CoreDataClass.swift in Sources */,
 				BB5771AC2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift in Sources */,
 				BB5771A42923A08F0034047D /* ExpenseTravelViewModel.swift in Sources */,
+				EEBA25FB292D1AE3001F8B66 /* String+ConvertRemoveComma.swift in Sources */,
 				EEDB753329260DFB0069A7F5 /* PlanAddViewModel.swift in Sources */,
 				BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */,
 				BBFE4BA62924B25D003F5CCE /* Date+TravelString.swift in Sources */,
@@ -1071,6 +1160,7 @@
 				A4CC04A229221EEE00BB678B /* Diary+CoreDataClass.swift in Sources */,
 				EE116C5A2924AA0D0017B519 /* CustomCalendar.swift in Sources */,
 				A4EB00DC2926456D00A83936 /* UIScrollView+DidPassPoint.swift in Sources */,
+				EEB6C506292CCE410060A459 /* ExchangeRateType.swift in Sources */,
 				EE3E29A829235F6B007C7FC7 /* UITextField+.swift in Sources */,
 				A4CC04822922191300BB678B /* PersistentManager.swift in Sources */,
 				BB7D9A2A29261C0600BF2BD6 /* ExpenseListCell.swift in Sources */,
@@ -1084,6 +1174,8 @@
 				BBB31A402926008D00C9E3A9 /* ExpenseListViewModel.swift in Sources */,
 				A4CC04C429226FC100BB678B /* String+Placeholders.swift in Sources */,
 				EEDB752F2925E8DD0069A7F5 /* CalendarViewController.swift in Sources */,
+				EEB6C4F4292C8CC50060A459 /* PickerViewController.swift in Sources */,
+				EEB6C4FD292CC29B0060A459 /* NetworkManager.swift in Sources */,
 				EE85FBC6292BAADC00FF0C7C /* ExpenseAddView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
