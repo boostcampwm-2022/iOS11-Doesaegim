@@ -11,6 +11,10 @@
 		A48E9948292515020029D57D /* UIViewController+PresentAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48E9947292515020029D57D /* UIViewController+PresentAlert.swift */; };
 		A48E994A292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48E9949292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift */; };
 		A4971D74291CC3A9008B337F /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = A4971D73291CC3A9008B337F /* .swiftlint.yml */; };
+		A4C3BB6F292F05C1001C0514 /* ProgressiveImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C3BB6E292F05C1001C0514 /* ProgressiveImageView.swift */; };
+		A4C3BB71292F0979001C0514 /* ProgressiveImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C3BB70292F0979001C0514 /* ProgressiveImageCollectionViewCell.swift */; };
+		A4C3BB75292F3810001C0514 /* ImageStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C3BB74292F3810001C0514 /* ImageStatus.swift */; };
+		A4C3BB78292F384B001C0514 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C3BB77292F384B001C0514 /* ImageManager.swift */; };
 		A4CC04822922191300BB678B /* PersistentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04812922191300BB678B /* PersistentManager.swift */; };
 		A4CC04A229221EEE00BB678B /* Diary+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC049829221EEE00BB678B /* Diary+CoreDataClass.swift */; };
 		A4CC04A429221EEE00BB678B /* Plan+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC049A29221EEE00BB678B /* Plan+CoreDataClass.swift */; };
@@ -167,6 +171,10 @@
 		A48E9947292515020029D57D /* UIViewController+PresentAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentAlert.swift"; sourceTree = "<group>"; };
 		A48E9949292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+SetRightBarPlusButton.swift"; sourceTree = "<group>"; };
 		A4971D73291CC3A9008B337F /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		A4C3BB6E292F05C1001C0514 /* ProgressiveImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressiveImageView.swift; sourceTree = "<group>"; };
+		A4C3BB70292F0979001C0514 /* ProgressiveImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressiveImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		A4C3BB74292F3810001C0514 /* ImageStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStatus.swift; sourceTree = "<group>"; };
+		A4C3BB77292F384B001C0514 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		A4CC04812922191300BB678B /* PersistentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentManager.swift; sourceTree = "<group>"; };
 		A4CC049829221EEE00BB678B /* Diary+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Diary+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A4CC049A29221EEE00BB678B /* Plan+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Plan+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -333,6 +341,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A45E431E29343B970098E9C3 /* DiaryAdd */ = {
+			isa = PBXGroup;
+			children = (
+				A4EB25BE292BB4F1002D129A /* DiaryAddRepository.swift */,
+				A4EB25C1292BB518002D129A /* DiaryAddLocalRepository.swift */,
+			);
+			path = DiaryAdd;
+			sourceTree = "<group>";
+		};
 		A4CC04832922191700BB678B /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -403,6 +420,7 @@
 				BBD0D064291DED61007D0D82 /* Extensions */,
 				A4CC04CA29227E5C00BB678B /* Constants.swift */,
 				B595A983292CE53100C3B897 /* ExpenseType.swift */,
+				A4C3BB77292F384B001C0514 /* ImageManager.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -468,8 +486,7 @@
 			isa = PBXGroup;
 			children = (
 				B5D64E74292E3B4600E1CC81 /* DiaryDetail */,
-				A4EB25BE292BB4F1002D129A /* DiaryAddRepository.swift */,
-				A4EB25C1292BB518002D129A /* DiaryAddLocalRepository.swift */,
+				A45E431E29343B970098E9C3 /* DiaryAdd */,
 			);
 			path = DiaryScene;
 			sourceTree = "<group>";
@@ -578,6 +595,8 @@
 				B5D64E5E292DF06400E1CC81 /* PlaceSearchButton.swift */,
 				B5D64E5F292DF06400E1CC81 /* DiaryAddViewController.swift */,
 				B5D64E60292DF06400E1CC81 /* DiaryAddView.swift */,
+				A4C3BB6E292F05C1001C0514 /* ProgressiveImageView.swift */,
+				A4C3BB70292F0979001C0514 /* ProgressiveImageCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1058,6 +1077,7 @@
 			isa = PBXGroup;
 			children = (
 				EEB6C505292CCE410060A459 /* ExchangeRateType.swift */,
+				A4C3BB74292F3810001C0514 /* ImageStatus.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -1268,6 +1288,7 @@
 				B5D64E6E292E254A00E1CC81 /* DiaryDetailViewModelDelegate.swift in Sources */,
 				B53763CC292B56600073BF46 /* CustomPieChart.swift in Sources */,
 				B53763E3292B99B80073BF46 /* PieceShapeLayer.swift in Sources */,
+				A4C3BB78292F384B001C0514 /* ImageManager.swift in Sources */,
 				EE3E29BC2923C870007C7FC7 /* TravelAddViewController.swift in Sources */,
 				B5D64E62292DF06400E1CC81 /* DiaryAddViewController.swift in Sources */,
 				BBD0D063291DE991007D0D82 /* SettingViewController.swift in Sources */,
@@ -1311,6 +1332,7 @@
 				EEBA25FB292D1AE3001F8B66 /* String+ConvertRemoveComma.swift in Sources */,
 				EEDB753329260DFB0069A7F5 /* PlanAddViewModel.swift in Sources */,
 				BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */,
+				A4C3BB6F292F05C1001C0514 /* ProgressiveImageView.swift in Sources */,
 				BBFE4BA62924B25D003F5CCE /* Date+TravelString.swift in Sources */,
 				B5C096BC29235B08007426B1 /* SearchResultCell.swift in Sources */,
 				B5DE4D4029271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift in Sources */,
@@ -1362,12 +1384,14 @@
 				BBB31A402926008D00C9E3A9 /* ExpenseListViewModel.swift in Sources */,
 				A4CC04C429226FC100BB678B /* String+Placeholders.swift in Sources */,
 				BBFD8A632931C249004C39FF /* String+Truncate.swift in Sources */,
+				A4C3BB71292F0979001C0514 /* ProgressiveImageCollectionViewCell.swift in Sources */,
 				A4EB25C4292BB828002D129A /* DiaryAddViewModel.swift in Sources */,
 				A4EB25BF292BB4F1002D129A /* DiaryAddRepository.swift in Sources */,
 				EEDB752F2925E8DD0069A7F5 /* CalendarViewController.swift in Sources */,
 				B5D64E67292DFED500E1CC81 /* DiaryDetailViewController.swift in Sources */,
 				B5D64E6C292E22A400E1CC81 /* DiaryDetailViewModel.swift in Sources */,
 				EEB6C4FD292CC29B0060A459 /* NetworkManager.swift in Sources */,
+				A4C3BB75292F3810001C0514 /* ImageStatus.swift in Sources */,
 				EE85FBC6292BAADC00FF0C7C /* ExpenseAddView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
