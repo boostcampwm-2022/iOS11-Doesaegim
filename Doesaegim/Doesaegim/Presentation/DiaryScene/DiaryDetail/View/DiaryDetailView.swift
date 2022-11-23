@@ -136,8 +136,11 @@ final class DiaryDetailView: UIView {
     
     // MARK: - Setup Functions
     
-    func setupData() {
-        
+    func setupData(diary: Diary) {
+        pageControl.numberOfPages = diary.images?.count ?? 0
+        contentLabel.text = diary.content
+        locationLabel.text = diary.location?.name
+        dateLabel.text = diary.date?.description
     }
     
 }
