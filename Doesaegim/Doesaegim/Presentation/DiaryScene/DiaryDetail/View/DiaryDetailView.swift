@@ -50,7 +50,6 @@ final class DiaryDetailView: UIView {
     private let locationLabel: UILabel = {
         let label = UILabel()
         label.changeFontSize(to: FontSize.body)
-        label.text = "asdffdsaf"
         
         return label
     }()
@@ -60,7 +59,6 @@ final class DiaryDetailView: UIView {
         let label = UILabel()
         label.changeFontSize(to: FontSize.caption)
         label.textColor = .grey3
-        label.text = "asdffdsafadsfasdf"
         
         return label
     }()
@@ -100,6 +98,15 @@ final class DiaryDetailView: UIView {
         super.init(coder: coder)
     }
     
+    // MARK: - Setup Functions
+    
+    func setupData(diary: Diary) {
+        pageControl.numberOfPages = diary.images?.count ?? 0
+        contentLabel.text = diary.content
+        locationLabel.text = diary.location?.name
+        dateLabel.text = diary.date?.description
+    }
+    
     // MARK: - Configure Functions
     
     private func configureViews() {
@@ -132,15 +139,6 @@ final class DiaryDetailView: UIView {
         contentStack.snp.makeConstraints { $0.edges.width.equalToSuperview() }
         scrollView.snp.makeConstraints { $0.edges.equalToSuperview() }
         
-    }
-    
-    // MARK: - Setup Functions
-    
-    func setupData(diary: Diary) {
-        pageControl.numberOfPages = diary.images?.count ?? 0
-        contentLabel.text = diary.content
-        locationLabel.text = diary.location?.name
-        dateLabel.text = diary.date?.description
     }
     
 }
