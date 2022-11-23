@@ -24,3 +24,10 @@ enum ExchangeAPI {
     static let authkey = "wHpfEyMGBchJW4ipjjz4hXYximQmP0KR"
     static let dataCode = "AP01"
 }
+
+enum Constants {
+    
+    // MARK: - UserDefault
+    
+    static let exchangeValue = "exchangeValue"
+}

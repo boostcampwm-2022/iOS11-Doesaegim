@@ -64,6 +64,8 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
     
     private let type: PickerType
     private var selectedIndex: Int = 0
+    private var exchangeCache: [String: [ExchangeResponse]] = [:]
+    
     var delegate: ExpenseAddPickerViewDelegate?
     
     // MARK: - Lifecycles
@@ -83,8 +85,8 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
         view.backgroundColor = .clear
         configureViews()
         setAddTargets()
-        if type == .moneyUnit, let today = todayDateConvertToString() {
-            fetchExchangeInfo(day: today)
+        if type == .moneyUnit {
+            setExchangeValue()
         }
     }
     
@@ -162,33 +164,93 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
         paramaters["authkey"] = ExchangeAPI.authkey
         paramaters["data"] = ExchangeAPI.dataCode
         paramaters["searchdate"] = day
+        
         let resource = Resource<ExchangeResponse>(
             base: ExchangeAPI.exchangeURL,
             paramaters: paramaters,
             header: [:])
+        
         network.loadArray(resource) { [weak self] result in
             // 오늘 날짜를 조회했을 때, 빈 배열이 온다면 어제 날짜를 조회
-            if result.isEmpty {
-                self?.fetchExchangeInfo(day: (self?.yesterDayDateConvertToString() ?? "20221123"))
+            if result.isEmpty, let yesterday = self?.yesterDayDateConvertToString() {
+                self?.fetchExchangeInfo(day: yesterday)
             } else {
                 self?.exchangeInfo = result
                 DispatchQueue.main.async {
                     self?.pickerView.reloadAllComponents()
                 }
+                self?.saveExchangeValue(day: day, exchangeInfo: result)
             }
         }
     }
     
-    func todayDateConvertToString() -> String? {
+    // MARK: Date Functions
+    
+    private func todayDateConvertToString() -> String {
         let day = Date()
         let formatter = Date.yearMonthDaySplitDashDateFormatter
         return formatter.string(from: day)
     }
     
-    func yesterDayDateConvertToString() -> String? {
+    private func yesterDayDateConvertToString() -> String {
         let yesterday = Date(timeIntervalSinceNow: 60 * 60 * 24 * -1)
         let formatter = Date.yearMonthDaySplitDashDateFormatter
         return formatter.string(from: yesterday)
+    }
+    
+    // MARK: UserDefaults
+    
+    private func setExchangeValue() {
+        
+        // 내부저장소에 환율 정보가 없다면 API 통신요청
+        if UserDefaults.standard.object(forKey: Constants.exchangeValue) == nil {
+            fetchExchangeInfo(day: todayDateConvertToString())
+            return
+        } else {
+            // 내부저장소에 환율 정보가 있다면
+            guard let data = UserDefaults.standard.object(forKey: Constants.exchangeValue) as? Data,
+                  let dict = try? JSONDecoder().decode([String: [ExchangeResponse]].self, from: data)
+                  else {
+                fetchExchangeInfo(day: todayDateConvertToString())
+                return
+            }
+            
+            // 조회한 환율 정보가 있다면
+            // API 요청을 하지 않음
+            exchangeCache = dict
+            
+            // 오늘 날짜의 캐시가 있으면 오늘 날짜의 정보를 넣어줌
+            if let todayExchangeInfo = exchangeCache[todayDateConvertToString()] {
+                exchangeInfo = todayExchangeInfo
+                pickerView.reloadAllComponents()
+                return
+            }
+            
+            // 오늘 날짜의 캐시가 없으면 어제 날짜의 정보를 넣어줌
+            if let yesterdayExchangeInfo = exchangeCache[yesterDayDateConvertToString()] {
+                exchangeInfo = yesterdayExchangeInfo
+                pickerView.reloadAllComponents()
+                return
+            }
+            
+            // 오늘, 어제 둘다 캐시가 없으면? API 요청
+            fetchExchangeInfo(day: todayDateConvertToString())
+        }
+    }
+    
+    /// 날짜와 환율 정보를 담은 UserDefault를 저장해주는 메서드
+    /// [String: [ExchangeResponse]] Type
+    /// - Parameters:
+    ///   - day: 날짜
+    ///   - exchangeInfo: 환율 정보
+    private func saveExchangeValue(day: String, exchangeInfo: [ExchangeResponse]) {
+        do {
+            let dict: [String: [ExchangeResponse]] = [day: exchangeInfo]
+            let data = try JSONEncoder().encode(dict)
+            UserDefaults.standard.set(data, forKey: Constants.exchangeValue)
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
     
 }
