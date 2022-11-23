@@ -49,7 +49,7 @@ final class PieceTextLayer: CATextLayer {
         string = text
         fontSize = Metric.textFontSize
         alignmentMode = .center
-        foregroundColor = UIColor.label.cgColor
+        foregroundColor = UIColor.white?.cgColor
     }
 }
 
