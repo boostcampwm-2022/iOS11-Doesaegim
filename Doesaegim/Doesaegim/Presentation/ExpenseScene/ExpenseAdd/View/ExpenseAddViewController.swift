@@ -83,9 +83,9 @@ final class ExpenseAddViewController: UIViewController {
 
 extension ExpenseAddViewController {
     @objc func pickerViewButtonTouchUpInside(_ sender: UIButton) {
-        let type: PickerViewController.PickerType =
+        let type: ExpenseAddPickerViewController.PickerType =
         sender == rootView.moneyUnitButton ? .moneyUnit : .category
-        let pickerViewController = PickerViewController(type: type)
+        let pickerViewController = ExpenseAddPickerViewController(type: type)
         pickerViewController.delegate = self
         present(pickerViewController, animated: true)
     }
@@ -123,7 +123,7 @@ extension ExpenseAddViewController: CalendarViewDelegate {
 
 // MARK: - PickerDelegate
 
-extension ExpenseAddViewController: PickerViewDelegate {
+extension ExpenseAddViewController: ExpenseAddPickerViewDelegate {
     func selectedExchangeInfo(item: ExchangeResponse) {
         guard let exchangeRateType = ExchangeRateType(currencyCode: item.currencyCode) else { return }
         exchangeInfo = item

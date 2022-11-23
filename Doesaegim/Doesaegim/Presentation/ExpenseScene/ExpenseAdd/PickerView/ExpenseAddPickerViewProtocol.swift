@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol PickerViewProtocol: AnyObject {
-    var delegate: PickerViewDelegate? { get set }
+protocol ExpenseAddPickerViewProtocol: AnyObject {
+    var delegate: ExpenseAddPickerViewDelegate? { get set }
 }
 
-protocol PickerViewDelegate: AnyObject {
+protocol ExpenseAddPickerViewDelegate: AnyObject {
     func selectedExchangeInfo(item: ExchangeResponse)
     func selectedCategory(item: String)
 }

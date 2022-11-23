@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-final class PickerViewController: UIViewController, PickerViewProtocol {
+final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerViewProtocol {
     
     // MARK: - UI properties
     
@@ -64,7 +64,7 @@ final class PickerViewController: UIViewController, PickerViewProtocol {
     
     private let type: PickerType
     private var selectedIndex: Int = 0
-    var delegate: PickerViewDelegate?
+    var delegate: ExpenseAddPickerViewDelegate?
     
     // MARK: - Lifecycles
     
@@ -176,7 +176,7 @@ final class PickerViewController: UIViewController, PickerViewProtocol {
     
 }
 
-extension PickerViewController: UIPickerViewDataSource {
+extension ExpenseAddPickerViewController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -186,7 +186,7 @@ extension PickerViewController: UIPickerViewDataSource {
     }
 }
 
-extension PickerViewController: UIPickerViewDelegate {
+extension ExpenseAddPickerViewController: UIPickerViewDelegate {
     func pickerView(
         _ pickerView: UIPickerView,
         titleForRow row: Int,
@@ -211,7 +211,7 @@ extension PickerViewController: UIPickerViewDelegate {
 
 // MARK: Enum
 
-extension PickerViewController {
+extension ExpenseAddPickerViewController {
     enum PickerType {
         case category
         case moneyUnit
