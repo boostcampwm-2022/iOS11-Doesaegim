@@ -83,8 +83,8 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
         view.backgroundColor = .clear
         configureViews()
         setAddTargets()
-        if type == .moneyUnit {
-            fetchExchangeInfo()
+        if type == .moneyUnit, let today = todayDateConvertToString() {
+            fetchExchangeInfo(day: today)
         }
     }
     
@@ -156,22 +156,39 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
     
     // MARK: - Network
     
-    func fetchExchangeInfo() {
+    func fetchExchangeInfo(day: String) {
         let network = NetworkManager(configuration: .default)
         var paramaters: [String: String] = [:]
         paramaters["authkey"] = ExchangeAPI.authkey
         paramaters["data"] = ExchangeAPI.dataCode
+        paramaters["searchdate"] = day
         let resource = Resource<ExchangeResponse>(
             base: ExchangeAPI.exchangeURL,
             paramaters: paramaters,
             header: [:])
         network.loadArray(resource) { [weak self] result in
-            self?.exchangeInfo = result
-            result.forEach { print($0) }
-            DispatchQueue.main.async {
-                self?.pickerView.reloadAllComponents()
+            // 오늘 날짜를 조회했을 때, 빈 배열이 온다면 어제 날짜를 조회
+            if result.isEmpty {
+                self?.fetchExchangeInfo(day: (self?.yesterDayDateConvertToString() ?? "20221123"))
+            } else {
+                self?.exchangeInfo = result
+                DispatchQueue.main.async {
+                    self?.pickerView.reloadAllComponents()
+                }
             }
         }
+    }
+    
+    func todayDateConvertToString() -> String? {
+        let day = Date()
+        let formatter = Date.yearMonthDaySplitDashDateFormatter
+        return formatter.string(from: day)
+    }
+    
+    func yesterDayDateConvertToString() -> String? {
+        let yesterday = Date(timeIntervalSinceNow: 60 * 60 * 24 * -1)
+        let formatter = Date.yearMonthDaySplitDashDateFormatter
+        return formatter.string(from: yesterday)
     }
     
 }
