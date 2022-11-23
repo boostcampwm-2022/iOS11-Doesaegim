@@ -34,11 +34,3 @@ struct ExpenseInfoViewModel: Hashable {
         hasher.combine(uuid)
     }
 }
-
-// MARK: - ExpenseType: 지금은 문자열로 구분
-enum ExpenseType: String {
-    case food = "식비"
-    case transportation = "교통비"
-    case room = "숙박비"
-    case other = "기타"
-}
