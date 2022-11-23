@@ -60,7 +60,7 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
     
     // TODO: - category 항목이 정해지면 수정 Enum으로?
     
-    private var category: [String] = ["식비", "경비", "숙박", "교통비", "항공비", "쇼핑", "관광", "기타"]
+    private var category: [ExpenseType] = ExpenseType.allCases
     
     private let type: PickerType
     private var selectedIndex: Int = 0
@@ -279,7 +279,7 @@ extension ExpenseAddPickerViewController: UIPickerViewDelegate {
             }
             return value[row]
         } else {
-            return category[row]
+            return category[row].rawValue
         }
     }
     
