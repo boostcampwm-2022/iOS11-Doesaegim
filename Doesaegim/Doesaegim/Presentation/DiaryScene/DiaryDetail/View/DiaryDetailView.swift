@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-class DiaryDetailView: UIView {
+final class DiaryDetailView: UIView {
     // MARK: - UI Properties
     
     /// 이미지 슬라이더 뷰. 추후 컬렉션뷰로 변경 예정
