@@ -52,22 +52,22 @@ final class CustomPieChart: UIView {
     override func draw(_ rect: CGRect) {
         var startAngle: CGFloat = Metric.initialStartAngle
         
-        for idx in items.indices {
-            let ratio: CGFloat = items[idx].value / total
+        for item in items {
+            let ratio: CGFloat = item.value / total
             let angleRatio = ratio * Metric.angle
             
             let pieceLayer = PieceShapeLayer(
                 rect: rect,
                 startAngle: startAngle,
                 angleRatio: angleRatio,
-                color: items[idx].category.color.cgColor
+                color: item.category.color.cgColor
             )
             layer.addSublayer(pieceLayer)
             
             guard let boundingBox = pieceLayer.path?.boundingBox else { continue }
             let textLayer = PieceTextLayer(
                 pieceBounds: boundingBox,
-                text: "\(items[idx].category.rawValue)\n\(String(format: "%.2f", ratio * 100))%"
+                text: "\(item.category.rawValue)\n\(String(format: "%.2f", ratio * 100))%"
             )
             layer.addSublayer(textLayer)
             
