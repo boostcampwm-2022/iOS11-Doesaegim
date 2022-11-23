@@ -14,6 +14,7 @@ protocol PersistentRepositoryProtocol {
 
     func fetchTravel() -> Result<[Travel], Error>
     func fetchExpense() -> Result<[Expense], Error>
+    func fetchDiary() -> Result<[Diary], Error>
     
     /// `NSManagedObject`타입의 엔티티를 영구저장소로부터 불러온다. `offset`번째 레코드부터
     /// 최대 `limit`개의 데이터를 불러온다. 내부에서 request를 생성하고 PersistentManager에
@@ -25,6 +26,7 @@ protocol PersistentRepositoryProtocol {
     
     func fetchTravel(offset: Int, limit: Int) -> Result<[Travel], Error>
     func fetchExpense(offset: Int, limit: Int) -> Result<[Expense], Error>
+    func fetchDiary(offset: Int, limit: Int) -> Result<[Diary], Error>
     
     func fetchTravel(with id: UUID) -> Result<[Travel], Error>
     
