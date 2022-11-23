@@ -8,6 +8,12 @@
 import UIKit
 
 final class DiaryDetailViewController: UIViewController {
+    
+    typealias DataSource = UICollectionViewDiffableDataSource<Section, DetailImageCellViewModel>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, DetailImageCellViewModel>
+    typealias CellRegistration = UICollectionView
+                                    .CellRegistration<DetailImageCell, DetailImageCellViewModel>
+    
     // MARK: - UI Properties
     
     private let rootView = DiaryDetailView()
@@ -15,6 +21,8 @@ final class DiaryDetailViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel: DiaryDetailViewModel
+    
+    private var imageSliderDataSource: DataSource?
     
     // MARK: - Init
     
@@ -46,7 +54,7 @@ final class DiaryDetailViewController: UIViewController {
         super.viewDidLoad()
         
         configureViewModelDelegate()
-        configureCollectionViewDelegate()
+        configureImageSlider()
     }
     
     // MARK: - Configure Functions
@@ -56,14 +64,47 @@ final class DiaryDetailViewController: UIViewController {
         viewModel.fetchDiaryDetail()
     }
     
-    private func configureCollectionViewDelegate() {
-        rootView.imageSlider.register(
-            DiaryDetailImageCell.self,
-            forCellWithReuseIdentifier: "DiaryDetailImageCell"
-        )
+    // MARK: - Configure ImageSlider Delegates
+    
+    private func configureImageSlider() {
+        configureImageSliderDataSource()
+        configureImageSliderDelegates()
+    }
+    
+    /// 이미지 슬라이더 컬렉션뷰의 데이터소스를 지정한다.
+    private func configureImageSliderDataSource() {
+        let cellRegistration = CellRegistration { cell, _, itemIdentifier in
+            let image = UIImage(data: itemIdentifier.data)
+            cell.setupImage(image: image)
+        }
         
+        imageSliderDataSource = DataSource(
+            collectionView: rootView.imageSlider
+        ) { collectionView, indexPath, itemIdentifier in
+            let cell = collectionView.dequeueConfiguredReusableCell(
+                using: cellRegistration,
+                for: indexPath,
+                item: itemIdentifier
+            )
+            
+            return cell
+        }
+    }
+    
+    /// 이미지 슬라이더 컬렉션뷰의 델리게이트를 지정한다.
+    private func configureImageSliderDelegates() {
         rootView.imageSlider.delegate = self
-        rootView.imageSlider.dataSource = self
+        rootView.imageSlider.dataSource = imageSliderDataSource
+    }
+    
+    /// 이미지 슬라이더 컬렉션뷰의 스냅샷을 지정한다.
+    private func configureSnapshot() {
+        var snapshot = Snapshot()
+        
+        snapshot.appendSections([.main])
+        snapshot.appendItems(viewModel.cellViewModels)
+        
+        imageSliderDataSource?.apply(snapshot)
     }
 }
 
@@ -71,25 +112,29 @@ final class DiaryDetailViewController: UIViewController {
 
 extension DiaryDetailViewController: DiaryDetailViewModelDelegate {
     
-    func fetchNavigationTItle(with title: String?) {
+    func diaryDetailTitleDidFetch(with title: String?) {
         navigationItem.title = title
     }
     
-    func fetchDiaryDetail(diary: Diary) {
+    func diaryDetailDidFetch(diary: Diary) {
         rootView.setupData(diary: diary)
     }
     
-    func fetchImageData(with items: [Data]) {
-        rootView.setupImages(with: items)
+    func diaryDetailCurrentPageDidChange(to page: Int) {
+        rootView.setupCurrentPage(page)
     }
     
-    func pageControlValueDidChange(to page: Int) {
-        rootView.setupCurrentPage(page)
+    func diaryDetailImageSliderDidRefresh() {
+        configureSnapshot()
     }
 }
 
 
 // MARK: - UICollectionView
+
+extension DiaryDetailViewController {
+    enum Section { case main }
+}
 
 extension DiaryDetailViewController {
     
@@ -106,26 +151,4 @@ extension DiaryDetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // TODO: 이미지를 선택했을 때 이미지 상세 화면으로 이동하도록 구현
     }
-}
-
-extension DiaryDetailViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.imageCount
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: "DiaryDetailImageCell",
-            for: indexPath
-        ) as? DiaryDetailImageCell else { return UICollectionViewCell() }
-        
-        cell.setupImage(image: UIImage(systemName: "heart.fill"))
-        
-        return cell
-    }
-    
-    
 }

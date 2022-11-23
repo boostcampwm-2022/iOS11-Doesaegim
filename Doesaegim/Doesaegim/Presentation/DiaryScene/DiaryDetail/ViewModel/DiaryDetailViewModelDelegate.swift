@@ -9,12 +9,12 @@ import Foundation
 
 protocol DiaryDetailViewModelDelegate: AnyObject {
     
-    func fetchDiaryDetail(diary: Diary)
+    func diaryDetailTitleDidFetch(with title: String?)
     
-    func fetchNavigationTItle(with title: String?)
+    func diaryDetailDidFetch(diary: Diary)
     
-    func fetchImageData(with items: [Data])
+    func diaryDetailImageSliderDidRefresh()
     
-    func pageControlValueDidChange(to index: Int)
+    func diaryDetailCurrentPageDidChange(to index: Int)
     
 }

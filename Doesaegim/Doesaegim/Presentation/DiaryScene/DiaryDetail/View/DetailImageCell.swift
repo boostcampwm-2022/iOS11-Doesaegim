@@ -1,5 +1,5 @@
 //
-//  DiaryDetailImageCell.swift
+//  DetailImageCell.swift
 //  Doesaegim
 //
 //  Created by 서보경 on 2022/11/23.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DiaryDetailImageCell: UICollectionViewCell {
+class DetailImageCell: UICollectionViewCell {
     // MARK: - UI Properties
     
     private let imageView: UIImageView = {

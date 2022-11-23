@@ -114,13 +114,6 @@ final class DiaryDetailView: UIView {
         dateLabel.text = diary.date?.description
     }
     
-    /// 이미지 데이터를 받아와 슬라이더의 각 이미지에 지정한다.
-    /// - Parameter data: 이미지 데이터의 배열
-    func setupImages(with data: [Data]) {
-        guard let first = data.first else { return }
-//        imageSlider.image = UIImage(data: first)
-    }
-    
     func setupCurrentPage(_ pageIndex: Int) {
         pageControl.currentPage = pageIndex
     }

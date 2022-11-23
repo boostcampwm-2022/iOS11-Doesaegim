@@ -15,13 +15,19 @@ final class DiaryDetailViewModel {
     
     var imageCount: Int { diary.images?.count ?? 0 }
     
+    var cellViewModels: [DetailImageCellViewModel] = [] {
+        didSet {
+            delegate?.diaryDetailImageSliderDidRefresh()
+        }
+    }
+    
     private let navigationTitle: String?
     
     private let diary: Diary
     
     private var currentPage = 0 {
         didSet {
-            delegate?.pageControlValueDidChange(to: currentPage)
+            delegate?.diaryDetailCurrentPageDidChange(to: currentPage)
         }
     }
     
@@ -37,13 +43,13 @@ final class DiaryDetailViewModel {
     // MARK: - Functions
     
     func fetchDiaryDetail() {
-        delegate?.fetchNavigationTItle(with: navigationTitle)
-        delegate?.fetchDiaryDetail(diary: diary)
+        delegate?.diaryDetailTitleDidFetch(with: navigationTitle)
+        delegate?.diaryDetailDidFetch(diary: diary)
         
         guard let paths = diary.images,
               let imageItems = repository.getImageDatas(from: paths)
         else { return }
-        delegate?.fetchImageData(with: imageItems)
+        cellViewModels = imageItems.map { DetailImageCellViewModel(data: $0) }
     }
     
     func currentPageDidChange(to page: Int) {
