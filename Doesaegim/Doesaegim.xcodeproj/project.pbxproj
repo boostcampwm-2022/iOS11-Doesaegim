@@ -124,6 +124,7 @@
 		EE85FBC3292BA9B600FF0C7C /* ExpenseAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE85FBC2292BA9B600FF0C7C /* ExpenseAddViewController.swift */; };
 		EE85FBC6292BAADC00FF0C7C /* ExpenseAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE85FBC5292BAADC00FF0C7C /* ExpenseAddView.swift */; };
 		EEA1C824292F395100B80901 /* ExchangeDiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA1C823292F395100B80901 /* ExchangeDiskCache.swift */; };
+		EEA1C826292F4E6000B80901 /* ExchangeMemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA1C825292F4E6000B80901 /* ExchangeMemoryCache.swift */; };
 		EEB6C4F8292CA8DB0060A459 /* ExpenseAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4F7292CA8DB0060A459 /* ExpenseAddViewModel.swift */; };
 		EEB6C4FB292CA9200060A459 /* ExpenseAddViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4FA292CA9200060A459 /* ExpenseAddViewProtocol.swift */; };
 		EEB6C4FD292CC29B0060A459 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4FC292CC29B0060A459 /* NetworkManager.swift */; };
@@ -276,6 +277,7 @@
 		EE85FBC2292BA9B600FF0C7C /* ExpenseAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddViewController.swift; sourceTree = "<group>"; };
 		EE85FBC5292BAADC00FF0C7C /* ExpenseAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddView.swift; sourceTree = "<group>"; };
 		EEA1C823292F395100B80901 /* ExchangeDiskCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeDiskCache.swift; sourceTree = "<group>"; };
+		EEA1C825292F4E6000B80901 /* ExchangeMemoryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeMemoryCache.swift; sourceTree = "<group>"; };
 		EEB6C4F3292C8CC50060A459 /* ExpenseAddPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddPickerViewController.swift; sourceTree = "<group>"; };
 		EEB6C4F5292CA3990060A459 /* ExpenseAddPickerViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddPickerViewProtocol.swift; sourceTree = "<group>"; };
 		EEB6C4F7292CA8DB0060A459 /* ExpenseAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddViewModel.swift; sourceTree = "<group>"; };
@@ -965,6 +967,7 @@
 			isa = PBXGroup;
 			children = (
 				EEA1C823292F395100B80901 /* ExchangeDiskCache.swift */,
+				EEA1C825292F4E6000B80901 /* ExchangeMemoryCache.swift */,
 			);
 			path = Exchange;
 			sourceTree = "<group>";
@@ -1202,6 +1205,7 @@
 			files = (
 				B5C421A4292F204900963B17 /* ExpenseAddPickerViewController.swift in Sources */,
 				B5C421A3292F201700963B17 /* ExpenseAddPickerViewProtocol.swift in Sources */,
+				EEA1C826292F4E6000B80901 /* ExchangeMemoryCache.swift in Sources */,
 				B57D9630292231FC00B510B8 /* DiaryDTO.swift in Sources */,
 				BB3DB920292CA76800C70D62 /* MapViewModelProtocol.swift in Sources */,
 				EE116C5C2924C9390017B519 /* TravelAddViewModel.swift in Sources */,

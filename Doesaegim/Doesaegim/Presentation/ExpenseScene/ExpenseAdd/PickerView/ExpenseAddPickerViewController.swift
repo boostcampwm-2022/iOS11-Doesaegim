@@ -57,7 +57,8 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
     // MARK: - Properties
     
     private var exchangeInfo: [ExchangeResponse] = []
-    private let exchangeDiskcache = ExchangeDiskCache.shared
+    private let exchangeDiskCache = ExchangeDiskCache.shared
+    private let exchangeMemoryCache = ExchangeMemoryCache.shared
     
     // TODO: - category 항목이 정해지면 수정 Enum으로?
     
@@ -65,7 +66,6 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
     
     private let type: PickerType
     private var selectedIndex: Int = 0
-    private var exchangeCache: [String: [ExchangeResponse]] = [:]
     
     var delegate: ExpenseAddPickerViewDelegate?
     
@@ -181,7 +181,7 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
                     self?.pickerView.reloadAllComponents()
                 }
                 UserDefaults.standard.set(day, forKey: Constants.fetchExchangeInfoDate)
-                self?.exchangeDiskcache.saveExchangeRateInfo(exchangeInfo: result)
+                self?.exchangeDiskCache.saveExchangeRateInfo(exchangeInfo: result)
             }
         }
     }
@@ -206,13 +206,27 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
         // UserDefault 확인
         if let fetchExchangeInfoDate = UserDefaults.standard.string(forKey: Constants.fetchExchangeInfoDate) {
             
+            // 메모리 캐시에 값 있는지 확인
+            let cacheKey = NSString(string: fetchExchangeInfoDate)
+            if let cachedExchangeRateInfo = exchangeMemoryCache.object(forKey: cacheKey)
+                as? [ExchangeResponse] {
+                exchangeInfo = cachedExchangeRateInfo
+                pickerView.reloadAllComponents()
+                print("[MemoryCache] Hit")
+                return
+            }
+            
             // UserDefault의 저장된 날짜가 오늘 날짜와 같고, 디스크 캐시에 저장되어 있다면
             // 디스크 캐시에서 불러옴
-            // TODO: 메모리캐시 확인 메서드 작성
+            // 메모리 캐시에 저장
             if fetchExchangeInfoDate == todayDateConvertToString(),
-                let info = exchangeDiskcache.fetchExchangeRateInfo() {
+                let info = exchangeDiskCache.fetchExchangeRateInfo() {
                 exchangeInfo = info
+                print("[DiskCache] Hit")
                 pickerView.reloadAllComponents()
+                
+                let cacheKey = NSString(string: fetchExchangeInfoDate)
+                exchangeMemoryCache.setObject(info as NSArray, forKey: cacheKey)
             }
             
         } else {
