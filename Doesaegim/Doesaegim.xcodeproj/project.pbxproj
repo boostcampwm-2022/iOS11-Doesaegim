@@ -33,16 +33,16 @@
 		A4CC04E02923738500BB678B /* PlanLocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04DF2923738500BB678B /* PlanLocalRepository.swift */; };
 		A4CC04E22923777B00BB678B /* NSObject+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04E12923777B00BB678B /* NSObject+Name.swift */; };
 		A4EB00DC2926456D00A83936 /* UIScrollView+DidPassPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB00DB2926456D00A83936 /* UIScrollView+DidPassPoint.swift */; };
-		B53763CC292B56600073BF46 /* CustomPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763CA292B56600073BF46 /* CustomPieChart.swift */; };
-		B53763D5292B61A40073BF46 /* CustomChartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763D4292B61A40073BF46 /* CustomChartItem.swift */; };
-		B53763E3292B99B80073BF46 /* PieceShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763E2292B99B80073BF46 /* PieceShapeLayer.swift */; };
-		B53763E8292BA0760073BF46 /* PieceTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763E7292BA0760073BF46 /* PieceTextLayer.swift */; };
 		A4EB25BF292BB4F1002D129A /* DiaryAddRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB25BE292BB4F1002D129A /* DiaryAddRepository.swift */; };
 		A4EB25C2292BB518002D129A /* DiaryAddLocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB25C1292BB518002D129A /* DiaryAddLocalRepository.swift */; };
 		A4EB25C4292BB828002D129A /* DiaryAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB25C3292BB828002D129A /* DiaryAddViewModel.swift */; };
 		A4EB25C9292C92CC002D129A /* DiaryAddViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB25C8292C92CC002D129A /* DiaryAddViewModelDelegate.swift */; };
 		A4EB25CB292C92F1002D129A /* PickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB25CA292C92F1002D129A /* PickerDataSource.swift */; };
 		A4EB25CD292C9775002D129A /* TemporaryDiary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB25CC292C9775002D129A /* TemporaryDiary.swift */; };
+		B53763CC292B56600073BF46 /* CustomPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763CA292B56600073BF46 /* CustomPieChart.swift */; };
+		B53763D5292B61A40073BF46 /* CustomChartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763D4292B61A40073BF46 /* CustomChartItem.swift */; };
+		B53763E3292B99B80073BF46 /* PieceShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763E2292B99B80073BF46 /* PieceShapeLayer.swift */; };
+		B53763E8292BA0760073BF46 /* PieceTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763E7292BA0760073BF46 /* PieceTextLayer.swift */; };
 		B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D96252922301E00B510B8 /* TravelDTO.swift */; };
 		B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D9627292230CA00B510B8 /* PlanDTO.swift */; };
 		B57D962C2922315500B510B8 /* LocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962B2922315500B510B8 /* LocationDTO.swift */; };
@@ -55,6 +55,8 @@
 		B5C096C029236BC0007426B1 /* SearchResultCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096BF29236BC0007426B1 /* SearchResultCellViewModel.swift */; };
 		B5C096C429238091007426B1 /* SearchingLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096C329238091007426B1 /* SearchingLocationViewModel.swift */; };
 		B5C096C629238A0B007426B1 /* SearchingLocationViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096C529238A0B007426B1 /* SearchingLocationViewModelDelegate.swift */; };
+		B5C421A3292F201700963B17 /* ExpenseAddPickerViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4F5292CA3990060A459 /* ExpenseAddPickerViewProtocol.swift */; };
+		B5C421A4292F204900963B17 /* ExpenseAddPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4F3292C8CC50060A459 /* ExpenseAddPickerViewController.swift */; };
 		B5D64E61292DF06400E1CC81 /* PlaceSearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E5E292DF06400E1CC81 /* PlaceSearchButton.swift */; };
 		B5D64E62292DF06400E1CC81 /* DiaryAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E5F292DF06400E1CC81 /* DiaryAddViewController.swift */; };
 		B5D64E63292DF06400E1CC81 /* DiaryAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E60292DF06400E1CC81 /* DiaryAddView.swift */; };
@@ -121,8 +123,6 @@
 		EE3E29BC2923C870007C7FC7 /* TravelAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E29BB2923C870007C7FC7 /* TravelAddViewController.swift */; };
 		EE85FBC3292BA9B600FF0C7C /* ExpenseAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE85FBC2292BA9B600FF0C7C /* ExpenseAddViewController.swift */; };
 		EE85FBC6292BAADC00FF0C7C /* ExpenseAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE85FBC5292BAADC00FF0C7C /* ExpenseAddView.swift */; };
-		EEB6C4F4292C8CC50060A459 /* ExpenseAddPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4F3292C8CC50060A459 /* ExpenseAddPickerViewController.swift */; };
-		EEB6C4F6292CA3990060A459 /* ExpenseAddPickerViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4F5292CA3990060A459 /* ExpenseAddPickerViewProtocol.swift */; };
 		EEB6C4F8292CA8DB0060A459 /* ExpenseAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4F7292CA8DB0060A459 /* ExpenseAddViewModel.swift */; };
 		EEB6C4FB292CA9200060A459 /* ExpenseAddViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4FA292CA9200060A459 /* ExpenseAddViewProtocol.swift */; };
 		EEB6C4FD292CC29B0060A459 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4FC292CC29B0060A459 /* NetworkManager.swift */; };
@@ -180,16 +180,16 @@
 		A4CC04DF2923738500BB678B /* PlanLocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanLocalRepository.swift; sourceTree = "<group>"; };
 		A4CC04E12923777B00BB678B /* NSObject+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Name.swift"; sourceTree = "<group>"; };
 		A4EB00DB2926456D00A83936 /* UIScrollView+DidPassPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+DidPassPoint.swift"; sourceTree = "<group>"; };
-		B53763CA292B56600073BF46 /* CustomPieChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPieChart.swift; sourceTree = "<group>"; };
-		B53763D4292B61A40073BF46 /* CustomChartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChartItem.swift; sourceTree = "<group>"; };
-		B53763E2292B99B80073BF46 /* PieceShapeLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceShapeLayer.swift; sourceTree = "<group>"; };
-		B53763E7292BA0760073BF46 /* PieceTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceTextLayer.swift; sourceTree = "<group>"; };
 		A4EB25BE292BB4F1002D129A /* DiaryAddRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddRepository.swift; sourceTree = "<group>"; };
 		A4EB25C1292BB518002D129A /* DiaryAddLocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddLocalRepository.swift; sourceTree = "<group>"; };
 		A4EB25C3292BB828002D129A /* DiaryAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddViewModel.swift; sourceTree = "<group>"; };
 		A4EB25C8292C92CC002D129A /* DiaryAddViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddViewModelDelegate.swift; sourceTree = "<group>"; };
 		A4EB25CA292C92F1002D129A /* PickerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDataSource.swift; sourceTree = "<group>"; };
 		A4EB25CC292C9775002D129A /* TemporaryDiary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryDiary.swift; sourceTree = "<group>"; };
+		B53763CA292B56600073BF46 /* CustomPieChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPieChart.swift; sourceTree = "<group>"; };
+		B53763D4292B61A40073BF46 /* CustomChartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChartItem.swift; sourceTree = "<group>"; };
+		B53763E2292B99B80073BF46 /* PieceShapeLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceShapeLayer.swift; sourceTree = "<group>"; };
+		B53763E7292BA0760073BF46 /* PieceTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceTextLayer.swift; sourceTree = "<group>"; };
 		B57D96252922301E00B510B8 /* TravelDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDTO.swift; sourceTree = "<group>"; };
 		B57D9627292230CA00B510B8 /* PlanDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDTO.swift; sourceTree = "<group>"; };
 		B57D962B2922315500B510B8 /* LocationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDTO.swift; sourceTree = "<group>"; };
@@ -446,25 +446,6 @@
 			path = PlanList;
 			sourceTree = "<group>";
 		};
-		B53763C8292B56600073BF46 /* CustomGraph */ = {
-			isa = PBXGroup;
-			children = (
-				B53763D4292B61A40073BF46 /* CustomChartItem.swift */,
-				B53763E4292B99D10073BF46 /* PieChart */,
-			);
-			path = CustomGraph;
-			sourceTree = "<group>";
-		};
-		B53763E4292B99D10073BF46 /* PieChart */ = {
-			isa = PBXGroup;
-			children = (
-				B53763CA292B56600073BF46 /* CustomPieChart.swift */,
-				B53763E2292B99B80073BF46 /* PieceShapeLayer.swift */,
-				B53763E7292BA0760073BF46 /* PieceTextLayer.swift */,
-			);
-			path = PieChart;
-			sourceTree = "<group>";
-		};
 		A4EB25C0292BB4F7002D129A /* DiaryScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -482,6 +463,25 @@
 				A4EB25CA292C92F1002D129A /* PickerDataSource.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B53763C8292B56600073BF46 /* CustomGraph */ = {
+			isa = PBXGroup;
+			children = (
+				B53763D4292B61A40073BF46 /* CustomChartItem.swift */,
+				B53763E4292B99D10073BF46 /* PieChart */,
+			);
+			path = CustomGraph;
+			sourceTree = "<group>";
+		};
+		B53763E4292B99D10073BF46 /* PieChart */ = {
+			isa = PBXGroup;
+			children = (
+				B53763CA292B56600073BF46 /* CustomPieChart.swift */,
+				B53763E2292B99B80073BF46 /* PieceShapeLayer.swift */,
+				B53763E7292BA0760073BF46 /* PieceTextLayer.swift */,
+			);
+			path = PieChart;
 			sourceTree = "<group>";
 		};
 		B57D962229222FC500B510B8 /* Data */ = {
@@ -607,8 +607,8 @@
 				B5D64E75292E3B6C00E1CC81 /* DiaryDetailLocalRepository.swift */,
 			);
 			path = DiaryDetail;
-            sourceTree = "<group>";
-        };
+			sourceTree = "<group>";
+		};
 		BB288FCE292E1D9200065D04 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
@@ -1189,6 +1189,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5C421A4292F204900963B17 /* ExpenseAddPickerViewController.swift in Sources */,
+				B5C421A3292F201700963B17 /* ExpenseAddPickerViewProtocol.swift in Sources */,
 				B57D9630292231FC00B510B8 /* DiaryDTO.swift in Sources */,
 				BB3DB920292CA76800C70D62 /* MapViewModelProtocol.swift in Sources */,
 				EE116C5C2924C9390017B519 /* TravelAddViewModel.swift in Sources */,
@@ -1224,9 +1226,7 @@
 				A4CC04CB29227E5C00BB678B /* Constants.swift in Sources */,
 				A4CC04CD2922818900BB678B /* UIView+AddSubviews.swift in Sources */,
 				BBFAC091291CBDD700D7FD57 /* Doesaegim.xcdatamodeld in Sources */,
-				EEB6C4F6292CA3990060A459 /* PickerViewProtocol.swift in Sources */,
 				B5D64E76292E3B6C00E1CC81 /* DiaryDetailLocalRepository.swift in Sources */,
-				EEB6C4F6292CA3990060A459 /* ExpenseAddPickerViewProtocol.swift in Sources */,
 				A4CC04D5292332C600BB678B /* UILabel+ChangeFontSize.swift in Sources */,
 				BB288FC8292E167900065D04 /* DiaryCalloutView.swift in Sources */,
 				BBDB2E9429262BB300752924 /* ExpenseCollectionHeaderView.swift in Sources */,
@@ -1305,10 +1305,8 @@
 				A4EB25C4292BB828002D129A /* DiaryAddViewModel.swift in Sources */,
 				A4EB25BF292BB4F1002D129A /* DiaryAddRepository.swift in Sources */,
 				EEDB752F2925E8DD0069A7F5 /* CalendarViewController.swift in Sources */,
-				EEB6C4F4292C8CC50060A459 /* PickerViewController.swift in Sources */,
 				B5D64E67292DFED500E1CC81 /* DiaryDetailViewController.swift in Sources */,
 				B5D64E6C292E22A400E1CC81 /* DiaryDetailViewModel.swift in Sources */,
-				EEB6C4F4292C8CC50060A459 /* ExpenseAddPickerViewController.swift in Sources */,
 				EEB6C4FD292CC29B0060A459 /* NetworkManager.swift in Sources */,
 				EE85FBC6292BAADC00FF0C7C /* ExpenseAddView.swift in Sources */,
 			);
