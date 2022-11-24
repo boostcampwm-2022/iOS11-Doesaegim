@@ -10,14 +10,14 @@ import Foundation
 final class DiaryListViewModel: DiaryListViewModelProtocol {
     
     var delegate: DiaryListViewModelDelegate?
-    var diaryInfo: [DiaryInfoViewModel] { // 여행UUID: 다이어리 목록
+    var diaryInfos: [DiaryInfoViewModel] { // 여행UUID: 다이어리 목록
         didSet {
             delegate?.diaryInfoDidChage()
         }
     }
     
     init() {
-        self.diaryInfo = []
+        self.diaryInfos = []
     }
     
 }
@@ -25,7 +25,7 @@ final class DiaryListViewModel: DiaryListViewModelProtocol {
 extension DiaryListViewModel {
     
     private func initializeInfo() {
-        diaryInfo = []
+        diaryInfos = []
     }
     
     func fetchDiary() {
@@ -53,7 +53,7 @@ extension DiaryListViewModel {
                     
                 }
             }
-            diaryInfo = newDiaries
+            diaryInfos = newDiaries
             
         case .failure(let error):
             print(error.localizedDescription)

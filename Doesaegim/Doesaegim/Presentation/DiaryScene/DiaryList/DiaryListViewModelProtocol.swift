@@ -10,6 +10,7 @@ import Foundation
 protocol DiaryListViewModelProtocol: AnyObject {
     
     var delegate: DiaryListViewModelDelegate? { get set }
+    var diaryInfos: [DiaryInfoViewModel] { get set }
     
     func fetchDiary()
     

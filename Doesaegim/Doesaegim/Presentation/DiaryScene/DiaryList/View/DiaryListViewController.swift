@@ -33,6 +33,14 @@ final class DiaryListViewController: UIViewController {
         
     }()
     
+    private let placeholdLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .grey4
+        label.text = "일정 탭에서 여행을 추가해주세요"
+        
+        return label
+    }()
+    
     private var diaryDataSource: DataSource?
     
     // MARK: - Initializer(s)
@@ -40,6 +48,7 @@ final class DiaryListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        viewModel?.fetchDiary()
         configure()
     }
     
@@ -69,12 +78,18 @@ extension DiaryListViewController {
     
     private func configureSubviews() {
         view.addSubview(collectionView)
+        view.addSubview(placeholdLabel)
     }
     
     private func configureConstraints() {
         collectionView.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview().inset(16)
             $0.verticalEdges.equalToSuperview()
+        }
+        
+        placeholdLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
         }
     }
     
@@ -142,6 +157,9 @@ extension DiaryListViewController {
 extension DiaryListViewController: DiaryListViewModelDelegate {
     
     func diaryInfoDidChage() {
-        print(#function)
+        guard let viewModel = viewModel else { return }
+        let diaryInfos = viewModel.diaryInfos
+        
+        placeholdLabel.isHidden = diaryInfos.isEmpty ? false : true
     }
 }
