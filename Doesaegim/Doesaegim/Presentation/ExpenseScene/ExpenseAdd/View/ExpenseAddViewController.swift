@@ -42,7 +42,6 @@ final class ExpenseAddViewController: UIViewController {
         setKeyboardNotification()
         setAddTarget()
         viewModel.delegate = self
-//        viewModel.fetchCurrentTravel(with: "travelID")
     }
     
     // MARK: - Configure Function
@@ -209,24 +208,22 @@ extension ExpenseAddViewController {
     }
   
     @objc private func keyboardDidShow(notification: NSNotification) {
-        if let keyboardFrame: NSValue = notification
-            .userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
-            self.view.frame.size.height -= keyboardHeight
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-            view.addGestureRecognizer(tapGesture)
+        guard let userInfo = notification.userInfo,
+              let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        else {
+            return
         }
+        let contentInsets = UIEdgeInsets(
+            top: .zero,
+            left: .zero,
+            bottom: keyboardSize.height - (tabBarController?.tabBar.frame.height ?? .zero),
+            right: .zero
+        )
+        rootView.scrollView.contentInset = contentInsets
     }
 
     @objc private func keyboardWillHide(notification: NSNotification) {
-        if let keyboardFrame: NSValue = notification
-            .userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
-            self.view.frame.size.height += keyboardHeight
-            view.gestureRecognizers?.removeAll()
-        }
+        rootView.scrollView.contentInset = .zero
     }
     
     @objc private func dismissKeyboard() {

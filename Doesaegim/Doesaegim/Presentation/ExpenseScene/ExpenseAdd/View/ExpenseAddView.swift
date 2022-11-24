@@ -11,7 +11,7 @@ final class ExpenseAddView: UIView {
     
     // MARK: - UI properties
     
-    private lazy var scrollView: UIScrollView = {
+    lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         
         scrollView.backgroundColor = .white
@@ -272,6 +272,9 @@ final class ExpenseAddView: UIView {
         categoryStackView.addArrangedSubviews(categoryLabel, categoryButton)
         dateStackView.addArrangedSubviews(dateLabel, dateButton)
         descriptionStackView.addArrangedSubviews(descriptionTitleLabel, descriptionTextView)
+        scrollView.addGestureRecognizer(UITapGestureRecognizer(
+            target: self, action: #selector(backgroundDidTap)
+        ))
     }
     
     private func configureConstraints() {
@@ -344,5 +347,9 @@ final class ExpenseAddView: UIView {
             $0.top.equalTo(descriptionTextView.snp.bottom).offset(40)
             $0.height.equalTo(48)
         }
+    }
+    
+    @objc private func backgroundDidTap() {
+        endEditing(true)
     }
 }
