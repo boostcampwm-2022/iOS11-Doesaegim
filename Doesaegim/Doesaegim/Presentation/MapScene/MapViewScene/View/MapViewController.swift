@@ -30,9 +30,12 @@ final class MapViewController: UIViewController {
     // 추후 지워질 함 수 더미 핀을 만드는 함수
     private func addDummyPins() {
         print(#function)
+//        let dummyImage = UIImage(systemName: "doc.append")
+        let dummyImage = UIImage(systemName: "photo")
+        let dummyImageData = dummyImage?.pngData()!
         let diaryInfoViewModel = DiaryMapInfoViewModel(
             id: UUID(),
-            imagePaths: nil,
+            imageData: [dummyImageData!],
             title: "제목입니다.",
             content: "콘텐츠 입니다",
             date: Date(),
@@ -40,6 +43,17 @@ final class MapViewController: UIViewController {
             longitude: 126.9796
         )
         addPin(with: diaryInfoViewModel)
+        
+        let diaryInfoViewModel2 = DiaryMapInfoViewModel(
+            id: UUID(),
+            imageData: [],
+            title: "제목입니다.",
+            content: "콘텐츠 입니다",
+            date: Date(),
+            latitude: 37.57,
+            longitude: 126.9996
+        )
+        addPin(with: diaryInfoViewModel2)
     }
     
     // MARK: - Configuration
@@ -159,14 +173,18 @@ extension MapViewController: MKMapViewDelegate {
             markerAnnotationView.canShowCallout = true
             markerAnnotationView.markerTintColor = .primaryOrange
             
-            // TODO: - 이미지 넣는 방식 결정
-//            let image = UIImage(systemName: "photo")
-//            markerAnnotationView.detailCalloutAccessoryView = UIImageView(image: image)
-            let thumbnailImageView: UIImageView = UIImageView(image: UIImage(systemName: "photo"))
-            markerAnnotationView.leftCalloutAccessoryView = thumbnailImageView
+            if !annotation.imageData.isEmpty,
+               let thumbnailImageData = annotation.imageData.first {
+                // 사진이 없으면 아무 이미지도 없이 제목과 내용미리보기가 나온다.
+                let image = UIImage(data: thumbnailImageData)
+                let imageView = DiaryCalloutView(frame: .zero, image: image)
+
+                markerAnnotationView.detailCalloutAccessoryView = imageView
+            }
             
             let rightButton = UIButton(type: .detailDisclosure)
             markerAnnotationView.rightCalloutAccessoryView = rightButton
+
         }
         return view
     }

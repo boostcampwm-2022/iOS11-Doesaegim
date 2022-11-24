@@ -22,26 +22,33 @@ final class DiaryAddView: UIView {
         return scrollView
     }()
 
-    private let contentStack: UIStackView = {
-        let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .vertical
-        stack.spacing = Metric.spacing
-        stack.alignment = .center
+    let travelPicker = UIPickerView()
 
-        return stack
-    }()
-
-    private let travelTextField: UITextField = {
+    let travelTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = StringLiteral.travelTextFieldPlaceholder
+        textField.font = textField.font?.withSize(FontSize.title)
 
         return textField
     }()
 
-    private let travelPicker = UIPickerView()
+    let placeSearchButton = PlaceSearchButton()
 
-    private let placeSearchButton = PlaceSearchButton()
+    let titleTextField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = StringLiteral.titleTextFieldPlaceholder
+
+        return textField
+    }()
+
+    let contentTextView: UITextView = {
+        let textView = UITextView()
+        textView.sizeToFit()
+        textView.isScrollEnabled = false
+        textView.layer.cornerRadius = 8
+        
+        return textView
+    }()
 
     private let addPhotoButton: UIButton = {
         let button = UIButton()
@@ -86,22 +93,6 @@ final class DiaryAddView: UIView {
         return control
     }()
 
-    private let nameTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = StringLiteral.nameTextFieldPlaceholder
-
-        return textField
-    }()
-
-    private let contentTextView: UITextView = {
-        let textView = UITextView()
-        textView.sizeToFit()
-        textView.isScrollEnabled = false
-        textView.layer.cornerRadius = 8
-
-        return textView
-    }()
-
     private let divider: UIView = {
         let view = UIView()
         view.backgroundColor = .grey1
@@ -109,7 +100,17 @@ final class DiaryAddView: UIView {
         return view
     }()
 
+    private let contentStack: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        stack.spacing = Metric.spacing
+        stack.alignment = .center
 
+        return stack
+    }()
+
+    
     // MARK: - Properties
 
 
@@ -142,7 +143,7 @@ final class DiaryAddView: UIView {
         let contentStackSubviews = [
             travelTextField, placeSearchButton,
             imageSlider, pageControl,
-            nameTextField, divider, contentTextView
+            titleTextField, divider, contentTextView
         ]
         contentStack.addArrangedSubviews(contentStackSubviews)
         travelTextField.inputView = travelPicker
@@ -160,9 +161,10 @@ final class DiaryAddView: UIView {
     private func configureConstraints() {
         scrollView.snp.makeConstraints { $0.edges.equalToSuperview() }
         contentStack.snp.makeConstraints { $0.edges.width.equalToSuperview() }
-        [travelTextField, placeSearchButton, divider, nameTextField, contentTextView].forEach { view in
+        [travelTextField, placeSearchButton, divider, titleTextField, contentTextView].forEach { view in
             view.snp.makeConstraints { $0.leading.trailing.equalToSuperview().inset(Metric.inset) }
         }
+        placeSearchButton.snp.makeConstraints { $0.height.equalTo(Metric.placeSearchButtonHeight) }
         imageSlider.snp.makeConstraints {
             $0.width.equalToSuperview()
             $0.height.equalTo(imageSlider.snp.width)
@@ -186,6 +188,8 @@ fileprivate extension DiaryAddView {
         static let inset: CGFloat = 16
 
         static let cornerRadius: CGFloat = 8
+
+        static let placeSearchButtonHeight: CGFloat = 37
     }
 
     enum StringLiteral {
@@ -193,6 +197,6 @@ fileprivate extension DiaryAddView {
 
         static let squaredPlus = "plus.app"
 
-        static let nameTextFieldPlaceholder = "제목"
+        static let titleTextFieldPlaceholder = "제목"
     }
 }

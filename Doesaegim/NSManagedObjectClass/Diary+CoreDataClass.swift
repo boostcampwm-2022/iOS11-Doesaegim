@@ -23,6 +23,11 @@ public class Diary: NSManagedObject {
         diary.images = object.images
         diary.title = object.title
         diary.content = object.content
+
+        let location = Location.add(with: object.location)
+        diary.location = location
+        
+        object.travel.addToDiary(diary)
         
         let result = PersistentManager.shared.saveContext()
         
@@ -44,11 +49,16 @@ public class Diary: NSManagedObject {
               let date = diary.date,
               let latitude = diary.location?.latitude,
               let longitude = diary.location?.longitude else { return nil }
-    
+        
+        var imageData: [Data] = []
+        if let imagePaths = diary.images {
+            imageData = FileProcessManager.shared.fetchImages(with: imagePaths)
+        }
+        
         // imagepath의 배열은 이미지가 없는 다이어리가 있을 수 있으므로 따로 검사하지 않는다.
         let diaryMapInfo = DiaryMapInfoViewModel(
             id: id,
-            imagePaths: diary.images,
+            imageData: imageData,
             title: title,
             content: content,
             date: date,

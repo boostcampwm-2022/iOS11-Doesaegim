@@ -214,7 +214,7 @@ final class ExpenseAddView: UIView {
         return label
     }()
     
-    private lazy var descriptionTextView: UITextView = {
+    lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
         
         textView.layer.cornerRadius = 10

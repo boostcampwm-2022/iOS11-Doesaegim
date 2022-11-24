@@ -16,7 +16,7 @@ final class DiaryAnnotation: NSObject, MKAnnotation {
     var id: UUID?
     var title: String?
     var subtitle: String?
-    var imagePath: String?
+    var imageData: [Data] = []
     
     init(coordinate: CLLocationCoordinate2D) {
         self.coordinate = coordinate
@@ -29,8 +29,6 @@ extension DiaryAnnotation {
         id = diaryInfo.id
         title = diaryInfo.title
         subtitle = diaryInfo.content // 내용을 나타낼찌, 날짜를 넣을지 추후 결정
-        
-        guard let imagePaths = diaryInfo.imagePaths else { return }
-        imagePath = imagePaths.first
+        imageData = diaryInfo.imageData
     }
 }
