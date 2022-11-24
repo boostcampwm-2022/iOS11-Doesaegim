@@ -404,7 +404,7 @@
 			children = (
 				BB9DB8132928D0C300102EC8 /* PersistentStorage */,
 				A4CC04DB292351E700BB678B /* TravelScene */,
-				B5D64E73292E3B2100E1CC81 /* DiaryScene */,
+				B5D64E73292E3B2100E1CC81 /* DiaryDetailScene */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -551,12 +551,12 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		B5D64E73292E3B2100E1CC81 /* DiaryScene */ = {
+		B5D64E73292E3B2100E1CC81 /* DiaryDetailScene */ = {
 			isa = PBXGroup;
 			children = (
 				B5D64E74292E3B4600E1CC81 /* DiaryDetail */,
 			);
-			path = DiaryScene;
+			path = DiaryDetailScene;
 			sourceTree = "<group>";
 		};
 		B5D64E74292E3B4600E1CC81 /* DiaryDetail */ = {
