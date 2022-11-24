@@ -157,7 +157,6 @@ extension MapViewController: MKMapViewDelegate {
             annotationView = setupDiaryAnnotationView(for: annotation, on: mapView)
         }
         
-        print(type(of: annotation))
         return annotationView
     }
     
