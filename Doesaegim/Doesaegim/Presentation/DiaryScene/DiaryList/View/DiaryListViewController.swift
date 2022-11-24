@@ -33,6 +33,8 @@ final class DiaryListViewController: UIViewController {
         
     }()
     
+    private var diaryDataSource: DataSource?
+    
     // MARK: - Initializer(s)
     
     override func viewDidLoad() {
@@ -52,6 +54,7 @@ extension DiaryListViewController {
         configureNavigationBar()
         configureSubviews()
         configureConstraints()
+        configureCollectionViewDataSource()
     }
     
     private func configureNavigationBar() {
@@ -109,6 +112,29 @@ extension DiaryListViewController {
             return section
         }
         return layout
+    }
+    
+    private func configureCollectionViewDataSource() {
+        
+        let diaryCell = CellRegistration { cell, _, identifier in
+            // TODO: - 셀 설정
+            
+        }
+        
+        diaryDataSource = DataSource(
+            collectionView: collectionView,
+            cellProvider: { collectionView, indexPath, item in
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: diaryCell,
+                    for: indexPath,
+                    item: item
+                )
+            }
+        )
+        
+        // TODO: - 섹션 등록
+            
+        
     }
     
 }
