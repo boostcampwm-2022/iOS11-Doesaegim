@@ -11,6 +11,7 @@ protocol DiaryListViewModelProtocol: AnyObject {
     
     var delegate: DiaryListViewModelDelegate? { get set }
     var diaryInfos: [DiaryInfoViewModel] { get set }
+    var idAndTravelDictionary: [UUID: String] { get set }
     
     func fetchDiary()
     

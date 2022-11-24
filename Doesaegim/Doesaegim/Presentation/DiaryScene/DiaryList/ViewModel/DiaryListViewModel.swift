@@ -15,9 +15,11 @@ final class DiaryListViewModel: DiaryListViewModelProtocol {
             delegate?.diaryInfoDidChage()
         }
     }
+    var idAndTravelDictionary: [UUID: String]
     
     init() {
         self.diaryInfos = []
+        self.idAndTravelDictionary = [:]
     }
     
 }
@@ -26,6 +28,7 @@ extension DiaryListViewModel {
     
     private func initializeInfo() {
         diaryInfos = []
+        idAndTravelDictionary = [:]
     }
     
     func fetchDiary() {
@@ -48,8 +51,11 @@ extension DiaryListViewModel {
                 guard let diaries = travel.diary?.allObjects as? [Diary] else { return }
                 diaries.forEach { diary in
                     guard var diaryInfo = Diary.convertToViewModel(with: diary) else { return }
-                    diaryInfo.travelID = travel.id
-                    diaryInfo.travelName = travel.name
+                    guard let travelID = travel.id,
+                          let name = travel.name else { return }
+                    diaryInfo.travelID = travelID
+                    diaryInfo.travelName = name
+                    idAndTravelDictionary[travelID] = name
                     newDiaries.append(diaryInfo)
                     
                 }
