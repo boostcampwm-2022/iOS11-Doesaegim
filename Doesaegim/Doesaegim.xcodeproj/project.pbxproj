@@ -69,6 +69,10 @@
 		B5D64E78292E4B9A00E1CC81 /* DetailImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E77292E4B9A00E1CC81 /* DetailImageCell.swift */; };
 		B5D64E7A292E684000E1CC81 /* DetailImageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E79292E684000E1CC81 /* DetailImageCellViewModel.swift */; };
 		B5DE4D4029271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DE4D3F29271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift */; };
+		BB02B090292F294C00FE11DA /* DiaryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB02B08F292F294C00FE11DA /* DiaryListViewController.swift */; };
+		BB02B092292F295800FE11DA /* DiaryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB02B091292F295800FE11DA /* DiaryListViewModel.swift */; };
+		BB02B094292F29E000FE11DA /* DiaryListViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB02B093292F29E000FE11DA /* DiaryListViewModelProtocol.swift */; };
+		BB02B096292F2A4900FE11DA /* DiaryInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB02B095292F2A4900FE11DA /* DiaryInfoViewModel.swift */; };
 		BB288FC8292E167900065D04 /* DiaryCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB288FC7292E167900065D04 /* DiaryCalloutView.swift */; };
 		BB288FCB292E1A2B00065D04 /* FileProcessManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB288FCA292E1A2B00065D04 /* FileProcessManager.swift */; };
 		BB288FD0292E21E100065D04 /* FileManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB288FCF292E21E100065D04 /* FileManagerError.swift */; };
@@ -214,6 +218,10 @@
 		B5D64E77292E4B9A00E1CC81 /* DetailImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageCell.swift; sourceTree = "<group>"; };
 		B5D64E79292E684000E1CC81 /* DetailImageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageCellViewModel.swift; sourceTree = "<group>"; };
 		B5DE4D3F29271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationViewControllerDelegate.swift; sourceTree = "<group>"; };
+		BB02B08F292F294C00FE11DA /* DiaryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewController.swift; sourceTree = "<group>"; };
+		BB02B091292F295800FE11DA /* DiaryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewModel.swift; sourceTree = "<group>"; };
+		BB02B093292F29E000FE11DA /* DiaryListViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewModelProtocol.swift; sourceTree = "<group>"; };
+		BB02B095292F2A4900FE11DA /* DiaryInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModel.swift; sourceTree = "<group>"; };
 		BB288FC7292E167900065D04 /* DiaryCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCalloutView.swift; sourceTree = "<group>"; };
 		BB288FCA292E1A2B00065D04 /* FileProcessManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProcessManager.swift; sourceTree = "<group>"; };
 		BB288FCF292E21E100065D04 /* FileManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerError.swift; sourceTree = "<group>"; };
@@ -358,6 +366,7 @@
 		A4CC04B0292261E000BB678B /* DiaryScene */ = {
 			isa = PBXGroup;
 			children = (
+				BB02B08C292F292900FE11DA /* DiaryList */,
 				B5D64E64292DFC9900E1CC81 /* DiaryDetail */,
 				B5D64E5C292DF06400E1CC81 /* DiaryAdd */,
 				BBD0D060291DE988007D0D82 /* DiaryViewController.swift */,
@@ -609,6 +618,32 @@
 			path = DiaryDetail;
 			sourceTree = "<group>";
 		};
+		BB02B08C292F292900FE11DA /* DiaryList */ = {
+			isa = PBXGroup;
+			children = (
+				BB02B093292F29E000FE11DA /* DiaryListViewModelProtocol.swift */,
+				BB02B08D292F293800FE11DA /* View */,
+				BB02B08E292F293D00FE11DA /* ViewModel */,
+			);
+			path = DiaryList;
+			sourceTree = "<group>";
+		};
+		BB02B08D292F293800FE11DA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BB02B08F292F294C00FE11DA /* DiaryListViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BB02B08E292F293D00FE11DA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BB02B091292F295800FE11DA /* DiaryListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		BB288FCE292E1D9200065D04 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
@@ -697,6 +732,7 @@
 				BBE695D529227C8D0015FAD4 /* TravelInfoViewModel.swift */,
 				BBDB2E912926222100752924 /* ExpenseInfoViewModel.swift */,
 				BB3DB921292CA79500C70D62 /* DiaryMapInfoViewModel.swift */,
+				BB02B095292F2A4900FE11DA /* DiaryInfoViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1204,6 +1240,7 @@
 				BB9DB80E2928CA6A00102EC8 /* ExpenseListViewModelProtocol.swift in Sources */,
 				B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */,
 				EEB6C4F8292CA8DB0060A459 /* ExpenseAddViewModel.swift in Sources */,
+				BB02B090292F294C00FE11DA /* DiaryListViewController.swift in Sources */,
 				B5C096C429238091007426B1 /* SearchingLocationViewModel.swift in Sources */,
 				B5D64E7A292E684000E1CC81 /* DetailImageCellViewModel.swift in Sources */,
 				EEB6C503292CC88B0060A459 /* ExchangeResponse.swift in Sources */,
@@ -1218,6 +1255,7 @@
 				EE3E29BC2923C870007C7FC7 /* TravelAddViewController.swift in Sources */,
 				B5D64E62292DF06400E1CC81 /* DiaryAddViewController.swift in Sources */,
 				BBD0D063291DE991007D0D82 /* SettingViewController.swift in Sources */,
+				BB02B092292F295800FE11DA /* DiaryListViewModel.swift in Sources */,
 				BB3DB919292C649600C70D62 /* UIView+Frame.swift in Sources */,
 				A4EB25CD292C9775002D129A /* TemporaryDiary.swift in Sources */,
 				EEDB75312925F56D0069A7F5 /* CalendarProtocol.swift in Sources */,
@@ -1227,6 +1265,7 @@
 				A4CC04CD2922818900BB678B /* UIView+AddSubviews.swift in Sources */,
 				BBFAC091291CBDD700D7FD57 /* Doesaegim.xcdatamodeld in Sources */,
 				B5D64E76292E3B6C00E1CC81 /* DiaryDetailLocalRepository.swift in Sources */,
+				BB02B096292F2A4900FE11DA /* DiaryInfoViewModel.swift in Sources */,
 				A4CC04D5292332C600BB678B /* UILabel+ChangeFontSize.swift in Sources */,
 				BB288FC8292E167900065D04 /* DiaryCalloutView.swift in Sources */,
 				BBDB2E9429262BB300752924 /* ExpenseCollectionHeaderView.swift in Sources */,
@@ -1282,6 +1321,7 @@
 				A48E994A292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift in Sources */,
 				B57D962C2922315500B510B8 /* LocationDTO.swift in Sources */,
 				BB7D9A262926088A00BF2BD6 /* ExpensePlaceholdView.swift in Sources */,
+				BB02B094292F29E000FE11DA /* DiaryListViewModelProtocol.swift in Sources */,
 				BBFAC089291CBDD700D7FD57 /* SceneDelegate.swift in Sources */,
 				EE85FBC3292BA9B600FF0C7C /* ExpenseAddViewController.swift in Sources */,
 				A4EB25C9292C92CC002D129A /* DiaryAddViewModelDelegate.swift in Sources */,
@@ -1477,7 +1517,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6Q8CR7M222;
+				DEVELOPMENT_TEAM = 92B5D498S7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Doesaegim/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1505,7 +1545,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6Q8CR7M222;
+				DEVELOPMENT_TEAM = 92B5D498S7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Doesaegim/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

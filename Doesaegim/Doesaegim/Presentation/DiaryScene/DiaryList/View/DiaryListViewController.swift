@@ -8,6 +8,8 @@
 import UIKit
 
 
+import SnapKit
+
 final class DiaryListViewController: UIViewController {
     
     // MARK: - Properties
@@ -19,6 +21,9 @@ final class DiaryListViewController: UIViewController {
         
         let layout = createCompositionalLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
+        collectionView.layer.cornerRadius = 12
+        return collectionView
         
     }()
     
@@ -26,12 +31,48 @@ final class DiaryListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemPink
+        view.backgroundColor = .white
+        configure()
     }
     
 }
 
 extension DiaryListViewController {
+    
+    // MARK: - Configuration
+    
+    private func configure() {
+        viewModel?.delegate = self
+        configureNavigationBar()
+        configureSubviews()
+        configureConstraints()
+    }
+    
+    private func configureNavigationBar() {
+        navigationItem.title = "다이어리 목록"
+        navigationController?.navigationBar.tintColor = .primaryOrange
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .add,
+            target: self,
+            action: #selector(didAddDiaryButtonTap)
+        )
+    }
+    
+    private func configureSubviews() {
+        view.addSubview(collectionView)
+    }
+    
+    private func configureConstraints() {
+        collectionView.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.verticalEdges.equalToSuperview()
+        }
+    }
+    
+    // MARK: - Actions
+    @objc private func didAddDiaryButtonTap() {
+        print("다이어리 추가버튼 탭")
+    }
     
     // MARK: - Collection View
     private func createCompositionalLayout() -> UICollectionViewLayout {
@@ -64,4 +105,11 @@ extension DiaryListViewController {
         return layout
     }
     
+}
+
+extension DiaryListViewController: DiaryListViewModelDelegate {
+    
+    func diaryInfoDidChage() {
+        print(#function)
+    }
 }
