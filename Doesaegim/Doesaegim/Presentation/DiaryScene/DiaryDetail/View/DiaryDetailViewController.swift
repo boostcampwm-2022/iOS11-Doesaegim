@@ -59,11 +59,10 @@ final class DiaryDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         
         guard isInitializedViewModel() else {
             presentErrorAlert(title: "다이어리 정보를 찾을 수 없습니다.", handler: { [weak self] _ in
-                // TODO: 모달창으로 띄워진다면? 사라지지 않음...
+                // FIXME: 모달창으로 띄워진다면? 사라지지 않음...
                 self?.navigationController?.popViewController(animated: true)
             })
             return

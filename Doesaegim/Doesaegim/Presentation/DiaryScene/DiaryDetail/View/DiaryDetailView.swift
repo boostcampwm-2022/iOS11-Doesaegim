@@ -88,7 +88,12 @@ final class DiaryDetailView: UIView {
     }()
     
     /// 전체 컨텐츠 스크롤 뷰
-    private let scrollView = UIScrollView()
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.backgroundColor = .white
+        
+        return scrollView
+    }()
     
     // MARK: - Init
     
