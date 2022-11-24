@@ -37,8 +37,8 @@ final class DiaryListViewController: UIViewController {
     
     private let placeholdLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .grey4
-        label.text = "일정 탭에서 여행을 추가해주세요"
+        label.textColor = .grey3
+        label.text = "다이어리를 추가해주세요"
         
         return label
     }()

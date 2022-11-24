@@ -98,7 +98,6 @@
 		BBD0D05B291DE956007D0D82 /* TravelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05A291DE956007D0D82 /* TravelListViewController.swift */; };
 		BBD0D05D291DE975007D0D82 /* ExpenseTravelListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05C291DE975007D0D82 /* ExpenseTravelListController.swift */; };
 		BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05E291DE97F007D0D82 /* MapViewController.swift */; };
-		BBD0D061291DE988007D0D82 /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D060291DE988007D0D82 /* DiaryViewController.swift */; };
 		BBD0D063291DE991007D0D82 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D062291DE991007D0D82 /* SettingViewController.swift */; };
 		BBD0D066291DED6A007D0D82 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D065291DED6A007D0D82 /* UIColor+.swift */; };
 		BBDB2E922926222100752924 /* ExpenseInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDB2E912926222100752924 /* ExpenseInfoViewModel.swift */; };
@@ -248,7 +247,6 @@
 		BBD0D05A291DE956007D0D82 /* TravelListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListViewController.swift; sourceTree = "<group>"; };
 		BBD0D05C291DE975007D0D82 /* ExpenseTravelListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelListController.swift; sourceTree = "<group>"; };
 		BBD0D05E291DE97F007D0D82 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		BBD0D060291DE988007D0D82 /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
 		BBD0D062291DE991007D0D82 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		BBD0D065291DED6A007D0D82 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		BBDB2E912926222100752924 /* ExpenseInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseInfoViewModel.swift; sourceTree = "<group>"; };
@@ -371,7 +369,6 @@
 				BB02B08C292F292900FE11DA /* DiaryList */,
 				B5D64E64292DFC9900E1CC81 /* DiaryDetail */,
 				B5D64E5C292DF06400E1CC81 /* DiaryAdd */,
-				BBD0D060291DE988007D0D82 /* DiaryViewController.swift */,
 			);
 			path = DiaryScene;
 			sourceTree = "<group>";
@@ -1318,7 +1315,6 @@
 				B595A984292CE53100C3B897 /* ExpenseType.swift in Sources */,
 				BBFAC087291CBDD700D7FD57 /* AppDelegate.swift in Sources */,
 				A4CC04DE2923543500BB678B /* PlanListViewModel.swift in Sources */,
-				BBD0D061291DE988007D0D82 /* DiaryViewController.swift in Sources */,
 				EE116C582924AA0D0017B519 /* CustomCalendarCell.swift in Sources */,
 				BBB31A392925F77900C9E3A9 /* ExpenseTravelListCell.swift in Sources */,
 				B57D962E2922318F00B510B8 /* ExpenseDTO.swift in Sources */,
