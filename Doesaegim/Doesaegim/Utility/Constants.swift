@@ -29,5 +29,5 @@ enum Constants {
     
     // MARK: - UserDefault
     
-    static let exchangeValue = "exchangeValue"
+    static let fetchExchangeInfoDate = "fetchExchangeInfoDate"
 }
