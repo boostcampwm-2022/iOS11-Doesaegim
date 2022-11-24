@@ -57,6 +57,7 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
     // MARK: - Properties
     
     private var exchangeInfo: [ExchangeResponse] = []
+    private let exchangeDiskcache = ExchangeDiskCache.shared
     
     // TODO: - category 항목이 정해지면 수정 Enum으로?
     
@@ -86,7 +87,9 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
         configureViews()
         setAddTargets()
         if type == .moneyUnit {
-            setExchangeValue()
+//            setExchangeValue()
+            fetchExchangeInfo(day: "20221124")
+            exchangeDiskcache.fetchExchangeRateInfo()
         }
     }
     
@@ -180,6 +183,7 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
                     self?.pickerView.reloadAllComponents()
                 }
                 self?.saveExchangeValue(day: day, exchangeInfo: result)
+//                self?.exchangeDiskcache.saveExchangeRateInfo(exchangeInfo: result)
             }
         }
     }
