@@ -12,6 +12,7 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
     // MARK: - Properties
     
     weak var delegate: ExpenseAddViewDelegate?
+    var currentTravel: Travel?
     
     var isValidName: Bool
     var isValidAmount: Bool
@@ -80,14 +81,9 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
         isValidUnit = true
     }
     
-    func isValidCategoryItem(item: String?) {
+    func isValidCategoryItem(item: ExpenseType) {
         defer {
             isValidInput = isValidName && isValidAmount && isValidUnit && isValidCategory && isValidDate
-        }
-        guard let item,
-              !item.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            isValidCategory = false
-            return
         }
         isValidCategory = true
     }
@@ -117,9 +113,14 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
         exchangeCalculataion = Int(rationalAmount * rationalUnit)
     }
     
-    
     func postExpense(expense: ExpenseDTO, completion: @escaping () -> Void) {
-        // TODO: 지출 추가 메서드 작성
+        let result = Expense.addAndSave(with: expense)
+        switch result {
+        case .success(let expense):
+            completion()
+        case .failure(let error):
+            print(error.localizedDescription)
+        }
     }
     
     
