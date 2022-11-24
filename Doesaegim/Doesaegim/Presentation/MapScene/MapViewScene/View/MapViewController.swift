@@ -17,12 +17,11 @@ final class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        viewModel.delegate = self
         configureSubviews()
         configureMap()
         configureAnnotationView()
-        addDummyPins() // 더미 핀을 추가하고 싶을 때
-        
+//        addDummyPins() // 더미 핀을 추가하고 싶을 때
         viewModel.fetchDiary()
         
     }

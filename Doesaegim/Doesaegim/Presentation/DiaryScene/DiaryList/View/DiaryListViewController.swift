@@ -66,6 +66,7 @@ extension DiaryListViewController {
     // MARK: - Configuration
     
     private func configure() {
+        collectionView.delegate = self
         configureNavigationBar()
         configureSubviews()
         configureConstraints()
@@ -110,14 +111,14 @@ extension DiaryListViewController {
         let layout = UICollectionViewCompositionalLayout { _, _ -> NSCollectionLayoutSection? in
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(60)
+                heightDimension: .absolute(65)
             )
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             item.contentInsets = NSDirectionalEdgeInsets(top: 3, leading: 3, bottom: 3, trailing: 3)
             
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(60)
+                heightDimension: .absolute(65)
             )
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
             
@@ -160,6 +161,17 @@ extension DiaryListViewController {
         
     }
     
+}
+
+extension DiaryListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // TODO: - 다이어리 선택 뷰, safe index 설정
+        guard let viewModel = viewModel,
+              indexPath.row < viewModel.diaryInfos.count else { return }
+        let uuid = viewModel.diaryInfos[indexPath.row]
+        // uuid를 생성자에 넘기고 다이어리 디테일 뷰 푸시
+        print(uuid)
+    }
 }
 
 extension DiaryListViewController: DiaryListViewModelDelegate {
