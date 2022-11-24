@@ -46,7 +46,6 @@ final class TravelListViewModel: TravelListViewModelProtocol {
     }
     
     func deleteTravel(with id: UUID) {
-        print(#function)
         
         let result = PersistentRepository.shared.fetchTravel()
         switch result {

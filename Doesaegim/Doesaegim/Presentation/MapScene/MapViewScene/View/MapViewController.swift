@@ -17,19 +17,17 @@ final class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        viewModel.delegate = self
         configureSubviews()
         configureMap()
         configureAnnotationView()
-        addDummyPins() // 더미 핀을 추가하고 싶을 때
-        
+//        addDummyPins() // 더미 핀을 추가하고 싶을 때
         viewModel.fetchDiary()
         
     }
     
     // 추후 지워질 함 수 더미 핀을 만드는 함수
     private func addDummyPins() {
-        print(#function)
 //        let dummyImage = UIImage(systemName: "doc.append")
         let dummyImage = UIImage(systemName: "photo")
         let dummyImageData = dummyImage?.pngData()!
@@ -85,7 +83,7 @@ final class MapViewController: UIViewController {
     }
     
     private func configureAnnotationView() {
-        print(#function)
+
         mapView.register(
             MKMarkerAnnotationView.self,
             forAnnotationViewWithReuseIdentifier: NSStringFromClass(DiaryAnnotation.self)
@@ -159,7 +157,6 @@ extension MapViewController: MKMapViewDelegate {
             annotationView = setupDiaryAnnotationView(for: annotation, on: mapView)
         }
         
-        print(type(of: annotation))
         return annotationView
     }
     
