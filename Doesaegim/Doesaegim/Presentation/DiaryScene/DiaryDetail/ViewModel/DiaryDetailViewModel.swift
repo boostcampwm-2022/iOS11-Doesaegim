@@ -26,12 +26,6 @@ final class DiaryDetailViewModel {
     
     private let diary: Diary
     
-    private var currentPage = 0 {
-        didSet {
-            delegate?.diaryDetailCurrentPageDidChange(to: currentPage)
-        }
-    }
-    
     private let repository = DiaryDetailLocalRepository()
     
     // MARK: - Init
@@ -65,7 +59,4 @@ final class DiaryDetailViewModel {
         cellViewModels = imageItems.map { DetailImageCellViewModel(data: $0) }
     }
     
-    func currentPageDidChange(to page: Int) {
-        currentPage = page
-    }
 }

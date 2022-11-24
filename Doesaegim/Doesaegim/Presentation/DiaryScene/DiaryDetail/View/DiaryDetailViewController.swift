@@ -141,10 +141,6 @@ extension DiaryDetailViewController: DiaryDetailViewModelDelegate {
         rootView.setupData(diary: diary)
     }
     
-    func diaryDetailCurrentPageDidChange(to page: Int) {
-        rootView.setupCurrentPage(page)
-    }
-    
     func diaryDetailImageSliderPagesDidFetch(_ count: Int) {
         rootView.setupNumberOfPages(count)
     }
@@ -160,17 +156,6 @@ extension DiaryDetailViewController: DiaryDetailViewModelDelegate {
 
 extension DiaryDetailViewController {
     enum Section { case main }
-}
-
-extension DiaryDetailViewController {
-    
-    /// 스크롤 될 때마다 현재 페이지의 위치를 계산해서 PageControl의 현재 페이지를 변경한다.
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let width = scrollView.frame.width
-        let currentPageIndex = Int(scrollView.contentOffset.x / width)
-        
-        viewModel.currentPageDidChange(to: currentPageIndex)
-    }
 }
 
 extension DiaryDetailViewController: UICollectionViewDelegate {

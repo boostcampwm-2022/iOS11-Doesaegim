@@ -175,8 +175,15 @@ final class DiaryDetailView: UIView {
         )
         
         let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .paging
+        section.visibleItemsInvalidationHandler = { [weak self] _, offset, _ in
+            guard let self = self else { return }
+            let collectionViewWidth = self.imageSlider.bounds.width
+            let currentPage = Int(offset.x / collectionViewWidth)
+            self.pageControl.currentPage = currentPage
+        }
+        
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
-        configuration.scrollDirection = .horizontal
         
         let layout = UICollectionViewCompositionalLayout(section: section, configuration: configuration)
 
