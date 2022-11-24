@@ -148,7 +148,7 @@ final class ExpenseListCell: UICollectionViewListCell {
         case ExpenseType.room.rawValue:
             categoryImageView.image = UIImage(systemName: "bed.double")
         case ExpenseType.shopping.rawValue:
-            categoryImageView.image = UIImage(systemName: "cart")
+            categoryImageView.image = UIImage(systemName: "ferry")
         case ExpenseType.other.rawValue:
             categoryImageView.image = UIImage(systemName: "dollarsign.circle")
         default:

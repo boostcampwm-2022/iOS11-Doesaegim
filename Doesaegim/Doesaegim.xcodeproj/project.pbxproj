@@ -53,6 +53,9 @@
 		B5D64E62292DF06400E1CC81 /* DiaryAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E5F292DF06400E1CC81 /* DiaryAddViewController.swift */; };
 		B5D64E63292DF06400E1CC81 /* DiaryAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E60292DF06400E1CC81 /* DiaryAddView.swift */; };
 		B5DE4D4029271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DE4D3F29271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift */; };
+		BB288FC8292E167900065D04 /* DiaryCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB288FC7292E167900065D04 /* DiaryCalloutView.swift */; };
+		BB288FCB292E1A2B00065D04 /* FileProcessManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB288FCA292E1A2B00065D04 /* FileProcessManager.swift */; };
+		BB288FD0292E21E100065D04 /* FileManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB288FCF292E21E100065D04 /* FileManagerError.swift */; };
 		BB3DB919292C649600C70D62 /* UIView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3DB918292C649600C70D62 /* UIView+Frame.swift */; };
 		BB3DB91E292C83C400C70D62 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3DB91D292C83C400C70D62 /* MapViewModel.swift */; };
 		BB3DB920292CA76800C70D62 /* MapViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3DB91F292CA76800C70D62 /* MapViewModelProtocol.swift */; };
@@ -183,6 +186,9 @@
 		B5D64E5F292DF06400E1CC81 /* DiaryAddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryAddViewController.swift; sourceTree = "<group>"; };
 		B5D64E60292DF06400E1CC81 /* DiaryAddView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryAddView.swift; sourceTree = "<group>"; };
 		B5DE4D3F29271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationViewControllerDelegate.swift; sourceTree = "<group>"; };
+		BB288FC7292E167900065D04 /* DiaryCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCalloutView.swift; sourceTree = "<group>"; };
+		BB288FCA292E1A2B00065D04 /* FileProcessManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProcessManager.swift; sourceTree = "<group>"; };
+		BB288FCF292E21E100065D04 /* FileManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerError.swift; sourceTree = "<group>"; };
 		BB3DB918292C649600C70D62 /* UIView+Frame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Frame.swift"; sourceTree = "<group>"; };
 		BB3DB91D292C83C400C70D62 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		BB3DB91F292CA76800C70D62 /* MapViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelProtocol.swift; sourceTree = "<group>"; };
@@ -286,6 +292,7 @@
 			children = (
 				A4CC04812922191300BB678B /* PersistentManager.swift */,
 				EEB6C4FC292CC29B0060A459 /* NetworkManager.swift */,
+				BB288FCA292E1A2B00065D04 /* FileProcessManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -340,13 +347,13 @@
 		A4CC04B6292268BB00BB678B /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				BB288FCE292E1D9200065D04 /* Errors */,
 				EEB6C504292CCE0C0060A459 /* Enum */,
 				EEB6C4FE292CC4830060A459 /* Resource */,
 				B53763C8292B56600073BF46 /* CustomGraph */,
 				EE116C542924AA0D0017B519 /* Custom */,
 				BBD0D064291DED61007D0D82 /* Extensions */,
 				A4CC04CA29227E5C00BB678B /* Constants.swift */,
-				A48E9945292512BC0029D57D /* CoreDataError.swift */,
 				B595A983292CE53100C3B897 /* ExpenseType.swift */,
 			);
 			path = Utility;
@@ -504,6 +511,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		BB288FCE292E1D9200065D04 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				A48E9945292512BC0029D57D /* CoreDataError.swift */,
+				BB288FCF292E21E100065D04 /* FileManagerError.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
 		BB323E3329231DF100DFABC0 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -537,6 +553,7 @@
 				BBD0D05E291DE97F007D0D82 /* MapViewController.swift */,
 				BB3DB925292CF89400C70D62 /* DiaryAnnotation.swift */,
 				BB3DB927292D092000C70D62 /* TempDiaryViewController.swift */,
+				BB288FC7292E167900065D04 /* DiaryCalloutView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1080,6 +1097,7 @@
 				A4CC04C229226CA500BB678B /* PlanViewModel.swift in Sources */,
 				BB3DB91E292C83C400C70D62 /* MapViewModel.swift in Sources */,
 				BBD0D05D291DE975007D0D82 /* ExpenseTravelListController.swift in Sources */,
+				BB288FD0292E21E100065D04 /* FileManagerError.swift in Sources */,
 				B5C096B629235416007426B1 /* SearchingLocationViewController.swift in Sources */,
 				BBD0D05B291DE956007D0D82 /* TravelListViewController.swift in Sources */,
 				BBE695D829228B560015FAD4 /* TravelListViewModel.swift in Sources */,
@@ -1107,6 +1125,7 @@
 				BBFAC091291CBDD700D7FD57 /* Doesaegim.xcdatamodeld in Sources */,
 				EEB6C4F6292CA3990060A459 /* ExpenseAddPickerViewProtocol.swift in Sources */,
 				A4CC04D5292332C600BB678B /* UILabel+ChangeFontSize.swift in Sources */,
+				BB288FC8292E167900065D04 /* DiaryCalloutView.swift in Sources */,
 				BBDB2E9429262BB300752924 /* ExpenseCollectionHeaderView.swift in Sources */,
 				B5D64E61292DF06400E1CC81 /* PlaceSearchButton.swift in Sources */,
 				BBB31A372925F5E400C9E3A9 /* TravelListCell.swift in Sources */,
@@ -1139,6 +1158,7 @@
 				B5D64E63292DF06400E1CC81 /* DiaryAddView.swift in Sources */,
 				A4CC04E02923738500BB678B /* PlanLocalRepository.swift in Sources */,
 				B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */,
+				BB288FCB292E1A2B00065D04 /* FileProcessManager.swift in Sources */,
 				BBDB2E922926222100752924 /* ExpenseInfoViewModel.swift in Sources */,
 				BBE695D629227C8D0015FAD4 /* TravelInfoViewModel.swift in Sources */,
 				A4CC04A829221EEE00BB678B /* Expense+CoreDataClass.swift in Sources */,
