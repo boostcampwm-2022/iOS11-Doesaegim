@@ -83,7 +83,8 @@ extension ExpenseListViewModel {
                 content: "식비입니다 콘텐츠 콘텐츠 콘텐츠",
                 cost: 10000,
                 currency: "KR",
-                date: date
+                date: date,
+                travel: travel
             )
             
             let result = Expense.addAndSave(with: dto)
