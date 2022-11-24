@@ -43,6 +43,17 @@ final class MapViewController: UIViewController {
             longitude: 126.9796
         )
         addPin(with: diaryInfoViewModel)
+        
+        let diaryInfoViewModel2 = DiaryMapInfoViewModel(
+            id: UUID(),
+            imageData: [],
+            title: "제목입니다.",
+            content: "콘텐츠 입니다",
+            date: Date(),
+            latitude: 37.57,
+            longitude: 126.9996
+        )
+        addPin(with: diaryInfoViewModel2)
     }
     
     // MARK: - Configuration
