@@ -192,8 +192,8 @@ extension DiaryListViewController: UICollectionViewDelegate {
               indexPath.row < viewModel.diaryInfos.count else { return }
         let uuid = viewModel.diaryInfos[indexPath.row].id
         // uuid를 생성자에 넘기고 다이어리 디테일 뷰 푸시
-        let controller = DiaryDetailViewController(id: uuid)
-        navigationController?.pushViewController(controller, animated: true)
+//        let controller = DiaryDetailViewController(id: uuid)
+//        navigationController?.pushViewController(controller, animated: true)
     }
 }
 

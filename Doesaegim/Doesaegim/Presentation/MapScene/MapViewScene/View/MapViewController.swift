@@ -134,9 +134,11 @@ extension MapViewController: MKMapViewDelegate {
         
         if let annotation = view.annotation, annotation.isKind(of: DiaryAnnotation.self) {
             print("다이어리 어노테이션을 탭 했습니다.")
+            guard let annotation = annotation as? DiaryAnnotation,
+                  let id = annotation.id else { return }
             
-            let diaryViewController =  TempDiaryViewController()
-//            navigationController?.pushViewController(diaryViewController, animated: true)
+            let diaryViewController = DiaryDetailViewController(id: id)
+
             diaryViewController.modalPresentationStyle = .popover
             let presentationController =  diaryViewController.popoverPresentationController
             presentationController?.permittedArrowDirections = .any
