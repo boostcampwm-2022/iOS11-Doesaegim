@@ -16,6 +16,8 @@ final class DiaryListViewController: UIViewController {
         = UICollectionViewDiffableDataSource<UUID, DiaryInfoViewModel>
     typealias CellRegistration
         = UICollectionView.CellRegistration<DiaryListCell, DiaryInfoViewModel>
+    typealias SnapShot
+        = NSDiffableDataSourceSnapshot<UUID, ExpenseInfoViewModel>
     // TODO: - 헤더 등록타입
     
     // MARK: - Properties
@@ -161,5 +163,16 @@ extension DiaryListViewController: DiaryListViewModelDelegate {
         let diaryInfos = viewModel.diaryInfos
         
         placeholdLabel.isHidden = diaryInfos.isEmpty ? false : true
+        var snapshot = SnapShot()
+        diaryInfos.forEach { info in
+            let travelID = info.travelID
+            if !diaryDataSource?.snapshot().sectionIdentifiers.contains(travelID) {
+                snapshot.appendSections([travelID])
+            }
+            snapshot.appendItems([info], toSection: travelID)
+        }
+        
+        diaryDataSource?.apply(snapshot, animatingDifferences: true)
     }
+    
 }
