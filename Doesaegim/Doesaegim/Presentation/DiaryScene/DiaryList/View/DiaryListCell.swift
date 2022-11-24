@@ -15,7 +15,8 @@ final class DiaryListCell: UICollectionViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = label.font.withSize(16)
+//        label.font = label.font.withSize(16)
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textColor = .black
         label.text = "제목"
         label.numberOfLines = 1
@@ -97,10 +98,15 @@ extension DiaryListCell {
     // MARK: - Configuration
     
     private func configure() {
-        backgroundColor = .grey1
-        layer.cornerRadius = 7
+        configureView()
         configureSubviews()
         configureConstraints()
+    }
+    
+    private func configureView() {
+        layer.cornerRadius = 7
+        backgroundColor = .lightRed
+        addShadow()
     }
     
     private func configureSubviews() {
@@ -135,7 +141,7 @@ extension DiaryListCell {
         titleLabel.text = data.title
         contentLabel.text = data.content
         
-        let formatter = Date.yearMonthDateFormatter
+        let formatter = Date.yearMonthDayDateFormatter
         let dateString = formatter.string(from: data.date)
         
         dateLabel.text = dateString
@@ -146,5 +152,14 @@ extension DiaryListCell {
             // 섬네일 이미지 뷰를 없앤다.
             thumbnailImageView.removeFromSuperview()
         }
+    }
+    
+    // MARK: - Functions
+    private func addShadow() {
+        layer.masksToBounds = false
+        layer.shadowColor = UIColor.grey4?.cgColor
+        layer.shadowOffset = CGSize(width: 1, height: 1)
+        layer.shadowRadius = 3
+        layer.shadowOpacity = 1
     }
 }

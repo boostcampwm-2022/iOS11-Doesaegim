@@ -18,6 +18,8 @@ final class DiaryListViewController: UIViewController {
         = UICollectionView.CellRegistration<DiaryListCell, DiaryInfoViewModel>
     typealias SnapShot
         = NSDiffableDataSourceSnapshot<UUID, DiaryInfoViewModel>
+    typealias HeaderRegistration
+        = UICollectionView.SupplementaryRegistration<DiaryListHeaderView>
     // TODO: - 헤더 등록타입
     
     // MARK: - Properties
@@ -111,14 +113,14 @@ extension DiaryListViewController {
         let layout = UICollectionViewCompositionalLayout { _, _ -> NSCollectionLayoutSection? in
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(65)
+                heightDimension: .absolute(75)
             )
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             item.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 3, bottom: 4, trailing: 3)
             
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(65)
+                heightDimension: .absolute(75)
             )
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
             
@@ -128,10 +130,13 @@ extension DiaryListViewController {
                 widthDimension: .fractionalWidth(1.0),
                 heightDimension: .absolute(40)
             )
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: sectionHeaderSize,
+                elementKind: UICollectionView.elementKindSectionHeader,
+                alignment: .top
+            )
             
-            // TODO: - 헤더 등록
-            
-            // section.boundarySupplementaryItems = []
+             section.boundarySupplementaryItems = [sectionHeader]
             
             return section
         }
@@ -156,9 +161,26 @@ extension DiaryListViewController {
             }
         )
         
+        let headerRegistration = HeaderRegistration(
+            elementKind: UICollectionView.elementKindSectionHeader) { [weak self] headerView, _, indexPath in
+                guard let viewModel = self?.viewModel,
+                      indexPath.row < viewModel.diaryInfos.count,
+                      let uuid = viewModel.diaryInfos[indexPath.row].travelID,
+                      let travelName = viewModel.idAndTravelDictionary[uuid] else { return }
+                headerView.configureData(with: travelName)
+            }
+        
         // TODO: - 섹션 등록
             
-        
+        diaryDataSource?.supplementaryViewProvider = { [weak self] (collectionView, kind, indexPath) in
+            
+            let sectionHeader = collectionView.dequeueConfiguredReusableSupplementary(
+                using: headerRegistration,
+                for: indexPath
+            )
+            return sectionHeader
+            
+        }
     }
     
 }
