@@ -196,8 +196,8 @@ extension ExpenseAddViewController {
     private func setKeyboardNotification() {
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(keyboardDidShow),
-            name: UIResponder.keyboardDidShowNotification, object: nil
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification, object: nil
         )
         
         NotificationCenter.default.addObserver(
@@ -207,7 +207,7 @@ extension ExpenseAddViewController {
         )
     }
   
-    @objc private func keyboardDidShow(notification: NSNotification) {
+    @objc private func keyboardWillShow(notification: NSNotification) {
         guard let userInfo = notification.userInfo,
               let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
         else {
@@ -224,9 +224,5 @@ extension ExpenseAddViewController {
 
     @objc private func keyboardWillHide(notification: NSNotification) {
         rootView.scrollView.contentInset = .zero
-    }
-    
-    @objc private func dismissKeyboard() {
-        view.endEditing(true)
     }
 }
