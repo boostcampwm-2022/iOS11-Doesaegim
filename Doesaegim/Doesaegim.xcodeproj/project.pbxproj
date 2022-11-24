@@ -607,6 +607,8 @@
 				B5D64E75292E3B6C00E1CC81 /* DiaryDetailLocalRepository.swift */,
 			);
 			path = DiaryDetail;
+            sourceTree = "<group>";
+        };
 		BB288FCE292E1D9200065D04 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
