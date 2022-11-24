@@ -158,19 +158,13 @@ final class DiaryDetailView: UIView {
     
     // MARK: - Collection View
     
+    /// 이미지 슬라이더의 레이아웃을 생성한다.
     private func configureCompositionalLayout() -> UICollectionViewCompositionalLayout {
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .fractionalWidth(1))
-        let subitem = NSCollectionLayoutItem(layoutSize: itemSize)
-        
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .fractionalWidth(1)
-        )
+        let layoutSize = configureImageSliderLayoutSize()
+        let subitem = NSCollectionLayoutItem(layoutSize: layoutSize)
         
         let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: groupSize,
+            layoutSize: layoutSize,
             subitems: [subitem]
         )
         
@@ -183,12 +177,20 @@ final class DiaryDetailView: UIView {
             self.pageControl.currentPage = currentPage
         }
         
-        let configuration = UICollectionViewCompositionalLayoutConfiguration()
-        
-        let layout = UICollectionViewCompositionalLayout(section: section, configuration: configuration)
+        let layout = UICollectionViewCompositionalLayout(section: section)
 
         return layout
     }
+    
+    /// 이미지 슬라이더 레이아웃의 크기를 지정한다.
+    private func configureImageSliderLayoutSize() -> NSCollectionLayoutSize {
+        let layoutSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .fractionalWidth(1)
+        )
+        return layoutSize
+    }
+    
 }
 
 // MARK: - Namespaces
