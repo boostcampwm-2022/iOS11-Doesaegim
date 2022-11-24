@@ -137,7 +137,7 @@ extension DiaryListViewController {
         
         let diaryCell = CellRegistration { cell, _, identifier in
             // TODO: - 셀 설정
-            
+            cell.configureData(with: identifier)
         }
         
         diaryDataSource = DataSource(

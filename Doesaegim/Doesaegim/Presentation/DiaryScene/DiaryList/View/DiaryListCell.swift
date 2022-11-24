@@ -85,6 +85,14 @@ final class DiaryListCell: UICollectionViewCell {
 
 extension DiaryListCell {
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.text = "제목"
+        contentLabel.text = "컨텐츠 컨텐츠 컨텐츠"
+        dateLabel.text = "날짜 날짜 날짜"
+        thumbnailImageView.image = UIImage(systemName: "photo.on.rectangle.angled")
+    }
+    
     // MARK: - Configuration
     
     private func configure() {
@@ -118,4 +126,22 @@ extension DiaryListCell {
         }
     }
     
+    func configureData(with data: DiaryInfoViewModel) {
+        print(#function)
+        
+        titleLabel.text = data.title
+        contentLabel.text = data.content
+        
+        let formatter = Date.yearMonthDateFormatter
+        let dateString = formatter.string(from: data.date)
+        
+        dateLabel.text = dateString
+        
+        if let imageData = data.imageData {
+            thumbnailImageView.image = UIImage(data: imageData)
+        } else {
+            // 섬네일 이미지 뷰를 없앤다.
+            thumbnailImageView.removeFromSuperview()
+        }
+    }
 }
