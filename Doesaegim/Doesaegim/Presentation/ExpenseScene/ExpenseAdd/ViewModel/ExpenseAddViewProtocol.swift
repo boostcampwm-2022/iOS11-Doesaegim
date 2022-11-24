@@ -10,6 +10,8 @@ import Foundation
 protocol ExpenseAddViewProtocol: AnyObject {
     var delegate: ExpenseAddViewDelegate? { get set }
     
+    var currentTravel: Travel? { get set }
+    
     var isValidName: Bool { get set }
     var isValidAmount: Bool { get set }
     var isValidUnit: Bool { get set }
@@ -20,11 +22,10 @@ protocol ExpenseAddViewProtocol: AnyObject {
     func isValidNameTextField(text: String?)
     func isValidAmountTextField(text: String?)
     func isValidUnitItem(item: String?)
-    func isValidCategoryItem(item: String?)
+    func isValidCategoryItem(item: ExpenseType)
     func isValidDate(dateString: String?)
     
     func exchangeLabelShow(amount: String?, unit: String)
-    
     func postExpense(expense: ExpenseDTO, completion: @escaping () -> Void)
 }
 

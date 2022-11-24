@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ExchangeResponse: Decodable {
+class ExchangeResponse: Codable {
     let currencyCode: String     // 통화코드
     let tradingStandardRate: String  // 매매기준율
     let currencyName: String      // 국가, 통화명

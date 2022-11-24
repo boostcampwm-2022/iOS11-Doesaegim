@@ -10,10 +10,6 @@ import Foundation
 struct ExpenseInfoViewModel: Hashable {
     
     // TODO: - 카테고리 더 생각해보기...일단 식비로 다 몰아버렷
-    enum ExpenseCategory {
-        case food
-    }
-    
     let uuid: UUID // 뺄수있다면 뺀다. -> hash 메서드때문에 못빼려나...?
     let name: String
     let cost: Int

@@ -229,6 +229,7 @@ final class PlanAddViewController: UIViewController {
         planTitleStackView.addArrangedSubviews(planTitleLabel, planTitleTextField)
         placeTitleStackView.addArrangedSubviews(placeTitleLabel, placeSearchButton)
         dateStackView.addArrangedSubviews(dateTitleLabel, dateInputButton)
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
     }
     
     private func configureConstraint() {
@@ -294,8 +295,8 @@ extension PlanAddViewController {
     private func setKeyboardNotification() {
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(keyboardDidShow),
-            name: UIResponder.keyboardDidShowNotification, object: nil
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification, object: nil
         )
         
         NotificationCenter.default.addObserver(
@@ -305,25 +306,23 @@ extension PlanAddViewController {
         )
     }
   
-    @objc private func keyboardDidShow(notification: NSNotification) {
-        if let keyboardFrame: NSValue = notification
-            .userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
-            self.view.frame.size.height -= keyboardHeight
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-            view.addGestureRecognizer(tapGesture)
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        else {
+            return
         }
+        let contentInsets = UIEdgeInsets(
+            top: .zero,
+            left: .zero,
+            bottom: keyboardSize.height - (tabBarController?.tabBar.frame.height ?? .zero),
+            right: .zero
+        )
+        scrollView.contentInset = contentInsets
     }
 
     @objc private func keyboardWillHide(notification: NSNotification) {
-        if let keyboardFrame: NSValue = notification
-            .userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
-            self.view.frame.size.height += keyboardHeight
-            view.gestureRecognizers?.removeAll()
-        }
+        scrollView.contentInset = .zero
     }
     
     @objc private func dismissKeyboard() {

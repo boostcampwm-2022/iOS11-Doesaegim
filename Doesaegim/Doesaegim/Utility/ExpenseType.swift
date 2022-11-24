@@ -17,7 +17,7 @@ import UIKit
 
 // MARK: - ExpenseType: 지금은 문자열로 구분
 
-enum ExpenseType: String {
+enum ExpenseType: String, CaseIterable {
     case food = "식비"
     case transportation = "교통비"
     case room = "숙박비"

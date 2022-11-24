@@ -9,7 +9,7 @@ import UIKit
 
 import SnapKit
 
-final class PickerViewController: UIViewController, PickerViewProtocol {
+final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerViewProtocol {
     
     // MARK: - UI properties
     
@@ -57,14 +57,17 @@ final class PickerViewController: UIViewController, PickerViewProtocol {
     // MARK: - Properties
     
     private var exchangeInfo: [ExchangeResponse] = []
+    private let exchangeDiskCache = ExchangeDiskCache.shared
+    private let exchangeMemoryCache = ExchangeMemoryCache.shared
     
     // TODO: - category 항목이 정해지면 수정 Enum으로?
     
-    private var category: [String] = ["식비", "경비", "숙박", "교통비", "항공비", "쇼핑", "관광", "기타"]
+    private var category: [ExpenseType] = ExpenseType.allCases
     
     private let type: PickerType
     private var selectedIndex: Int = 0
-    var delegate: PickerViewDelegate?
+    
+    var delegate: ExpenseAddPickerViewDelegate?
     
     // MARK: - Lifecycles
     
@@ -84,7 +87,7 @@ final class PickerViewController: UIViewController, PickerViewProtocol {
         configureViews()
         setAddTargets()
         if type == .moneyUnit {
-            fetchExchangeInfo()
+            setExchangeValue()
         }
     }
     
@@ -156,27 +159,84 @@ final class PickerViewController: UIViewController, PickerViewProtocol {
     
     // MARK: - Network
     
-    func fetchExchangeInfo() {
+    func fetchExchangeInfo(day: String) {
         let network = NetworkManager(configuration: .default)
         var paramaters: [String: String] = [:]
         paramaters["authkey"] = ExchangeAPI.authkey
         paramaters["data"] = ExchangeAPI.dataCode
+        paramaters["searchdate"] = day
+        
         let resource = Resource<ExchangeResponse>(
             base: ExchangeAPI.exchangeURL,
             paramaters: paramaters,
             header: [:])
+        
         network.loadArray(resource) { [weak self] result in
-            self?.exchangeInfo = result
-            result.forEach { print($0) }
-            DispatchQueue.main.async {
-                self?.pickerView.reloadAllComponents()
+            // 오늘 날짜를 조회했을 때, 빈 배열이 온다면 어제 날짜를 조회
+            if result.isEmpty, let yesterday = self?.yesterDayDateConvertToString() {
+                self?.fetchExchangeInfo(day: yesterday)
+            } else {
+                self?.exchangeInfo = result
+                DispatchQueue.main.async {
+                    self?.pickerView.reloadAllComponents()
+                }
+                UserDefaults.standard.set(day, forKey: Constants.fetchExchangeInfoDate)
+                self?.exchangeDiskCache.saveExchangeRateInfo(exchangeInfo: result)
             }
         }
     }
     
+    // MARK: Date Functions
+    
+    private func todayDateConvertToString() -> String {
+        let day = Date()
+        let formatter = Date.yearMonthDaySplitDashDateFormatter
+        return formatter.string(from: day)
+    }
+    
+    private func yesterDayDateConvertToString() -> String {
+        let yesterday = Date(timeIntervalSinceNow: 60 * 60 * 24 * -1)
+        let formatter = Date.yearMonthDaySplitDashDateFormatter
+        return formatter.string(from: yesterday)
+    }
+    
+    // MARK: UserDefaults
+    
+    private func setExchangeValue() {
+        // UserDefault 확인
+        if let fetchExchangeInfoDate = UserDefaults.standard.string(forKey: Constants.fetchExchangeInfoDate) {
+            
+            // 메모리 캐시에 값 있는지 확인
+            let cacheKey = NSString(string: fetchExchangeInfoDate)
+            if let cachedExchangeRateInfo = exchangeMemoryCache.object(forKey: cacheKey)
+                as? [ExchangeResponse] {
+                exchangeInfo = cachedExchangeRateInfo
+                pickerView.reloadAllComponents()
+                print("[MemoryCache] Hit")
+                return
+            }
+            
+            // UserDefault의 저장된 날짜가 오늘 날짜와 같고, 디스크 캐시에 저장되어 있다면
+            // 디스크 캐시에서 불러옴
+            // 메모리 캐시에 저장
+            if fetchExchangeInfoDate == todayDateConvertToString(),
+                let info = exchangeDiskCache.fetchExchangeRateInfo() {
+                exchangeInfo = info
+                print("[DiskCache] Hit")
+                pickerView.reloadAllComponents()
+                
+                let cacheKey = NSString(string: fetchExchangeInfoDate)
+                exchangeMemoryCache.setObject(info as NSArray, forKey: cacheKey)
+            }
+            
+        } else {
+            // 없으면 api 요청
+            fetchExchangeInfo(day: todayDateConvertToString())
+        }
+    }
 }
 
-extension PickerViewController: UIPickerViewDataSource {
+extension ExpenseAddPickerViewController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -186,7 +246,7 @@ extension PickerViewController: UIPickerViewDataSource {
     }
 }
 
-extension PickerViewController: UIPickerViewDelegate {
+extension ExpenseAddPickerViewController: UIPickerViewDelegate {
     func pickerView(
         _ pickerView: UIPickerView,
         titleForRow row: Int,
@@ -200,7 +260,7 @@ extension PickerViewController: UIPickerViewDelegate {
             }
             return value[row]
         } else {
-            return category[row]
+            return category[row].rawValue
         }
     }
     
@@ -211,7 +271,7 @@ extension PickerViewController: UIPickerViewDelegate {
 
 // MARK: Enum
 
-extension PickerViewController {
+extension ExpenseAddPickerViewController {
     enum PickerType {
         case category
         case moneyUnit

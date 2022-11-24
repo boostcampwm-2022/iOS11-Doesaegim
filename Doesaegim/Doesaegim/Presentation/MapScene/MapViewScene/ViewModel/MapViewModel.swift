@@ -50,30 +50,21 @@ extension MapViewModel {
     }
     
 //    func addDummyDiaryData() {
-//        // 3개의 데이터를 추가
-//        (0..<3).forEach { _ in
-//
-//            let dto = DiaryDTO(
-//                content: "내용입니다.",
-//                date: Date(),
-//                images: [],
-//                title: "제목"
+//        for count in 1...3 {
+//            let dateComponent = DateComponents(year: 2022, month: 12, day: 25+count, hour: 17)
+//            let date = Calendar.current.date(from: dateComponent)!
+//            let dts = DiaryDTO(
+//                content: "컨텐츠컨텐츠컨텐츠컨텐츠",
+//                date: date,
+//                images: ["/Users/jaehoonso/Documents/default\\ image.png"],
+//                title: "제목입니다.제목입니다.",
+//                location: LocationDTO(
+//                    name: "장소\(count)",
+//                    latitude: 37.5708,
+//                    longitude: 126.97 + (0.01*Double(count))
+//                ),
+//                travel: <#T##Travel#>
 //            )
-//            let result = Diary.addAndSave(with: dto)
-//            switch result {
-//            case .success(let diary):
-//                // 종로
-//                let locationDTO = LocationDTO(
-//                    name: "위치",
-//                    latitude: 37.5700,
-//                    longitude: 126.979
-//                )
-//                diary.location = Location.addAndSave(with: locationDTO)
-//
-//            case .failure(let error):
-//                print(error?.localizedDescription)
-//                // TODO: - 에러처리
-//            }
 //        }
 //    }
     

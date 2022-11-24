@@ -19,11 +19,13 @@ final class ExpenseAddViewController: UIViewController {
     
     private let viewModel: ExpenseAddViewModel
     private var exchangeInfo: ExchangeResponse?
+    private let travel: Travel?
     
     // MARK: - Lifecycles
     
-    init() {
+    init(travel: Travel?) {
         viewModel = ExpenseAddViewModel()
+        self.travel = travel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -76,6 +78,11 @@ final class ExpenseAddViewController: UIViewController {
             action: #selector(textFieldDidChange),
             for: .editingChanged
         )
+        rootView.addButton.addTarget(
+            self,
+            action: #selector(addButtonTouchUpInside),
+            for: .touchUpInside
+        )
     }
 }
 
@@ -83,9 +90,9 @@ final class ExpenseAddViewController: UIViewController {
 
 extension ExpenseAddViewController {
     @objc func pickerViewButtonTouchUpInside(_ sender: UIButton) {
-        let type: PickerViewController.PickerType =
+        let type: ExpenseAddPickerViewController.PickerType =
         sender == rootView.moneyUnitButton ? .moneyUnit : .category
-        let pickerViewController = PickerViewController(type: type)
+        let pickerViewController = ExpenseAddPickerViewController(type: type)
         pickerViewController.delegate = self
         present(pickerViewController, animated: true)
     }
@@ -110,6 +117,35 @@ extension ExpenseAddViewController {
         }
     }
     
+    @objc func addButtonTouchUpInside() {
+        guard let name = rootView.titleTextField.text,
+              let category = rootView.categoryButton.titleLabel?.text,
+              let content = rootView.descriptionTextView.text,
+              let exchangeInfo,
+              let tradingStandardRate = Double(exchangeInfo.tradingStandardRate.convertRemoveComma()),
+              let amountText = rootView.amountTextField.text,
+              let amount = Int(amountText),
+              let dateString = rootView.dateButton.titleLabel?.text,
+              let date = Date.yearMonthDayDateFormatter.date(from: dateString),
+              let travel = travel else {
+            return
+        }
+            
+        let expenseDTO = ExpenseDTO(
+            name: name,
+            category: category,
+            content: content,
+            cost: Int64(tradingStandardRate * Double(amount)),
+            currency: exchangeInfo.currencyName,
+            date: date,
+            travel: travel)
+        
+        viewModel.postExpense(expense: expenseDTO) { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+            print("지출 저장 성공!")
+        }
+    }
+    
 }
 
 // MARK: - CalendarDelegate
@@ -123,7 +159,7 @@ extension ExpenseAddViewController: CalendarViewDelegate {
 
 // MARK: - PickerDelegate
 
-extension ExpenseAddViewController: PickerViewDelegate {
+extension ExpenseAddViewController: ExpenseAddPickerViewDelegate {
     func selectedExchangeInfo(item: ExchangeResponse) {
         guard let exchangeRateType = ExchangeRateType(currencyCode: item.currencyCode) else { return }
         exchangeInfo = item
@@ -133,8 +169,8 @@ extension ExpenseAddViewController: PickerViewDelegate {
         viewModel.exchangeLabelShow(amount: rootView.amountTextField.text, unit: item.tradingStandardRate)
     }
     
-    func selectedCategory(item: String) {
-        rootView.categoryButton.setTitle(item, for: .normal)
+    func selectedCategory(item: ExpenseType) {
+        rootView.categoryButton.setTitle(item.rawValue, for: .normal)
         viewModel.isValidCategoryItem(item: item)
     }
 }
@@ -160,8 +196,8 @@ extension ExpenseAddViewController {
     private func setKeyboardNotification() {
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(keyboardDidShow),
-            name: UIResponder.keyboardDidShowNotification, object: nil
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification, object: nil
         )
         
         NotificationCenter.default.addObserver(
@@ -171,28 +207,22 @@ extension ExpenseAddViewController {
         )
     }
   
-    @objc private func keyboardDidShow(notification: NSNotification) {
-        if let keyboardFrame: NSValue = notification
-            .userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
-            self.view.frame.size.height -= keyboardHeight
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-            view.addGestureRecognizer(tapGesture)
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        else {
+            return
         }
+        let contentInsets = UIEdgeInsets(
+            top: .zero,
+            left: .zero,
+            bottom: keyboardSize.height - (tabBarController?.tabBar.frame.height ?? .zero),
+            right: .zero
+        )
+        rootView.scrollView.contentInset = contentInsets
     }
 
     @objc private func keyboardWillHide(notification: NSNotification) {
-        if let keyboardFrame: NSValue = notification
-            .userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
-            self.view.frame.size.height += keyboardHeight
-            view.gestureRecognizers?.removeAll()
-        }
-    }
-    
-    @objc private func dismissKeyboard() {
-        view.endEditing(true)
+        rootView.scrollView.contentInset = .zero
     }
 }

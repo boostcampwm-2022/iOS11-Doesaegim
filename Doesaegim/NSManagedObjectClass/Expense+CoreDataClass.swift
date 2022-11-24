@@ -25,6 +25,7 @@ public class Expense: NSManagedObject {
         expense.category = object.category
         expense.currency = object.currency
         expense.cost = object.cost
+        object.travel.addToExpense(expense)
         
         let result = PersistentManager.shared.saveContext()
         
