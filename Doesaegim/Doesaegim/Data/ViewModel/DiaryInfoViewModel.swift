@@ -10,17 +10,18 @@ import UIKit
 
 struct DiaryInfoViewModel: Hashable {
     
+    var travelID: UUID?
     let id: UUID
     let content: String
     let date: Date
-    let image: UIImage? // Data?
+    var imageData: Data? // Data?
     let title: String
 
-    init(id: UUID, content: String, date: Date, image: UIImage?, title: String) {
+    init(id: UUID, content: String, date: Date, imageData: Data?, title: String) {
         self.id = id
         self.content = content
         self.date = date
-        self.image = image
+        self.imageData = imageData
         self.title = title
     }
 

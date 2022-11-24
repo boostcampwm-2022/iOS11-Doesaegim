@@ -47,7 +47,8 @@ extension DiaryListViewModel {
                 // travel안의 diary데이터를 받아온다.
                 guard let diaries = travel.diary?.allObjects as? [Diary] else { return }
                 diaries.forEach { diary in
-                    guard let diaryInfo = Diary.convertToViewModel(with: diary) else { return }
+                    guard var diaryInfo = Diary.convertToViewModel(with: diary) else { return }
+                    diaryInfo.travelID = travel.id
                     newDiaries.append(diaryInfo)
                     
                 }
