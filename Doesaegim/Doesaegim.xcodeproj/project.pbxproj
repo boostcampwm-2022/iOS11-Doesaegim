@@ -423,7 +423,6 @@
 			children = (
 				BB9DB8132928D0C300102EC8 /* PersistentStorage */,
 				A4CC04DB292351E700BB678B /* TravelScene */,
-				B5D64E73292E3B2100E1CC81 /* DiaryDetailScene */,
 				A4EB25C0292BB4F7002D129A /* DiaryScene */,
 			);
 			path = Repository;
@@ -449,6 +448,7 @@
 		A4EB25C0292BB4F7002D129A /* DiaryScene */ = {
 			isa = PBXGroup;
 			children = (
+				B5D64E74292E3B4600E1CC81 /* DiaryDetail */,
 				A4EB25BE292BB4F1002D129A /* DiaryAddRepository.swift */,
 				A4EB25C1292BB518002D129A /* DiaryAddLocalRepository.swift */,
 			);
@@ -590,14 +590,6 @@
 				B5D64E6D292E254A00E1CC81 /* DiaryDetailViewModelDelegate.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		B5D64E73292E3B2100E1CC81 /* DiaryDetailScene */ = {
-			isa = PBXGroup;
-			children = (
-				B5D64E74292E3B4600E1CC81 /* DiaryDetail */,
-			);
-			path = DiaryDetailScene;
 			sourceTree = "<group>";
 		};
 		B5D64E74292E3B4600E1CC81 /* DiaryDetail */ = {
