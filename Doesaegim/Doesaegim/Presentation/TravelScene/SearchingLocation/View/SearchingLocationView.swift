@@ -46,6 +46,7 @@ final class SearchingLocationView: UIView {
     // MARK: - Functions
     
     private func configureViews() {
+        backgroundColor = .white
         configureSubviews()
         configureConstraints()
     }

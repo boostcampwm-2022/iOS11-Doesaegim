@@ -23,6 +23,11 @@ public class Diary: NSManagedObject {
         diary.images = object.images
         diary.title = object.title
         diary.content = object.content
+
+        let location = Location.add(with: object.location)
+        diary.location = location
+        
+        object.travel.addToDiary(diary)
         
         let result = PersistentManager.shared.saveContext()
         

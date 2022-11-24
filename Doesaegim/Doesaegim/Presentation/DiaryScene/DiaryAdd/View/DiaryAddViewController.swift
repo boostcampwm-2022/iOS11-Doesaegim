@@ -16,6 +16,7 @@ final class DiaryAddViewController: UIViewController {
 
     // MARK: - Properties
 
+    private let viewModel = DiaryAddViewModel(repository: DiaryAddLocalRepository())
 
 
     // MARK: - Life Cycle
@@ -29,15 +30,48 @@ final class DiaryAddViewController: UIViewController {
         super.viewDidLoad()
 
         configureNavigationBar()
+        bindToViewModel()
         observeKeyBoardAppearance()
+        configureTravelPicker()
+        configurePlaceSearchButton()
+        configureNameTextField()
+        configureContentTextView()
     }
-
 
 
     // MARK: - Configuration Functions
 
     private func configureNavigationBar() {
         navigationItem.title = StringLiteral.navigationTitle
+    }
+
+    private func bindToViewModel() {
+        viewModel.delegate = self
+    }
+
+    private func configureTravelPicker() {
+        rootView.travelPicker.delegate = self
+        rootView.travelPicker.dataSource = viewModel.travelPickerDataSource
+    }
+
+    private func configurePlaceSearchButton() {
+        let action = UIAction { _ in
+            self.rootView.endEditing(true)
+            let controller = SearchingLocationViewController()
+            controller.delegate = self
+            self.show(controller, sender: self)
+        }
+        rootView.placeSearchButton.addAction(action, for: .touchUpInside)
+    }
+
+    private func configureNameTextField() {
+        let textField = rootView.titleTextField
+        let action = UIAction { _ in self.viewModel.titleDidChange(to: textField.text) }
+        textField.addAction(action, for: .editingChanged)
+    }
+
+    private func configureContentTextView() {
+        rootView.contentTextView.delegate = self
     }
 
 
@@ -84,8 +118,52 @@ final class DiaryAddViewController: UIViewController {
 }
 
 
-// MARK: - Constants
+// MARK: - UIPickerViewDelegate
+extension DiaryAddViewController: UIPickerViewDelegate {
+    func pickerView(
+        _ pickerView: UIPickerView,
+        titleForRow row: Int,
+        forComponent component: Int
+    ) -> String? {
+        viewModel.travelPickerDataSource.itemForRow(row)?.name
+    }
 
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        guard let travel = viewModel.travelPickerDataSource.itemForRow(row)
+        else {
+            return
+        }
+
+        viewModel.travelDidSelect(travel)
+    }
+}
+
+
+// MARK: - DiaryAddViewModelDelegate
+extension DiaryAddViewController: DiaryAddViewModelDelegate {
+    func diaryValuesDidChange(_ diary: TemporaryDiary) {
+        rootView.travelTextField.text = diary.travel?.name
+        rootView.placeSearchButton.setTitle(diary.location?.name, for: .normal)
+    }
+}
+
+
+// MARK: - SearchingLocationViewControllerDelegate
+extension DiaryAddViewController: SearchingLocationViewControllerDelegate {
+    func searchingLocationViewController(didSelect location: LocationDTO) {
+        viewModel.locationDidSelect(location)
+    }
+}
+
+// MARK: - UITextViewDelegate
+extension DiaryAddViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        viewModel.contentDidChange(to: textView.text)
+    }
+}
+
+
+// MARK: - Constants
 fileprivate extension DiaryAddViewController {
 
     enum Metric {
