@@ -37,7 +37,7 @@ final class DiaryListCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.alignment = .bottom
-        stackView.spacing = 3
+        stackView.spacing = 6
         
         return stackView
     }()
@@ -54,6 +54,7 @@ final class DiaryListCell: UICollectionViewCell {
     
     let contentStackView: UIStackView = {
         let stackView = UIStackView()
+        stackView.axis = .vertical
         stackView.spacing = 6
         stackView.alignment = .leading
         
@@ -96,6 +97,8 @@ extension DiaryListCell {
     // MARK: - Configuration
     
     private func configure() {
+        backgroundColor = .grey1
+        layer.cornerRadius = 7
         configureSubviews()
         configureConstraints()
     }
@@ -115,12 +118,13 @@ extension DiaryListCell {
     private func configureConstraints() {
         contentStackView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.leading.equalToSuperview().inset(3)
+            $0.leading.equalToSuperview().inset(9)
             $0.trailing.equalTo(thumbnailImageView.snp.leading).offset(6)
         }
         
         thumbnailImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(9)
             $0.width.equalTo(45)
             $0.height.equalTo(45)
         }

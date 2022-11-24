@@ -16,6 +16,7 @@ final class DiaryListViewModel: DiaryListViewModelProtocol {
         }
     }
     var idAndTravelDictionary: [UUID: String]
+    var currentTravel: Travel? // 추후 삭제될 코드
     
     init() {
         self.diaryInfos = []
@@ -32,6 +33,7 @@ extension DiaryListViewModel {
     }
     
     func fetchDiary() {
+        print(#function)
         // 1. 여행정보를 불러온다.
         // 2. 여행 정보별로 다이어리의 목록을 불러온다.
         // 3. 여행의 UUID를 키값으로하고, 다이어리의 배열로 하는 사전을 만든다.
@@ -59,7 +61,12 @@ extension DiaryListViewModel {
                     newDiaries.append(diaryInfo)
                     
                 }
+                // TODO: - 추후삭제
+                if currentTravel == nil {
+                    currentTravel = travel
+                }
             }
+//            print(newDiaries)
             diaryInfos = newDiaries
             
         case .failure(let error):
@@ -67,6 +74,29 @@ extension DiaryListViewModel {
             // TODO: - 에러처리
         }
         
+    }
+    
+    /// 임시로 더미 다이어리 데이터를 생성해주는 메서드 입니다. 추후 삭제됩니다.
+    func addDummyDiaryData() {
+        print(#function)
+        guard let travel = currentTravel else { return }
+        for count in 1...3 {
+            let dateComponents = DateComponents(year: 2022, month: 12, day: 24+count)
+            let date = Calendar.current.date(from: dateComponents)!
+            let dto = DiaryDTO(
+                content: "콘텐츠 콘텐츠 콘텐츠 \(count)",
+                date: date,
+                images: [],
+                title: "제목\(count)",
+                location: LocationDTO(
+                    name: "위치",
+                    latitude: 37.5700,
+                    longitude: 126.97 + Double(count)*0.01
+                ),
+                travel: travel
+            )
+            Diary.addAndSave(with: dto)
+        }
     }
     
 }

@@ -14,6 +14,7 @@ protocol DiaryListViewModelProtocol: AnyObject {
     var idAndTravelDictionary: [UUID: String] { get set }
     
     func fetchDiary()
+    func addDummyDiaryData() // 추후 삭제
     
 }
 

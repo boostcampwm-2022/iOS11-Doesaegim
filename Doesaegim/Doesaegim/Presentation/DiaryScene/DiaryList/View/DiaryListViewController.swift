@@ -50,8 +50,13 @@ final class DiaryListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        viewModel?.fetchDiary()
+
         configure()
+        
+        viewModel?.delegate = self
+        viewModel?.fetchDiary()
+//        viewModel?.addDummyDiaryData()
+//        viewModel?.fetchDiary()
     }
     
 }
@@ -61,7 +66,6 @@ extension DiaryListViewController {
     // MARK: - Configuration
     
     private func configure() {
-        viewModel?.delegate = self
         configureNavigationBar()
         configureSubviews()
         configureConstraints()
@@ -164,6 +168,7 @@ extension DiaryListViewController: DiaryListViewModelDelegate {
         guard let viewModel = viewModel else { return }
         let diaryInfos = viewModel.diaryInfos
         
+        print(diaryInfos)
         placeholdLabel.isHidden = diaryInfos.isEmpty ? false : true
         var snapshot = SnapShot()
         
