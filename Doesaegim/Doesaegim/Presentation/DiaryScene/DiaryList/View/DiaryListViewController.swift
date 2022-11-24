@@ -12,6 +12,12 @@ import SnapKit
 
 final class DiaryListViewController: UIViewController {
     
+    typealias DataSource
+        = UICollectionViewDiffableDataSource<UUID, DiaryInfoViewModel>
+    typealias CellRegistration
+        = UICollectionView.CellRegistration<DiaryListCell, DiaryInfoViewModel>
+    // TODO: - 헤더 등록타입
+    
     // MARK: - Properties
     
     // TODO: - 나중에 생성자로 주입
