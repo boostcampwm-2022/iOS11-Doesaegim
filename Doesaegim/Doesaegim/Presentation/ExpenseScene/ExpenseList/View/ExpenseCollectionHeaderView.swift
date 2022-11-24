@@ -108,7 +108,7 @@ final class ExpenseCollectionHeaderView: UICollectionReusableView {
         
         let graphData: [CustomChartItem] = data.expenseInfos.compactMap({
             let value = CGFloat($0.cost)
-            guard let category = ExpenseType(rawValue: $0.content) else { return nil }
+            guard let category = ExpenseType(rawValue: $0.category) else { return nil }
 
             let item = CustomChartItem(category: category, value: value)
             return item
@@ -117,8 +117,7 @@ final class ExpenseCollectionHeaderView: UICollectionReusableView {
         
         travelTitleLabel.text = data.currentTravel?.name
         
-        // TODO: 예산 표시 추가
-        expenseBudgetLabel.text = "총 지출액: \(totalExpenses)"
+        expenseBudgetLabel.text = "총 지출액: \(totalExpenses.numberFormatter())원"
         
         if !graphData.isEmpty { self.data = graphData }
         isBlur = graphData.isEmpty
