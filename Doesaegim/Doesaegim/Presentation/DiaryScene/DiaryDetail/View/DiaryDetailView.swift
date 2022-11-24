@@ -88,7 +88,12 @@ final class DiaryDetailView: UIView {
     }()
     
     /// 전체 컨텐츠 스크롤 뷰
-    private let scrollView = UIScrollView()
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.backgroundColor = .white
+        
+        return scrollView
+    }()
     
     // MARK: - Init
     
@@ -153,30 +158,39 @@ final class DiaryDetailView: UIView {
     
     // MARK: - Collection View
     
+    /// 이미지 슬라이더의 레이아웃을 생성한다.
     private func configureCompositionalLayout() -> UICollectionViewCompositionalLayout {
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .fractionalWidth(1))
-        let subitem = NSCollectionLayoutItem(layoutSize: itemSize)
-        
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .fractionalWidth(1)
-        )
+        let layoutSize = configureImageSliderLayoutSize()
+        let subitem = NSCollectionLayoutItem(layoutSize: layoutSize)
         
         let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: groupSize,
+            layoutSize: layoutSize,
             subitems: [subitem]
         )
         
         let section = NSCollectionLayoutSection(group: group)
-        let configuration = UICollectionViewCompositionalLayoutConfiguration()
-        configuration.scrollDirection = .horizontal
+        section.orthogonalScrollingBehavior = .paging
+        section.visibleItemsInvalidationHandler = { [weak self] _, offset, _ in
+            guard let self = self else { return }
+            let collectionViewWidth = self.imageSlider.bounds.width
+            let currentPage = Int(offset.x / collectionViewWidth)
+            self.pageControl.currentPage = currentPage
+        }
         
-        let layout = UICollectionViewCompositionalLayout(section: section, configuration: configuration)
+        let layout = UICollectionViewCompositionalLayout(section: section)
 
         return layout
     }
+    
+    /// 이미지 슬라이더 레이아웃의 크기를 지정한다.
+    private func configureImageSliderLayoutSize() -> NSCollectionLayoutSize {
+        let layoutSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .fractionalWidth(1)
+        )
+        return layoutSize
+    }
+    
 }
 
 // MARK: - Namespaces

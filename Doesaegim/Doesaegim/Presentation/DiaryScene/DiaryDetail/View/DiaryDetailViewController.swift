@@ -20,11 +20,18 @@ final class DiaryDetailViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let viewModel: DiaryDetailViewModel
+    private let viewModel: DiaryDetailViewModel!
     
     private var imageSliderDataSource: DataSource?
     
     // MARK: - Init
+    
+    init(id: UUID) {
+        let viewModel = DiaryDetailViewModel(id: id)
+        self.viewModel = viewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
     
     init(diary: Diary) {
         let viewModel = DiaryDetailViewModel(diary: diary)
@@ -53,13 +60,26 @@ final class DiaryDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureViewModelDelegate()
+        guard isInitializedViewModel() else {
+            presentErrorAlert(title: "다이어리 정보를 찾을 수 없습니다.", handler: { [weak self] _ in
+                // FIXME: 모달창으로 띄워진다면? 사라지지 않음...
+                self?.navigationController?.popViewController(animated: true)
+            })
+            return
+        }
+        
+        bindToViewModel()
         configureImageSlider()
     }
     
     // MARK: - Configure Functions
     
-    private func configureViewModelDelegate() {
+    private func isInitializedViewModel() -> Bool {
+        guard viewModel != nil else { return false }
+        return true
+    }
+    
+    private func bindToViewModel() {
         viewModel.delegate = self
         viewModel.fetchDiaryDetail()
     }
@@ -121,10 +141,6 @@ extension DiaryDetailViewController: DiaryDetailViewModelDelegate {
         rootView.setupData(diary: diary)
     }
     
-    func diaryDetailCurrentPageDidChange(to page: Int) {
-        rootView.setupCurrentPage(page)
-    }
-    
     func diaryDetailImageSliderPagesDidFetch(_ count: Int) {
         rootView.setupNumberOfPages(count)
     }
@@ -140,17 +156,6 @@ extension DiaryDetailViewController: DiaryDetailViewModelDelegate {
 
 extension DiaryDetailViewController {
     enum Section { case main }
-}
-
-extension DiaryDetailViewController {
-    
-    /// 스크롤 될 때마다 현재 페이지의 위치를 계산해서 PageControl의 현재 페이지를 변경한다.
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let width = scrollView.frame.width
-        let currentPageIndex = Int(scrollView.contentOffset.x / width)
-        
-        viewModel.currentPageDidChange(to: currentPageIndex)
-    }
 }
 
 extension DiaryDetailViewController: UICollectionViewDelegate {

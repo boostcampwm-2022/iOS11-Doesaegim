@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailImageCell: UICollectionViewCell {
+final class DetailImageCell: UICollectionViewCell {
     // MARK: - UI Properties
     
     private let imageView: UIImageView = {

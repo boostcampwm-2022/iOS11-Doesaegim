@@ -9,4 +9,5 @@ import Foundation
 
 protocol DiaryDetailRepository {
     func getImageDatas(from paths: [String]) -> [Data]?
+    func getDiaryDetail(with id: UUID) -> Result<Diary, CoreDataError>
 }
