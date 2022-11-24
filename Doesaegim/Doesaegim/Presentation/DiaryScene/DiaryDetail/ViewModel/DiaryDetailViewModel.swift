@@ -36,6 +36,18 @@ final class DiaryDetailViewModel {
     
     // MARK: - Init
     
+    // TODO: 이니셜라이징할 때 Result를 넘겨주는 방법..???을 모르겠어서 그냥 fail뜨면 nil처리되도록..
+    init?(id: UUID) {
+        let result = repository.getDiaryDetail(with: id)
+        switch result {
+        case .success(let diary):
+            self.diary = diary
+            self.navigationTitle = diary.title
+        case .failure:
+            return nil
+        }
+    }
+    
     init(diary: Diary) {
         self.diary = diary
         self.navigationTitle = diary.title
