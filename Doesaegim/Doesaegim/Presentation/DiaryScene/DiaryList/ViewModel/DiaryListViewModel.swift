@@ -49,6 +49,7 @@ extension DiaryListViewModel {
                 diaries.forEach { diary in
                     guard var diaryInfo = Diary.convertToViewModel(with: diary) else { return }
                     diaryInfo.travelID = travel.id
+                    diaryInfo.travelName = travel.name
                     newDiaries.append(diaryInfo)
                     
                 }
