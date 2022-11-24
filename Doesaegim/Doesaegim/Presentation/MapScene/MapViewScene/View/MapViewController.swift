@@ -28,7 +28,6 @@ final class MapViewController: UIViewController {
     
     // 추후 지워질 함 수 더미 핀을 만드는 함수
     private func addDummyPins() {
-        print(#function)
 //        let dummyImage = UIImage(systemName: "doc.append")
         let dummyImage = UIImage(systemName: "photo")
         let dummyImageData = dummyImage?.pngData()!
@@ -84,7 +83,7 @@ final class MapViewController: UIViewController {
     }
     
     private func configureAnnotationView() {
-        print(#function)
+
         mapView.register(
             MKMarkerAnnotationView.self,
             forAnnotationViewWithReuseIdentifier: NSStringFromClass(DiaryAnnotation.self)

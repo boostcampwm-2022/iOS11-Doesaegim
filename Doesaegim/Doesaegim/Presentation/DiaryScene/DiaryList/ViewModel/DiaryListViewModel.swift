@@ -33,7 +33,6 @@ extension DiaryListViewModel {
     }
     
     func fetchDiary() {
-        print(#function)
         // 1. 여행정보를 불러온다.
         // 2. 여행 정보별로 다이어리의 목록을 불러온다.
         // 3. 여행의 UUID를 키값으로하고, 다이어리의 배열로 하는 사전을 만든다.
@@ -78,7 +77,6 @@ extension DiaryListViewModel {
     
     /// 임시로 더미 다이어리 데이터를 생성해주는 메서드 입니다. 추후 삭제됩니다.
     func addDummyDiaryData() {
-        print(#function)
         guard let travel = currentTravel else { return }
         for count in 1...3 {
             let dateComponents = DateComponents(year: 2022, month: 12, day: 24+count)

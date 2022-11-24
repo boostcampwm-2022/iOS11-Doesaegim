@@ -131,7 +131,6 @@ extension DiaryListCell {
     }
     
     func configureData(with data: DiaryInfoViewModel) {
-        print(#function)
         
         titleLabel.text = data.title
         contentLabel.text = data.content
