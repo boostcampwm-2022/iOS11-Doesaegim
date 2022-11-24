@@ -58,6 +58,13 @@ final class DiaryAddViewController: UIViewController {
 
     private func configureNavigationBar() {
         navigationItem.title = StringLiteral.navigationTitle
+
+        let saveAction = UIAction { _ in self.viewModel.saveButtonDidTap() }
+        let saveButtonImage = UIImage(systemName: StringLiteral.saveButtonImageName)
+        let saveButton = UIBarButtonItem(image: saveButtonImage, primaryAction: saveAction)
+        saveButton.tintColor = .systemOrange
+        saveButton.isEnabled = false
+        navigationItem.setRightBarButton(saveButton, animated: true)
     }
 
     private func bindToViewModel() {
@@ -175,6 +182,7 @@ final class DiaryAddViewController: UIViewController {
 
 
 // MARK: - UIPickerViewDelegate
+// TODO: 종료 날짜순으로 정렬해서 호출하고, 초기값 설정하기?
 extension DiaryAddViewController: UIPickerViewDelegate {
     func pickerView(
         _ pickerView: UIPickerView,
@@ -199,6 +207,7 @@ extension DiaryAddViewController: UIPickerViewDelegate {
 extension DiaryAddViewController: DiaryAddViewModelDelegate {
 
     func diaryAddViewModlelValuesDidChange(_ diary: TemporaryDiary) {
+        navigationItem.rightBarButtonItem?.isEnabled = diary.requiredPropertiesAreFilled
         rootView.travelTextField.text = diary.travel?.name
         rootView.placeSearchButton.setTitle(diary.location?.name, for: .normal)
     }
@@ -210,6 +219,19 @@ extension DiaryAddViewController: DiaryAddViewModelDelegate {
 
     func diaryAddViewModelDidLoadImage(withId id: ImageID) {
         reloadItem(withID: id)
+    }
+
+    func diaryAddViewModelDidAddDiary(_ result: Result<Diary, Error>) {
+        switch result {
+        case .success(let diary):
+            print(diary.title!, "이 저장되었습니다!")
+            // TODO: 전달?
+        case .failure(let error):
+            presentErrorAlert(
+                title: CoreDataError.saveFailure(.diary).localizedDescription,
+                message: error.localizedDescription
+            )
+        }
     }
 
     private func applySnapshot(usingIDs identifiers: [ImageID]) {
@@ -263,5 +285,7 @@ fileprivate extension DiaryAddViewController {
 
     enum StringLiteral {
         static let navigationTitle = "작성 화면"
+
+        static let saveButtonImageName = "checkmark"
     }
 }

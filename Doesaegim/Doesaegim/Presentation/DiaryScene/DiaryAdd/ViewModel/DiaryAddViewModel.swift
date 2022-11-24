@@ -80,4 +80,31 @@ final class DiaryAddViewModel {
 
         delegate?.diaryAddViewModelDidUpdateSelectedImageIDs(imageManager.selectedIDs)
     }
+
+    func saveButtonDidTap() {
+        // Obtaining the Location of the Documents Directory
+        let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+
+        let imageURLs = imageManager.selectedIDs.forEach {
+            guard let image = imageManager.
+        }
+        // Create URL
+
+        // Convert to Data
+        if let data = image.pngData() {
+            do {
+                try data.write(to: url)
+            } catch {
+                print("Unable to Write Image Data to Disk")
+            }
+        }
+        /*
+            1. 파일 시스템에 이미지를 모두 저장하고 경로 리턴
+               - 하나라도 저장 실패 시 즉시 리턴하고 에러 리턴
+            2. tempDiary와 이미지 경로들을 사용해서 DTO 생성
+            3. 레포지토리를 통해 저장
+            4. 레포지토리 저장 결과를 받아서 델리게이트에 전달
+         */
+        delegate?.diaryAddViewModelDidAddDiary(.failure(CoreDataError.saveFailure(.diary)))
+    }
 }
