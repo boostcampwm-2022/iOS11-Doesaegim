@@ -98,6 +98,7 @@ extension DiaryListViewController {
     // MARK: - Actions
     @objc private func didAddDiaryButtonTap() {
         print("다이어리 추가버튼 탭")
+        navigationController?.pushViewController(DiaryAddViewController(), animated: true)
     }
     
     // MARK: - Collection View
