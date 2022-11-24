@@ -87,9 +87,7 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
         configureViews()
         setAddTargets()
         if type == .moneyUnit {
-//            setExchangeValue()
-            fetchExchangeInfo(day: "20221124")
-            exchangeDiskcache.fetchExchangeRateInfo()
+            setExchangeValue()
         }
     }
     
@@ -182,8 +180,8 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
                 DispatchQueue.main.async {
                     self?.pickerView.reloadAllComponents()
                 }
-                self?.saveExchangeValue(day: day, exchangeInfo: result)
-//                self?.exchangeDiskcache.saveExchangeRateInfo(exchangeInfo: result)
+                UserDefaults.standard.set(day, forKey: Constants.fetchExchangeInfoDate)
+                self?.exchangeDiskcache.saveExchangeRateInfo(exchangeInfo: result)
             }
         }
     }
@@ -205,58 +203,23 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
     // MARK: UserDefaults
     
     private func setExchangeValue() {
-        
-        // 내부저장소에 환율 정보가 없다면 API 통신요청
-        if UserDefaults.standard.object(forKey: Constants.exchangeValue) == nil {
-            fetchExchangeInfo(day: todayDateConvertToString())
-            return
+        // UserDefault 확인
+        if let fetchExchangeInfoDate = UserDefaults.standard.string(forKey: Constants.fetchExchangeInfoDate) {
+            
+            // UserDefault의 저장된 날짜가 오늘 날짜와 같고, 디스크 캐시에 저장되어 있다면
+            // 디스크 캐시에서 불러옴
+            // TODO: 메모리캐시 확인 메서드 작성
+            if fetchExchangeInfoDate == todayDateConvertToString(),
+                let info = exchangeDiskcache.fetchExchangeRateInfo() {
+                exchangeInfo = info
+                pickerView.reloadAllComponents()
+            }
+            
         } else {
-            // 내부저장소에 환율 정보가 있다면
-            guard let data = UserDefaults.standard.object(forKey: Constants.exchangeValue) as? Data,
-                  let dict = try? JSONDecoder().decode([String: [ExchangeResponse]].self, from: data)
-                  else {
-                fetchExchangeInfo(day: todayDateConvertToString())
-                return
-            }
-            
-            // 조회한 환율 정보가 있다면
-            // API 요청을 하지 않음
-            exchangeCache = dict
-            
-            // 오늘 날짜의 캐시가 있으면 오늘 날짜의 정보를 넣어줌
-            if let todayExchangeInfo = exchangeCache[todayDateConvertToString()] {
-                exchangeInfo = todayExchangeInfo
-                pickerView.reloadAllComponents()
-                return
-            }
-            
-            // 오늘 날짜의 캐시가 없으면 어제 날짜의 정보를 넣어줌
-            if let yesterdayExchangeInfo = exchangeCache[yesterDayDateConvertToString()] {
-                exchangeInfo = yesterdayExchangeInfo
-                pickerView.reloadAllComponents()
-                return
-            }
-            
-            // 오늘, 어제 둘다 캐시가 없으면? API 요청
+            // 없으면 api 요청
             fetchExchangeInfo(day: todayDateConvertToString())
         }
     }
-    
-    /// 날짜와 환율 정보를 담은 UserDefault를 저장해주는 메서드
-    /// [String: [ExchangeResponse]] Type
-    /// - Parameters:
-    ///   - day: 날짜
-    ///   - exchangeInfo: 환율 정보
-    private func saveExchangeValue(day: String, exchangeInfo: [ExchangeResponse]) {
-        do {
-            let dict: [String: [ExchangeResponse]] = [day: exchangeInfo]
-            let data = try JSONEncoder().encode(dict)
-            UserDefaults.standard.set(data, forKey: Constants.exchangeValue)
-        } catch let error {
-            print(error.localizedDescription)
-        }
-    }
-    
 }
 
 extension ExpenseAddPickerViewController: UIPickerViewDataSource {
