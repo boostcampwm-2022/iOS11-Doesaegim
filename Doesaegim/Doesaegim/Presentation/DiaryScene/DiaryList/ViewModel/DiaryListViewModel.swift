@@ -82,6 +82,7 @@ extension DiaryListViewModel {
             let dateComponents = DateComponents(year: 2022, month: 12, day: 24+count)
             let date = Calendar.current.date(from: dateComponents)!
             let dto = DiaryDTO(
+                id: UUID(),
                 content: "콘텐츠 콘텐츠 콘텐츠 \(count)",
                 date: date,
                 images: [],

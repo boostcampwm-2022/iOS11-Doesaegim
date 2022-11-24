@@ -115,8 +115,24 @@ final class DiaryAddView: UIView {
         return stack
     }()
 
+    private let activityIndicator: TranslucentActivityIndicatorView = {
+        let view = TranslucentActivityIndicatorView()
+        view.isHidden = true
+        return view
+    }()
+
     
     // MARK: - Properties
+
+    var isSaving = true {
+        didSet {
+            if isSaving {
+                activityIndicator.startAnimating()
+            } else {
+                activityIndicator.stopAnimating()
+            }
+        }
+    }
 
 
     // MARK: - Init(s)
@@ -143,7 +159,7 @@ final class DiaryAddView: UIView {
     }
 
     private func configureSubviews() {
-        addSubview(scrollView)
+        addSubviews(scrollView, activityIndicator)
         scrollView.addSubview(contentStack)
         let contentStackSubviews = [
             travelTextField, placeSearchButton,
@@ -176,6 +192,7 @@ final class DiaryAddView: UIView {
         }
         divider.snp.makeConstraints { $0.height.equalTo(Metric.one)}
         addPhotoButton.snp.makeConstraints { $0.center.equalTo(imageSlider) }
+        activityIndicator.snp.makeConstraints { $0.edges.equalToSuperview() }
     }
 }
 

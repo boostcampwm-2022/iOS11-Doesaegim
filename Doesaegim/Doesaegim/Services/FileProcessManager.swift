@@ -27,30 +27,36 @@ extension FileProcessManager {
 
     // MARK: - Save Function
 
-    /// 이미지를 저장하고 성공하면 저장 위치(상대 경로)를, 실패하면 nil 리턴
-    func saveImage(_ image: UIImage, path: String) -> String? {
+
+    /// 이미지를 jpeg로 변환해서 파일시스템에 저장
+    /// - Parameters:
+    ///   - image: 저장할 UIImage
+    ///   - imageID: 저장할 이미지의 아이디
+    ///   - diaryID: 이미지가 속한 다이어리의 아이디
+    /// - Returns: 성공 시 true, 실패 시 false
+    func saveImage(_ image: UIImage, imageID: String, diaryID: UUID) -> Bool {
         guard let data = image.jpegData(compressionQuality: Metric.compressionQuality),
-              let url = url(appendingPathComponent: path)
+              let url = url(usingImageID: imageID, diaryID: diaryID)
         else {
-            return nil
+            return false
         }
 
         do {
             try data.write(to: url)
         } catch {
-            return nil
+            return false
         }
 
-        return path
+        return true
     }
 
 
     // MARK: - Fetch Functions
     
-    func fetchImages(with imagePaths: [String]) -> [Data] {
+    func fetchImages(with imagePaths: [String], diaryID: UUID) -> [Data] {
         var imageDatas: [Data] = []
         imagePaths.forEach { imagePath in
-            let result = fetchImage(with: imagePath)
+            let result = fetchImage(with: imagePath, diaryID: diaryID)
             switch result {
             case .success(let data):
                 imageDatas.append(data)
@@ -62,12 +68,12 @@ extension FileProcessManager {
         return imageDatas
     }
     
-    func fetchImage(with imagePath: String) -> Result<Data, Error> {
-        guard let url = url(appendingPathComponent: imagePath)
+    func fetchImage(with imagePath: String, diaryID: UUID) -> Result<Data, Error> {
+        guard let url = url(usingImageID: imagePath, diaryID: diaryID)
         else {
             return .failure(FileManagerError.fetchFailure(.image))
         }
-
+        
         do {
             let imageData = try Data(contentsOf: url)
             return .success(imageData)
@@ -79,10 +85,15 @@ extension FileProcessManager {
 
     // MARK: - Delete Functions
 
-    /// 인자로 주어진 값들을 경로로 활용해 해당 경로에 이미지가 존재하면 이미지를 리턴
+
+    /// 인자로 주어진 값들을 활용해서 생성한 경로에 있는 이미지를 삭제
+    /// - Parameters:
+    ///   - imagePath: Diary의 images 값 혹은 PHPickerResult의 asset identifier
+    ///   - diaryID: Diary의 id 값
+    /// - Returns: 성공 시 true, 실패 시 fail
     @discardableResult
-    func deleteImage(at imagePath: String) -> Bool {
-        guard let url = url(appendingPathComponent: imagePath)
+    func deleteImage(at imagePath: String, diaryID: UUID) -> Bool {
+        guard let url = url(usingImageID: imagePath, diaryID: diaryID)
         else {
             return false
         }
@@ -96,14 +107,16 @@ extension FileProcessManager {
         return true
     }
 
-    /// userDomainMask의 document directory에 인자를 최종 경로로 하는 url 생성
-    private func url(appendingPathComponent path: String) -> URL? {
+    /// userDomainMask의 document directory에 imageID와 noteID를 최종 경로로 하는 url 생성
+    ///
+    /// 하나의 사진을 여러 다이어리에 넣을 수 있어서 경로에 diaryID를 추가적으로 사용
+    private func url(usingImageID imageID: String, diaryID: UUID) -> URL? {
         guard let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
         else {
             return nil
         }
-
-        return documentsDirectory.appendingPathComponent(path.replacingOccurrences(of: "/", with: "-"))
+        let path = "\(imageID)\(diaryID.uuidString)".replacingOccurrences(of: "/", with: "-")
+        return documentsDirectory.appendingPathComponent(path)
     }
 }
 
