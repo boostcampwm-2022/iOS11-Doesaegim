@@ -173,9 +173,9 @@ extension MapViewController: MKMapViewDelegate {
             markerAnnotationView.canShowCallout = true
             markerAnnotationView.markerTintColor = .primaryOrange
             
-            if !annotation.imageData.isEmpty {
+            if !annotation.imageData.isEmpty,
+               let thumbnailImageData = annotation.imageData.first {
                 // 사진이 없으면 아무 이미지도 없이 제목과 내용미리보기가 나온다.
-                let thumbnailImageData = annotation.imageData.first!
                 let image = UIImage(data: thumbnailImageData)
                 let imageView = DiaryCalloutView(frame: .zero, image: image)
 
