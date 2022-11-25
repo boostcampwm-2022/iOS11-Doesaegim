@@ -118,8 +118,8 @@ extension DiaryListCell {
 //        titleStackView.addArrangedSubview(dateLabel)
         // 장소 레이블은 추가해야할지 고민
         contentStackView.addArrangedSubview(titleLabel)
-        contentStackView.addArrangedSubview(dateLabel)
         contentStackView.addArrangedSubview(contentLabel)
+        contentStackView.addArrangedSubview(dateLabel)
         
         addSubview(contentStackView)
         addSubview(thumbnailImageView)
@@ -155,7 +155,6 @@ extension DiaryListCell {
         } else {
             // 섬네일 이미지 뷰를 없앤다. 없어진 constraint를 재설정한다.
             thumbnailImageView.removeFromSuperview()
-            print("asdf)")
             contentStackView.snp.makeConstraints {
                 // $0.trailing.equalToSuperView().inset(-9) 로 하니 constraint가 잡히지 않습니다.
                 $0.trailing.equalTo(self.snp.trailing).offset(-9)
