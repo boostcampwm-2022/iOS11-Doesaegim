@@ -47,7 +47,7 @@ final class DiaryListCell: UICollectionViewCell {
         let label = UILabel()
         label.font = label.font.withSize(14)
         label.textColor = .grey4
-        label.numberOfLines = 2
+        label.numberOfLines = 1
         label.lineBreakMode = .byTruncatingTail
         
         return label
@@ -89,10 +89,12 @@ extension DiaryListCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        titleLabel.text = "제목"
+        thumbnailImageView.isHidden = false
+        titleLabel.text = "제목제목제목제목"
         contentLabel.text = "컨텐츠 컨텐츠 컨텐츠"
         dateLabel.text = "날짜 날짜 날짜"
         thumbnailImageView.image = UIImage(systemName: "photo.on.rectangle.angled")
+        configure()
     }
     
     // MARK: - Configuration
@@ -110,11 +112,13 @@ extension DiaryListCell {
     }
     
     private func configureSubviews() {
+        
         // stack view
-        titleStackView.addArrangedSubview(titleLabel)
-        titleStackView.addArrangedSubview(dateLabel)
+//        titleStackView.addArrangedSubview(titleLabel)
+//        titleStackView.addArrangedSubview(dateLabel)
         // 장소 레이블은 추가해야할지 고민
-        contentStackView.addArrangedSubview(titleStackView)
+        contentStackView.addArrangedSubview(titleLabel)
+        contentStackView.addArrangedSubview(dateLabel)
         contentStackView.addArrangedSubview(contentLabel)
         
         addSubview(contentStackView)
@@ -125,12 +129,12 @@ extension DiaryListCell {
         contentStackView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().inset(9)
-            $0.trailing.equalTo(thumbnailImageView.snp.leading).offset(6)
+            $0.trailing.equalTo(thumbnailImageView.snp.leading).offset(-6)
         }
         
         thumbnailImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.trailing.equalToSuperview().inset(9)
+            $0.trailing.equalToSuperview().inset(-9)
             $0.width.equalTo(45)
             $0.height.equalTo(45)
         }
@@ -149,8 +153,13 @@ extension DiaryListCell {
         if let imageData = data.imageData {
             thumbnailImageView.image = UIImage(data: imageData)
         } else {
-            // 섬네일 이미지 뷰를 없앤다.
+            // 섬네일 이미지 뷰를 없앤다. 없어진 constraint를 재설정한다.
             thumbnailImageView.removeFromSuperview()
+            print("asdf)")
+            contentStackView.snp.makeConstraints {
+                // $0.trailing.equalToSuperView().inset(-9) 로 하니 constraint가 잡히지 않습니다.
+                $0.trailing.equalTo(self.snp.trailing).offset(-9)
+            }
         }
     }
     

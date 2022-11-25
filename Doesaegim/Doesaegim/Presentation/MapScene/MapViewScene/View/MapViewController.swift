@@ -137,8 +137,8 @@ extension MapViewController: MKMapViewDelegate {
             guard let annotation = annotation as? DiaryAnnotation,
                   let id = annotation.id else { return }
             
-            let diaryViewController = DiaryDetailViewController(id: id)
-
+//            let diaryViewController = DiaryDetailViewController(id: id)
+            let diaryViewController = TempDiaryViewController()
             diaryViewController.modalPresentationStyle = .popover
             let presentationController =  diaryViewController.popoverPresentationController
             presentationController?.permittedArrowDirections = .any

@@ -85,7 +85,7 @@ extension DiaryListViewModel {
                 content: "콘텐츠 콘텐츠 콘텐츠 \(count)",
                 date: date,
                 images: [],
-                title: "제목\(count)",
+                title: "제목제목제목제목제목제목제목제목제목ㅁㄴㅇㄹㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹ\(count)",
                 location: LocationDTO(
                     name: "위치",
                     latitude: 37.5700,
