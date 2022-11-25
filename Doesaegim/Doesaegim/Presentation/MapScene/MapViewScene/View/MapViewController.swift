@@ -17,19 +17,17 @@ final class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        viewModel.delegate = self
         configureSubviews()
         configureMap()
         configureAnnotationView()
-        addDummyPins() // 더미 핀을 추가하고 싶을 때
-        
+//        addDummyPins() // 더미 핀을 추가하고 싶을 때
         viewModel.fetchDiary()
         
     }
     
     // 추후 지워질 함 수 더미 핀을 만드는 함수
     private func addDummyPins() {
-        print(#function)
 //        let dummyImage = UIImage(systemName: "doc.append")
         let dummyImage = UIImage(systemName: "photo")
         let dummyImageData = dummyImage?.pngData()!
@@ -85,7 +83,7 @@ final class MapViewController: UIViewController {
     }
     
     private func configureAnnotationView() {
-        print(#function)
+
         mapView.register(
             MKMarkerAnnotationView.self,
             forAnnotationViewWithReuseIdentifier: NSStringFromClass(DiaryAnnotation.self)
@@ -136,9 +134,11 @@ extension MapViewController: MKMapViewDelegate {
         
         if let annotation = view.annotation, annotation.isKind(of: DiaryAnnotation.self) {
             print("다이어리 어노테이션을 탭 했습니다.")
+            guard let annotation = annotation as? DiaryAnnotation,
+                  let id = annotation.id else { return }
             
-            let diaryViewController =  TempDiaryViewController()
-//            navigationController?.pushViewController(diaryViewController, animated: true)
+//            let diaryViewController = DiaryDetailViewController(id: id)
+            let diaryViewController = TempDiaryViewController()
             diaryViewController.modalPresentationStyle = .popover
             let presentationController =  diaryViewController.popoverPresentationController
             presentationController?.permittedArrowDirections = .any
@@ -159,7 +159,6 @@ extension MapViewController: MKMapViewDelegate {
             annotationView = setupDiaryAnnotationView(for: annotation, on: mapView)
         }
         
-        print(type(of: annotation))
         return annotationView
     }
     

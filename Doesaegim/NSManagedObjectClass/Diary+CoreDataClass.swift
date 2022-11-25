@@ -67,6 +67,34 @@ public class Diary: NSManagedObject {
         )
         
         return diaryMapInfo
+    }
+    
+    static func convertToViewModel(with diary: Diary) -> DiaryInfoViewModel? {
+        guard let id = diary.id,
+              let title = diary.title,
+              let content = diary.content,
+              let date = diary.date else { return nil }
+                
+        var imageData: Data?
+        if let imagePath = diary.images?.first {
+            let imageDataResult = FileProcessManager.shared.fetchImage(with: imagePath)
+            switch imageDataResult {
+            case .success(let data):
+                imageData = data
+            case .failure(let error):
+                print(error.localizedDescription)
+                return nil
+            }
+        }
         
+        let diaryInfo = DiaryInfoViewModel(
+            id: id,
+            content: content,
+            date: date,
+            imageData: imageData,
+            title: title
+        )
+        
+        return diaryInfo
     }
 }
