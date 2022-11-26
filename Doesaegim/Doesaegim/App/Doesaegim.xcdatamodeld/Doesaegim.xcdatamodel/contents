@@ -4,7 +4,7 @@
         <attribute name="content" optional="YES" attributeType="String"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="images" optional="YES" attributeType="Transformable" customClassName="[String]"/>
+        <attribute name="images" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[String]"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="location" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Location" inverseName="diary" inverseEntity="Location"/>
         <relationship name="travel" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Travel" inverseName="diary" inverseEntity="Travel"/>
