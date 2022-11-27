@@ -13,9 +13,12 @@ import SnapKit
 
 final class TravelListViewController: UIViewController {
 
-    private typealias DataSource = UICollectionViewDiffableDataSource<String, TravelInfoViewModel>
-    private typealias SnapShot = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>
-    private typealias CellRegistration = UICollectionView.CellRegistration<TravelListCell, TravelInfoViewModel>
+    private typealias DataSource
+    = UICollectionViewDiffableDataSource<String, TravelInfoViewModel>
+    private typealias SnapShot
+    = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>
+    private typealias CellRegistration
+    = UICollectionView.CellRegistration<TravelListCell, TravelInfoViewModel>
     
     // MARK: - Properties
     
@@ -59,13 +62,19 @@ final class TravelListViewController: UIViewController {
         configureCollectionViewDataSource()
         
         // TODO: - 임시 데이터 저장, 추후 삭제
-        do {
+//        do {
 //            for index in 1...100 {
-//                try Travel.addAndSave(with: TravelDTO(name: "\(index)번째 여행!", startDate: Date(), endDate: Date()))
+//                try Travel.addAndSave(
+//                    with: TravelDTO(
+//                        name: "\(index)번째 여행!",
+//                        startDate: Date(),
+//                        endDate: Date()
+//                    )
+//                )
 //            }
-        } catch {
-            print(error.localizedDescription)
-        }
+//        } catch {
+//            print(error.localizedDescription)
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -184,14 +193,21 @@ extension TravelListViewController: UICollectionViewDelegate {
         else {
             return
         }
+        let result = PersistentManager.shared.fetch(request: Travel.fetchRequest())
+        switch result {
+        case .success(let response):
+            guard let travel = response.first(where: { $0.id == travelViewModel.uuid }) else {
+                return
+            }
+            let planListViewModel = PlanListViewModel(
+                travel: travel,
+                repository: PlanLocalRepository()
+            )
+            show(PlanListViewController(viewModel: planListViewModel), sender: nil)
+        case .failure(let error):
+            print(error.localizedDescription)
+        }
 
-        let planListViewModel = PlanListViewModel(
-            travelID: travelViewModel.uuid,
-            navgiationTitle: travelViewModel.title,
-            repository: PlanLocalRepository()
-        )
-
-        show(PlanListViewController(viewModel: planListViewModel), sender: self)
     }
 }
 

@@ -5,6 +5,8 @@
 //  Created by 김민석 on 2022/11/16.
 //
 
+// swiftlint:disable file_length
+
 import UIKit
 
 import SnapKit
@@ -90,7 +92,7 @@ final class PlanAddViewController: UIViewController {
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
         button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         button.titleEdgeInsets = .init(top: 0, left: 15, bottom: 0, right: -5)
-        button.imageEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 5)
+        button.imageEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: 5)
         button.tintColor = .grey3
         button.contentHorizontalAlignment = .left
         return button
@@ -126,7 +128,7 @@ final class PlanAddViewController: UIViewController {
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
         button.setImage(UIImage(systemName: "calendar"), for: .normal)
         button.titleEdgeInsets = .init(top: 0, left: 15, bottom: 0, right: -5)
-        button.imageEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 5)
+        button.imageEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: 5)
         button.tintColor = .grey3
         button.contentHorizontalAlignment = .left
         return button
@@ -169,11 +171,13 @@ final class PlanAddViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel: PlanAddViewModel
+    private let travel: Travel?
     
     // MARK: - Lifecycles
     
-    init() {
+    init(travel: Travel?) {
         viewModel = PlanAddViewModel()
+        self.travel = travel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -199,6 +203,10 @@ final class PlanAddViewController: UIViewController {
             action: #selector(placeButtonTouchUpInside),
             for: .touchUpInside
         )
+        addButton.addTarget(
+            self,
+            action: #selector(addButtonTouchUpInside),
+            for: .touchUpInside)
         viewModel.delegate = self
     }
     
@@ -221,6 +229,7 @@ final class PlanAddViewController: UIViewController {
         planTitleStackView.addArrangedSubviews(planTitleLabel, planTitleTextField)
         placeTitleStackView.addArrangedSubviews(placeTitleLabel, placeSearchButton)
         dateStackView.addArrangedSubviews(dateTitleLabel, dateInputButton)
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
     }
     
     private func configureConstraint() {
@@ -286,8 +295,8 @@ extension PlanAddViewController {
     private func setKeyboardNotification() {
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(keyboardDidShow),
-            name: UIResponder.keyboardDidShowNotification, object: nil
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification, object: nil
         )
         
         NotificationCenter.default.addObserver(
@@ -297,25 +306,23 @@ extension PlanAddViewController {
         )
     }
   
-    @objc private func keyboardDidShow(notification: NSNotification) {
-        if let keyboardFrame: NSValue = notification
-            .userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
-            self.view.frame.size.height -= keyboardHeight
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-            view.addGestureRecognizer(tapGesture)
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        else {
+            return
         }
+        let contentInsets = UIEdgeInsets(
+            top: .zero,
+            left: .zero,
+            bottom: keyboardSize.height - (tabBarController?.tabBar.frame.height ?? .zero),
+            right: .zero
+        )
+        scrollView.contentInset = contentInsets
     }
 
     @objc private func keyboardWillHide(notification: NSNotification) {
-        if let keyboardFrame: NSValue = notification
-            .userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
-            self.view.frame.size.height += keyboardHeight
-            view.gestureRecognizers?.removeAll()
-        }
+        scrollView.contentInset = .zero
     }
     
     @objc private func dismissKeyboard() {
@@ -327,7 +334,7 @@ extension PlanAddViewController {
 
 extension PlanAddViewController {
     @objc func dateInputButtonTouchUpInside() {
-        let calendarViewController = CalendarViewController(touchOption: .single)
+        let calendarViewController = CalendarViewController(touchOption: .single, type: .dateAndTime)
         calendarViewController.delegate = self
         present(calendarViewController, animated: true)
     }
@@ -340,6 +347,24 @@ extension PlanAddViewController {
         let searchingLocationViewController = SearchingLocationViewController()
         searchingLocationViewController.delegate = self
         navigationController?.pushViewController(searchingLocationViewController, animated: true)
+    }
+    
+    @objc func addButtonTouchUpInside() {
+        guard let name = planTitleTextField.text,
+              let dateString = dateInputButton.titleLabel?.text,
+              let date = Date.convertDateStringToDate(
+                dateString: dateString,
+                formatter: Date.yearMonthDayTimeDateFormatter
+              ),
+              let content = descriptionTextView.text,
+              let travel = travel
+        else {
+            return
+        }
+        let planDTO = PlanDTO(name: name, date: date, content: content, travel: travel)
+        viewModel.postPlan(plan: planDTO) { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
     }
 }
 
@@ -396,9 +421,7 @@ extension PlanAddViewController: SearchingLocationViewControllerDelegate {
 extension PlanAddViewController: CalendarViewDelegate {
     func fetchDate(dateString: String) {
         dateInputButton.setTitle(dateString, for: .normal)
-        let dateFormatter = Date.yearMonthDayTimeDateFormatter
-        let date = dateFormatter.date(from: dateString)
-        viewModel.isValidDate(date: date)
+        viewModel.isValidDate(dateString: dateString)
     }
 }
 

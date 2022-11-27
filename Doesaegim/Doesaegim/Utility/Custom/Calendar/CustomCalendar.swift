@@ -32,7 +32,7 @@ final class CustomCalendar: UICollectionView {
     private var today = Date()
     private var calendar = Calendar.current
     private var dateComponents = DateComponents()
-    private var dateFormmater = DateFormatter()
+    private let dateFormmater = Date.yearMonthDateFormatter
     private let weeks: [String] = ["일", "월", "화", "수", "목", "금", "토"]
     private var days: [Item] = []
     private let touchOption: TouchOption
@@ -53,6 +53,7 @@ final class CustomCalendar: UICollectionView {
         configureSnapshot()
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -155,7 +156,6 @@ final class CustomCalendar: UICollectionView {
     private func configureCalendar() {
         dateComponents.year = calendar.component(.year, from: today)
         dateComponents.month = calendar.component(.month, from: today)
-        dateFormmater = Date.yearMonthDayDateFormatter
         setupCalendar()
         configureSnapshot()
     }
@@ -194,6 +194,11 @@ extension CustomCalendar {
     enum TouchOption {
         case single
         case double
+    }
+    
+    enum CalendarType {
+        case date
+        case dateAndTime
     }
 }
 

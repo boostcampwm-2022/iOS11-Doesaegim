@@ -33,22 +33,65 @@
 		A4CC04E02923738500BB678B /* PlanLocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04DF2923738500BB678B /* PlanLocalRepository.swift */; };
 		A4CC04E22923777B00BB678B /* NSObject+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CC04E12923777B00BB678B /* NSObject+Name.swift */; };
 		A4EB00DC2926456D00A83936 /* UIScrollView+DidPassPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB00DB2926456D00A83936 /* UIScrollView+DidPassPoint.swift */; };
+		A4EB25BF292BB4F1002D129A /* DiaryAddRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB25BE292BB4F1002D129A /* DiaryAddRepository.swift */; };
+		A4EB25C2292BB518002D129A /* DiaryAddLocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB25C1292BB518002D129A /* DiaryAddLocalRepository.swift */; };
+		A4EB25C4292BB828002D129A /* DiaryAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB25C3292BB828002D129A /* DiaryAddViewModel.swift */; };
+		A4EB25C9292C92CC002D129A /* DiaryAddViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB25C8292C92CC002D129A /* DiaryAddViewModelDelegate.swift */; };
+		A4EB25CB292C92F1002D129A /* PickerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB25CA292C92F1002D129A /* PickerDataSource.swift */; };
+		A4EB25CD292C9775002D129A /* TemporaryDiary.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB25CC292C9775002D129A /* TemporaryDiary.swift */; };
+		B53763CC292B56600073BF46 /* CustomPieChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763CA292B56600073BF46 /* CustomPieChart.swift */; };
+		B53763D5292B61A40073BF46 /* CustomChartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763D4292B61A40073BF46 /* CustomChartItem.swift */; };
+		B53763E3292B99B80073BF46 /* PieceShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763E2292B99B80073BF46 /* PieceShapeLayer.swift */; };
+		B53763E8292BA0760073BF46 /* PieceTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763E7292BA0760073BF46 /* PieceTextLayer.swift */; };
 		B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D96252922301E00B510B8 /* TravelDTO.swift */; };
 		B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D9627292230CA00B510B8 /* PlanDTO.swift */; };
 		B57D962C2922315500B510B8 /* LocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962B2922315500B510B8 /* LocationDTO.swift */; };
 		B57D962E2922318F00B510B8 /* ExpenseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962D2922318F00B510B8 /* ExpenseDTO.swift */; };
 		B57D9630292231FC00B510B8 /* DiaryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962F292231FC00B510B8 /* DiaryDTO.swift */; };
+		B595A984292CE53100C3B897 /* ExpenseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B595A983292CE53100C3B897 /* ExpenseType.swift */; };
 		B5C096B629235416007426B1 /* SearchingLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096B529235416007426B1 /* SearchingLocationViewController.swift */; };
 		B5C096B829235428007426B1 /* SearchingLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096B729235428007426B1 /* SearchingLocationView.swift */; };
 		B5C096BC29235B08007426B1 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096BB29235B08007426B1 /* SearchResultCell.swift */; };
 		B5C096C029236BC0007426B1 /* SearchResultCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096BF29236BC0007426B1 /* SearchResultCellViewModel.swift */; };
 		B5C096C429238091007426B1 /* SearchingLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096C329238091007426B1 /* SearchingLocationViewModel.swift */; };
 		B5C096C629238A0B007426B1 /* SearchingLocationViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096C529238A0B007426B1 /* SearchingLocationViewModelDelegate.swift */; };
+		B5C421A3292F201700963B17 /* ExpenseAddPickerViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4F5292CA3990060A459 /* ExpenseAddPickerViewProtocol.swift */; };
+		B5C421A4292F204900963B17 /* ExpenseAddPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4F3292C8CC50060A459 /* ExpenseAddPickerViewController.swift */; };
+		B5D64E61292DF06400E1CC81 /* PlaceSearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E5E292DF06400E1CC81 /* PlaceSearchButton.swift */; };
+		B5D64E62292DF06400E1CC81 /* DiaryAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E5F292DF06400E1CC81 /* DiaryAddViewController.swift */; };
+		B5D64E63292DF06400E1CC81 /* DiaryAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E60292DF06400E1CC81 /* DiaryAddView.swift */; };
+		B5D64E67292DFED500E1CC81 /* DiaryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E66292DFED500E1CC81 /* DiaryDetailViewController.swift */; };
+		B5D64E69292DFEF000E1CC81 /* DiaryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E68292DFEF000E1CC81 /* DiaryDetailView.swift */; };
+		B5D64E6C292E22A400E1CC81 /* DiaryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E6B292E22A400E1CC81 /* DiaryDetailViewModel.swift */; };
+		B5D64E6E292E254A00E1CC81 /* DiaryDetailViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E6D292E254A00E1CC81 /* DiaryDetailViewModelDelegate.swift */; };
+		B5D64E72292E3B1300E1CC81 /* DiaryDetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E71292E3B1300E1CC81 /* DiaryDetailRepository.swift */; };
+		B5D64E76292E3B6C00E1CC81 /* DiaryDetailLocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E75292E3B6C00E1CC81 /* DiaryDetailLocalRepository.swift */; };
+		B5D64E78292E4B9A00E1CC81 /* DetailImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E77292E4B9A00E1CC81 /* DetailImageCell.swift */; };
+		B5D64E7A292E684000E1CC81 /* DetailImageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E79292E684000E1CC81 /* DetailImageCellViewModel.swift */; };
 		B5DE4D4029271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DE4D3F29271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift */; };
+		BB02B090292F294C00FE11DA /* DiaryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB02B08F292F294C00FE11DA /* DiaryListViewController.swift */; };
+		BB02B092292F295800FE11DA /* DiaryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB02B091292F295800FE11DA /* DiaryListViewModel.swift */; };
+		BB02B094292F29E000FE11DA /* DiaryListViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB02B093292F29E000FE11DA /* DiaryListViewModelProtocol.swift */; };
+		BB02B096292F2A4900FE11DA /* DiaryInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB02B095292F2A4900FE11DA /* DiaryInfoViewModel.swift */; };
+		BB288FC8292E167900065D04 /* DiaryCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB288FC7292E167900065D04 /* DiaryCalloutView.swift */; };
+		BB288FCB292E1A2B00065D04 /* FileProcessManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB288FCA292E1A2B00065D04 /* FileProcessManager.swift */; };
+		BB288FD0292E21E100065D04 /* FileManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB288FCF292E21E100065D04 /* FileManagerError.swift */; };
+		BB3DB919292C649600C70D62 /* UIView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3DB918292C649600C70D62 /* UIView+Frame.swift */; };
+		BB3DB91E292C83C400C70D62 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3DB91D292C83C400C70D62 /* MapViewModel.swift */; };
+		BB3DB920292CA76800C70D62 /* MapViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3DB91F292CA76800C70D62 /* MapViewModelProtocol.swift */; };
+		BB3DB922292CA79500C70D62 /* DiaryMapInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3DB921292CA79500C70D62 /* DiaryMapInfoViewModel.swift */; };
+		BB3DB926292CF89400C70D62 /* DiaryAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3DB925292CF89400C70D62 /* DiaryAnnotation.swift */; };
+		BB3DB928292D092000C70D62 /* TempDiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3DB927292D092000C70D62 /* TempDiaryViewController.swift */; };
 		BB5771A42923A08F0034047D /* ExpenseTravelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5771A32923A08F0034047D /* ExpenseTravelViewModel.swift */; };
 		BB5771AC2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5771AB2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift */; };
+		BB5DE44C292B8E86001DA6F6 /* Int+convertCostString.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5DE44B292B8E86001DA6F6 /* Int+convertCostString.swift */; };
+		BB6079B1292F3ECF00BF30C8 /* DiaryListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6079B0292F3ECF00BF30C8 /* DiaryListCell.swift */; };
+		BB6079B3292F546900BF30C8 /* DiaryListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6079B2292F546900BF30C8 /* DiaryListHeaderView.swift */; };
 		BB7D9A262926088A00BF2BD6 /* ExpensePlaceholdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7D9A252926088A00BF2BD6 /* ExpensePlaceholdView.swift */; };
 		BB7D9A2A29261C0600BF2BD6 /* ExpenseListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7D9A2929261C0600BF2BD6 /* ExpenseListCell.swift */; };
+		BB9DB80E2928CA6A00102EC8 /* ExpenseListViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9DB80D2928CA6A00102EC8 /* ExpenseListViewModelProtocol.swift */; };
+		BB9DB8102928D09200102EC8 /* PersistentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9DB80F2928D09200102EC8 /* PersistentRepository.swift */; };
+		BB9DB8122928D0BA00102EC8 /* PersistentRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9DB8112928D0BA00102EC8 /* PersistentRepositoryProtocol.swift */; };
 		BBB31A372925F5E400C9E3A9 /* TravelListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB31A362925F5E400C9E3A9 /* TravelListCell.swift */; };
 		BBB31A392925F77900C9E3A9 /* ExpenseTravelListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB31A382925F77900C9E3A9 /* ExpenseTravelListCell.swift */; };
 		BBB31A3E2926007D00C9E3A9 /* ExpenseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB31A3D2926007D00C9E3A9 /* ExpenseListViewController.swift */; };
@@ -56,7 +99,6 @@
 		BBD0D05B291DE956007D0D82 /* TravelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05A291DE956007D0D82 /* TravelListViewController.swift */; };
 		BBD0D05D291DE975007D0D82 /* ExpenseTravelListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05C291DE975007D0D82 /* ExpenseTravelListController.swift */; };
 		BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05E291DE97F007D0D82 /* MapViewController.swift */; };
-		BBD0D061291DE988007D0D82 /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D060291DE988007D0D82 /* DiaryViewController.swift */; };
 		BBD0D063291DE991007D0D82 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D062291DE991007D0D82 /* SettingViewController.swift */; };
 		BBD0D066291DED6A007D0D82 /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D065291DED6A007D0D82 /* UIColor+.swift */; };
 		BBDB2E922926222100752924 /* ExpenseInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDB2E912926222100752924 /* ExpenseInfoViewModel.swift */; };
@@ -84,6 +126,17 @@
 		EE2C553D291CC08B0018B109 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EE2C553C291CC08B0018B109 /* SnapKit */; };
 		EE3E29A829235F6B007C7FC7 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E29A729235F6B007C7FC7 /* UITextField+.swift */; };
 		EE3E29BC2923C870007C7FC7 /* TravelAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E29BB2923C870007C7FC7 /* TravelAddViewController.swift */; };
+		EE85FBC3292BA9B600FF0C7C /* ExpenseAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE85FBC2292BA9B600FF0C7C /* ExpenseAddViewController.swift */; };
+		EE85FBC6292BAADC00FF0C7C /* ExpenseAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE85FBC5292BAADC00FF0C7C /* ExpenseAddView.swift */; };
+		EEA1C824292F395100B80901 /* ExchangeDiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA1C823292F395100B80901 /* ExchangeDiskCache.swift */; };
+		EEA1C826292F4E6000B80901 /* ExchangeMemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA1C825292F4E6000B80901 /* ExchangeMemoryCache.swift */; };
+		EEB6C4F8292CA8DB0060A459 /* ExpenseAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4F7292CA8DB0060A459 /* ExpenseAddViewModel.swift */; };
+		EEB6C4FB292CA9200060A459 /* ExpenseAddViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4FA292CA9200060A459 /* ExpenseAddViewProtocol.swift */; };
+		EEB6C4FD292CC29B0060A459 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4FC292CC29B0060A459 /* NetworkManager.swift */; };
+		EEB6C500292CC4910060A459 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4FF292CC4910060A459 /* Resource.swift */; };
+		EEB6C503292CC88B0060A459 /* ExchangeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C502292CC88B0060A459 /* ExchangeResponse.swift */; };
+		EEB6C506292CCE410060A459 /* ExchangeRateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C505292CCE410060A459 /* ExchangeRateType.swift */; };
+		EEBA25FB292D1AE3001F8B66 /* String+ConvertRemoveComma.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBA25FA292D1AE3001F8B66 /* String+ConvertRemoveComma.swift */; };
 		EEDB752F2925E8DD0069A7F5 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDB752E2925E8DD0069A7F5 /* CalendarViewController.swift */; };
 		EEDB75312925F56D0069A7F5 /* CalendarProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDB75302925F56D0069A7F5 /* CalendarProtocol.swift */; };
 		EEDB753329260DFB0069A7F5 /* PlanAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEDB753229260DFB0069A7F5 /* PlanAddViewModel.swift */; };
@@ -134,22 +187,63 @@
 		A4CC04DF2923738500BB678B /* PlanLocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanLocalRepository.swift; sourceTree = "<group>"; };
 		A4CC04E12923777B00BB678B /* NSObject+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Name.swift"; sourceTree = "<group>"; };
 		A4EB00DB2926456D00A83936 /* UIScrollView+DidPassPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+DidPassPoint.swift"; sourceTree = "<group>"; };
+		A4EB25BE292BB4F1002D129A /* DiaryAddRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddRepository.swift; sourceTree = "<group>"; };
+		A4EB25C1292BB518002D129A /* DiaryAddLocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddLocalRepository.swift; sourceTree = "<group>"; };
+		A4EB25C3292BB828002D129A /* DiaryAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddViewModel.swift; sourceTree = "<group>"; };
+		A4EB25C8292C92CC002D129A /* DiaryAddViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAddViewModelDelegate.swift; sourceTree = "<group>"; };
+		A4EB25CA292C92F1002D129A /* PickerDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDataSource.swift; sourceTree = "<group>"; };
+		A4EB25CC292C9775002D129A /* TemporaryDiary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryDiary.swift; sourceTree = "<group>"; };
+		B53763CA292B56600073BF46 /* CustomPieChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPieChart.swift; sourceTree = "<group>"; };
+		B53763D4292B61A40073BF46 /* CustomChartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChartItem.swift; sourceTree = "<group>"; };
+		B53763E2292B99B80073BF46 /* PieceShapeLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceShapeLayer.swift; sourceTree = "<group>"; };
+		B53763E7292BA0760073BF46 /* PieceTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceTextLayer.swift; sourceTree = "<group>"; };
 		B57D96252922301E00B510B8 /* TravelDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDTO.swift; sourceTree = "<group>"; };
 		B57D9627292230CA00B510B8 /* PlanDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDTO.swift; sourceTree = "<group>"; };
 		B57D962B2922315500B510B8 /* LocationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDTO.swift; sourceTree = "<group>"; };
 		B57D962D2922318F00B510B8 /* ExpenseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDTO.swift; sourceTree = "<group>"; };
 		B57D962F292231FC00B510B8 /* DiaryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDTO.swift; sourceTree = "<group>"; };
+		B595A983292CE53100C3B897 /* ExpenseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseType.swift; sourceTree = "<group>"; };
 		B5C096B529235416007426B1 /* SearchingLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationViewController.swift; sourceTree = "<group>"; };
 		B5C096B729235428007426B1 /* SearchingLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationView.swift; sourceTree = "<group>"; };
 		B5C096BB29235B08007426B1 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		B5C096BF29236BC0007426B1 /* SearchResultCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCellViewModel.swift; sourceTree = "<group>"; };
 		B5C096C329238091007426B1 /* SearchingLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationViewModel.swift; sourceTree = "<group>"; };
 		B5C096C529238A0B007426B1 /* SearchingLocationViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationViewModelDelegate.swift; sourceTree = "<group>"; };
+		B5D64E5E292DF06400E1CC81 /* PlaceSearchButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchButton.swift; sourceTree = "<group>"; };
+		B5D64E5F292DF06400E1CC81 /* DiaryAddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryAddViewController.swift; sourceTree = "<group>"; };
+		B5D64E60292DF06400E1CC81 /* DiaryAddView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryAddView.swift; sourceTree = "<group>"; };
+		B5D64E66292DFED500E1CC81 /* DiaryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailViewController.swift; sourceTree = "<group>"; };
+		B5D64E68292DFEF000E1CC81 /* DiaryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailView.swift; sourceTree = "<group>"; };
+		B5D64E6B292E22A400E1CC81 /* DiaryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailViewModel.swift; sourceTree = "<group>"; };
+		B5D64E6D292E254A00E1CC81 /* DiaryDetailViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailViewModelDelegate.swift; sourceTree = "<group>"; };
+		B5D64E71292E3B1300E1CC81 /* DiaryDetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailRepository.swift; sourceTree = "<group>"; };
+		B5D64E75292E3B6C00E1CC81 /* DiaryDetailLocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDetailLocalRepository.swift; sourceTree = "<group>"; };
+		B5D64E77292E4B9A00E1CC81 /* DetailImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageCell.swift; sourceTree = "<group>"; };
+		B5D64E79292E684000E1CC81 /* DetailImageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageCellViewModel.swift; sourceTree = "<group>"; };
 		B5DE4D3F29271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationViewControllerDelegate.swift; sourceTree = "<group>"; };
+		BB02B08F292F294C00FE11DA /* DiaryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewController.swift; sourceTree = "<group>"; };
+		BB02B091292F295800FE11DA /* DiaryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewModel.swift; sourceTree = "<group>"; };
+		BB02B093292F29E000FE11DA /* DiaryListViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewModelProtocol.swift; sourceTree = "<group>"; };
+		BB02B095292F2A4900FE11DA /* DiaryInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModel.swift; sourceTree = "<group>"; };
+		BB288FC7292E167900065D04 /* DiaryCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCalloutView.swift; sourceTree = "<group>"; };
+		BB288FCA292E1A2B00065D04 /* FileProcessManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProcessManager.swift; sourceTree = "<group>"; };
+		BB288FCF292E21E100065D04 /* FileManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerError.swift; sourceTree = "<group>"; };
+		BB3DB918292C649600C70D62 /* UIView+Frame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Frame.swift"; sourceTree = "<group>"; };
+		BB3DB91D292C83C400C70D62 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		BB3DB91F292CA76800C70D62 /* MapViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelProtocol.swift; sourceTree = "<group>"; };
+		BB3DB921292CA79500C70D62 /* DiaryMapInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryMapInfoViewModel.swift; sourceTree = "<group>"; };
+		BB3DB925292CF89400C70D62 /* DiaryAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAnnotation.swift; sourceTree = "<group>"; };
+		BB3DB927292D092000C70D62 /* TempDiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempDiaryViewController.swift; sourceTree = "<group>"; };
 		BB5771A32923A08F0034047D /* ExpenseTravelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelViewModel.swift; sourceTree = "<group>"; };
 		BB5771AB2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelViewModelProtocol.swift; sourceTree = "<group>"; };
+		BB5DE44B292B8E86001DA6F6 /* Int+convertCostString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+convertCostString.swift"; sourceTree = "<group>"; };
+		BB6079B0292F3ECF00BF30C8 /* DiaryListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListCell.swift; sourceTree = "<group>"; };
+		BB6079B2292F546900BF30C8 /* DiaryListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListHeaderView.swift; sourceTree = "<group>"; };
 		BB7D9A252926088A00BF2BD6 /* ExpensePlaceholdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensePlaceholdView.swift; sourceTree = "<group>"; };
 		BB7D9A2929261C0600BF2BD6 /* ExpenseListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListCell.swift; sourceTree = "<group>"; };
+		BB9DB80D2928CA6A00102EC8 /* ExpenseListViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListViewModelProtocol.swift; sourceTree = "<group>"; };
+		BB9DB80F2928D09200102EC8 /* PersistentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentRepository.swift; sourceTree = "<group>"; };
+		BB9DB8112928D0BA00102EC8 /* PersistentRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentRepositoryProtocol.swift; sourceTree = "<group>"; };
 		BBB31A362925F5E400C9E3A9 /* TravelListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListCell.swift; sourceTree = "<group>"; };
 		BBB31A382925F77900C9E3A9 /* ExpenseTravelListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelListCell.swift; sourceTree = "<group>"; };
 		BBB31A3D2926007D00C9E3A9 /* ExpenseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListViewController.swift; sourceTree = "<group>"; };
@@ -157,7 +251,6 @@
 		BBD0D05A291DE956007D0D82 /* TravelListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListViewController.swift; sourceTree = "<group>"; };
 		BBD0D05C291DE975007D0D82 /* ExpenseTravelListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelListController.swift; sourceTree = "<group>"; };
 		BBD0D05E291DE97F007D0D82 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		BBD0D060291DE988007D0D82 /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
 		BBD0D062291DE991007D0D82 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		BBD0D065291DED6A007D0D82 /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		BBDB2E912926222100752924 /* ExpenseInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseInfoViewModel.swift; sourceTree = "<group>"; };
@@ -191,6 +284,19 @@
 		EE3E29AD292365C7007C7FC7 /* CustomCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarCell.swift; sourceTree = "<group>"; };
 		EE3E29BB2923C870007C7FC7 /* TravelAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAddViewController.swift; sourceTree = "<group>"; };
 		EE3E29BD2923C8A7007C7FC7 /* CustomCalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarHeaderView.swift; sourceTree = "<group>"; };
+		EE85FBC2292BA9B600FF0C7C /* ExpenseAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddViewController.swift; sourceTree = "<group>"; };
+		EE85FBC5292BAADC00FF0C7C /* ExpenseAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddView.swift; sourceTree = "<group>"; };
+		EEA1C823292F395100B80901 /* ExchangeDiskCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeDiskCache.swift; sourceTree = "<group>"; };
+		EEA1C825292F4E6000B80901 /* ExchangeMemoryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeMemoryCache.swift; sourceTree = "<group>"; };
+		EEB6C4F3292C8CC50060A459 /* ExpenseAddPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddPickerViewController.swift; sourceTree = "<group>"; };
+		EEB6C4F5292CA3990060A459 /* ExpenseAddPickerViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddPickerViewProtocol.swift; sourceTree = "<group>"; };
+		EEB6C4F7292CA8DB0060A459 /* ExpenseAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddViewModel.swift; sourceTree = "<group>"; };
+		EEB6C4FA292CA9200060A459 /* ExpenseAddViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddViewProtocol.swift; sourceTree = "<group>"; };
+		EEB6C4FC292CC29B0060A459 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		EEB6C4FF292CC4910060A459 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		EEB6C502292CC88B0060A459 /* ExchangeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeResponse.swift; sourceTree = "<group>"; };
+		EEB6C505292CCE410060A459 /* ExchangeRateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRateType.swift; sourceTree = "<group>"; };
+		EEBA25FA292D1AE3001F8B66 /* String+ConvertRemoveComma.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ConvertRemoveComma.swift"; sourceTree = "<group>"; };
 		EEDB752E2925E8DD0069A7F5 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		EEDB75302925F56D0069A7F5 /* CalendarProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarProtocol.swift; sourceTree = "<group>"; };
 		EEDB753229260DFB0069A7F5 /* PlanAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanAddViewModel.swift; sourceTree = "<group>"; };
@@ -227,6 +333,8 @@
 			isa = PBXGroup;
 			children = (
 				A4CC04812922191300BB678B /* PersistentManager.swift */,
+				EEB6C4FC292CC29B0060A459 /* NetworkManager.swift */,
+				BB288FCA292E1A2B00065D04 /* FileProcessManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -246,6 +354,7 @@
 		A4CC04AE292261CD00BB678B /* ExpenseScene */ = {
 			isa = PBXGroup;
 			children = (
+				EE85FBC1292BA9A600FF0C7C /* ExpenseAdd */,
 				BB57719E29239E9F0034047D /* ExpenseTravelList */,
 				BBB31A3A2926003700C9E3A9 /* ExpenseList */,
 			);
@@ -255,7 +364,7 @@
 		A4CC04AF292261D900BB678B /* MapScene */ = {
 			isa = PBXGroup;
 			children = (
-				BBD0D05E291DE97F007D0D82 /* MapViewController.swift */,
+				BB3DB91A292C815B00C70D62 /* MapViewScene */,
 			);
 			path = MapScene;
 			sourceTree = "<group>";
@@ -263,7 +372,9 @@
 		A4CC04B0292261E000BB678B /* DiaryScene */ = {
 			isa = PBXGroup;
 			children = (
-				BBD0D060291DE988007D0D82 /* DiaryViewController.swift */,
+				BB02B08C292F292900FE11DA /* DiaryList */,
+				B5D64E64292DFC9900E1CC81 /* DiaryDetail */,
+				B5D64E5C292DF06400E1CC81 /* DiaryAdd */,
 			);
 			path = DiaryScene;
 			sourceTree = "<group>";
@@ -279,10 +390,15 @@
 		A4CC04B6292268BB00BB678B /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				EEA1C822292F391A00B80901 /* Exchange */,
+				BB288FCE292E1D9200065D04 /* Errors */,
+				EEB6C504292CCE0C0060A459 /* Enum */,
+				EEB6C4FE292CC4830060A459 /* Resource */,
+				B53763C8292B56600073BF46 /* CustomGraph */,
 				EE116C542924AA0D0017B519 /* Custom */,
 				BBD0D064291DED61007D0D82 /* Extensions */,
 				A4CC04CA29227E5C00BB678B /* Constants.swift */,
-				A48E9945292512BC0029D57D /* CoreDataError.swift */,
+				B595A983292CE53100C3B897 /* ExpenseType.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -320,7 +436,9 @@
 		A4CC04DA292351DC00BB678B /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				BB9DB8132928D0C300102EC8 /* PersistentStorage */,
 				A4CC04DB292351E700BB678B /* TravelScene */,
+				A4EB25C0292BB4F7002D129A /* DiaryScene */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -342,6 +460,45 @@
 			path = PlanList;
 			sourceTree = "<group>";
 		};
+		A4EB25C0292BB4F7002D129A /* DiaryScene */ = {
+			isa = PBXGroup;
+			children = (
+				B5D64E74292E3B4600E1CC81 /* DiaryDetail */,
+				A4EB25BE292BB4F1002D129A /* DiaryAddRepository.swift */,
+				A4EB25C1292BB518002D129A /* DiaryAddLocalRepository.swift */,
+			);
+			path = DiaryScene;
+			sourceTree = "<group>";
+		};
+		A4EB25C5292BCD26002D129A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A4EB25C3292BB828002D129A /* DiaryAddViewModel.swift */,
+				A4EB25C8292C92CC002D129A /* DiaryAddViewModelDelegate.swift */,
+				A4EB25CA292C92F1002D129A /* PickerDataSource.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B53763C8292B56600073BF46 /* CustomGraph */ = {
+			isa = PBXGroup;
+			children = (
+				B53763D4292B61A40073BF46 /* CustomChartItem.swift */,
+				B53763E4292B99D10073BF46 /* PieChart */,
+			);
+			path = CustomGraph;
+			sourceTree = "<group>";
+		};
+		B53763E4292B99D10073BF46 /* PieChart */ = {
+			isa = PBXGroup;
+			children = (
+				B53763CA292B56600073BF46 /* CustomPieChart.swift */,
+				B53763E2292B99B80073BF46 /* PieceShapeLayer.swift */,
+				B53763E7292BA0760073BF46 /* PieceTextLayer.swift */,
+			);
+			path = PieChart;
+			sourceTree = "<group>";
+		};
 		B57D962229222FC500B510B8 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -355,6 +512,7 @@
 			isa = PBXGroup;
 			children = (
 				B57D96242922300400B510B8 /* PersistentDTO */,
+				A4EB25CC292C9775002D129A /* TemporaryDiary.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -401,6 +559,100 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		B5D64E5C292DF06400E1CC81 /* DiaryAdd */ = {
+			isa = PBXGroup;
+			children = (
+				B5D64E5D292DF06400E1CC81 /* View */,
+				A4EB25C5292BCD26002D129A /* ViewModel */,
+			);
+			path = DiaryAdd;
+			sourceTree = "<group>";
+		};
+		B5D64E5D292DF06400E1CC81 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B5D64E5E292DF06400E1CC81 /* PlaceSearchButton.swift */,
+				B5D64E5F292DF06400E1CC81 /* DiaryAddViewController.swift */,
+				B5D64E60292DF06400E1CC81 /* DiaryAddView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B5D64E64292DFC9900E1CC81 /* DiaryDetail */ = {
+			isa = PBXGroup;
+			children = (
+				B5D64E6A292E229300E1CC81 /* ViewModel */,
+				B5D64E65292DFEC000E1CC81 /* View */,
+			);
+			path = DiaryDetail;
+			sourceTree = "<group>";
+		};
+		B5D64E65292DFEC000E1CC81 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B5D64E77292E4B9A00E1CC81 /* DetailImageCell.swift */,
+				B5D64E68292DFEF000E1CC81 /* DiaryDetailView.swift */,
+				B5D64E66292DFED500E1CC81 /* DiaryDetailViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B5D64E6A292E229300E1CC81 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B5D64E79292E684000E1CC81 /* DetailImageCellViewModel.swift */,
+				B5D64E6B292E22A400E1CC81 /* DiaryDetailViewModel.swift */,
+				B5D64E6D292E254A00E1CC81 /* DiaryDetailViewModelDelegate.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B5D64E74292E3B4600E1CC81 /* DiaryDetail */ = {
+			isa = PBXGroup;
+			children = (
+				B5D64E71292E3B1300E1CC81 /* DiaryDetailRepository.swift */,
+				B5D64E75292E3B6C00E1CC81 /* DiaryDetailLocalRepository.swift */,
+			);
+			path = DiaryDetail;
+			sourceTree = "<group>";
+		};
+		BB02B08C292F292900FE11DA /* DiaryList */ = {
+			isa = PBXGroup;
+			children = (
+				BB02B093292F29E000FE11DA /* DiaryListViewModelProtocol.swift */,
+				BB02B08D292F293800FE11DA /* View */,
+				BB02B08E292F293D00FE11DA /* ViewModel */,
+			);
+			path = DiaryList;
+			sourceTree = "<group>";
+		};
+		BB02B08D292F293800FE11DA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BB02B08F292F294C00FE11DA /* DiaryListViewController.swift */,
+				BB6079B0292F3ECF00BF30C8 /* DiaryListCell.swift */,
+				BB6079B2292F546900BF30C8 /* DiaryListHeaderView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BB02B08E292F293D00FE11DA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BB02B091292F295800FE11DA /* DiaryListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BB288FCE292E1D9200065D04 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				A48E9945292512BC0029D57D /* CoreDataError.swift */,
+				BB288FCF292E21E100065D04 /* FileManagerError.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
 		BB323E3329231DF100DFABC0 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -414,6 +666,35 @@
 			isa = PBXGroup;
 			children = (
 				BBE695D729228B560015FAD4 /* TravelListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BB3DB91A292C815B00C70D62 /* MapViewScene */ = {
+			isa = PBXGroup;
+			children = (
+				BB3DB91F292CA76800C70D62 /* MapViewModelProtocol.swift */,
+				BB3DB91C292C835E00C70D62 /* ViewModel */,
+				BB3DB91B292C835600C70D62 /* View */,
+			);
+			path = MapViewScene;
+			sourceTree = "<group>";
+		};
+		BB3DB91B292C835600C70D62 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BBD0D05E291DE97F007D0D82 /* MapViewController.swift */,
+				BB3DB925292CF89400C70D62 /* DiaryAnnotation.swift */,
+				BB3DB927292D092000C70D62 /* TempDiaryViewController.swift */,
+				BB288FC7292E167900065D04 /* DiaryCalloutView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BB3DB91C292C835E00C70D62 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BB3DB91D292C83C400C70D62 /* MapViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -450,13 +731,33 @@
 			children = (
 				BBE695D529227C8D0015FAD4 /* TravelInfoViewModel.swift */,
 				BBDB2E912926222100752924 /* ExpenseInfoViewModel.swift */,
+				BB3DB921292CA79500C70D62 /* DiaryMapInfoViewModel.swift */,
+				BB02B095292F2A4900FE11DA /* DiaryInfoViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BB5DE44A292B8DF4001DA6F6 /* Int */ = {
+			isa = PBXGroup;
+			children = (
+				BB5DE44B292B8E86001DA6F6 /* Int+convertCostString.swift */,
+			);
+			path = Int;
+			sourceTree = "<group>";
+		};
+		BB9DB8132928D0C300102EC8 /* PersistentStorage */ = {
+			isa = PBXGroup;
+			children = (
+				BB9DB8112928D0BA00102EC8 /* PersistentRepositoryProtocol.swift */,
+				BB9DB80F2928D09200102EC8 /* PersistentRepository.swift */,
+			);
+			path = PersistentStorage;
 			sourceTree = "<group>";
 		};
 		BBB31A3A2926003700C9E3A9 /* ExpenseList */ = {
 			isa = PBXGroup;
 			children = (
+				BB9DB80D2928CA6A00102EC8 /* ExpenseListViewModelProtocol.swift */,
 				BBB31A3C2926005F00C9E3A9 /* ViewModel */,
 				BBB31A3B2926005B00C9E3A9 /* View */,
 			);
@@ -511,10 +812,11 @@
 		BBD0D064291DED61007D0D82 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				EEBA25F9292D1AB2001F8B66 /* String */,
+				BB5DE44A292B8DF4001DA6F6 /* Int */,
 				BBFE4BA42924B252003F5CCE /* Date */,
 				BBD0D065291DED6A007D0D82 /* UIColor+.swift */,
 				EE3E29A729235F6B007C7FC7 /* UITextField+.swift */,
-				A4CC04C329226FC100BB678B /* String+Placeholders.swift */,
 				A4CC04CC2922818900BB678B /* UIView+AddSubviews.swift */,
 				A4CC04CE292281B400BB678B /* UIStackView+AddArrangedSubviews.swift */,
 				A4CC04D4292332C600BB678B /* UILabel+ChangeFontSize.swift */,
@@ -522,6 +824,7 @@
 				A48E9947292515020029D57D /* UIViewController+PresentAlert.swift */,
 				A48E9949292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift */,
 				A4EB00DB2926456D00A83936 /* UIScrollView+DidPassPoint.swift */,
+				BB3DB918292C649600C70D62 /* UIView+Frame.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -623,11 +926,7 @@
 		EE116C542924AA0D0017B519 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
-				EE116C552924AA0D0017B519 /* CustomCalendarCell.swift */,
-				EE116C562924AA0D0017B519 /* CustomCalendarHeaderView.swift */,
-				EE116C572924AA0D0017B519 /* CustomCalendar.swift */,
-				EEDB752E2925E8DD0069A7F5 /* CalendarViewController.swift */,
-				EEDB75302925F56D0069A7F5 /* CalendarProtocol.swift */,
+				EEB6C4F1292C8CA30060A459 /* Calendar */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -673,6 +972,98 @@
 				EE116C5D2924CB6B0017B519 /* TravelAddViewProtocol.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		EE85FBC1292BA9A600FF0C7C /* ExpenseAdd */ = {
+			isa = PBXGroup;
+			children = (
+				EEB6C4F2292C8CAC0060A459 /* PickerView */,
+				EEB6C501292CC8730060A459 /* Model */,
+				EE85FBC4292BAA9F00FF0C7C /* View */,
+				EEB6C4F9292CA8DF0060A459 /* ViewModel */,
+			);
+			path = ExpenseAdd;
+			sourceTree = "<group>";
+		};
+		EE85FBC4292BAA9F00FF0C7C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EE85FBC2292BA9B600FF0C7C /* ExpenseAddViewController.swift */,
+				EE85FBC5292BAADC00FF0C7C /* ExpenseAddView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EEA1C822292F391A00B80901 /* Exchange */ = {
+			isa = PBXGroup;
+			children = (
+				EEA1C823292F395100B80901 /* ExchangeDiskCache.swift */,
+				EEA1C825292F4E6000B80901 /* ExchangeMemoryCache.swift */,
+			);
+			path = Exchange;
+			sourceTree = "<group>";
+		};
+		EEB6C4F1292C8CA30060A459 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				EE116C552924AA0D0017B519 /* CustomCalendarCell.swift */,
+				EE116C562924AA0D0017B519 /* CustomCalendarHeaderView.swift */,
+				EE116C572924AA0D0017B519 /* CustomCalendar.swift */,
+				EEDB752E2925E8DD0069A7F5 /* CalendarViewController.swift */,
+				EEDB75302925F56D0069A7F5 /* CalendarProtocol.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		EEB6C4F2292C8CAC0060A459 /* PickerView */ = {
+			isa = PBXGroup;
+			children = (
+				EEB6C4F3292C8CC50060A459 /* ExpenseAddPickerViewController.swift */,
+				EEB6C4F5292CA3990060A459 /* ExpenseAddPickerViewProtocol.swift */,
+			);
+			path = PickerView;
+			sourceTree = "<group>";
+		};
+		EEB6C4F9292CA8DF0060A459 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EEB6C4F7292CA8DB0060A459 /* ExpenseAddViewModel.swift */,
+				EEB6C4FA292CA9200060A459 /* ExpenseAddViewProtocol.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EEB6C4FE292CC4830060A459 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				EEB6C4FF292CC4910060A459 /* Resource.swift */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		EEB6C501292CC8730060A459 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EEB6C502292CC88B0060A459 /* ExchangeResponse.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EEB6C504292CCE0C0060A459 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				EEB6C505292CCE410060A459 /* ExchangeRateType.swift */,
+			);
+			path = Enum;
+			sourceTree = "<group>";
+		};
+		EEBA25F9292D1AB2001F8B66 /* String */ = {
+			isa = PBXGroup;
+			children = (
+				A4CC04C329226FC100BB678B /* String+Placeholders.swift */,
+				EEBA25FA292D1AE3001F8B66 /* String+ConvertRemoveComma.swift */,
+			);
+			path = String;
 			sourceTree = "<group>";
 		};
 		EEDB753429260DFF0069A7F5 /* ViewModel */ = {
@@ -843,39 +1234,75 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5C421A4292F204900963B17 /* ExpenseAddPickerViewController.swift in Sources */,
+				B5C421A3292F201700963B17 /* ExpenseAddPickerViewProtocol.swift in Sources */,
+				EEA1C826292F4E6000B80901 /* ExchangeMemoryCache.swift in Sources */,
 				B57D9630292231FC00B510B8 /* DiaryDTO.swift in Sources */,
+				BB3DB920292CA76800C70D62 /* MapViewModelProtocol.swift in Sources */,
 				EE116C5C2924C9390017B519 /* TravelAddViewModel.swift in Sources */,
 				A4CC04C229226CA500BB678B /* PlanViewModel.swift in Sources */,
+				BB3DB91E292C83C400C70D62 /* MapViewModel.swift in Sources */,
 				BBD0D05D291DE975007D0D82 /* ExpenseTravelListController.swift in Sources */,
+				BB288FD0292E21E100065D04 /* FileManagerError.swift in Sources */,
 				B5C096B629235416007426B1 /* SearchingLocationViewController.swift in Sources */,
 				BBD0D05B291DE956007D0D82 /* TravelListViewController.swift in Sources */,
 				BBE695D829228B560015FAD4 /* TravelListViewModel.swift in Sources */,
+				BB9DB80E2928CA6A00102EC8 /* ExpenseListViewModelProtocol.swift in Sources */,
 				B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */,
+				EEB6C4F8292CA8DB0060A459 /* ExpenseAddViewModel.swift in Sources */,
+				BB02B090292F294C00FE11DA /* DiaryListViewController.swift in Sources */,
 				B5C096C429238091007426B1 /* SearchingLocationViewModel.swift in Sources */,
+				B5D64E7A292E684000E1CC81 /* DetailImageCellViewModel.swift in Sources */,
+				EEB6C503292CC88B0060A459 /* ExchangeResponse.swift in Sources */,
 				A4CC04A429221EEE00BB678B /* Plan+CoreDataClass.swift in Sources */,
+				EEB6C500292CC4910060A459 /* Resource.swift in Sources */,
 				EE116C5E2924CB6B0017B519 /* TravelAddViewProtocol.swift in Sources */,
+				EEB6C4FB292CA9200060A459 /* ExpenseAddViewProtocol.swift in Sources */,
 				BBDB2E96292635FD00752924 /* ExpenseSectionHeaderView.swift in Sources */,
+				B5D64E6E292E254A00E1CC81 /* DiaryDetailViewModelDelegate.swift in Sources */,
+				B53763CC292B56600073BF46 /* CustomPieChart.swift in Sources */,
+				B53763E3292B99B80073BF46 /* PieceShapeLayer.swift in Sources */,
 				EE3E29BC2923C870007C7FC7 /* TravelAddViewController.swift in Sources */,
+				B5D64E62292DF06400E1CC81 /* DiaryAddViewController.swift in Sources */,
 				BBD0D063291DE991007D0D82 /* SettingViewController.swift in Sources */,
+				BB02B092292F295800FE11DA /* DiaryListViewModel.swift in Sources */,
+				BB3DB919292C649600C70D62 /* UIView+Frame.swift in Sources */,
+				A4EB25CD292C9775002D129A /* TemporaryDiary.swift in Sources */,
 				EEDB75312925F56D0069A7F5 /* CalendarProtocol.swift in Sources */,
 				A4CC04D32923308600BB678B /* DateCollectionHeaderView.swift in Sources */,
 				A4CC04CF292281B400BB678B /* UIStackView+AddArrangedSubviews.swift in Sources */,
 				A4CC04CB29227E5C00BB678B /* Constants.swift in Sources */,
 				A4CC04CD2922818900BB678B /* UIView+AddSubviews.swift in Sources */,
 				BBFAC091291CBDD700D7FD57 /* Doesaegim.xcdatamodeld in Sources */,
+				B5D64E76292E3B6C00E1CC81 /* DiaryDetailLocalRepository.swift in Sources */,
+				BB02B096292F2A4900FE11DA /* DiaryInfoViewModel.swift in Sources */,
+				BB6079B1292F3ECF00BF30C8 /* DiaryListCell.swift in Sources */,
 				A4CC04D5292332C600BB678B /* UILabel+ChangeFontSize.swift in Sources */,
+				BB288FC8292E167900065D04 /* DiaryCalloutView.swift in Sources */,
 				BBDB2E9429262BB300752924 /* ExpenseCollectionHeaderView.swift in Sources */,
+				B5D64E61292DF06400E1CC81 /* PlaceSearchButton.swift in Sources */,
 				BBB31A372925F5E400C9E3A9 /* TravelListCell.swift in Sources */,
+				B5D64E69292DFEF000E1CC81 /* DiaryDetailView.swift in Sources */,
+				B5D64E72292E3B1300E1CC81 /* DiaryDetailRepository.swift in Sources */,
+				A4EB25CB292C92F1002D129A /* PickerDataSource.swift in Sources */,
+				BB9DB8122928D0BA00102EC8 /* PersistentRepositoryProtocol.swift in Sources */,
 				A4CC04C62922799600BB678B /* CheckBox.swift in Sources */,
+				BB3DB922292CA79500C70D62 /* DiaryMapInfoViewModel.swift in Sources */,
+				BB3DB926292CF89400C70D62 /* DiaryAnnotation.swift in Sources */,
 				A4CC04D1292324B000BB678B /* EmptyLabeledCollectionView.swift in Sources */,
 				BBFAC08B291CBDD700D7FD57 /* MainTabBarController.swift in Sources */,
+				BB3DB928292D092000C70D62 /* TempDiaryViewController.swift in Sources */,
+				A4EB25C2292BB518002D129A /* DiaryAddLocalRepository.swift in Sources */,
 				B5C096C629238A0B007426B1 /* SearchingLocationViewModelDelegate.swift in Sources */,
+				B53763D5292B61A40073BF46 /* CustomChartItem.swift in Sources */,
 				B5C096B829235428007426B1 /* SearchingLocationView.swift in Sources */,
 				EE116C632924EC860017B519 /* PlanAddViewController.swift in Sources */,
 				A4CC04AA29221EEE00BB678B /* Location+CoreDataClass.swift in Sources */,
+				BB5DE44C292B8E86001DA6F6 /* Int+convertCostString.swift in Sources */,
 				A4CC04A629221EEE00BB678B /* Travel+CoreDataClass.swift in Sources */,
 				BB5771AC2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift in Sources */,
 				BB5771A42923A08F0034047D /* ExpenseTravelViewModel.swift in Sources */,
+				EEBA25FB292D1AE3001F8B66 /* String+ConvertRemoveComma.swift in Sources */,
 				EEDB753329260DFB0069A7F5 /* PlanAddViewModel.swift in Sources */,
 				BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */,
 				BBFE4BA62924B25D003F5CCE /* Date+TravelString.swift in Sources */,
@@ -885,38 +1312,55 @@
 				B5C096C029236BC0007426B1 /* SearchResultCellViewModel.swift in Sources */,
 				A48E9948292515020029D57D /* UIViewController+PresentAlert.swift in Sources */,
 				EEDB753629260E360069A7F5 /* PlanAddViewProtocol.swift in Sources */,
+				B5D64E63292DF06400E1CC81 /* DiaryAddView.swift in Sources */,
 				A4CC04E02923738500BB678B /* PlanLocalRepository.swift in Sources */,
+				B5D64E78292E4B9A00E1CC81 /* DetailImageCell.swift in Sources */,
 				B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */,
+				BB288FCB292E1A2B00065D04 /* FileProcessManager.swift in Sources */,
+				EEA1C824292F395100B80901 /* ExchangeDiskCache.swift in Sources */,
 				BBDB2E922926222100752924 /* ExpenseInfoViewModel.swift in Sources */,
 				BBE695D629227C8D0015FAD4 /* TravelInfoViewModel.swift in Sources */,
 				A4CC04A829221EEE00BB678B /* Expense+CoreDataClass.swift in Sources */,
 				A4CC04E22923777B00BB678B /* NSObject+Name.swift in Sources */,
 				A4CC04D9292351D700BB678B /* PlanRepository.swift in Sources */,
+				B595A984292CE53100C3B897 /* ExpenseType.swift in Sources */,
 				BBFAC087291CBDD700D7FD57 /* AppDelegate.swift in Sources */,
 				A4CC04DE2923543500BB678B /* PlanListViewModel.swift in Sources */,
-				BBD0D061291DE988007D0D82 /* DiaryViewController.swift in Sources */,
 				EE116C582924AA0D0017B519 /* CustomCalendarCell.swift in Sources */,
 				BBB31A392925F77900C9E3A9 /* ExpenseTravelListCell.swift in Sources */,
 				B57D962E2922318F00B510B8 /* ExpenseDTO.swift in Sources */,
 				A48E994A292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift in Sources */,
 				B57D962C2922315500B510B8 /* LocationDTO.swift in Sources */,
 				BB7D9A262926088A00BF2BD6 /* ExpensePlaceholdView.swift in Sources */,
+				BB02B094292F29E000FE11DA /* DiaryListViewModelProtocol.swift in Sources */,
 				BBFAC089291CBDD700D7FD57 /* SceneDelegate.swift in Sources */,
+				EE85FBC3292BA9B600FF0C7C /* ExpenseAddViewController.swift in Sources */,
+				A4EB25C9292C92CC002D129A /* DiaryAddViewModelDelegate.swift in Sources */,
 				EE116C592924AA0D0017B519 /* CustomCalendarHeaderView.swift in Sources */,
 				A4CC04A229221EEE00BB678B /* Diary+CoreDataClass.swift in Sources */,
 				EE116C5A2924AA0D0017B519 /* CustomCalendar.swift in Sources */,
 				A4EB00DC2926456D00A83936 /* UIScrollView+DidPassPoint.swift in Sources */,
+				EEB6C506292CCE410060A459 /* ExchangeRateType.swift in Sources */,
 				EE3E29A829235F6B007C7FC7 /* UITextField+.swift in Sources */,
 				A4CC04822922191300BB678B /* PersistentManager.swift in Sources */,
 				BB7D9A2A29261C0600BF2BD6 /* ExpenseListCell.swift in Sources */,
 				A4CC04C929227C7200BB678B /* PlanCollectionViewCell.swift in Sources */,
 				A4CC04D72923347E00BB678B /* PlanListViewController.swift in Sources */,
 				A48E9946292512BC0029D57D /* CoreDataError.swift in Sources */,
+				BB9DB8102928D09200102EC8 /* PersistentRepository.swift in Sources */,
 				BBB31A3E2926007D00C9E3A9 /* ExpenseListViewController.swift in Sources */,
+				BB6079B3292F546900BF30C8 /* DiaryListHeaderView.swift in Sources */,
+				B53763E8292BA0760073BF46 /* PieceTextLayer.swift in Sources */,
 				BBD0D066291DED6A007D0D82 /* UIColor+.swift in Sources */,
 				BBB31A402926008D00C9E3A9 /* ExpenseListViewModel.swift in Sources */,
 				A4CC04C429226FC100BB678B /* String+Placeholders.swift in Sources */,
+				A4EB25C4292BB828002D129A /* DiaryAddViewModel.swift in Sources */,
+				A4EB25BF292BB4F1002D129A /* DiaryAddRepository.swift in Sources */,
 				EEDB752F2925E8DD0069A7F5 /* CalendarViewController.swift in Sources */,
+				B5D64E67292DFED500E1CC81 /* DiaryDetailViewController.swift in Sources */,
+				B5D64E6C292E22A400E1CC81 /* DiaryDetailViewModel.swift in Sources */,
+				EEB6C4FD292CC29B0060A459 /* NetworkManager.swift in Sources */,
+				EE85FBC6292BAADC00FF0C7C /* ExpenseAddView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1085,7 +1529,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6Q8CR7M222;
+				DEVELOPMENT_TEAM = 92B5D498S7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Doesaegim/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1113,7 +1557,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6Q8CR7M222;
+				DEVELOPMENT_TEAM = 92B5D498S7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Doesaegim/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

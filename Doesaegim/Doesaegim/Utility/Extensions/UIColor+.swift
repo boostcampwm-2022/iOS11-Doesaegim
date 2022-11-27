@@ -9,6 +9,8 @@ import UIKit
 
 extension UIColor {
     static let primaryOrange: UIColor? = UIColor(named: "primaryOrange")
+    
+    static let lightRed: UIColor? = UIColor(named: "LightRed")
 
     static let black: UIColor? = UIColor(named: "black")
     

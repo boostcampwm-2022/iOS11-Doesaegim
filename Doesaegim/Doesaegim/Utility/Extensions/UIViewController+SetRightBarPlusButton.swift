@@ -13,9 +13,9 @@ extension UIViewController {
     ///
     /// 제목은 없고 + 아이콘만 가짐
     /// - Parameter viewController: 추가 버튼을 누르면 띄울 뷰 컨트롤러
-    func setRightBarAddButton(showing viewController: UIViewController) {
+    func setRightBarAddButton(using viewControllerFactory: @escaping () -> UIViewController) {
         let addButton = UIBarButtonItem(systemItem: .add, primaryAction: UIAction(handler: { _ in
-            self.show(viewController, sender: self)
+            self.show(viewControllerFactory(), sender: self)
         }))
         addButton.tintColor = .black
         navigationItem.setRightBarButton(addButton, animated: true)

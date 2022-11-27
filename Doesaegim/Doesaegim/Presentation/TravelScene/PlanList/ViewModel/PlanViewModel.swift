@@ -43,7 +43,7 @@ final class PlanViewModel {
     }
 
     /// 체크박스가 토글되었을 때 호출되는 클로저
-    var checkBoxToggleHandler: (() -> Void)?
+    var checkBoxToggleHandler: ((Result<Bool, Error>) -> Void)?
 
     let plan: Plan
 
@@ -62,9 +62,9 @@ final class PlanViewModel {
     // MARK: - Functions
 
     /// 체크박스를 탭했을 때 호출
-    func checkBoxDidTap() throws {
+    func checkBoxDidTap() {
         plan.isComplete.toggle()
-        try repository.save()
-        checkBoxToggleHandler?()
+        let result = repository.save()
+        checkBoxToggleHandler?(result)
     }
 }

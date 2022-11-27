@@ -13,33 +13,57 @@ final class TravelAddViewModel: TravelAddViewProtocol {
     
     weak var delegate: TravelAddViewDelegate?
     
-    var isVaildTextField: Bool {
+    var isValidTextField: Bool
+    var isValidDate: Bool
+    var isValidInput: Bool {
         didSet {
-            delegate?.isVaildView(isVaild: isVaildTextField && isVaildDate)
-        }
-    }
-    
-    var isVaildDate: Bool {
-        didSet {
-            delegate?.isVaildView(isVaild: isVaildTextField && isVaildDate)
+            delegate?.travelAddFormDidChange(isValid: isValidInput)
         }
     }
     
     // MARK: - Lifecycles
     
     init() {
-        isVaildTextField = false
-        isVaildDate = false
+        isValidTextField = false
+        isValidDate = false
+        isValidInput = isValidTextField && isValidDate
+    }
+    
+    // MARK: - Functions
+    
+    func travelTitleDidChanged(title: String?) {
+        defer { isValidInput = isValidTextField && isValidDate }
+        guard let title, !title.isEmpty else {
+            isValidTextField = false
+            return
+        }
+        isValidTextField = true
+    }
+    
+    
+    func travelDateTapped(dates: [String], completion: @escaping ((Bool) -> Void)) {
+        defer {
+            isValidInput = isValidTextField && isValidDate
+            completion(isValidDate)
+        }
+        guard dates.count > 1 else {
+            isValidDate = false
+            return
+        }
+        isValidDate = true
+        
     }
     
     // MARK: - CoreData Function
     
     func postTravel(travel: TravelDTO, completion: @escaping (() -> Void)) {
-        do {
-            try Travel.addAndSave(with: travel)
+        let result = Travel.addAndSave(with: travel)
+        switch result {
+        case .success:
             completion()
-        } catch {
+        case .failure(let error):
             print(error.localizedDescription)
+            
         }
     }
 }

@@ -58,15 +58,16 @@ final class PlanListViewController: UIViewController {
         configureNavigationBar()
         configureCollectionView()
         bindToViewModel()
-        fetchPlans()
+        viewModel.fetchPlans()
     }
-
 
     // MARK: - NavigationBar Configuration Functions
 
     private func configureNavigationBar() {
         navigationItem.title = viewModel.navigationTitle
-        setRightBarAddButton(showing: PlanAddViewController())
+        setRightBarAddButton { [weak self] in
+            PlanAddViewController(travel: self?.viewModel.travel)
+        }
     }
 
 
@@ -80,18 +81,11 @@ final class PlanListViewController: UIViewController {
                 style: .destructive,
                 title: StringLiteral.deleteActionTitle
             ) { _, _, _ in
-                do {
-                    guard let id = self.dataSource.itemIdentifier(for: indexPath)
-                    else { return }
+                guard let id = self.dataSource.itemIdentifier(for: indexPath)
+                else { return }
 
-                    let section = self.sectionIdentifiers[indexPath.section]
-                    try self.viewModel.deletePlan(in: section, id: id)
-                } catch let error {
-                    self.presentErrorAlert(
-                        title: CoreDataError.deleteFailure.localizedDescription,
-                        message: error.localizedDescription
-                    )
-                }
+                let section = self.sectionIdentifiers[indexPath.section]
+                self.viewModel.deletePlan(in: section, id: id)
             }
 
             return .init(actions: [deleteAction])
@@ -106,17 +100,19 @@ final class PlanListViewController: UIViewController {
             .CellRegistration<PlanCollectionViewCell, ItemID> { cell, indexPath, identifier in
                 let section = self.sectionIdentifiers[indexPath.section]
                 let viewModel = self.viewModel.item(in: section, id: identifier)
-                cell.viewModel = viewModel
-                cell.checkBoxAction = UIAction { _ in
-                    do {
-                        try viewModel?.checkBoxDidTap()
-                    } catch let error {
-                        self.presentErrorAlert(
-                            title: CoreDataError.saveFailure.localizedDescription,
+                viewModel?.checkBoxToggleHandler = { [weak self, cell] result in
+                    switch result {
+                    case .success:
+                        cell.render()
+                    case .failure(let error):
+                        self?.presentErrorAlert(
+                            title: CoreDataError.saveFailure(.plan).localizedDescription,
                             message: error.localizedDescription
                         )
                     }
                 }
+                cell.viewModel = viewModel
+                cell.checkBoxAction = UIAction { _ in viewModel?.checkBoxDidTap() }
         }
 
         let dataSource = DataSource(
@@ -161,17 +157,6 @@ final class PlanListViewController: UIViewController {
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 
-    private func fetchPlans() {
-        do {
-            try viewModel.fetchPlans()
-        } catch let error {
-            self.presentErrorAlert(
-                title: CoreDataError.fetchFailure.localizedDescription,
-                message: error.localizedDescription
-            )
-        }
-    }
-
     private func configureCollectionView() {
         collectionView.delegate = self
     }
@@ -180,23 +165,39 @@ final class PlanListViewController: UIViewController {
     // MARK: - ViewModel Configuration Functions
 
     private func bindToViewModel() {
-        viewModel.planFetchHandler = { [weak self] in
-            self?.applySnapshot(usingData: $0)
-            self?.collectionView.isEmpty = self?.viewModel.planViewModels.isEmpty == true
+        viewModel.planFetchHandler = { [weak self] result in
+            switch result {
+            case .success(let data):
+                self?.applySnapshot(usingData: data)
+                self?.collectionView.isEmpty = self?.viewModel.planViewModels.isEmpty == true
+            case .failure(let error):
+                self?.presentErrorAlert(
+                    title: CoreDataError.fetchFailure(.plan).localizedDescription,
+                    message: error.localizedDescription
+                )
+            }
         }
 
-        viewModel.planDeleteHandler = { [weak self] in
+        viewModel.planDeleteHandler = { [weak self] result in
             guard var snapshot = self?.dataSource.snapshot()
             else { return }
 
-            /// 섹션이 빈 경우 섹션도 삭제
-            if let section = snapshot.sectionIdentifier(containingItem: $0),
-               self?.viewModel.planViewModels[section] == nil {
-                snapshot.deleteSections([section])
+            switch result {
+            case .success(let id):
+                /// 섹션이 빈 경우 섹션도 삭제
+                if let section = snapshot.sectionIdentifier(containingItem: id),
+                   self?.viewModel.planViewModels[section] == nil {
+                    snapshot.deleteSections([section])
+                }
+                snapshot.deleteItems([id])
+                self?.dataSource.apply(snapshot, animatingDifferences: true)
+                self?.collectionView.isEmpty = self?.viewModel.planViewModels.isEmpty == true
+            case .failure(let error):
+                self?.presentErrorAlert(
+                    title: CoreDataError.deleteFailure(.plan).localizedDescription,
+                    message: error.localizedDescription
+                )
             }
-            snapshot.deleteItems([$0])
-            self?.dataSource.apply(snapshot, animatingDifferences: true)
-            self?.collectionView.isEmpty = self?.viewModel.planViewModels.isEmpty == true
         }
     }
 }

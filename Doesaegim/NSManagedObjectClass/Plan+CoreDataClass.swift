@@ -15,7 +15,7 @@ public class Plan: NSManagedObject {
     // MARK: - Functions
     
     @discardableResult
-    static func addAndSave(with object: PlanDTO) throws -> Plan {
+    static func addAndSave(with object: PlanDTO) -> Result<Plan, Error> {
         let context = PersistentManager.shared.context
         let plan = Plan(context: context)
         plan.id = object.id
@@ -25,9 +25,17 @@ public class Plan: NSManagedObject {
         plan.isComplete = object.isComplete
         object.travel.addToPlan(plan)
 
-        try PersistentManager.shared.saveContext()
+        let result = PersistentManager.shared.saveContext()
         
-        return plan
+        switch result {
+        case .success(let isSuccess):
+            if isSuccess {
+                return .success(plan)
+            }
+        case .failure(let error):
+            return .failure(error)
+        }
+        return .failure(CoreDataError.saveFailure(.plan))
     }
 
     /// 모든 Plan엔티티를 가져옴
