@@ -33,9 +33,10 @@ final class CalendarViewController: UIViewController, CalendarProtocol {
         let calendar = CustomCalendar(
             frame: .zero,
             collectionViewLayout: CustomCalendar.createLayout(),
-            touchOption: touchOption
+            touchOption: touchOption,
+            startDate: startDate,
+            endDate: endDate
         )
-        
         calendar.completionHandler = { [weak self] dates in
             guard let self, dates.count == 1 else { return }
             switch self.touchOption {
@@ -78,13 +79,21 @@ final class CalendarViewController: UIViewController, CalendarProtocol {
     private let touchOption: CustomCalendar.TouchOption
     private let type: CustomCalendar.CalendarType
     private let dateFormatter = Date.timeDateFormatter
-    
+    private let startDate: Date?
+    private let endDate: Date?
     
     // MARK: - Lifecycles
     
-    init(touchOption: CustomCalendar.TouchOption, type: CustomCalendar.CalendarType) {
+    init(
+        touchOption: CustomCalendar.TouchOption,
+        type: CustomCalendar.CalendarType,
+        startDate: Date? = nil,
+        endDate: Date? = nil
+    ) {
         self.touchOption = touchOption
         self.type = type
+        self.startDate = startDate
+        self.endDate = endDate
         super.init(nibName: nil, bundle: nil)
     }
     

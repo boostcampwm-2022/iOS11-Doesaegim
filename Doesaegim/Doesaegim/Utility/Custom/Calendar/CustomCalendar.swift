@@ -40,11 +40,17 @@ final class CustomCalendar: UICollectionView {
     private var selectedCount = 0
     private var selectedDates: [Date] = []
     
+    var startDate: Date?
+    var endDate: Date?
+    
     var completionHandler: (([Date]) -> Void)?
     
     // MARK: - Lifecycles
     
-    init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout, touchOption: TouchOption) {
+    init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout,
+         touchOption: TouchOption, startDate: Date? = nil, endDate: Date? = nil) {
+        self.startDate = startDate
+        self.endDate = endDate
         self.touchOption = touchOption
         super.init(frame: frame, collectionViewLayout: layout)
         delegate = self
@@ -52,6 +58,7 @@ final class CustomCalendar: UICollectionView {
         diffableDatasource = configureDatasource()
         configureCalendar()
         configureSnapshot()
+        print(startDate, endDate)
     }
     
     @available(*, unavailable)
@@ -200,15 +207,30 @@ extension CustomCalendar {
     ///   - firstWeekIndex: 현재 달의 1일의 요일 월요일(0)
     ///   - totalDays: 모든 날짜의 합
     private func setSelectableDay(firstWeekIndex: Int, totalDays: Int) {
+        guard let currentYear = dateComponents.year, let month = dateComponents.month else {
+            return
+        }
+        let currentMonth = String(format: "%02d", month)
+        
         switch touchOption {
         case .single:
-            break
-            // TODO: 싱글 터치인 경우 기간 안에만 선택되도록
-        case .double:
-            guard let currentYear = dateComponents.year, let month = dateComponents.month else {
-                return
+            for day in 0..<totalDays {
+                if day < firstWeekIndex {
+                    days.append(Item(date: nil, isSelectable: false))
+                } else {
+                    let currentDay = String(format: "%02d", day - firstWeekIndex + 1)
+                    let stringDate = "\(currentYear)년 \(currentMonth)월 \(currentDay)일"
+                    guard let date = Date.yearMonthDayDateFormatter.date(from: stringDate) else {
+                        return
+                    }
+                    if let startDate, let endDate {
+                        let isSelectable =  (startDate...endDate) ~= date
+                        days.append(Item(date: date,
+                                         isSelectable: isSelectable))
+                    }
+                }
             }
-            let currentMonth = String(format: "%02d", month)
+        case .double:
             for day in 0..<totalDays {
                 if day < firstWeekIndex {
                     days.append(Item(date: nil, isSelectable: false))
