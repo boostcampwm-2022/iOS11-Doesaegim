@@ -87,7 +87,9 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
         configureViews()
         setAddTargets()
         if type == .moneyUnit {
-            setExchangeValue()
+            Task {
+                try await setExchangeValue()
+            }
         }
     }
     
@@ -159,7 +161,7 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
     
     // MARK: - Network
     
-    func fetchExchangeInfo(day: String) {
+    func fetchExchangeInfo(day: String) async throws {
         let network = NetworkManager(configuration: .default)
         var paramaters: [String: String] = [:]
         paramaters["authkey"] = ExchangeAPI.authkey
@@ -171,19 +173,35 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
             paramaters: paramaters,
             header: [:])
         
-        network.loadArray(resource) { [weak self] result in
-            // 오늘 날짜를 조회했을 때, 빈 배열이 온다면 어제 날짜를 조회
-            if result.isEmpty, let yesterday = self?.yesterDayDateConvertToString() {
-                self?.fetchExchangeInfo(day: yesterday)
+        let result = try await network.loadArray(resource)
+        
+        switch result {
+        case .success(let response):
+            if response.isEmpty {
+                try await fetchExchangeInfo(day: yesterDayDateConvertToString())
             } else {
-                self?.exchangeInfo = result
-                DispatchQueue.main.async {
-                    self?.pickerView.reloadAllComponents()
-                }
+                exchangeInfo = response
+                pickerView.reloadAllComponents()
                 UserDefaults.standard.set(day, forKey: Constants.fetchExchangeInfoDate)
-                self?.exchangeDiskCache.saveExchangeRateInfo(exchangeInfo: result)
+                exchangeDiskCache.saveExchangeRateInfo(exchangeInfo: response)
             }
+        case .failure(let error):
+            print(error)
         }
+        
+//        network.loadArray(resource) { [weak self] result in
+//            // 오늘 날짜를 조회했을 때, 빈 배열이 온다면 어제 날짜를 조회
+//            if result.isEmpty, let yesterday = self?.yesterDayDateConvertToString() {
+//                self?.fetchExchangeInfo(day: yesterday)
+//            } else {
+//                self?.exchangeInfo = result
+//                DispatchQueue.main.async {
+//                    self?.pickerView.reloadAllComponents()
+//                }
+//                UserDefaults.standard.set(day, forKey: Constants.fetchExchangeInfoDate)
+//                self?.exchangeDiskCache.saveExchangeRateInfo(exchangeInfo: result)
+//            }
+//        }
     }
     
     // MARK: Date Functions
@@ -202,7 +220,7 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
     
     // MARK: UserDefaults
     
-    private func setExchangeValue() {
+    private func setExchangeValue() async throws {
         // UserDefault 확인
         if let fetchExchangeInfoDate = UserDefaults.standard.string(forKey: Constants.fetchExchangeInfoDate) {
             
@@ -229,12 +247,12 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
                 exchangeMemoryCache.setObject(info as NSArray, forKey: cacheKey)
             } else {
                 // 날짜가 다르면 오늘 날짜로 api 요청
-                fetchExchangeInfo(day: todayDateConvertToString())
+                try await fetchExchangeInfo(day: todayDateConvertToString())
             }
             
         } else {
             // 없으면 api 요청
-            fetchExchangeInfo(day: todayDateConvertToString())
+            try await fetchExchangeInfo(day: todayDateConvertToString())
         }
     }
 }
