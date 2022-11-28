@@ -19,6 +19,7 @@ final class CustomCalendar: UICollectionView {
         let id = UUID()
         let day: String
         var isSelected: Bool = false
+        var isSelectable: Bool = true
     }
     
     // MARK: - typealias
@@ -179,13 +180,14 @@ final class CustomCalendar: UICollectionView {
         days.removeAll()
         
         /// 첫번째 날짜가 시작할 때 부터 숫자를 채워줌, 이전 날짜는 공백으로 처리
-        for day in 0..<totalDays {
-            if day < firstWeekIndex {
-                days.append(Item(day: ""))
-            } else {
-                days.append(Item(day: "\(day - firstWeekIndex + 1)"))
-            }
-        }
+        setSelectableDay(firstWeekIndex: firstWeekIndex, totalDays: totalDays)
+//        for day in 0..<totalDays {
+//            if day < firstWeekIndex {
+//                days.append(Item(day: ""))
+//            } else {
+//                days.append(Item(day: "\(day - firstWeekIndex + 1)"))
+//            }
+//        }
         
     }
 }
@@ -200,6 +202,34 @@ extension CustomCalendar {
         case date
         case dateAndTime
     }
+    
+    private func setSelectableDay(firstWeekIndex: Int, totalDays: Int) {
+        switch touchOption {
+        case .single:
+            break
+            // TODO: 싱글 터치인 경우 기간 안에만 선택되도록
+        case .double:
+            guard let currentYear = dateComponents.year, let month = dateComponents.month else {
+                return
+            }
+            let currentMonth = String(format: "%02d", month)
+            for day in 0..<totalDays {
+                if day < firstWeekIndex {
+                    days.append(Item(day: ""))
+                } else {
+                    let currentDay = String(format: "%02d", day - firstWeekIndex + 1)
+                    let date = "\(currentYear)년 \(currentMonth)월 \(currentDay)일"
+                    if let selectedDate = selectedDates.first {
+                        let isSelectable = selectedDate <= date
+                        days.append(Item(day: "\(day - firstWeekIndex + 1)", isSelectable: isSelectable))
+                    } else {
+                        days.append(Item(day: "\(day - firstWeekIndex + 1)", isSelectable: true))
+                    }
+                    
+                }
+            }
+        }
+    }
 }
 
 // MARK: Calendar Cell Tapped
@@ -208,6 +238,8 @@ extension CustomCalendar {
 extension CustomCalendar: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let startDay = calendar.component(.weekday, from: today) - 1
+        
+        guard days[indexPath.row].isSelectable else { return }
         
         guard indexPath.row >= startDay,
               let currentYear = dateComponents.year,
@@ -231,7 +263,17 @@ extension CustomCalendar: UICollectionViewDelegate {
                 days[index].isSelected = false
             }
         case .double:
-            if selectedCount == 2 {
+            if selectedCount == 1 {
+                if let selectedDate = selectedDates.first {
+                    for index in 0..<days.count {
+                        let currentDay = days[index].day.count == 1 ? "0" + days[index].day : days[index].day
+                        days[index].isSelectable = selectedDate
+                        <= "\(currentYear)년 \(currentMonth)월 \(currentDay)일"
+                        print("\(currentYear)년 \(currentMonth)월 \(currentDay)일")
+                    }
+                }
+                print(days)
+            } else if selectedCount == 2 {
                 completionHandler?(selectedDates)
                 selectedDates.removeAll()
                 selectedCount = 0
