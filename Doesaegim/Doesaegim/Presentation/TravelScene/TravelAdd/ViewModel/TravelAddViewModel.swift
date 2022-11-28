@@ -41,7 +41,7 @@ final class TravelAddViewModel: TravelAddViewProtocol {
     }
     
     
-    func travelDateTapped(dates: [String], completion: @escaping ((Bool) -> Void)) {
+    func travelDateTapped(dates: [Date], completion: @escaping ((Bool) -> Void)) {
         defer {
             isValidInput = isValidTextField && isValidDate
             completion(isValidDate)

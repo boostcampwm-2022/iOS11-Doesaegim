@@ -74,7 +74,7 @@ final class CalendarViewController: UIViewController, CalendarProtocol {
     // MARK: - Properties
     
     weak var delegate: CalendarViewDelegate?
-    private var date: String?
+    private var date: Date?
     private let touchOption: CustomCalendar.TouchOption
     private let type: CustomCalendar.CalendarType
     private let dateFormatter = Date.timeDateFormatter
@@ -145,9 +145,9 @@ extension CalendarViewController {
         }
         if type == .dateAndTime {
             let time = dateFormatter.string(from: timeDatepicker.date)
-            let dateString = "\(date) \(time)"
+            let dateString = "\(Date.yearMonthDayDateFormatter.string(from: date)) \(time)"
             delegate?.fetchDate(dateString: dateString)
-        } else { delegate?.fetchDate(dateString: date) }
+        } else { delegate?.fetchDate(dateString: Date.yearMonthDayDateFormatter.string(from: date)) }
         dismiss(animated: true)
             
     }
