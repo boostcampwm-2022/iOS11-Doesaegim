@@ -227,6 +227,9 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
                 
                 let cacheKey = NSString(string: fetchExchangeInfoDate)
                 exchangeMemoryCache.setObject(info as NSArray, forKey: cacheKey)
+            } else {
+                // 날짜가 다르면 오늘 날짜로 api 요청
+                fetchExchangeInfo(day: todayDateConvertToString())
             }
             
         } else {
