@@ -65,7 +65,7 @@ extension DiaryListViewModel {
                     currentTravel = travel
                 }
             }
-//            print(newDiaries)
+            newDiaries = newDiaries.sorted(by: sortByDate)
             diaryInfos = newDiaries
             
         case .failure(let error):
@@ -85,7 +85,7 @@ extension DiaryListViewModel {
                 content: "콘텐츠 콘텐츠 콘텐츠 \(count)",
                 date: date,
                 images: [],
-                title: "제목제목제목제목제목제목제목제목제목ㅁㄴㅇㄹㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹ\(count)",
+                title: "제목\(count)",
                 location: LocationDTO(
                     name: "위치",
                     latitude: 37.5700,
@@ -95,6 +95,14 @@ extension DiaryListViewModel {
             )
             Diary.addAndSave(with: dto)
         }
+    }
+    
+    private func sortByDate(_ lhs: DiaryInfoViewModel, _ rhs: DiaryInfoViewModel) -> Bool {
+        let formatter = Date.yearTominuteFormatterWithoutSeparator
+        let date1 = formatter.string(from: lhs.date)
+        let date2 = formatter.string(from: rhs.date)
+        
+        return date1 > date2
     }
     
 }
