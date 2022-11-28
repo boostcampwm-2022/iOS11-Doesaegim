@@ -53,5 +53,6 @@ final class CustomCalendarCell: UICollectionViewCell {
     func configureUI(item: CustomCalendar.Item) {
         dateLabel.text = item.day
         dateLabel.layer.borderWidth = item.isSelected ? 1 : 0
+        dateLabel.textColor = item.isSelectable ? .primaryOrange : .gray
     }
 }

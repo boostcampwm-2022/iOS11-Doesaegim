@@ -221,7 +221,9 @@ extension CustomCalendar {
                     let date = "\(currentYear)년 \(currentMonth)월 \(currentDay)일"
                     if let selectedDate = selectedDates.first {
                         let isSelectable = selectedDate <= date
-                        days.append(Item(day: "\(day - firstWeekIndex + 1)", isSelectable: isSelectable))
+                        days.append(Item(day: "\(day - firstWeekIndex + 1)",
+                                         isSelected: selectedDate == date,
+                                         isSelectable: isSelectable))
                     } else {
                         days.append(Item(day: "\(day - firstWeekIndex + 1)", isSelectable: true))
                     }
@@ -272,13 +274,13 @@ extension CustomCalendar: UICollectionViewDelegate {
                         print("\(currentYear)년 \(currentMonth)월 \(currentDay)일")
                     }
                 }
-                print(days)
             } else if selectedCount == 2 {
                 completionHandler?(selectedDates)
                 selectedDates.removeAll()
                 selectedCount = 0
                 for index in 0..<days.count {
                     days[index].isSelected = false
+                    days[index].isSelectable = true
                 }
             }
             configureSnapshot()
