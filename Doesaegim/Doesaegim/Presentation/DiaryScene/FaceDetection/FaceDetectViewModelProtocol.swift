@@ -6,17 +6,22 @@
 //
 
 import UIKit
+import Vision
 
 
 protocol FaceDetectViewModelProtocol: AnyObject {
     
     var delegate: FaceDetectViewModeleDelegate? { get set }
+    var boundingBoxes: [CGRect] { get set }
     var pathLayer: CALayer? { get set }
+    var image: UIImage? { get set }
+    
+    func performVisionRequest(image: CGImage, orientation: CGImagePropertyOrientation)
     
 }
 
 protocol FaceDetectViewModeleDelegate: AnyObject {
     
-    func FaceDetectLayerDidChange()
+    func drawFaceDetection(faces: [VNFaceObservation], onImageWithBounds bounds: CGRect)
     
 }
