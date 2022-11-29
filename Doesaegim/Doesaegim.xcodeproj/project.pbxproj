@@ -132,6 +132,7 @@
 		EE2C553D291CC08B0018B109 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EE2C553C291CC08B0018B109 /* SnapKit */; };
 		EE3E29A829235F6B007C7FC7 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E29A729235F6B007C7FC7 /* UITextField+.swift */; };
 		EE3E29BC2923C870007C7FC7 /* TravelAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E29BB2923C870007C7FC7 /* TravelAddViewController.swift */; };
+		EE3FB8492935E1660024AEE1 /* ShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3FB8482935E1660024AEE1 /* ShareManager.swift */; };
 		EE85FBC3292BA9B600FF0C7C /* ExpenseAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE85FBC2292BA9B600FF0C7C /* ExpenseAddViewController.swift */; };
 		EE85FBC6292BAADC00FF0C7C /* ExpenseAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE85FBC5292BAADC00FF0C7C /* ExpenseAddView.swift */; };
 		EEA1C824292F395100B80901 /* ExchangeDiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA1C823292F395100B80901 /* ExchangeDiskCache.swift */; };
@@ -296,6 +297,7 @@
 		EE3E29AD292365C7007C7FC7 /* CustomCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarCell.swift; sourceTree = "<group>"; };
 		EE3E29BB2923C870007C7FC7 /* TravelAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAddViewController.swift; sourceTree = "<group>"; };
 		EE3E29BD2923C8A7007C7FC7 /* CustomCalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarHeaderView.swift; sourceTree = "<group>"; };
+		EE3FB8482935E1660024AEE1 /* ShareManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareManager.swift; sourceTree = "<group>"; };
 		EE85FBC2292BA9B600FF0C7C /* ExpenseAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddViewController.swift; sourceTree = "<group>"; };
 		EE85FBC5292BAADC00FF0C7C /* ExpenseAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddView.swift; sourceTree = "<group>"; };
 		EEA1C823292F395100B80901 /* ExchangeDiskCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeDiskCache.swift; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 				A4CC04812922191300BB678B /* PersistentManager.swift */,
 				EEB6C4FC292CC29B0060A459 /* NetworkManager.swift */,
 				BB288FCA292E1A2B00065D04 /* FileProcessManager.swift */,
+				EE3FB8482935E1660024AEE1 /* ShareManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1325,6 +1328,7 @@
 				B5C096B829235428007426B1 /* SearchingLocationView.swift in Sources */,
 				EE116C632924EC860017B519 /* PlanAddViewController.swift in Sources */,
 				A4CC04AA29221EEE00BB678B /* Location+CoreDataClass.swift in Sources */,
+				EE3FB8492935E1660024AEE1 /* ShareManager.swift in Sources */,
 				BB5DE44C292B8E86001DA6F6 /* Int+convertCostString.swift in Sources */,
 				A4CC04A629221EEE00BB678B /* Travel+CoreDataClass.swift in Sources */,
 				BB5771AC2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift in Sources */,
@@ -1561,7 +1565,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 92B5D498S7;
+				DEVELOPMENT_TEAM = H2N9KXXP3M;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Doesaegim/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1589,7 +1593,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 92B5D498S7;
+				DEVELOPMENT_TEAM = H2N9KXXP3M;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Doesaegim/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
