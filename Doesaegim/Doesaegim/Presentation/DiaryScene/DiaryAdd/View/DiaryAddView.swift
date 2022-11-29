@@ -80,7 +80,7 @@ final class DiaryAddView: UIView {
             widthDimension: .fractionalWidth(Metric.one),
             heightDimension: .fractionalHeight(Metric.one)
         )
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .paging
