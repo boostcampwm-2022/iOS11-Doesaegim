@@ -84,9 +84,9 @@ final class CustomPieChart: UIView {
         )
         layer.addSublayer(pieceLayer)
         
-        guard let boundingBox = pieceLayer.path?.boundingBox
-        else { return }
+        guard let boundingBox = pieceLayer.path?.boundingBox else { return }
         let textLayer = PieceTextLayer(
+            center: CGPoint(x: rect.width/2, y: rect.height/2),
             pieceBounds: boundingBox,
             text: "\(item.category.rawValue)\n\(String(format: "%.2f", ratio * 100))%"
         )
