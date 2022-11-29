@@ -26,6 +26,14 @@ final class ShareManager {
         )
         activityViewController.excludedActivityTypes = [.saveToCameraRoll]
         activityViewController.popoverPresentationController?.sourceView = viewController.view
+        activityViewController.popoverPresentationController?.sourceRect = CGRect(
+            x: viewController.view.bounds.minX,
+            y: viewController.view.bounds.minY,
+            width: 0,
+            height: 0
+        )
+        activityViewController.popoverPresentationController?.permittedArrowDirections = []
+        
         viewController.present(activityViewController, animated: true)
     }
     
