@@ -24,38 +24,39 @@ final class FaceDetectController: UIViewController {
     // bounding box를 그려주는 path
     private var pathLayer: CALayer?
     
-    private lazy var faceDetectionRequest
-        = VNDetectFaceRectanglesRequest(completionHandler: handleDetectedFaces)
-    private lazy var faceLandmarkReqeust
-        = VNDetectFaceLandmarksRequest(completionHandler: handleDetectedFaceLandmarks)
-    
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 10
         return imageView
     }()
+    private var viewModel: FaceDetectViewModelProtocol?
+    
     // MARK: - Initializer(s)
     
     /// 기본이미지를 받아오는 생성자. 실험시 이 생성자를 사용한다.
     init() {
-//        self.currentImage = UIImage(named: "monalisa")
+        super.init(nibName: nil, bundle: nil)
         self.currentImage = UIImage(named: "face_example")
         imageView.image = self.currentImage
-        super.init(nibName: nil, bundle: nil)
+        self.viewModel = FaceDetectViewModel(image: UIImage(named: "face_example"))
+        self.viewModel?.delegate = self
     }
     
-    init(data: Data) {
+    init(data: Data, viewModel: FaceDetectViewModelProtocol) {
+        super.init(nibName: nil, bundle: nil)
         let image = UIImage(data: data)
         self.currentImage = image
-        
-        
-        super.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
+        self.viewModel?.delegate = self
     }
     
-    init(image: UIImage) {
-        self.currentImage = image
+    init(image: UIImage, viewModel: FaceDetectViewModelProtocol) {
+        
         super.init(nibName: nil, bundle: nil)
+        self.currentImage = image
+        self.viewModel = viewModel
+        self.viewModel?.delegate = self
     }
     
     @available(*, unavailable)
@@ -71,14 +72,14 @@ final class FaceDetectController: UIViewController {
         configureSubviews()
         configureConstraints()
         
+        // 시뮬레이터에서 동작할 수 있도록
 #if targetEnvironment(simulator)
         faceDetectionRequest.usesCPUOnly = true
-        faceLandmarkReqeust.usesCPUOnly = true
 #endif
     }
     
     override func viewDidLayoutSubviews() {
-        progress()
+        startDetect()
     }
 }
 
@@ -102,21 +103,21 @@ extension FaceDetectController {
     
     // MARK: - ETC
     
-    private func progress() {
-        print(#function)
+    private func startDetect() {
         guard let image = currentImage,
-              let cgImage = image.cgImage else { return }
+              let cgImage = image.cgImage,
+              let viewModel = viewModel else { return }
         let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
         
         show(image)
         // 얼굴인식 작업 시작
-        performVisionReqeust(image: cgImage, orientation: cgOrientation)
+        
+        viewModel.performVisionRequest(image: cgImage, orientation: cgOrientation)
     }
     
     /// 화면에 나타날 이미지를 설정하고 얼굴인식 시 그려줄 CALayer를 지정해주는 메서드
     /// - Parameter image: 화면에 나타나고, 얼굴인식 작업에 사용할 `UIImage`
     private func show(_ image: UIImage) {
-        print(#function)
         // pathLayer 초기화
         pathLayer?.removeFromSuperlayer()
         pathLayer = nil
@@ -135,10 +136,11 @@ extension FaceDetectController {
         let fullImageHeight = CGFloat(cgImage.height)
         
         let imageFrame = imageView.frame
+        print("imageFrame: [\(imageFrame)]")
         let widthRatio = fullImageWidth / imageFrame.width
         let heightRatio = fullImageHeight / imageFrame.height
         
-        // ScaleAspectFit: The image will be scaled down according to the stricter dimension.
+        // 이미지를 스케일 다운 시키기 위한 비율계산
         let scaleDownRatio = max(widthRatio, heightRatio)
         
         // Cache image dimensions to reference when drawing CALayer paths.
@@ -146,15 +148,19 @@ extension FaceDetectController {
         var imageHeight = fullImageHeight / scaleDownRatio
         
         // Prepare pathLayer to hold Vision results.
-        let xLayer = (imageFrame.width - imageWidth) / 2
+        // TODO: - 다시 살펴보기
+        let xLayer = (imageFrame.width - imageWidth) / 2 + 16
         let yLayer = imageView.frame.minY + (imageFrame.height - imageHeight) / 2
+
+//        let xLayer = imageFrame.origin.x
+//        let yLayer = imageFrame.origin.y
         let drawingLayer = CALayer()
         drawingLayer.bounds = CGRect(x: xLayer, y: yLayer, width: imageWidth, height: imageHeight)
         drawingLayer.anchorPoint = CGPoint.zero
         drawingLayer.position = CGPoint(x: xLayer, y: yLayer)
-        drawingLayer.opacity = 0.5
+        drawingLayer.opacity = 1
         pathLayer = drawingLayer
-        print("pathLayer 초기화 완료!")
+        viewModel?.pathLayer = pathLayer
         view.layer.addSublayer(pathLayer!)
     }
     
@@ -241,93 +247,12 @@ extension FaceDetectController {
     
 }
 
-extension FaceDetectController {
-    fileprivate func performVisionReqeust(image: CGImage, orientation: CGImagePropertyOrientation) {
-        print(#function)
-        let reqeusts = createVisionReqeusts()
-        // reqeust handler 생성
-        let imageRequestHandler = VNImageRequestHandler(
-            cgImage: image,
-            orientation: orientation,
-            options: [:]
-        )
-        
-        DispatchQueue.global(qos: .userInitiated).async {
-            do {
-                try imageRequestHandler.perform(reqeusts)
-            } catch {
-                print(error.localizedDescription)
-                // TODO: - 에러처리. 알림 등
-                return
-            }
-        }
-        
-        // request를 request handler에 보낸다.
-    }
-    
-    /// 얼굴인식 request를 담은 배열을 반환한다.
-    /// - Returns: 얼굴인식 request, `VNRequest`배열
-    fileprivate func createVisionReqeusts() -> [VNRequest] {
-        print(#function)
-        var requests: [VNRequest] = []
-        
-        // 얼굴 탐지 request
-        requests.append(faceDetectionRequest)
-        requests.append(faceLandmarkReqeust)
-        
-        return requests
-    }
-}
-
-// MARK: - Handlers
-
-extension FaceDetectController {
-    
-    fileprivate func handleDetectedFaces(request: VNRequest?, error: Error?) {
-        print(#function)
-        // TODO: - 사용자에게 알림 등 에러처리.
-        if let error = error {
-            print(error.localizedDescription)
-            return
-        }
-        
-        // TODO: - 인식한 얼굴의 위치에 사각형을 그려주는 작업. 화면에 그리는 것이기 때문에 main thread에서 작업해야 함.
-        // TODO: - 강한참조?
-        DispatchQueue.main.async {
-            guard let drawLayer = self.pathLayer,
-                  let results = request?.results as? [VNFaceObservation] else { return }
-            print(drawLayer.bounds)
-            self.draw(faces: results, onImageWithBounds: drawLayer.bounds)
-            print("drawLayer 있어요!!")
-            drawLayer.setNeedsDisplay()
-        }
-    }
-    
-    fileprivate func handleDetectedFaceLandmarks(request: VNRequest?, error: Error?) {
-        print(#function)
-        if let error = error {
-            // TODO: - 사용자에게 알림 등 에러처리.
-            print(error.localizedDescription)
-            return
-        }
-        
-        // TODO: - 인식한 이목구비를 그려준다. 이 또한 화면에 그리는 작업이므로 main thread에서 작업해야한다.
-        DispatchQueue.main.async {
-            guard let drawLayer = self.pathLayer,
-                  let results = request?.results as? [VNFaceObservation] else { return }
-//            self.draw(faces: results, onImageWithBounds: drawLayer.bounds)
-            drawLayer.setNeedsDisplay()
-        }
-        
-    }
-}
-
-// MARK: - Drawing
+// MARK: - Drawing Element
 
 extension FaceDetectController {
     
     fileprivate func boundingBox(forRegionOfInterest: CGRect, withInImageBounds bounds: CGRect) -> CGRect {
-        print(#function, bounds)
+        print(#function, bounds, forRegionOfInterest)
         let imageWidth = bounds.width
         let imageHeight = bounds.height
         
@@ -339,6 +264,8 @@ extension FaceDetectController {
         
         rect.size.width *= imageWidth
         rect.size.height *= imageHeight
+        
+        print("rect result: \(rect)")
         
         return rect
     }
@@ -362,8 +289,13 @@ extension FaceDetectController {
         
         return layer
     }
+}
+
+// MARK: - FaceDetectViewModelDelegate
+
+extension FaceDetectController: FaceDetectViewModeleDelegate {
     
-    fileprivate func draw(faces: [VNFaceObservation], onImageWithBounds bounds: CGRect) {
+    func drawFaceDetection(faces: [VNFaceObservation], onImageWithBounds bounds: CGRect) {
         print(#function)
         CATransaction.begin()
         faces.forEach { observation in
