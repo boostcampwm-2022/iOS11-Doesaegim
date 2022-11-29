@@ -128,7 +128,7 @@ extension FaceDetectController {
         imageView.image = correctedImage
         
         guard let cgImage = correctedImage.cgImage else {
-            print("Trying to show an image not backed by CGImage!")
+            print("CGImage로 변환되지 않는 이미지 형식입니다.")
             return
         }
         
@@ -136,24 +136,19 @@ extension FaceDetectController {
         let fullImageHeight = CGFloat(cgImage.height)
         
         let imageFrame = imageView.frame
-        print("imageFrame: [\(imageFrame)]")
         let widthRatio = fullImageWidth / imageFrame.width
         let heightRatio = fullImageHeight / imageFrame.height
         
         // 이미지를 스케일 다운 시키기 위한 비율계산
         let scaleDownRatio = max(widthRatio, heightRatio)
         
-        // Cache image dimensions to reference when drawing CALayer paths.
         var imageWidth = fullImageWidth / scaleDownRatio
         var imageHeight = fullImageHeight / scaleDownRatio
         
-        // Prepare pathLayer to hold Vision results.
         // TODO: - 다시 살펴보기
         let xLayer = (imageFrame.width - imageWidth) / 2 + 16
         let yLayer = imageView.frame.minY + (imageFrame.height - imageHeight) / 2
 
-//        let xLayer = imageFrame.origin.x
-//        let yLayer = imageFrame.origin.y
         let drawingLayer = CALayer()
         drawingLayer.bounds = CGRect(x: xLayer, y: yLayer, width: imageWidth, height: imageHeight)
         drawingLayer.anchorPoint = CGPoint.zero
@@ -175,7 +170,6 @@ extension FaceDetectController {
         
         let width = CGFloat(cgImage.width)
         let height = CGFloat(cgImage.height)
-        print(#function, width, height)
         var transform = CGAffineTransform.identity
         
         var bounds = CGRect(x: 0, y: 0, width: width, height: height)
@@ -252,7 +246,6 @@ extension FaceDetectController {
 extension FaceDetectController {
     
     fileprivate func boundingBox(forRegionOfInterest: CGRect, withInImageBounds bounds: CGRect) -> CGRect {
-        print(#function, bounds, forRegionOfInterest)
         let imageWidth = bounds.width
         let imageHeight = bounds.height
         
@@ -265,13 +258,10 @@ extension FaceDetectController {
         rect.size.width *= imageWidth
         rect.size.height *= imageHeight
         
-        print("rect result: \(rect)")
-        
         return rect
     }
     
     fileprivate func shapeLayer(color: UIColor, frame: CGRect) -> CAShapeLayer {
-        print(#function, frame)
         let layer = CAShapeLayer()
         
         layer.fillColor = nil // 박스안에 색을 채우지 않음
@@ -296,7 +286,6 @@ extension FaceDetectController {
 extension FaceDetectController: FaceDetectViewModeleDelegate {
     
     func drawFaceDetection(faces: [VNFaceObservation], onImageWithBounds bounds: CGRect) {
-        print(#function)
         CATransaction.begin()
         faces.forEach { observation in
             let faceBox = boundingBox(forRegionOfInterest: observation.boundingBox, withInImageBounds: bounds)

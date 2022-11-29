@@ -61,7 +61,6 @@ extension FaceDetectViewModel {
                 return
             }
         }
-        // request를 request handler에 보낸다.
     }
     
 }
