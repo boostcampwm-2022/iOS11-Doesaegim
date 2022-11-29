@@ -13,7 +13,11 @@ import Vision
 final class FaceDetectViewModel: FaceDetectViewModelProtocol {
     var delegate: FaceDetectViewModeleDelegate?
     // TODO: - boundInfos didSet... 변경에 따른 컬렉션뷰도 변경하도록 수정하기
-    var detectInfo: [DetectInfoViewModel]
+    var detectInfos: [DetectInfoViewModel] {
+        didSet {
+            delegate?.detectInfoDidChange()
+        }
+    }
     var pathLayer: CALayer?
     var image: UIImage?
     
@@ -22,12 +26,12 @@ final class FaceDetectViewModel: FaceDetectViewModelProtocol {
     
     init(image: UIImage?) {
         self.image = image
-        detectInfo = []
+        detectInfos = []
     }
     
     init(imageData: Data) {
         self.image = UIImage(data: imageData)
-        detectInfo = []
+        detectInfos = []
     }
 }
 
@@ -45,6 +49,7 @@ extension FaceDetectViewModel {
     }
     
     func performVisionRequest(image: CGImage, orientation: CGImagePropertyOrientation) {
+        detectInfos.removeAll() // 비워주지 않으면 요청을 여러번 처리하게 된다.
         let reqeusts = createVisionRequest()
         // reqeust handler 생성
         let imageRequestHandler = VNImageRequestHandler(
@@ -64,12 +69,36 @@ extension FaceDetectViewModel {
         }
     }
     
+    func addDetectInfo(with image: UIImage?, boundingBox: CGRect) {
+        guard let image = image else { return }
+
+//        print(image.size.width, image.size.height)
+        print(boundingBox.origin.x, boundingBox.origin.y)
+        
+        let xCoordinate = image.size.width * boundingBox.origin.x
+        let yCoordinate = (image.size.height * (1 - boundingBox.origin.y)) / 2
+        let width = image.size.width * boundingBox.size.width
+        let height = image.size.height * boundingBox.size.height
+//        print(image.size.width, xCoordinate, yCoordinate)
+//        print(boundingBox)
+
+        let rect = CGRect(x: xCoordinate, y: yCoordinate, width: width, height: height)
+        
+        guard let croppedImage = cropImage(of: image, with: rect) else { return }
+        let newDetectInfo = DetectInfoViewModel(uuid: UUID(), image: croppedImage, bound: rect)
+        detectInfos.append(newDetectInfo)
+//        print(detectInfos.count)
+    }
+    
     func addDetectInfo(with image: UIImage?, bound: CGRect) {
         guard let image = image,
               let croppedImage = cropImage(of: image, with: bound) else { return }
+        
         let newDetectInfo = DetectInfoViewModel(uuid: UUID(), image: croppedImage, bound: bound)
-        detectInfo.append(newDetectInfo)
-        print(detectInfo.count)
+        
+        print(bound)
+        
+        detectInfos.append(newDetectInfo)
     }
     
     func cropImage(of image: UIImage?, with cropRect: CGRect) -> UIImage? {

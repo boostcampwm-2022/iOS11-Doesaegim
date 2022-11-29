@@ -14,40 +14,28 @@ extension FaceDetectController {
         case main
     }
     
-    func configureCollectionView() {
-        // 따로 identifier로 사용할 뷰모델이 없으므로 register메서드 통해 등록
-        collectionView.register(
-            DetectedFaceCell.self,
-            forCellWithReuseIdentifier: DetectedFaceCell.identifier
-        )
-    }
+    // MARK: - Collection View Configuration
     
     func configureCollectionViewDataSource() {
         
+        let detectedCell = CellRegistration { cell, _, identifier in
+            cell.configureInfo(with: identifier)
+        }
+        
         detectDataSource = DataSource(
             collectionView: collectionView,
-            cellProvider: { collectionView, indexPath, _ in
-                let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: DetectedFaceCell.identifier,
-                    for: indexPath
-                ) as? DetectedFaceCell
-                
-                // TODO: - 셀 이미지 크롭
-                let dummyImage = UIImage(systemName: "photo")
-                cell?.configureImage(with: dummyImage)
-                
-                return cell
+            cellProvider: { collectionView, indexPath, itemIdentifier in
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: detectedCell,
+                    for: indexPath,
+                    item: itemIdentifier
+                )
             }
         )
         
     }
     
-}
-
-
-// MARK: - Layout
-
-extension FaceDetectController {
+    // MARK: - Layout
     
     func createCompositionalLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout {_, _ -> NSCollectionLayoutSection? in
@@ -63,7 +51,7 @@ extension FaceDetectController {
                 widthDimension: .fractionalWidth(1),
                 heightDimension: .fractionalWidth(1/3)
             )
-            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item, item, item])
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
             
             let section = NSCollectionLayoutSection(group: group)
             return section

@@ -16,6 +16,7 @@ final class DetectedFaceCell: UICollectionViewCell {
     let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 10
         return imageView
     }()
     
@@ -33,6 +34,8 @@ final class DetectedFaceCell: UICollectionViewCell {
 extension DetectedFaceCell {
     
     private func configure() {
+        layer.cornerRadius = 10
+        layer.masksToBounds = true
         configureSubviews()
         configureConstraints()
     }
@@ -48,8 +51,7 @@ extension DetectedFaceCell {
         }
     }
     
-    func configureImage(with image: UIImage?) {
-        guard let image = image else { return }
-        print(#function)
+    func configureInfo(with info: DetectInfoViewModel) {
+        imageView.image = info.image
     }
 }

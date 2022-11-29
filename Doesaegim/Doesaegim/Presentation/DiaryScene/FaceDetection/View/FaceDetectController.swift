@@ -19,6 +19,10 @@ final class FaceDetectController: UIViewController {
     
     typealias DataSource
         = UICollectionViewDiffableDataSource<SectionType, DetectInfoViewModel>
+    typealias CellRegistration
+        = UICollectionView.CellRegistration<DetectedFaceCell, DetectInfoViewModel>
+    typealias SnapShot
+        = NSDiffableDataSourceSnapshot<SectionType, DetectInfoViewModel>
     
     // MARK: - Properties
     
@@ -30,6 +34,7 @@ final class FaceDetectController: UIViewController {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 10
         return imageView
     }()
@@ -56,16 +61,18 @@ final class FaceDetectController: UIViewController {
     
     var detectDataSource: DataSource?
     
-    private var viewModel: FaceDetectViewModelProtocol?
+    var viewModel: FaceDetectViewModelProtocol?
     
     // MARK: - Initializer(s)
     
     /// 기본이미지를 받아오는 생성자. 실험시 이 생성자를 사용한다.
     init() {
         super.init(nibName: nil, bundle: nil)
-        self.currentImage = UIImage(named: "face_example")
+//        self.currentImage = UIImage(named: "face_example")
+        self.currentImage = UIImage(named: "monalisa")
         imageView.image = self.currentImage
-        self.viewModel = FaceDetectViewModel(image: UIImage(named: "face_example"))
+//        self.viewModel = FaceDetectViewModel(image: UIImage(named: "face_example"))
+        self.viewModel = FaceDetectViewModel(image: UIImage(named: "monalisa"))
         self.viewModel?.delegate = self
     }
     
@@ -98,6 +105,7 @@ final class FaceDetectController: UIViewController {
         configureSubviews()
         configureConstraints()
         configureButtonAction()
+        configureCollectionViewDataSource()
         
         // 시뮬레이터에서 동작할 수 있도록
 #if targetEnvironment(simulator)
@@ -309,6 +317,8 @@ extension FaceDetectController {
         rect.size.width *= imageWidth
         rect.size.height *= imageHeight
         
+//        print(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height)
+        
         return rect
     }
     
@@ -340,15 +350,28 @@ extension FaceDetectController: FaceDetectViewModeleDelegate {
         guard let viewModel = viewModel else { return }
         CATransaction.begin()
         faces.forEach { observation in
+//            print(observation.boundingBox)
             let faceBox = boundingBox(forRegionOfInterest: observation.boundingBox, withInImageBounds: bounds)
+//            print(bounds)
             let faceLayer = shapeLayer(color: .yellow, frame: faceBox)
-            viewModel.addDetectInfo(with: self.currentImage, bound: faceBox)
+            // TODO: - 얼굴이 9개인데 왜 그 이상으로 호출되지...? 흠...
+            viewModel.addDetectInfo(with: self.currentImage, boundingBox: observation.boundingBox)
+//            viewModel.addDetectInfo(with: self.currentImage, bound: bounds)
             pathLayer?.addSublayer(faceLayer)
             
         }
-        
         CATransaction.commit()
     }
     
-    
+    func detectInfoDidChange() {
+//        print(#function)
+        guard let viewModel = viewModel else { return }
+        let detectInfos = viewModel.detectInfos
+        
+        var snapshot = SnapShot()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(detectInfos)
+        detectDataSource?.apply(snapshot)
+        
+    }
 }
