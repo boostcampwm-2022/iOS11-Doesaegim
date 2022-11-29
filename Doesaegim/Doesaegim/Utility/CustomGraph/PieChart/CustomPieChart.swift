@@ -16,6 +16,8 @@ final class CustomPieChart: UIView {
     
     private var items: [CustomChartItem] = []
     
+    private var isAnimating: Bool = false
+    
     private var total: CGFloat {
         items.reduce(0) { $0 + $1.value }
     }
@@ -24,7 +26,7 @@ final class CustomPieChart: UIView {
     
     /// 원형 차트를 그릴 기반이 되는 데이터 값의 배열을 받아 차트 화면을 생성한다.
     /// - Parameters:
-    ///   - data: 차트 데이터 값의 배열 (추후 카테고리 정보를 함께 받아 색도 함께 지정해줘야함)
+    ///   - data: 차트 데이터 값의 배열
     convenience init(
         items: [CustomChartItem],
         frame: CGRect = .zero
@@ -62,6 +64,10 @@ final class CustomPieChart: UIView {
                 angleRatio: angleRatio,
                 color: item.category.color.cgColor
             )
+            if isAnimating {
+                let pieceAnimation = configureLayerAnimation()
+                pieceLayer.add(pieceAnimation, forKey: pieceAnimation.keyPath)
+            }
             layer.addSublayer(pieceLayer)
             
             guard let boundingBox = pieceLayer.path?.boundingBox else { continue }
@@ -83,12 +89,23 @@ final class CustomPieChart: UIView {
         backgroundColor = .white
     }
     
+    /// 파이 조각별 애니메이션 설정
+    private func configureLayerAnimation() -> CABasicAnimation {
+        let animation = CABasicAnimation(keyPath: StringLiteral.animationKey)
+        animation.fromValue = Metric.animationFromValue
+        animation.toValue = Metric.animationToValue
+        animation.duration = Metric.animationDuration
+        
+        return animation
+    }
+    
     // MARK: - Setup Data & Redraw Functions
     
     /// 차트를 표시하는 데이터를 변경할 경우 실행하는 메서드. 데이터를 설정하고 차트를 다시 그린다.
     /// - Parameter data: 변경할 차트 데이터
     func setupData(with data: [CustomChartItem]) {
         self.items = data
+        self.isAnimating = !data.isEmpty
         setNeedsDisplay()
     }
     
@@ -100,5 +117,13 @@ extension CustomPieChart {
     enum Metric {
         static let initialStartAngle: CGFloat = (.pi) * 3 / 2
         static let angle: CGFloat = .pi * 2
+        
+        static let animationFromValue: CGFloat = 0
+        static let animationToValue: CGFloat = 1
+        static let animationDuration: CGFloat = 1.3
+    }
+    
+    enum StringLiteral {
+        static let animationKey = "strokeEnd"
     }
 }

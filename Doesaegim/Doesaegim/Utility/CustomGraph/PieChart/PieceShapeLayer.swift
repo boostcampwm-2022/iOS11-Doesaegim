@@ -47,7 +47,6 @@ final class PieceShapeLayer: CAShapeLayer {
         
         configurePath()
         configureAttributes()
-        configureAnimation()
     }
     
     @available(*, unavailable)
@@ -78,16 +77,6 @@ final class PieceShapeLayer: CAShapeLayer {
         strokeColor = color
         fillColor = UIColor.clear.cgColor
     }
-    
-    /// 애니메이션을 설정한다.
-    private func configureAnimation() {
-        let animation = CABasicAnimation(keyPath: StringLiteral.animationKey)
-        animation.fromValue = Metric.animationFromValue
-        animation.toValue = Metric.animationToValue
-        animation.duration = Metric.animationDuration
-        
-        add(animation, forKey: animation.keyPath)
-    }
 }
 
 // MARK: - Namespaces
@@ -96,13 +85,5 @@ extension PieceShapeLayer {
     enum Metric {
         static let spacing: CGFloat = 5
         static let radiusRatio: CGFloat = 0.23
-        
-        static let animationFromValue: CGFloat = 0
-        static let animationToValue: CGFloat = 1
-        static let animationDuration: CGFloat = 1.3
-    }
-    
-    enum StringLiteral {
-        static let animationKey = "strokeEnd"
     }
 }
