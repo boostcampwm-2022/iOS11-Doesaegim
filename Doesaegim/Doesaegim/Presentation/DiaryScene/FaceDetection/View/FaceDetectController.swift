@@ -16,7 +16,10 @@ import SnapKit
 /// 이미지에서 얼굴을 탐지하고 다음 화면인 이미지 선택화면으로 넘긴다.
 
 final class FaceDetectController: UIViewController {
-
+    
+    typealias DataSource
+        = UICollectionViewDiffableDataSource<SectionType, DetectInfoViewModel>
+    
     // MARK: - Properties
     
     private var currentImage: UIImage?
@@ -30,6 +33,29 @@ final class FaceDetectController: UIViewController {
         imageView.layer.cornerRadius = 10
         return imageView
     }()
+    
+    lazy var collectionView: UICollectionView = {
+        let layout = createCompositionalLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
+        collectionView.layer.cornerRadius = 10
+        
+        return collectionView
+    }()
+    
+    private let confirmButton: UIButton = {
+        let button = UIButton()
+        
+        button.backgroundColor = .primaryOrange
+        button.setTitle("확인", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 10
+        
+        return button
+    }()
+    
+    var detectDataSource: DataSource?
+    
     private var viewModel: FaceDetectViewModelProtocol?
     
     // MARK: - Initializer(s)
@@ -71,6 +97,7 @@ final class FaceDetectController: UIViewController {
 
         configureSubviews()
         configureConstraints()
+        configureButtonAction()
         
         // 시뮬레이터에서 동작할 수 있도록
 #if targetEnvironment(simulator)
@@ -91,14 +118,38 @@ extension FaceDetectController {
     
     private func configureSubviews() {
         view.addSubview(imageView)
+        view.addSubview(collectionView)
+        view.addSubview(confirmButton)
     }
     
     private func configureConstraints() {
         imageView.snp.makeConstraints {
-            $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(60)
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(8)
             $0.height.equalTo(imageView.snp.width)
         }
+        
+        collectionView.snp.makeConstraints {
+            $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.top.equalTo(imageView.snp.bottom).offset(6)
+        }
+        
+        confirmButton.snp.makeConstraints {
+            $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.top.equalTo(collectionView.snp.bottom).offset(6)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-6)
+            $0.height.equalTo(40)
+        }
+    }
+    
+    private func configureButtonAction() {
+        confirmButton.addTarget(self, action: #selector(confirmButtonDidTap), for: .touchUpInside)
+    }
+    
+    // MARK: - Button Action
+    
+    @objc private func confirmButtonDidTap() {
+        print("버튼이 탭 되었습니다~")
     }
     
     // MARK: - ETC
@@ -145,8 +196,8 @@ extension FaceDetectController {
         var imageWidth = fullImageWidth / scaleDownRatio
         var imageHeight = fullImageHeight / scaleDownRatio
         
-        // TODO: - 다시 살펴보기
-        let xLayer = (imageFrame.width - imageWidth) / 2 + 16
+        // TODO: - 다시 살펴보기 -> imageView의 leading constraint만큼 더해주어야 한다.
+        let xLayer = (imageFrame.width - imageWidth) / 2 + 60
         let yLayer = imageView.frame.minY + (imageFrame.height - imageHeight) / 2
 
         let drawingLayer = CALayer()
@@ -286,14 +337,18 @@ extension FaceDetectController {
 extension FaceDetectController: FaceDetectViewModeleDelegate {
     
     func drawFaceDetection(faces: [VNFaceObservation], onImageWithBounds bounds: CGRect) {
+        guard let viewModel = viewModel else { return }
         CATransaction.begin()
         faces.forEach { observation in
             let faceBox = boundingBox(forRegionOfInterest: observation.boundingBox, withInImageBounds: bounds)
             let faceLayer = shapeLayer(color: .yellow, frame: faceBox)
-            
+            viewModel.addDetectInfo(with: self.currentImage, bound: faceBox)
             pathLayer?.addSublayer(faceLayer)
+            
         }
         
         CATransaction.commit()
     }
+    
+    
 }

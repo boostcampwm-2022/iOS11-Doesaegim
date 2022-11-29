@@ -12,7 +12,8 @@ import Vision
 
 final class FaceDetectViewModel: FaceDetectViewModelProtocol {
     var delegate: FaceDetectViewModeleDelegate?
-    var boundingBoxes: [CGRect]
+    // TODO: - boundInfos didSet... 변경에 따른 컬렉션뷰도 변경하도록 수정하기
+    var detectInfo: [DetectInfoViewModel]
     var pathLayer: CALayer?
     var image: UIImage?
     
@@ -21,12 +22,12 @@ final class FaceDetectViewModel: FaceDetectViewModelProtocol {
     
     init(image: UIImage?) {
         self.image = image
-        boundingBoxes = []
+        detectInfo = []
     }
     
     init(imageData: Data) {
         self.image = UIImage(data: imageData)
-        boundingBoxes = []
+        detectInfo = []
     }
 }
 
@@ -63,6 +64,29 @@ extension FaceDetectViewModel {
         }
     }
     
+    func addDetectInfo(with image: UIImage?, bound: CGRect) {
+        guard let image = image,
+              let croppedImage = cropImage(of: image, with: bound) else { return }
+        let newDetectInfo = DetectInfoViewModel(uuid: UUID(), image: croppedImage, bound: bound)
+        detectInfo.append(newDetectInfo)
+        print(detectInfo.count)
+    }
+    
+    func cropImage(of image: UIImage?, with cropRect: CGRect) -> UIImage? {
+        
+        guard let image = image,
+              let sourceCGImage = image.cgImage,
+              let croppingCGImage = sourceCGImage.cropping(to: cropRect) else { return nil }
+        
+        let croppedImage = UIImage(
+            cgImage: croppingCGImage,
+            scale: image.imageRendererFormat.scale,
+            orientation: image.imageOrientation
+        )
+        
+        return croppedImage
+    }
+    
 }
 
 // MARK: - Handler
@@ -83,4 +107,5 @@ extension FaceDetectViewModel {
             drawLayer.setNeedsDisplay()
         }
     }
+
 }

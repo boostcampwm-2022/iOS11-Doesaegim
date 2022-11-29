@@ -12,11 +12,13 @@ import Vision
 protocol FaceDetectViewModelProtocol: AnyObject {
     
     var delegate: FaceDetectViewModeleDelegate? { get set }
-    var boundingBoxes: [CGRect] { get set }
+    var detectInfo: [DetectInfoViewModel] { get set }
     var pathLayer: CALayer? { get set }
     var image: UIImage? { get set }
     
     func performVisionRequest(image: CGImage, orientation: CGImagePropertyOrientation)
+    func cropImage(of image: UIImage?, with cropRect: CGRect) -> UIImage?
+    func addDetectInfo(with image: UIImage?, bound: CGRect)
     
 }
 
