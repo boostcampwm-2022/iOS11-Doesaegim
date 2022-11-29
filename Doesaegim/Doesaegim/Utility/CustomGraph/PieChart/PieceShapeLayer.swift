@@ -19,6 +19,22 @@ final class PieceShapeLayer: CAShapeLayer {
     
     private let color: CGColor
     
+    // MARK: - Computed Properties
+    
+    private var center: CGPoint {
+        return CGPoint(x: rect.midX, y: rect.midY)
+    }
+    
+    private var radius: CGFloat {
+        // 차트뷰가 그려질 뷰의 너비, 높이값이 다를 경우 차트뷰의 지름은 작은 값을 따라간다.
+        let diameter = min(rect.width, rect.height)
+        return diameter * Metric.radiusRatio
+    }
+    
+    private var strokeWidth: CGFloat {
+        return radius * 2
+    }
+    
     // MARK: - Init
     
     init(rect: CGRect, startAngle: CGFloat, angleRatio: CGFloat, color: CGColor) {
@@ -31,6 +47,7 @@ final class PieceShapeLayer: CAShapeLayer {
         
         configurePath()
         configureAttributes()
+        configureAnimation()
     }
     
     @available(*, unavailable)
@@ -42,31 +59,34 @@ final class PieceShapeLayer: CAShapeLayer {
     
     /// 레이어의 path를 지정한다. 원형 차트의 조각을 여기서 그린다.
     private func configurePath() {
-        let center = CGPoint(x: rect.midX, y: rect.midY)
-        let radius = (rect.width < rect.height ? rect.width : rect.height) * Metric.radiusRatio
-        
-        let piecePath = UIBezierPath()
-        piecePath.lineWidth = Metric.spacing
-        
-        piecePath.move(to: center)
-        piecePath.addArc(
-            withCenter: center,
+        let piecePath = UIBezierPath(
+            arcCenter: center,
             radius: radius,
             startAngle: startAngle,
             endAngle: startAngle + angleRatio,
             clockwise: true
         )
-        piecePath.close()
+        UIColor.clear.set()
+        piecePath.stroke()
         
         path = piecePath.cgPath
     }
     
     /// 레이어의 속성값을 지정한다.
     private func configureAttributes() {
-        lineWidth = Metric.spacing
-        lineJoin = .bevel
-        strokeColor = UIColor.white?.cgColor
-        fillColor = color
+        lineWidth = strokeWidth
+        strokeColor = color
+        fillColor = UIColor.clear.cgColor
+    }
+    
+    /// 애니메이션을 설정한다.
+    private func configureAnimation() {
+        let animation = CABasicAnimation(keyPath: StringLiteral.animationKey)
+        animation.fromValue = Metric.animationFromValue
+        animation.toValue = Metric.animationToValue
+        animation.duration = Metric.animationDuration
+        
+        add(animation, forKey: animation.keyPath)
     }
 }
 
@@ -75,6 +95,14 @@ final class PieceShapeLayer: CAShapeLayer {
 extension PieceShapeLayer {
     enum Metric {
         static let spacing: CGFloat = 5
-        static let radiusRatio: CGFloat = 0.4
+        static let radiusRatio: CGFloat = 0.23
+        
+        static let animationFromValue: CGFloat = 0
+        static let animationToValue: CGFloat = 1
+        static let animationDuration: CGFloat = 1.3
+    }
+    
+    enum StringLiteral {
+        static let animationKey = "strokeEnd"
     }
 }
