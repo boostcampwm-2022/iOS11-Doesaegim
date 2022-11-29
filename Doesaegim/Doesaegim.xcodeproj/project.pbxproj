@@ -123,6 +123,8 @@
 		EE116C5C2924C9390017B519 /* TravelAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE116C5B2924C9390017B519 /* TravelAddViewModel.swift */; };
 		EE116C5E2924CB6B0017B519 /* TravelAddViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE116C5D2924CB6B0017B519 /* TravelAddViewProtocol.swift */; };
 		EE116C632924EC860017B519 /* PlanAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE116C622924EC860017B519 /* PlanAddViewController.swift */; };
+		EE12EA112934AEFA00D41DFE /* CustomCalendarCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE12EA102934AEFA00D41DFE /* CustomCalendarCellViewModel.swift */; };
+		EE12EA132934AF2900D41DFE /* CustomCalendarCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE12EA122934AF2900D41DFE /* CustomCalendarCellProtocol.swift */; };
 		EE2C553D291CC08B0018B109 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EE2C553C291CC08B0018B109 /* SnapKit */; };
 		EE3E29A829235F6B007C7FC7 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E29A729235F6B007C7FC7 /* UITextField+.swift */; };
 		EE3E29BC2923C870007C7FC7 /* TravelAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E29BB2923C870007C7FC7 /* TravelAddViewController.swift */; };
@@ -279,6 +281,8 @@
 		EE116C5B2924C9390017B519 /* TravelAddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAddViewModel.swift; sourceTree = "<group>"; };
 		EE116C5D2924CB6B0017B519 /* TravelAddViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAddViewProtocol.swift; sourceTree = "<group>"; };
 		EE116C622924EC860017B519 /* PlanAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanAddViewController.swift; sourceTree = "<group>"; };
+		EE12EA102934AEFA00D41DFE /* CustomCalendarCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarCellViewModel.swift; sourceTree = "<group>"; };
+		EE12EA122934AF2900D41DFE /* CustomCalendarCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarCellProtocol.swift; sourceTree = "<group>"; };
 		EE3E29A729235F6B007C7FC7 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		EE3E29AB292361B5007C7FC7 /* CustomCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendar.swift; sourceTree = "<group>"; };
 		EE3E29AD292365C7007C7FC7 /* CustomCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarCell.swift; sourceTree = "<group>"; };
@@ -1010,6 +1014,8 @@
 				EE116C572924AA0D0017B519 /* CustomCalendar.swift */,
 				EEDB752E2925E8DD0069A7F5 /* CalendarViewController.swift */,
 				EEDB75302925F56D0069A7F5 /* CalendarProtocol.swift */,
+				EE12EA102934AEFA00D41DFE /* CustomCalendarCellViewModel.swift */,
+				EE12EA122934AF2900D41DFE /* CustomCalendarCellProtocol.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -1277,6 +1283,7 @@
 				B5D64E76292E3B6C00E1CC81 /* DiaryDetailLocalRepository.swift in Sources */,
 				BB02B096292F2A4900FE11DA /* DiaryInfoViewModel.swift in Sources */,
 				BB6079B1292F3ECF00BF30C8 /* DiaryListCell.swift in Sources */,
+				EE12EA132934AF2900D41DFE /* CustomCalendarCellProtocol.swift in Sources */,
 				A4CC04D5292332C600BB678B /* UILabel+ChangeFontSize.swift in Sources */,
 				BB288FC8292E167900065D04 /* DiaryCalloutView.swift in Sources */,
 				BBDB2E9429262BB300752924 /* ExpenseCollectionHeaderView.swift in Sources */,
@@ -1320,6 +1327,7 @@
 				BBDB2E922926222100752924 /* ExpenseInfoViewModel.swift in Sources */,
 				BBE695D629227C8D0015FAD4 /* TravelInfoViewModel.swift in Sources */,
 				A4CC04A829221EEE00BB678B /* Expense+CoreDataClass.swift in Sources */,
+				EE12EA112934AEFA00D41DFE /* CustomCalendarCellViewModel.swift in Sources */,
 				A4CC04E22923777B00BB678B /* NSObject+Name.swift in Sources */,
 				A4CC04D9292351D700BB678B /* PlanRepository.swift in Sources */,
 				B595A984292CE53100C3B897 /* ExpenseType.swift in Sources */,
