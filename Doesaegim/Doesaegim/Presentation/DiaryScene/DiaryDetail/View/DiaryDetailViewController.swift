@@ -61,7 +61,9 @@ final class DiaryDetailViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         guard isInitializedViewModel() else {
             presentErrorAlert(title: "다이어리 정보를 찾을 수 없습니다.", handler: { [weak self] _ in
                 self?.viewModelDidNotInitialized()
