@@ -66,13 +66,6 @@ final class DiaryListViewController: UIViewController {
 
         tabBarController?.tabBar.isHidden = false
     }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        tabBarController?.tabBar.isHidden = true
-    }
-    
 }
 
 extension DiaryListViewController {

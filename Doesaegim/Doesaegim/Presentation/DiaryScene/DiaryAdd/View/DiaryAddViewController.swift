@@ -53,6 +53,12 @@ final class DiaryAddViewController: UIViewController {
         configureContentTextView()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        tabBarController?.tabBar.isHidden = true
+    }
+
 
     // MARK: - Configuration Functions
 
@@ -156,11 +162,15 @@ final class DiaryAddViewController: UIViewController {
         else {
             return
         }
+        let tabBar = tabBarController?.tabBar
+        let tabBarIsShowing = tabBar?.isHidden == false
+        let tabBarHeight = tabBar?.frame.height ?? .zero
+        let safeAreaBottomInset = tabBarIsShowing ? tabBarHeight : view.safeAreaInsets.bottom
 
         let contentInsets = UIEdgeInsets(
             top: .zero,
             left: .zero,
-            bottom: keyboardSize.height - (tabBarController?.tabBar.frame.height ?? .zero) + Metric.spacing,
+            bottom: keyboardSize.height - safeAreaBottomInset + Metric.spacing,
             right: .zero
         )
         rootView.scrollView.contentInset = contentInsets
