@@ -126,7 +126,8 @@
 		EE12EA112934AEFA00D41DFE /* CustomCalendarCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE12EA102934AEFA00D41DFE /* CustomCalendarCellViewModel.swift */; };
 		EE12EA132934AF2900D41DFE /* CustomCalendarCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE12EA122934AF2900D41DFE /* CustomCalendarCellProtocol.swift */; };
 		EE12EA162935A4C800D41DFE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE12EA152935A4C800D41DFE /* GoogleService-Info.plist */; };
-		EE12EA192935A62100D41DFE /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = EE12EA182935A62100D41DFE /* FirebaseCrashlytics */; };
+		EE12EA232935B62D00D41DFE /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = EE12EA222935B62D00D41DFE /* FirebaseAnalytics */; };
+		EE12EA252935B62D00D41DFE /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = EE12EA242935B62D00D41DFE /* FirebaseCrashlytics */; };
 		EE2C553D291CC08B0018B109 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EE2C553C291CC08B0018B109 /* SnapKit */; };
 		EE3E29A829235F6B007C7FC7 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E29A729235F6B007C7FC7 /* UITextField+.swift */; };
 		EE3E29BC2923C870007C7FC7 /* TravelAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E29BB2923C870007C7FC7 /* TravelAddViewController.swift */; };
@@ -315,8 +316,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE12EA252935B62D00D41DFE /* FirebaseCrashlytics in Frameworks */,
+				EE12EA232935B62D00D41DFE /* FirebaseAnalytics in Frameworks */,
 				EE2C553D291CC08B0018B109 /* SnapKit in Frameworks */,
-				EE12EA192935A62100D41DFE /* FirebaseCrashlytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1097,7 +1099,7 @@
 				BBFAC07F291CBDD700D7FD57 /* Sources */,
 				BBFAC080291CBDD700D7FD57 /* Frameworks */,
 				BBFAC081291CBDD700D7FD57 /* Resources */,
-				EE12EA1B2935A8BF00D41DFE /* ShellScript */,
+				EE12EA1B2935A8BF00D41DFE /* Firebase Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -1106,7 +1108,8 @@
 			name = Doesaegim;
 			packageProductDependencies = (
 				EE2C553C291CC08B0018B109 /* SnapKit */,
-				EE12EA182935A62100D41DFE /* FirebaseCrashlytics */,
+				EE12EA222935B62D00D41DFE /* FirebaseAnalytics */,
+				EE12EA242935B62D00D41DFE /* FirebaseCrashlytics */,
 			);
 			productName = Doesaegim;
 			productReference = BBFAC083291CBDD700D7FD57 /* Doesaegim.app */;
@@ -1182,7 +1185,7 @@
 			mainGroup = BBFAC07A291CBDD700D7FD57;
 			packageReferences = (
 				EE2C553B291CC08B0018B109 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				EE12EA172935A62100D41DFE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				EE12EA212935B62D00D41DFE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = BBFAC084291CBDD700D7FD57 /* Products */;
 			projectDirPath = "";
@@ -1242,7 +1245,7 @@
 			shellPath = /bin/sh;
 			shellScript = "if test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
-		EE12EA1B2935A8BF00D41DFE /* ShellScript */ = {
+		EE12EA1B2935A8BF00D41DFE /* Firebase Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1253,13 +1256,14 @@
 				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
 				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
 			);
+			name = "Firebase Crashlytics";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+			shellScript = "\"${BUILD_DIR%Build/*}SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1579,6 +1583,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codershigh.boostcamp.Doesaegim;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1608,6 +1613,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codershigh.boostcamp.Doesaegim;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1734,7 +1740,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		EE12EA172935A62100D41DFE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		EE12EA212935B62D00D41DFE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
@@ -1753,9 +1759,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		EE12EA182935A62100D41DFE /* FirebaseCrashlytics */ = {
+		EE12EA222935B62D00D41DFE /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = EE12EA172935A62100D41DFE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = EE12EA212935B62D00D41DFE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		EE12EA242935B62D00D41DFE /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE12EA212935B62D00D41DFE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
 		};
 		EE2C553C291CC08B0018B109 /* SnapKit */ = {
