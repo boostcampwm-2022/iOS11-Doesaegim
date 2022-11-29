@@ -60,7 +60,12 @@ final class DiaryListViewController: UIViewController {
 //        viewModel?.addDummyDiaryData()
 //        viewModel?.fetchDiary()
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        tabBarController?.tabBar.isHidden = false
+    }
 }
 
 extension DiaryListViewController {
