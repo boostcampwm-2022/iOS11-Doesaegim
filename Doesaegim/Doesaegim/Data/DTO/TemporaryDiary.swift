@@ -19,7 +19,12 @@ struct TemporaryDiary {
     var imagePaths = [String]()
 
     /// 필수 항목(여행, 장소, 제목, 내용)이 작성되었는 지 여부
-    var requiredPropertiesAreFilled: Bool {
-        travel != nil && location != nil && title?.isEmpty == false && content?.isEmpty == false
+    var hasAllRequiredProperties: Bool {
+        let hasTravel = travel != nil
+        let hasLocation = location != nil
+        let hasTitle = title?.isEmpty == false
+        let hasContent = content?.isEmpty == false
+
+        return hasTravel && hasLocation && hasTitle && hasContent
     }
 }

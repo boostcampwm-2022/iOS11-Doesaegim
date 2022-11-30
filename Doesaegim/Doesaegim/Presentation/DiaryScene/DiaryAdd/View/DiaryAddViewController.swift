@@ -221,7 +221,7 @@ extension DiaryAddViewController: UIPickerViewDelegate {
 extension DiaryAddViewController: DiaryAddViewModelDelegate {
 
     func diaryAddViewModlelValuesDidChange(_ diary: TemporaryDiary) {
-        navigationItem.rightBarButtonItem?.isEnabled = diary.requiredPropertiesAreFilled
+        navigationItem.rightBarButtonItem?.isEnabled = diary.hasAllRequiredProperties
         rootView.travelTextField.text = diary.travel?.name
         rootView.placeSearchButton.setTitle(diary.location?.name, for: .normal)
     }
