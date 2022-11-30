@@ -45,7 +45,7 @@ final class ExpenseAddView: UIView {
     lazy var titleTextField: UITextField = {
         let textField = UITextField()
         
-        textField.placeholder = "지출의 이름을 입력해주세요."
+        textField.placeholder = StringLiteral.titleTextFieldPlaceholder
         textField.layer.cornerRadius = 10
         textField.backgroundColor = .grey1
         textField.textColor = .black
@@ -75,7 +75,7 @@ final class ExpenseAddView: UIView {
     lazy var amountTextField: UITextField = {
         let textField = UITextField()
         
-        textField.placeholder = "지출의 액수를 입력해주세요."
+        textField.placeholder = StringLiteral.amountTextFieldPlaceholder
         textField.layer.cornerRadius = 10
         textField.backgroundColor = .grey1
         textField.textColor = .black
@@ -109,7 +109,7 @@ final class ExpenseAddView: UIView {
         button.layer.cornerRadius = 10
         button.backgroundColor = .grey1
         button.setTitleColor(.grey3, for: .normal)
-        button.setTitle("화폐 단위를 입력해주세요.", for: .normal)
+        button.setTitle(StringLiteral.moneyUnitButtonPlaceholder, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
         button.titleEdgeInsets = .init(top: 0, left: 7, bottom: 0, right: 0)
         button.tintColor = .grey3
@@ -151,7 +151,7 @@ final class ExpenseAddView: UIView {
         button.layer.cornerRadius = 10
         button.backgroundColor = .grey1
         button.setTitleColor(.grey3, for: .normal)
-        button.setTitle("카테고리를 입력해주세요.", for: .normal)
+        button.setTitle(StringLiteral.categoryButtonPlaceholder, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
         button.setImage(UIImage(systemName: "c.circle"), for: .normal)
         button.titleEdgeInsets = .init(top: 0, left: 15, bottom: 0, right: -5)
@@ -186,7 +186,7 @@ final class ExpenseAddView: UIView {
         button.layer.cornerRadius = 10
         button.backgroundColor = .grey1
         button.setTitleColor(.grey3, for: .normal)
-        button.setTitle("날짜를 입력해주세요.", for: .normal)
+        button.setTitle(StringLiteral.dateButtonPlaceholder, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
         button.setImage(UIImage(systemName: "calendar"), for: .normal)
         button.titleEdgeInsets = .init(top: 0, left: 15, bottom: 0, right: -5)
@@ -218,7 +218,7 @@ final class ExpenseAddView: UIView {
         let textView = UITextView()
         
         textView.layer.cornerRadius = 10
-        textView.text = "설명을 입력해주세요."
+        textView.text = StringLiteral.descriptionTextViewPlaceholder
         textView.textColor = .grey3
         textView.font = .systemFont(ofSize: 14, weight: .regular)
         textView.backgroundColor = .grey1
@@ -351,5 +351,16 @@ final class ExpenseAddView: UIView {
     
     @objc private func backgroundDidTap() {
         endEditing(true)
+    }
+}
+
+fileprivate extension ExpenseAddView {
+    enum StringLiteral {
+        static let titleTextFieldPlaceholder = "지출의 이름을 입력해주세요."
+        static let amountTextFieldPlaceholder = "지출 액수를 입력해주세요."
+        static let moneUnitButtonPlaceholder = "화폐 단위를 입력해주세요."
+        static let categoryButtonPlaceholder = "카테고리를 입력해주세요."
+        static let dateButtonPlaceholder = "날짜를 입력해주세요."
+        static let descriptionTextViewPlaceholder = "설명을 입력해주세요."
     }
 }
