@@ -7,7 +7,8 @@
 
 import UIKit
 
-class TempMosaicViewController: UIViewController {
+/// 임시 모자이크 뷰컨트롤러 입니다.
+final class TempMosaicViewController: UIViewController {
 
     private var image: UIImage?
     private var selectedFaces: [DetectInfoViewModel]?

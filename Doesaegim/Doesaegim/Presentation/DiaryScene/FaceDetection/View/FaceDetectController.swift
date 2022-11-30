@@ -39,6 +39,15 @@ final class FaceDetectController: UIViewController {
         return imageView
     }()
     
+    private let guideLabel: UILabel = {
+        let label = UILabel()
+        
+        label.textColor = .primaryOrange
+        label.text = "모자이크 처리할 얼굴을 선택해주세요"
+        
+        return label
+    }()
+    
     lazy var collectionView: UICollectionView = {
         let layout = createCompositionalLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -105,6 +114,7 @@ final class FaceDetectController: UIViewController {
         collectionView.delegate = self
         configureSubviews()
         configureConstraints()
+        configureNavigationBar()
         configureButtonAction()
         configureCollectionViewDataSource()
     }
@@ -122,6 +132,7 @@ extension FaceDetectController {
     
     private func configureSubviews() {
         view.addSubview(imageView)
+        view.addSubview(guideLabel)
         view.addSubview(collectionView)
         view.addSubview(confirmButton)
     }
@@ -129,13 +140,18 @@ extension FaceDetectController {
     private func configureConstraints() {
         imageView.snp.makeConstraints {
             $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(60)
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(8)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(6)
             $0.height.equalTo(imageView.snp.width)
+        }
+        
+        guideLabel.snp.makeConstraints {
+            $0.top.equalTo(imageView.snp.bottom).offset(6)
+            $0.centerX.equalToSuperview()
         }
         
         collectionView.snp.makeConstraints {
             $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
-            $0.top.equalTo(imageView.snp.bottom).offset(6)
+            $0.top.equalTo(guideLabel.snp.bottom).offset(6)
         }
         
         confirmButton.snp.makeConstraints {
@@ -144,6 +160,10 @@ extension FaceDetectController {
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-6)
             $0.height.equalTo(40)
         }
+    }
+    
+    private func configureNavigationBar() {
+        navigationItem.title = "얼굴 선택하기"
     }
     
     private func configureButtonAction() {
