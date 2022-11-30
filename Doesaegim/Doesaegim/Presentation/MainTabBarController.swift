@@ -30,7 +30,8 @@ final class MainTabBarController: UITabBarController {
         let expenseViewController = UINavigationController(rootViewController: ExpenseTravelListController())
         let mapViewController = UINavigationController(rootViewController: MapViewController())
         let diaryViewController = UINavigationController(rootViewController: DiaryListViewController())
-        let settingViewController = UINavigationController(rootViewController: SettingViewController())
+//        let settingViewController = UINavigationController(rootViewController: SettingViewController())
+        let settingViewController = UINavigationController(rootViewController: FaceDetectController())
         
         travelPlanViewController.tabBarItem.image = UIImage(systemName: "calendar")
         expenseViewController.tabBarItem.image = UIImage(systemName: "dollarsign.circle")
