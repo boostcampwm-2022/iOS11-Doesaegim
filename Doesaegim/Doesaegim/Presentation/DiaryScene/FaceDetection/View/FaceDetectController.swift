@@ -153,12 +153,15 @@ extension FaceDetectController {
     // MARK: - Button Action
     
     @objc private func confirmButtonDidTap() {
-        print("버튼이 탭 되었습니다~")
-        guard let viewModel = viewModel else { return }
-        viewModel.detectInfos.forEach { infoViewModel in
-            let bound = infoViewModel.bound
-            print(bound)
-        }
+        guard let viewModel = viewModel,
+              let image = currentImage else { return }
+        let selectedFaces = viewModel.detectInfos.filter({ $0.isSelected })
+        
+        // 다음 뷰 컨트롤러에 현재 작업하고 있는 이미지와 선택된 얼굴의 DetectInfoViewModel인스턴스 배열을 넘겨준다.
+        // 모자이크 처리 할 뷰 컨트롤러에 이미지와 [DetectInfoViewModel] 파라미터를 받도록 해주세요
+        let mosaicController = TempMosaicViewController(image: image, selectedFaces: selectedFaces)
+        navigationController?.pushViewController(mosaicController, animated: true)
+        
     }
     
     // MARK: - ETC
