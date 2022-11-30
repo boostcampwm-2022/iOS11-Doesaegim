@@ -59,8 +59,23 @@ final class CustomBarChart: UIView {
     /// 주어진 rect에 맞게 막대 차트를 그린다. 막대 차트는 영역에 꽉 채워서 그려진다.
     /// - Parameter rect: 막대 차트를 그릴 영역.
     override func draw(_ rect: CGRect) {
+        // 차트 배경 그리기
+        let criteria = items.map { $0.criterion }
+        let backgroundLayer = BarBackgroundLayer(
+            rect: rect,
+            inset: Metric.chartInset,
+            criteria: criteria,
+            maxCost: max
+        )
+        layer.addSublayer(backgroundLayer)
+        
         // 차트 데이터 그리기
-        let dataRect = rect.insetBy(dx: 10, dy: 20)
+        let dataRect = CGRect(
+            x: rect.minX + Metric.chartInset.width,
+            y: rect.minY + Metric.chartInset.height,
+            width: rect.width - Metric.chartInset.width,
+            height: rect.height - 2 * Metric.chartInset.height
+        )
         for idx in items.indices {
             drawOneBar(at: idx, on: dataRect)
         }
@@ -119,4 +134,10 @@ final class CustomBarChart: UIView {
         })
     }
     
+}
+
+extension CustomBarChart {
+    enum Metric {
+        static let chartInset = CGSize(width: 50, height: 30)
+    }
 }

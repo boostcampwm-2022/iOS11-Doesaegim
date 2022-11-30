@@ -57,6 +57,8 @@
 		B5B497CB29374BEF009AE4AC /* CustomBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B497CA29374BEF009AE4AC /* CustomBarChart.swift */; };
 		B5B497CD29374C58009AE4AC /* BarShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B497CC29374C58009AE4AC /* BarShapeLayer.swift */; };
 		B5B497D6293777EE009AE4AC /* ExpenseChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B497D5293777EE009AE4AC /* ExpenseChartView.swift */; };
+		B5B497DA29378ABF009AE4AC /* BarBackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B497D929378ABF009AE4AC /* BarBackgroundLayer.swift */; };
+		B5B497DC29379FC3009AE4AC /* BarTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B497DB29379FC3009AE4AC /* BarTextLayer.swift */; };
 		B5C096B629235416007426B1 /* SearchingLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096B529235416007426B1 /* SearchingLocationViewController.swift */; };
 		B5C096B829235428007426B1 /* SearchingLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096B729235428007426B1 /* SearchingLocationView.swift */; };
 		B5C096BC29235B08007426B1 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096BB29235B08007426B1 /* SearchResultCell.swift */; };
@@ -229,6 +231,8 @@
 		B5B497CA29374BEF009AE4AC /* CustomBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBarChart.swift; sourceTree = "<group>"; };
 		B5B497CC29374C58009AE4AC /* BarShapeLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarShapeLayer.swift; sourceTree = "<group>"; };
 		B5B497D5293777EE009AE4AC /* ExpenseChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseChartView.swift; sourceTree = "<group>"; };
+		B5B497D929378ABF009AE4AC /* BarBackgroundLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarBackgroundLayer.swift; sourceTree = "<group>"; };
+		B5B497DB29379FC3009AE4AC /* BarTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarTextLayer.swift; sourceTree = "<group>"; };
 		B5C096B529235416007426B1 /* SearchingLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationViewController.swift; sourceTree = "<group>"; };
 		B5C096B729235428007426B1 /* SearchingLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationView.swift; sourceTree = "<group>"; };
 		B5C096BB29235B08007426B1 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
@@ -582,6 +586,8 @@
 			children = (
 				B5B497CA29374BEF009AE4AC /* CustomBarChart.swift */,
 				B5B497CC29374C58009AE4AC /* BarShapeLayer.swift */,
+				B5B497D929378ABF009AE4AC /* BarBackgroundLayer.swift */,
+				B5B497DB29379FC3009AE4AC /* BarTextLayer.swift */,
 			);
 			path = BarChart;
 			sourceTree = "<group>";
@@ -1411,6 +1417,7 @@
 				BB5771AC2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift in Sources */,
 				BB5771A42923A08F0034047D /* ExpenseTravelViewModel.swift in Sources */,
 				EEBA25FB292D1AE3001F8B66 /* String+ConvertRemoveComma.swift in Sources */,
+				B5B497DA29378ABF009AE4AC /* BarBackgroundLayer.swift in Sources */,
 				EEDB753329260DFB0069A7F5 /* PlanAddViewModel.swift in Sources */,
 				BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */,
 				A4C3BB6F292F05C1001C0514 /* ProgressiveImageView.swift in Sources */,
@@ -1478,6 +1485,7 @@
 				EEDB752F2925E8DD0069A7F5 /* CalendarViewController.swift in Sources */,
 				B5D64E67292DFED500E1CC81 /* DiaryDetailViewController.swift in Sources */,
 				B5D64E6C292E22A400E1CC81 /* DiaryDetailViewModel.swift in Sources */,
+				B5B497DC29379FC3009AE4AC /* BarTextLayer.swift in Sources */,
 				EEB6C4FD292CC29B0060A459 /* NetworkManager.swift in Sources */,
 				A4C3BB75292F3810001C0514 /* ImageStatus.swift in Sources */,
 				EE85FBC6292BAADC00FF0C7C /* ExpenseAddView.swift in Sources */,
