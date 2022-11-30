@@ -63,7 +63,7 @@ extension FaceDetectController {
 }
 
 extension FaceDetectController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {1
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // 1. viewModel의 detectInfo -> indexPath.row 번째 모델을 조회
         // 2. isSelected프로퍼티를 셀의 메서드에 전달한다.
         // 3. 메서드에서 알아서 결정

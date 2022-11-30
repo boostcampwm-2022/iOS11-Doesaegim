@@ -62,7 +62,9 @@ extension UIImage {
             let boundsHeight = bounds.size.height
             bounds.size.height = bounds.size.width
             bounds.size.width = boundsHeight
-            transform = CGAffineTransform(translationX: height, y: width).scaledBy(x: -1, y: 1).rotated(by: 3.0 * .pi / 2.0)
+            transform = CGAffineTransform(
+                translationX: height, y: width
+            ).scaledBy(x: -1, y: 1).rotated(by: 3.0 * .pi / 2.0)
         case .rightMirrored:
             let boundsHeight = bounds.size.height
             bounds.size.height = bounds.size.width
@@ -89,4 +91,5 @@ extension UIImage {
         
     }
 }
+
 

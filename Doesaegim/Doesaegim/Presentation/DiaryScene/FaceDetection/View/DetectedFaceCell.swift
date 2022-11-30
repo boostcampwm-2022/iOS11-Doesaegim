@@ -93,10 +93,14 @@ extension DetectedFaceCell {
         }
     }
     
+    /// 탐지된 정보를 보고 셀의 이미지를 설정해주는 메서드이다.
+    /// - Parameter info: 탐지 정보를 담은 `DetectInfoViewModel`인스턴스
     func configureInfo(with info: DetectInfoViewModel) {
         imageView.image = info.image
     }
     
+    /// 선택된 셀의 상태정보를 보고 셀의 불투명 뷰, 테두리, 체크마크 이미지 표시여부를 결정해주는 메서드이다.
+    /// - Parameter status: 선택된 셀의 현재 선택상태 `Bool`변수
     func setupCellStatus(with status: Bool) {
         switch status {
         case true:

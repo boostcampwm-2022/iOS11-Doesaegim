@@ -294,8 +294,6 @@ extension FaceDetectController: FaceDetectViewModeleDelegate {
         faces.forEach { observation in
             let faceBox = boundingBox(forRegionOfInterest: observation.boundingBox, withInImageBounds: bounds)
             let faceLayer = shapeLayer(color: .yellow, frame: faceBox)
-            // TODO: - 얼굴이 9개인데 왜 그 이상으로 호출되지...? 흠...
-    //            viewModel.addDetectInfo(with: self.currentImage, bound: bounds)
             pathLayer?.addSublayer(faceLayer)
             
         }
