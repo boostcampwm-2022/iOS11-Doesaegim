@@ -200,9 +200,14 @@ extension DiaryListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // TODO: - 다이어리 선택 뷰, safe index 설정
         guard let viewModel = viewModel,
-              indexPath.row < viewModel.diaryInfos.count else { return }
-        let uuid = viewModel.diaryInfos[indexPath.row].id
+              indexPath.row < viewModel.diaryInfos.count,
+              let diary = viewModel.sectionDiaryDictionary[indexPath.section] else { return }
+        
         // uuid를 생성자에 넘기고 다이어리 디테일 뷰 푸시
+        let section = indexPath.section
+        let row = indexPath.row
+        let uuid = diary[row].id
+        
         let controller = DiaryDetailViewController(id: uuid)
         navigationController?.pushViewController(controller, animated: true)
     }

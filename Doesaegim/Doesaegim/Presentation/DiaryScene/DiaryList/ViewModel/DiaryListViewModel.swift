@@ -16,13 +16,13 @@ final class DiaryListViewModel: DiaryListViewModelProtocol {
             delegate?.diaryInfoDidChage()
         }
     }
-//    var idAndTravelDictionary: [UUID: String]
+    var sectionDiaryDictionary: [Int: [DiaryInfoViewModel]]
     var currentTravel: Travel? // 추후 삭제될 코드
     
     init() {
         self.diaryInfos = []
-//        self.idAndTravelDictionary = [:]
         self.travelSections = []
+        self.sectionDiaryDictionary = [:]
     }
     
 }
@@ -32,7 +32,7 @@ extension DiaryListViewModel {
     private func initializeInfo() {
         diaryInfos = []
         travelSections = []
-//        idAndTravelDictionary = [:]
+        sectionDiaryDictionary = [:]
     }
     
     func fetchDiary() {
@@ -59,15 +59,19 @@ extension DiaryListViewModel {
                           let name = travel.name else { return }
                     diaryInfo.travelID = travelID
                     diaryInfo.travelName = name
-//                    idAndTravelDictionary[travelID] = name
                     newDiaries.append(diaryInfo)
-                    
-//                    if idAndTravelDictionary[travelID] == nil {
-//                        idAndTravelDictionary[travelID] = name
-//                    }
                     
                     if !travelSections.contains(name) {
                         travelSections.append(name)
+                    }
+                    
+                    guard let section = travelSections.firstIndex(of: name) else { return }
+                    
+                    if sectionDiaryDictionary[section] == nil {
+                        sectionDiaryDictionary[section] = []
+                        sectionDiaryDictionary[section]?.append(diaryInfo)
+                    } else {
+                        sectionDiaryDictionary[section]?.append(diaryInfo)
                     }
                     
                 }
