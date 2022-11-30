@@ -27,11 +27,19 @@ final class FaceDetectViewModel: FaceDetectViewModelProtocol {
     init(image: UIImage?) {
         self.image = image
         detectInfos = []
+        // 시뮬레이터에서 동작할 수 있도록
+#if targetEnvironment(simulator)
+        faceDetectionRequest.usesCPUOnly = true
+#endif
     }
     
     init(imageData: Data) {
         self.image = UIImage(data: imageData)
         detectInfos = []
+        // 시뮬레이터에서 동작할 수 있도록
+#if targetEnvironment(simulator)
+        faceDetectionRequest.usesCPUOnly = true
+#endif
     }
 }
 
@@ -73,12 +81,13 @@ extension FaceDetectViewModel {
         guard let image = image else { return }
 
 //        print(image.size.width, image.size.height)
-        print(boundingBox.origin.x, boundingBox.origin.y)
+//        print(boundingBox.origin.x, boundingBox.origin.y)
         
-        let xCoordinate = image.size.width * boundingBox.origin.x
-        let yCoordinate = (image.size.height * (1 - boundingBox.origin.y)) / 2
         let width = image.size.width * boundingBox.size.width
         let height = image.size.height * boundingBox.size.height
+        let xCoordinate = image.size.width * boundingBox.origin.x
+        let yCoordinate = (image.size.height * (1 - boundingBox.origin.y)) - height
+        
 //        print(image.size.width, xCoordinate, yCoordinate)
 //        print(boundingBox)
 
@@ -96,7 +105,7 @@ extension FaceDetectViewModel {
         
         let newDetectInfo = DetectInfoViewModel(uuid: UUID(), image: croppedImage, bound: bound)
         
-        print(bound)
+//        print(bound)
         
         detectInfos.append(newDetectInfo)
     }

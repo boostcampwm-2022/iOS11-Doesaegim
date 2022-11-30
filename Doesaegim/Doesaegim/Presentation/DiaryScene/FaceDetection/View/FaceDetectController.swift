@@ -68,11 +68,11 @@ final class FaceDetectController: UIViewController {
     /// 기본이미지를 받아오는 생성자. 실험시 이 생성자를 사용한다.
     init() {
         super.init(nibName: nil, bundle: nil)
-//        self.currentImage = UIImage(named: "face_example")
-        self.currentImage = UIImage(named: "monalisa")
+        self.currentImage = UIImage(named: "face_example")
+//        self.currentImage = UIImage(named: "monalisa")
         imageView.image = self.currentImage
-//        self.viewModel = FaceDetectViewModel(image: UIImage(named: "face_example"))
-        self.viewModel = FaceDetectViewModel(image: UIImage(named: "monalisa"))
+        self.viewModel = FaceDetectViewModel(image: UIImage(named: "face_example"))
+//        self.viewModel = FaceDetectViewModel(image: UIImage(named: "monalisa"))
         self.viewModel?.delegate = self
     }
     
@@ -106,11 +106,6 @@ final class FaceDetectController: UIViewController {
         configureConstraints()
         configureButtonAction()
         configureCollectionViewDataSource()
-        
-        // 시뮬레이터에서 동작할 수 있도록
-#if targetEnvironment(simulator)
-        faceDetectionRequest.usesCPUOnly = true
-#endif
     }
     
     override func viewDidLayoutSubviews() {
@@ -350,17 +345,18 @@ extension FaceDetectController: FaceDetectViewModeleDelegate {
         guard let viewModel = viewModel else { return }
         CATransaction.begin()
         faces.forEach { observation in
-//            print(observation.boundingBox)
             let faceBox = boundingBox(forRegionOfInterest: observation.boundingBox, withInImageBounds: bounds)
-//            print(bounds)
             let faceLayer = shapeLayer(color: .yellow, frame: faceBox)
             // TODO: - 얼굴이 9개인데 왜 그 이상으로 호출되지...? 흠...
-            viewModel.addDetectInfo(with: self.currentImage, boundingBox: observation.boundingBox)
-//            viewModel.addDetectInfo(with: self.currentImage, bound: bounds)
+    //            viewModel.addDetectInfo(with: self.currentImage, bound: bounds)
             pathLayer?.addSublayer(faceLayer)
             
         }
         CATransaction.commit()
+        
+        faces.forEach { observation in
+            viewModel.addDetectInfo(with: self.currentImage, boundingBox: observation.boundingBox)
+        }
     }
     
     func detectInfoDidChange() {
