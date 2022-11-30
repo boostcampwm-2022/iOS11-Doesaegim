@@ -13,6 +13,7 @@ protocol TravelAddViewProtocol: AnyObject {
     var isValidTextField: Bool { get set }
     var isValidDate: Bool { get set }
     var isValidInput: Bool { get set }
+    var isClearInput: Bool { get set }
     
     func travelTitleDidChanged(title: String?)
     func travelDateTapped(dates: [Date], completion: @escaping ((Bool) -> Void))
