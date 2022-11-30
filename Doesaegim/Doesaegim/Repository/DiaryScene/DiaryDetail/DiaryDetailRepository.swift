@@ -8,6 +8,6 @@
 import Foundation
 
 protocol DiaryDetailRepository {
-    func getImageDatas(from paths: [String]) -> [Data]?
+    func getImageDatas(from paths: [String], diaryID: UUID) -> [Data]?
     func getDiaryDetail(with id: UUID) -> Result<Diary, CoreDataError>
 }

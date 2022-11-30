@@ -11,6 +11,7 @@
 		A48E9948292515020029D57D /* UIViewController+PresentAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48E9947292515020029D57D /* UIViewController+PresentAlert.swift */; };
 		A48E994A292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48E9949292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift */; };
 		A4971D74291CC3A9008B337F /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = A4971D73291CC3A9008B337F /* .swiftlint.yml */; };
+		A49FD4662934DF7D00A92427 /* TranslucentActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49FD4652934DF7D00A92427 /* TranslucentActivityIndicatorView.swift */; };
 		A4C3BB6F292F05C1001C0514 /* ProgressiveImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C3BB6E292F05C1001C0514 /* ProgressiveImageView.swift */; };
 		A4C3BB71292F0979001C0514 /* ProgressiveImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C3BB70292F0979001C0514 /* ProgressiveImageCollectionViewCell.swift */; };
 		A4C3BB75292F3810001C0514 /* ImageStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C3BB74292F3810001C0514 /* ImageStatus.swift */; };
@@ -171,6 +172,7 @@
 		A48E9947292515020029D57D /* UIViewController+PresentAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentAlert.swift"; sourceTree = "<group>"; };
 		A48E9949292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+SetRightBarPlusButton.swift"; sourceTree = "<group>"; };
 		A4971D73291CC3A9008B337F /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		A49FD4652934DF7D00A92427 /* TranslucentActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslucentActivityIndicatorView.swift; sourceTree = "<group>"; };
 		A4C3BB6E292F05C1001C0514 /* ProgressiveImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressiveImageView.swift; sourceTree = "<group>"; };
 		A4C3BB70292F0979001C0514 /* ProgressiveImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressiveImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		A4C3BB74292F3810001C0514 /* ImageStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStatus.swift; sourceTree = "<group>"; };
@@ -597,6 +599,7 @@
 				B5D64E60292DF06400E1CC81 /* DiaryAddView.swift */,
 				A4C3BB6E292F05C1001C0514 /* ProgressiveImageView.swift */,
 				A4C3BB70292F0979001C0514 /* ProgressiveImageCollectionViewCell.swift */,
+				A49FD4652934DF7D00A92427 /* TranslucentActivityIndicatorView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1322,6 +1325,7 @@
 				A4EB25C2292BB518002D129A /* DiaryAddLocalRepository.swift in Sources */,
 				B5C096C629238A0B007426B1 /* SearchingLocationViewModelDelegate.swift in Sources */,
 				B53763D5292B61A40073BF46 /* CustomChartItem.swift in Sources */,
+				A49FD4662934DF7D00A92427 /* TranslucentActivityIndicatorView.swift in Sources */,
 				B5C096B829235428007426B1 /* SearchingLocationView.swift in Sources */,
 				EE116C632924EC860017B519 /* PlanAddViewController.swift in Sources */,
 				A4CC04AA29221EEE00BB678B /* Location+CoreDataClass.swift in Sources */,
