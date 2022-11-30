@@ -358,7 +358,7 @@ fileprivate extension ExpenseAddView {
     enum StringLiteral {
         static let titleTextFieldPlaceholder = "지출의 이름을 입력해주세요."
         static let amountTextFieldPlaceholder = "지출 액수를 입력해주세요."
-        static let moneUnitButtonPlaceholder = "화폐 단위를 입력해주세요."
+        static let moneyUnitButtonPlaceholder = "화폐 단위를 입력해주세요."
         static let categoryButtonPlaceholder = "카테고리를 입력해주세요."
         static let dateButtonPlaceholder = "날짜를 입력해주세요."
         static let descriptionTextViewPlaceholder = "설명을 입력해주세요."

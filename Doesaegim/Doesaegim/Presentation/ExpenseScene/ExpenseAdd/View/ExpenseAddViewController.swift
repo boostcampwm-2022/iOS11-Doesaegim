@@ -48,6 +48,12 @@ final class ExpenseAddViewController: UIViewController {
     
     private func configureNavigation() {
         navigationItem.title = "지출 추가"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "chevron.backward"),
+            style: .done,
+            target: self,
+            action: #selector(backButtonTouchUpInside)
+        )
     }
     
     // MARK: - AddTarget
@@ -82,6 +88,17 @@ final class ExpenseAddViewController: UIViewController {
             self,
             action: #selector(addButtonTouchUpInside),
             for: .touchUpInside
+        )
+    }
+    
+    @objc func backButtonTouchUpInside() {
+        viewModel.isClearInput(
+            name: rootView.titleTextField.text,
+            amount: rootView.amountTextField.text,
+            unit: rootView.moneyUnitButton.titleLabel?.text,
+            category: rootView.categoryButton.titleLabel?.text,
+            date: rootView.dateButton.titleLabel?.text,
+            description: rootView.descriptionTextView.text
         )
     }
 }
@@ -192,6 +209,23 @@ extension ExpenseAddViewController: ExpenseAddViewDelegate {
         rootView.moneyUnitExchangeLabel.text = "원화로 계산하면 약 \(result.numberFormatter()) 원 입니다."
         print(result)
     }
+    
+    func backButtonDidTap(isClear: Bool) {
+        if !isClear {
+            let okAction = UIAlertAction(title: "뒤로가기", style: .default) { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }
+            let cancelAction = UIAlertAction(title: "작성", style: .cancel)
+            presentAlert(
+                title: "취소",
+                message: "현재 작성된 정보가 사라집니다.\n계속 하시겠습니까?",
+                actions: okAction, cancelAction
+            )
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
+    }
+    
 }
 
 // MARK: - Keyboard
