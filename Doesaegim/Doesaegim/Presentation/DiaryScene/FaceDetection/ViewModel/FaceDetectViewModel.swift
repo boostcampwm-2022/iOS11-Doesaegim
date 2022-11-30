@@ -79,24 +79,17 @@ extension FaceDetectViewModel {
     
     func addDetectInfo(with image: UIImage?, boundingBox: CGRect) {
         guard let image = image else { return }
-
-//        print(image.size.width, image.size.height)
-//        print(boundingBox.origin.x, boundingBox.origin.y)
         
         let width = image.size.width * boundingBox.size.width
         let height = image.size.height * boundingBox.size.height
         let xCoordinate = image.size.width * boundingBox.origin.x
         let yCoordinate = (image.size.height * (1 - boundingBox.origin.y)) - height
-        
-//        print(image.size.width, xCoordinate, yCoordinate)
-//        print(boundingBox)
 
         let rect = CGRect(x: xCoordinate, y: yCoordinate, width: width, height: height)
         
         guard let croppedImage = cropImage(of: image, with: rect) else { return }
         let newDetectInfo = DetectInfoViewModel(uuid: UUID(), image: croppedImage, bound: rect)
         detectInfos.append(newDetectInfo)
-//        print(detectInfos.count)
     }
     
     func addDetectInfo(with image: UIImage?, bound: CGRect) {
@@ -104,9 +97,6 @@ extension FaceDetectViewModel {
               let croppedImage = cropImage(of: image, with: bound) else { return }
         
         let newDetectInfo = DetectInfoViewModel(uuid: UUID(), image: croppedImage, bound: bound)
-        
-//        print(bound)
-        
         detectInfos.append(newDetectInfo)
     }
     

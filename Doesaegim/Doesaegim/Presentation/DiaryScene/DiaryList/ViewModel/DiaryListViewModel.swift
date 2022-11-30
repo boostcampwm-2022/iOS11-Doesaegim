@@ -65,7 +65,6 @@ extension DiaryListViewModel {
                     currentTravel = travel
                 }
             }
-//            print(newDiaries)
             diaryInfos = newDiaries
             
         case .failure(let error):

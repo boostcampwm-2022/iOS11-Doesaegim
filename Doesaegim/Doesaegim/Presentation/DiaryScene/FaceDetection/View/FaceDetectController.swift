@@ -312,8 +312,6 @@ extension FaceDetectController {
         rect.size.width *= imageWidth
         rect.size.height *= imageHeight
         
-//        print(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height)
-        
         return rect
     }
     
@@ -360,7 +358,6 @@ extension FaceDetectController: FaceDetectViewModeleDelegate {
     }
     
     func detectInfoDidChange() {
-//        print(#function)
         guard let viewModel = viewModel else { return }
         let detectInfos = viewModel.detectInfos
         
