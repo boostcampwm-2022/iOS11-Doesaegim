@@ -20,6 +20,11 @@ final class TravelAddViewModel: TravelAddViewProtocol {
             delegate?.travelAddFormDidChange(isValid: isValidInput)
         }
     }
+    var isClearInput: Bool {
+        didSet {
+            delegate?.backButtonDidTap(isClear: isClearInput)
+        }
+    }
     
     // MARK: - Lifecycles
     
@@ -27,6 +32,7 @@ final class TravelAddViewModel: TravelAddViewProtocol {
         isValidTextField = false
         isValidDate = false
         isValidInput = isValidTextField && isValidDate
+        isClearInput = true
     }
     
     // MARK: - Functions
@@ -52,6 +58,14 @@ final class TravelAddViewModel: TravelAddViewProtocol {
         }
         isValidDate = true
         
+    }
+    
+    func isClearInput(title: String?, startDate: String?, endDate: String?) {
+        guard let title, let startDate, let endDate else {
+            isClearInput = true
+            return
+        }
+        isClearInput = title.isEmpty && startDate.isEmpty && endDate.isEmpty
     }
     
     // MARK: - CoreData Function

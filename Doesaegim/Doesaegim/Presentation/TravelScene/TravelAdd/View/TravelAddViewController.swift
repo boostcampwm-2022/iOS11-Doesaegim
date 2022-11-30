@@ -186,7 +186,7 @@ final class TravelAddViewController: UIViewController {
     private func configureViews() {
         configureSubviews()
         configureConstraint()
-        navigationItem.title = "여행 추가"
+        configureNavigationBar()
     }
     
     private func configureSubviews() {
@@ -242,6 +242,17 @@ final class TravelAddViewController: UIViewController {
             $0.top.equalTo(customCalendar.snp.bottom).offset(40)
             $0.height.equalTo(48)
         }
+    }
+    
+    private func configureNavigationBar() {
+        navigationItem.title = "여행 추가"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "chevron.backward"),
+            style: .done,
+            target: self,
+            action: #selector(backButtonTouchUpInside)
+        )
+
     }
 }
 
@@ -309,6 +320,14 @@ extension TravelAddViewController {
             self.navigationController?.popViewController(animated: true)
         }
     }
+    
+    @objc func backButtonTouchUpInside() {
+        viewModel.isClearInput(
+            title: travelTitleTextField.text,
+            startDate: travelDateStartLabel.text,
+            endDate: travelDateEndLabel.text
+        )
+    }
 }
 
 // MARK: - TextField Delegate
@@ -326,6 +345,22 @@ extension TravelAddViewController: TravelAddViewDelegate {
     func travelAddFormDidChange(isValid: Bool) {
         addButton.isEnabled = isValid
         addButton.backgroundColor = isValid ? .primaryOrange : .grey3
+    }
+    
+    func backButtonDidTap(isClear: Bool) {
+        if !isClear {
+            let okAction = UIAlertAction(title: "뒤로가기", style: .default) { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }
+            let cancelAction = UIAlertAction(title: "작성", style: .cancel)
+            presentAlert(
+                title: "취소",
+                message: "현재 작성된 정보가 사라집니다.\n계속 하시겠습니까?",
+                actions: okAction, cancelAction
+            )
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
     }
 }
 

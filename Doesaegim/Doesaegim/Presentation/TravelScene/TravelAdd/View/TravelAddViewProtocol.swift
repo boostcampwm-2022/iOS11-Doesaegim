@@ -22,4 +22,5 @@ protocol TravelAddViewProtocol: AnyObject {
 
 protocol TravelAddViewDelegate: AnyObject {
     func travelAddFormDidChange(isValid: Bool)
+    func backButtonDidTap(isClear: Bool)
 }
