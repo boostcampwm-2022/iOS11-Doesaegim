@@ -66,14 +66,7 @@ extension DiaryListViewModel {
                     }
                     
                     guard let section = travelSections.firstIndex(of: name) else { return }
-                    
-                    if sectionDiaryDictionary[section] == nil {
-                        sectionDiaryDictionary[section] = []
-                        sectionDiaryDictionary[section]?.append(diaryInfo)
-                    } else {
-                        sectionDiaryDictionary[section]?.append(diaryInfo)
-                    }
-                    
+                    sectionDiaryDictionary[section, default: []].append(diaryInfo)
                 }
                 // TODO: - 추후삭제
                 if currentTravel == nil {
