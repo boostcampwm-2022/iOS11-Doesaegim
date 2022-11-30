@@ -63,8 +63,8 @@ final class DiaryPhotoDetailViewController: UIViewController {
     private func configureConstraints() {
         photoImageView.snp.makeConstraints {
             $0.center.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview().inset(10)
-            $0.height.equalTo(photoImageView.snp.width)
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.width.equalTo(view.snp.width)
         }
     }
     
@@ -74,18 +74,36 @@ final class DiaryPhotoDetailViewController: UIViewController {
             image: UIImage(systemName: "square.and.arrow.up"),
             style: .plain,
             target: self,
-            action: #selector(didTapShareButton)
+            action: nil
         )
+        
+        let mosaicToShare = UIAction(
+            title: "모자이크 후 공유하기") { [weak self] _ in
+                guard let self else { return }
+                // TODO: 모자이크 화면으로 넘기기..?
+                print("모자이크 공유 선택")
+            }
+        let sharedToActivityViewController = UIAction(
+            title: "공유하기") { [weak self] _ in
+                guard let self else { return }
+                ShareManager.shared.shareToActivityViewController(with: self.photoImageView, to: self)
+            }
+        let sharedToInstagramStroy = UIAction(
+            title: "인스타그램 스토리로 공유하기") { [weak self] _ in
+                guard let self else { return }
+                ShareManager.shared.shareToInstagramStory(with: self.photoImageView, to: self)
+            }
+        let cancel = UIAction(title: "취소", attributes: .destructive) { _ in }
+        shareButton.menu = UIMenu(
+            title: "공유하기",
+            options: .displayInline,
+            children: [mosaicToShare, sharedToActivityViewController, sharedToInstagramStroy, cancel]
+        )
+        
         navigationItem.rightBarButtonItem = shareButton
     }
     
     private func configurePhotoImageView() {
         photoImageView.image = UIImage(data: item.data)
-    }
-    
-    // MARK: - Action
-    
-    @objc func didTapShareButton() {
-        print("공유버튼 클릭")
     }
 }
