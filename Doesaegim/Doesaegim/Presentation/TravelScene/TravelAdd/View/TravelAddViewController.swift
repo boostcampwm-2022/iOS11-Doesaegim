@@ -89,25 +89,25 @@ final class TravelAddViewController: UIViewController {
     
     private lazy var travelDateStartLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = .grey4
         label.clipsToBounds = true
         label.layer.cornerRadius = Metric.cornerRadius
         label.font = .systemFont(ofSize: 17, weight: .regular)
         label.backgroundColor = .grey1
         label.textAlignment = .center
-        
+        label.text = StringLiteral.startDateLabelPlaceholder
         return label
     }()
     
     private lazy var travelDateEndLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = .grey4
         label.clipsToBounds = true
         label.layer.cornerRadius = Metric.cornerRadius
         label.font = .systemFont(ofSize: 17, weight: .regular)
         label.backgroundColor = .grey1
         label.textAlignment = .center
-        
+        label.text = StringLiteral.endDateLabelPlaceholder
         return label
     }()
     
@@ -145,7 +145,9 @@ final class TravelAddViewController: UIViewController {
             self?.viewModel.travelDateTapped(dates: dates) { isSuccess in
                 if isSuccess {
                     self?.travelDateStartLabel.text = Date.yearMonthDayDateFormatter.string(from: dates[0])
+                    self?.travelDateStartLabel.textColor = .black
                     self?.travelDateEndLabel.text = Date.yearMonthDayDateFormatter.string(from: dates[1])
+                    self?.travelDateEndLabel.textColor = .black
                 } else {
                     self?.presentErrorAlert(title: "날짜를 다시 입력해주세요")
                 }
@@ -366,10 +368,12 @@ extension TravelAddViewController: TravelAddViewDelegate {
 
 // MARK: - Constants
 
-fileprivate extension TravelAddViewController {
+extension TravelAddViewController {
     
     enum StringLiteral {
         static let travelTitlePlaceholder = "여행 제목을 입력해주세요."
+        static let startDateLabelPlaceholder = "시작일자"
+        static let endDateLabelPlaceholder = "종료일자"
     }
     
     enum Metric {
