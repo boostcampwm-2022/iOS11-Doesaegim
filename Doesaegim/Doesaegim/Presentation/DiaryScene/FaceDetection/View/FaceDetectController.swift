@@ -108,7 +108,7 @@ final class FaceDetectController: UIViewController {
         configureCollectionViewDataSource()
     }
     
-    override func viewDidLayoutSubviews() {
+    override func viewDidAppear(_ animated: Bool) {
         startDetect()
     }
 }
