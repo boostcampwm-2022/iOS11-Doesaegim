@@ -101,7 +101,8 @@ final class FaceDetectController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        collectionView.delegate = self
         configureSubviews()
         configureConstraints()
         configureButtonAction()
@@ -153,6 +154,11 @@ extension FaceDetectController {
     
     @objc private func confirmButtonDidTap() {
         print("버튼이 탭 되었습니다~")
+        guard let viewModel = viewModel else { return }
+        viewModel.detectInfos.forEach { infoViewModel in
+            let bound = infoViewModel.bound
+            print(bound)
+        }
     }
     
     // MARK: - ETC

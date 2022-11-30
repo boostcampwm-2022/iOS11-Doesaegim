@@ -20,6 +20,7 @@ extension FaceDetectController {
         
         let detectedCell = CellRegistration { cell, _, identifier in
             cell.configureInfo(with: identifier)
+            cell.setupCellStatus(with: identifier.isSelected)
         }
         
         detectDataSource = DataSource(
@@ -59,4 +60,21 @@ extension FaceDetectController {
         return layout
     }
     
+}
+
+extension FaceDetectController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {1
+        // 1. viewModel의 detectInfo -> indexPath.row 번째 모델을 조회
+        // 2. isSelected프로퍼티를 셀의 메서드에 전달한다.
+        // 3. 메서드에서 알아서 결정
+        
+        guard let viewModel = viewModel,
+              indexPath.row < viewModel.detectInfos.count,
+              let cell = collectionView.cellForItem(at: indexPath) as? DetectedFaceCell else { return }
+        
+        let isSelected = viewModel.detectInfos[indexPath.row].isSelected
+        viewModel.detectInfos[indexPath.row].isSelected.toggle() // 값을 뒤집어준다.
+        cell.setupCellStatus(with: isSelected)
+        
+    }
 }
