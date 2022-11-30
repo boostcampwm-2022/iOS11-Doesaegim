@@ -76,11 +76,12 @@ final class CustomPieChart: UIView {
     }
     
     private func drawOnePiece(with item: CustomChartItem, on rect: CGRect) {
+        guard let category = item.category else { return }
         let pieceLayer = PieceShapeLayer(
             rect: rect,
             startAngle: startAngle,
             angleRatio: ratio * Metric.angle,
-            color: item.category.color.cgColor
+            color: category.color.cgColor
         )
         layer.addSublayer(pieceLayer)
         
@@ -88,7 +89,7 @@ final class CustomPieChart: UIView {
         let textLayer = PieceTextLayer(
             center: CGPoint(x: rect.width/2, y: rect.height/2),
             pieceBounds: boundingBox,
-            text: "\(item.category.rawValue)\n\(String(format: "%.2f", ratio * 100))%"
+            text: "\(category.rawValue)\n\(String(format: "%.2f", ratio * 100))%"
         )
         layer.addSublayer(textLayer)
         
@@ -105,17 +106,6 @@ final class CustomPieChart: UIView {
         backgroundColor = .white
     }
     
-    /// 파이 조각별 애니메이션 설정
-    private func configureLayerAnimation() -> CABasicAnimation {
-        let animation = CABasicAnimation(keyPath: StringLiteral.animationKey)
-        animation.fromValue = Metric.animationFromValue
-        animation.toValue = Metric.animationToValue
-        animation.duration = ratio * Metric.animationDuration
-        animation.delegate = self
-        
-        return animation
-    }
-    
     // MARK: - Setup Data & Redraw Functions
     
     /// 차트를 표시하는 데이터를 변경할 경우 실행하는 메서드. 데이터를 설정하고 차트를 다시 그린다.
@@ -128,9 +118,39 @@ final class CustomPieChart: UIView {
         setNeedsDisplay()
     }
     
+    // MARK: - Animation Functions
+    
     private func initializeAnimation() {
         startAngle = Metric.initialStartAngle
         currentIndex = 0
+    }
+    
+    /// 파이 조각별 애니메이션 설정
+    private func configureLayerAnimation() -> CABasicAnimation {
+        let animation = CABasicAnimation(keyPath: StringLiteral.animationKey)
+        animation.fromValue = Metric.animationFromValue
+        animation.toValue = Metric.animationToValue
+        animation.duration = ratio * Metric.animationDuration
+        animation.delegate = self
+        
+        return animation
+    }
+    
+    /// 외부의 값 변화로 인해 애니메이션을 재실행할 경우 활용할 수 있는 메서드.
+    /// 이전에 등록된 서브레이어들을 모두 제거하고, 애니메이션 설정 값들을 초기화 한 후 `draw(_:)`메서드를 재실행한다.
+    func executeAnimation() {
+        removeAllSubLayers()
+        initializeAnimation()
+        setNeedsDisplay()
+    }
+    
+    // MARK: - Layer Functions
+    
+    /// 레이어에 등록되어 있던 모든 서브 레이어들을 제거한다.
+    private func removeAllSubLayers() {
+        layer.sublayers?.forEach({ layer in
+            layer.removeFromSuperlayer()
+        })
     }
     
 }

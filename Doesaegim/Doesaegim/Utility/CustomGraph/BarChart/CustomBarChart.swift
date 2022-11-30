@@ -100,4 +100,23 @@ final class CustomBarChart: UIView {
 
         setNeedsDisplay()
     }
+    
+    // MARK: - Animation Functions
+    
+    /// 외부의 값 변화로 인해 애니메이션을 재실행할 경우 활용할 수 있는 메서드.
+    /// 이전에 등록된 서브레이어들을 모두 제거한 후 화면을 다시 그린다.
+    func executeAnimation() {
+        removeAllSubLayers()
+        setNeedsDisplay()
+    }
+    
+    // MARK: - Layer Functions
+    
+    /// 레이어에 등록되어 있던 모든 서브 레이어들을 제거한다.
+    private func removeAllSubLayers() {
+        layer.sublayers?.forEach({ layer in
+            layer.removeFromSuperlayer()
+        })
+    }
+    
 }
