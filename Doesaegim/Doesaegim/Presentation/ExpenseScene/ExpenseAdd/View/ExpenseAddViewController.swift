@@ -42,6 +42,7 @@ final class ExpenseAddViewController: UIViewController {
         setKeyboardNotification()
         setAddTarget()
         viewModel.delegate = self
+        rootView.descriptionTextView.delegate = self
     }
     
     // MARK: - Configure Function
@@ -262,5 +263,22 @@ extension ExpenseAddViewController {
     
     @objc private func keyboardWillHide(notification: NSNotification) {
         rootView.scrollView.contentInset = .zero
+    }
+}
+
+// MARK: - TextViewDelegate
+extension ExpenseAddViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == ExpenseAddView.StringLiteral.descriptionTextViewPlaceholder {
+            textView.text = nil
+            textView.textColor = .black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            textView.text = ExpenseAddView.StringLiteral.descriptionTextViewPlaceholder
+            textView.textColor = .grey3
+        }
     }
 }

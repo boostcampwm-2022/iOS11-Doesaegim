@@ -354,7 +354,7 @@ final class ExpenseAddView: UIView {
     }
 }
 
-fileprivate extension ExpenseAddView {
+extension ExpenseAddView {
     enum StringLiteral {
         static let titleTextFieldPlaceholder = "지출의 이름을 입력해주세요."
         static let amountTextFieldPlaceholder = "지출 액수를 입력해주세요."
