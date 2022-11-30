@@ -61,11 +61,15 @@ final class TravelAddViewModel: TravelAddViewProtocol {
     }
     
     func isClearInput(title: String?, startDate: String?, endDate: String?) {
-        guard let title, let startDate, let endDate else {
-            isClearInput = true
+        guard let title, title.isEmpty else {
+            isClearInput = false
             return
         }
-        isClearInput = title.isEmpty && startDate.isEmpty && endDate.isEmpty
+        guard let startDate, startDate.isEmpty, let endDate, endDate.isEmpty else {
+            isClearInput = false
+            return
+        }
+        isClearInput = true
     }
     
     // MARK: - CoreData Function
