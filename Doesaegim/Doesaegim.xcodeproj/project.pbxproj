@@ -54,6 +54,8 @@
 		B57D962E2922318F00B510B8 /* ExpenseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962D2922318F00B510B8 /* ExpenseDTO.swift */; };
 		B57D9630292231FC00B510B8 /* DiaryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962F292231FC00B510B8 /* DiaryDTO.swift */; };
 		B595A984292CE53100C3B897 /* ExpenseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B595A983292CE53100C3B897 /* ExpenseType.swift */; };
+		B5B497CB29374BEF009AE4AC /* CustomBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B497CA29374BEF009AE4AC /* CustomBarChart.swift */; };
+		B5B497CD29374C58009AE4AC /* BarShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B497CC29374C58009AE4AC /* BarShapeLayer.swift */; };
 		B5C096B629235416007426B1 /* SearchingLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096B529235416007426B1 /* SearchingLocationViewController.swift */; };
 		B5C096B829235428007426B1 /* SearchingLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096B729235428007426B1 /* SearchingLocationView.swift */; };
 		B5C096BC29235B08007426B1 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096BB29235B08007426B1 /* SearchResultCell.swift */; };
@@ -223,6 +225,8 @@
 		B57D962D2922318F00B510B8 /* ExpenseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDTO.swift; sourceTree = "<group>"; };
 		B57D962F292231FC00B510B8 /* DiaryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDTO.swift; sourceTree = "<group>"; };
 		B595A983292CE53100C3B897 /* ExpenseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseType.swift; sourceTree = "<group>"; };
+		B5B497CA29374BEF009AE4AC /* CustomBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBarChart.swift; sourceTree = "<group>"; };
+		B5B497CC29374C58009AE4AC /* BarShapeLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarShapeLayer.swift; sourceTree = "<group>"; };
 		B5C096B529235416007426B1 /* SearchingLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationViewController.swift; sourceTree = "<group>"; };
 		B5C096B729235428007426B1 /* SearchingLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationView.swift; sourceTree = "<group>"; };
 		B5C096BB29235B08007426B1 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
@@ -526,6 +530,7 @@
 			children = (
 				B53763D4292B61A40073BF46 /* CustomChartItem.swift */,
 				B53763E4292B99D10073BF46 /* PieChart */,
+				B5B497C929374BDC009AE4AC /* BarChart */,
 			);
 			path = CustomGraph;
 			sourceTree = "<group>";
@@ -568,6 +573,15 @@
 				B57D962F292231FC00B510B8 /* DiaryDTO.swift */,
 			);
 			path = PersistentDTO;
+			sourceTree = "<group>";
+		};
+		B5B497C929374BDC009AE4AC /* BarChart */ = {
+			isa = PBXGroup;
+			children = (
+				B5B497CA29374BEF009AE4AC /* CustomBarChart.swift */,
+				B5B497CC29374C58009AE4AC /* BarShapeLayer.swift */,
+			);
+			path = BarChart;
 			sourceTree = "<group>";
 		};
 		B5C096B2292353EE007426B1 /* SearchingLocation */ = {
@@ -1341,6 +1355,7 @@
 				EEB6C503292CC88B0060A459 /* ExchangeResponse.swift in Sources */,
 				A4CC04A429221EEE00BB678B /* Plan+CoreDataClass.swift in Sources */,
 				EEB6C500292CC4910060A459 /* Resource.swift in Sources */,
+				B5B497CB29374BEF009AE4AC /* CustomBarChart.swift in Sources */,
 				EE116C5E2924CB6B0017B519 /* TravelAddViewProtocol.swift in Sources */,
 				EEB6C4FB292CA9200060A459 /* ExpenseAddViewProtocol.swift in Sources */,
 				BBDB2E96292635FD00752924 /* ExpenseSectionHeaderView.swift in Sources */,
@@ -1399,6 +1414,7 @@
 				B5C096BC29235B08007426B1 /* SearchResultCell.swift in Sources */,
 				B5DE4D4029271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift in Sources */,
 				BBE695DA29228C570015FAD4 /* TravelListViewModelProtocol.swift in Sources */,
+				B5B497CD29374C58009AE4AC /* BarShapeLayer.swift in Sources */,
 				B5C096C029236BC0007426B1 /* SearchResultCellViewModel.swift in Sources */,
 				A48E9948292515020029D57D /* UIViewController+PresentAlert.swift in Sources */,
 				BB6BE55B2936020300857D25 /* FaceDetectController+CollectionView.swift in Sources */,
