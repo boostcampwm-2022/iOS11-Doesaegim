@@ -58,7 +58,6 @@ final class CustomCalendar: UICollectionView {
         diffableDatasource = configureDatasource()
         configureCalendar()
         configureSnapshot()
-        print(startDate, endDate)
     }
     
     @available(*, unavailable)
