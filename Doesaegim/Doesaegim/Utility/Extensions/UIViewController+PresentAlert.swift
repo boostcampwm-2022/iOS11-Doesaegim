@@ -19,4 +19,14 @@ extension UIViewController {
         alertController.addAction(.init(title: "확인", style: .default, handler: handler))
         present(alertController, animated: true)
     }
+    
+    /// 여러 액션들이 있는 얼럿
+    func presentAlert(title: String,
+                      message: String? = nil,
+                      preferredStyle style: UIAlertController.Style = .alert,
+                      actions: UIAlertAction...) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: style)
+        actions.forEach { alert.addAction($0) }
+        self.present(alert, animated: true)
+    }
 }
