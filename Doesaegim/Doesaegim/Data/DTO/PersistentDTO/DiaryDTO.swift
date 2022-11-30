@@ -8,7 +8,7 @@
 import Foundation
 
 struct DiaryDTO {
-    let id = UUID()
+    let id: UUID
     let content: String
     let date: Date
     let images: [String]

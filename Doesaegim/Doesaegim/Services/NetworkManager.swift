@@ -7,6 +7,13 @@
 
 import Foundation
 
+enum NetworkError: LocalizedError {
+    case invalidRequest
+    case responseError
+    case statusCodeError(code: Int)
+    case decodeError
+}
+
 final class NetworkManager {
     let session: URLSession
     
@@ -14,25 +21,23 @@ final class NetworkManager {
         self.session = URLSession(configuration: configuration)
     }
     
-    func loadArray<T>(_ resource: Resource<T>, completion: @escaping ([T]) -> Void) {
+    func loadArray<T>(_ resource: Resource<T>) async throws -> Result<[T], NetworkError> {
         guard let request = resource.urlRequest else {
-            return
+            return .failure(.invalidRequest)
         }
         
-        let dataTask = session.dataTask(with: request) { data, response, error in
-            guard error == nil else {
-                return
-            }
-            
-            guard let reponse = response as? HTTPURLResponse,
-                  (200..<300).contains(reponse.statusCode) else {
-                return
-            }
-            guard let data else { return }
-            
-            guard let result = try? JSONDecoder().decode([T].self, from: data) else { return }
-            completion(result)
+        let (data, response) = try await session.data(for: request)
+        
+        guard let reponse = response as? HTTPURLResponse else {
+            return .failure(.responseError)
         }
-        dataTask.resume()
+        guard (200..<300).contains(reponse.statusCode) else {
+            return .failure(.statusCodeError(code: reponse.statusCode))
+        }
+        
+        guard let result = try? JSONDecoder().decode([T].self, from: data) else {
+            return .failure(.decodeError)
+        }
+        return .success(result)
     }
 }

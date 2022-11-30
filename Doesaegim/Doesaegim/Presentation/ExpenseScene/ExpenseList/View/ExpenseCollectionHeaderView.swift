@@ -106,17 +106,23 @@ final class ExpenseCollectionHeaderView: UICollectionReusableView {
     func configureData(with data: ExpenseListViewModelProtocol?) {
         guard let data else { return }
         
-        let graphData: [CustomChartItem] = data.expenseInfos.compactMap({
-            let value = CGFloat($0.cost)
-            guard let category = ExpenseType(rawValue: $0.category) else { return nil }
-
-            let item = CustomChartItem(category: category, value: value)
-            return item
-        })
+        var graphData: [CustomChartItem] = ExpenseType.allCases.map {
+            CustomChartItem(category: $0, value: 0)
+        } // 사용자가 지출정보를 추가하는 순서대로 조각이 표시되는 게 아닌, 카테고리 자체 순서대로 조각이 추가되도록
+        
+        data.expenseInfos.forEach { item in
+            guard let type = ExpenseType(rawValue: item.category) else { return }
+            let graphValue = CGFloat(item.cost)
+            
+            if let foundIndex = graphData.firstIndex(where: { $0.category == type }) {
+                graphData[foundIndex].value += graphValue
+            }
+        }
+        graphData = graphData.filter { $0.value != 0 }
+        
         let totalExpenses = data.expenseInfos.reduce(0) { $0 + $1.cost }
         
         travelTitleLabel.text = data.currentTravel?.name
-        
         expenseBudgetLabel.text = "총 지출액: \(totalExpenses.numberFormatter())원"
         
         if !graphData.isEmpty { self.data = graphData }

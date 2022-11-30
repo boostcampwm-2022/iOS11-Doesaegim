@@ -144,8 +144,8 @@ final class TravelAddViewController: UIViewController {
         customCalendar.completionHandler = { [weak self] dates in
             self?.viewModel.travelDateTapped(dates: dates) { isSuccess in
                 if isSuccess {
-                    self?.travelDateStartLabel.text = dates[0]
-                    self?.travelDateEndLabel.text = dates[1]
+                    self?.travelDateStartLabel.text = Date.yearMonthDayDateFormatter.string(from: dates[0])
+                    self?.travelDateEndLabel.text = Date.yearMonthDayDateFormatter.string(from: dates[1])
                 } else {
                     self?.presentErrorAlert(title: "날짜를 다시 입력해주세요")
                 }

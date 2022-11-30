@@ -51,7 +51,7 @@ public class Plan: NSManagedObject {
         return request
     }
 
-    /// 특정 Travel 엔티티의 모든 Plan을 호출하는 리퀘스트로 순서를 지정하지 않으면 (오래된) 날짜 순서로 정렬
+    /// 특정 Travel 엔티티의 모든 Plan을 호출하는 리퀘스트로 순서를 지정하지 않으면 (최신) 날짜 순서로 정렬
     static func fetchRequest(
         travelID: UUID,
         sortDescriptors: [NSSortDescriptor] = [.init(key: "date", ascending: false)]

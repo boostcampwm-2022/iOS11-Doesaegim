@@ -98,7 +98,11 @@ extension ExpenseAddViewController {
     }
     
     @objc func dateButtonTouchUpInside() {
-        let calendarViewController = CalendarViewController(touchOption: .single, type: .date)
+        guard let travel else { return }
+        let calendarViewController = CalendarViewController(
+            touchOption: .single, type: .date,
+            startDate: travel.startDate, endDate: travel.endDate
+        )
         calendarViewController.delegate = self
         present(calendarViewController, animated: true)
     }
@@ -130,7 +134,7 @@ extension ExpenseAddViewController {
               let travel = travel else {
             return
         }
-            
+        
         let expenseDTO = ExpenseDTO(
             name: name,
             category: category,
@@ -206,7 +210,7 @@ extension ExpenseAddViewController {
             name: UIResponder.keyboardWillHideNotification, object: nil
         )
     }
-  
+    
     @objc private func keyboardWillShow(notification: NSNotification) {
         guard let userInfo = notification.userInfo,
               let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
@@ -221,7 +225,7 @@ extension ExpenseAddViewController {
         )
         rootView.scrollView.contentInset = contentInsets
     }
-
+    
     @objc private func keyboardWillHide(notification: NSNotification) {
         rootView.scrollView.contentInset = .zero
     }

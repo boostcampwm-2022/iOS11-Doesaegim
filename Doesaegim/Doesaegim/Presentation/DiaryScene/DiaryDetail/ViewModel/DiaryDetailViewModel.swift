@@ -54,7 +54,8 @@ final class DiaryDetailViewModel {
         delegate?.diaryDetailDidFetch(diary: diary)
         
         guard let paths = diary.images,
-              let imageItems = repository.getImageDatas(from: paths)
+              let diaryID = diary.id,
+              let imageItems = repository.getImageDatas(from: paths, diaryID: diaryID)
         else { return }
         cellViewModels = imageItems.map { DetailImageCellViewModel(data: $0) }
     }

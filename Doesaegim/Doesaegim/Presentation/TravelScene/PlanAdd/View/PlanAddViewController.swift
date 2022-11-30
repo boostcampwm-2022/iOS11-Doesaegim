@@ -171,11 +171,11 @@ final class PlanAddViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel: PlanAddViewModel
-    private let travel: Travel?
+    private let travel: Travel
     
     // MARK: - Lifecycles
     
-    init(travel: Travel?) {
+    init(travel: Travel) {
         viewModel = PlanAddViewModel()
         self.travel = travel
         super.init(nibName: nil, bundle: nil)
@@ -334,8 +334,12 @@ extension PlanAddViewController {
 
 extension PlanAddViewController {
     @objc func dateInputButtonTouchUpInside() {
-        let calendarViewController = CalendarViewController(touchOption: .single, type: .dateAndTime)
+        let calendarViewController = CalendarViewController(
+            touchOption: .single, type: .dateAndTime, startDate: travel.startDate, endDate: travel.endDate
+        )
+        print(travel)
         calendarViewController.delegate = self
+        
         present(calendarViewController, animated: true)
     }
     
@@ -356,8 +360,7 @@ extension PlanAddViewController {
                 dateString: dateString,
                 formatter: Date.yearMonthDayTimeDateFormatter
               ),
-              let content = descriptionTextView.text,
-              let travel = travel
+              let content = descriptionTextView.text
         else {
             return
         }

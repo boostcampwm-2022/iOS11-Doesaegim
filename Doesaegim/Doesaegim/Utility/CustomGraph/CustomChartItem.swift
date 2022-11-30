@@ -12,7 +12,7 @@ struct CustomChartItem {
     let category: ExpenseType
     
     /// 차트 데이터 값
-    let value: CGFloat
+    var value: CGFloat
     
     init(category: ExpenseType, value: CGFloat) {
         self.category = category

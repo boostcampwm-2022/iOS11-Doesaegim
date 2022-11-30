@@ -19,6 +19,7 @@ final class DiaryListHeaderView: UICollectionReusableView {
     private let headerLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.textColor = .white
         label.text = "여행 이름"
         
         return label
@@ -43,8 +44,14 @@ extension DiaryListHeaderView {
     
     // MARK: - Configuration
     private func configure() {
+        configureView()
         configureSubviews()
         configureConstraints()
+    }
+    
+    private func configureView() {
+        layer.cornerRadius = 10
+        backgroundColor = .primaryOrange
     }
     
     private func configureSubviews() {

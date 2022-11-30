@@ -60,7 +60,12 @@ final class DiaryListViewController: UIViewController {
 //        viewModel?.addDummyDiaryData()
 //        viewModel?.fetchDiary()
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        tabBarController?.tabBar.isHidden = false
+    }
 }
 
 extension DiaryListViewController {
@@ -116,15 +121,15 @@ extension DiaryListViewController {
             )
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             item.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 3, bottom: 4, trailing: 3)
-            
+
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
                 heightDimension: .absolute(80)
             )
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-            
+
             let section = NSCollectionLayoutSection(group: group)
-            
+
             let sectionHeaderSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
                 heightDimension: .absolute(40)
@@ -135,10 +140,10 @@ extension DiaryListViewController {
                 alignment: .top
             )
             
-             section.boundarySupplementaryItems = [sectionHeader]
-            
+            section.boundarySupplementaryItems = [sectionHeader]
             return section
         }
+        
         return layout
     }
     
@@ -215,4 +220,28 @@ extension DiaryListViewController: DiaryListViewModelDelegate {
         
         diaryDataSource?.apply(snapshot, animatingDifferences: true)
     }
+}
+
+extension DiaryListViewController {
+    
+    private func deleteDiary(with diaryInfo: DiaryInfoViewModel) {
+        let travelID = diaryInfo.travelID
+        let dairyID = diaryInfo.id
+        // 뷰모델 삭제 메서드 호출
+    }
+    
+    private func makeSwipeAction(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
+        guard let indexPath = indexPath,
+              let identifier = diaryDataSource?.itemIdentifier(for: indexPath) else { return nil }
+        let deleteActionTitle = NSLocalizedString("삭제", comment: "다이어리 삭제")
+        let deleteAction = UIContextualAction(
+            style: .destructive,
+            title: deleteActionTitle
+        ) { [weak self] _, _, completion in
+            self?.deleteDiary(with: identifier)
+            completion(false)
+        }
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+      }
+    
 }

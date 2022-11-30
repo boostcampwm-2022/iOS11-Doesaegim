@@ -115,7 +115,9 @@ final class DiaryDetailView: UIView {
     func setupData(diary: Diary) {
         contentLabel.text = diary.content
         locationLabel.text = diary.location?.name
-        dateLabel.text = diary.date?.description
+        
+        let dateFormatter = Date.yearMonthDayTimeDateFormatter
+        dateLabel.text = dateFormatter.string(from: diary.date ?? Date())
     }
     
     func setupNumberOfPages(_ count: Int) {
@@ -124,6 +126,10 @@ final class DiaryDetailView: UIView {
     
     func setupCurrentPage(_ pageIndex: Int) {
         pageControl.currentPage = pageIndex
+    }
+    
+    func setupImageSliderShowing(with isHidden: Bool) {
+        imageSlider.isHidden = isHidden
     }
     
     // MARK: - Configure Functions

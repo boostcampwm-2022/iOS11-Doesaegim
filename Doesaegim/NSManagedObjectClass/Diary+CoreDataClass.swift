@@ -37,6 +37,7 @@ public class Diary: NSManagedObject {
                 return .success(diary)
             }
         case .failure(let error):
+            print(error)
             return .failure(error)
         }
         return .failure(CoreDataError.saveFailure(.diary))
@@ -52,7 +53,7 @@ public class Diary: NSManagedObject {
         
         var imageData: [Data] = []
         if let imagePaths = diary.images {
-            imageData = FileProcessManager.shared.fetchImages(with: imagePaths)
+            imageData = FileProcessManager.shared.fetchImages(with: imagePaths, diaryID: id)
         }
         
         // imagepath의 배열은 이미지가 없는 다이어리가 있을 수 있으므로 따로 검사하지 않는다.
@@ -77,7 +78,7 @@ public class Diary: NSManagedObject {
                 
         var imageData: Data?
         if let imagePath = diary.images?.first {
-            let imageDataResult = FileProcessManager.shared.fetchImage(with: imagePath)
+            let imageDataResult = FileProcessManager.shared.fetchImage(with: imagePath, diaryID: id)
             switch imageDataResult {
             case .success(let data):
                 imageData = data
