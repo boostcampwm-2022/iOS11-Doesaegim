@@ -38,6 +38,10 @@ final class DiaryListHeaderView: UICollectionReusableView {
         configure()
     }
     
+    override func prepareForReuse() {
+        headerLabel.text = ""
+    }
+    
 }
 
 extension DiaryListHeaderView {
