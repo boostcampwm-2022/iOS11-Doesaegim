@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ExpenseChartView: UIView {
+final class ExpenseChartView: UIView {
 
     // MARK: - UI Properties
     
@@ -42,14 +42,14 @@ class ExpenseChartView: UIView {
     // MARK: - Properties
     
     /// 원형 차트 데이터
-    private var pieChartData: [CustomChartItem] = ExpenseChartView.dummyData {
+    private var pieChartData: [CustomChartItem<ExpenseType>] = ExpenseChartView.pieChartDummies {
         didSet {
             pieChart.setupData(with: pieChartData)
         }
     }
     
     /// 막대 차트 데이터
-    private var barChartData: [CustomChartItem] = ExpenseChartView.dummyData {
+    private var barChartData: [CustomChartItem<Date>] = ExpenseChartView.barChartDummies {
         didSet {
             barChart.setupData(with: barChartData)
         }
@@ -136,14 +136,14 @@ class ExpenseChartView: UIView {
     /// - Parameter data: 원본 지출 데이터
     private func setupPieChartData(with data: ExpenseListViewModelProtocol) {
         var chartData: [CustomChartItem] = ExpenseType.allCases.map {
-            CustomChartItem(category: $0, date: Date(), value: 0)
+            CustomChartItem(criterion: $0, value: 0)
         } // 사용자가 지출정보를 추가하는 순서대로 조각이 표시되는 게 아닌, 카테고리 자체 순서대로 조각이 추가되도록
         
         data.expenseInfos.forEach { item in
             guard let type = ExpenseType(rawValue: item.category) else { return }
             let graphValue = CGFloat(item.cost)
             
-            if let foundIndex = chartData.firstIndex(where: { $0.category == type }) {
+            if let foundIndex = chartData.firstIndex(where: { $0.criterion == type }) {
                 chartData[foundIndex].value += graphValue
             }
         }
@@ -156,18 +156,18 @@ class ExpenseChartView: UIView {
     /// - Parameter data: 원본 지출 데이터
     private func setupBarChartData(with data: ExpenseListViewModelProtocol) {
         let expenseData = data.expenseInfos.sorted { $0.date < $1.date }
-        var chartData: [CustomChartItem] = []
+        var chartData: [CustomChartItem<Date>] = []
         
         expenseData.forEach { item in
             let graphValue = CGFloat(item.cost)
             
-            if let foundIndex = chartData.firstIndex(where: {$0.date == item.date }) {
+            if let foundIndex = chartData.firstIndex(where: {$0.criterion == item.date }) {
                 chartData[foundIndex].value += graphValue
             } else {
-                chartData.append(CustomChartItem(date: item.date, value: graphValue))
+                chartData.append(CustomChartItem(criterion: item.date, value: graphValue))
             }
         }
-        chartData.sort { ($0.date ?? Date()) < ($1.date ?? Date()) }
+        chartData.sort { $0.criterion < $1.criterion }
         
         if !chartData.isEmpty { self.barChartData = chartData }
     }
@@ -175,30 +175,33 @@ class ExpenseChartView: UIView {
 }
 
 extension ExpenseChartView {
-    static let dummyData = [
+    static let pieChartDummies: [CustomChartItem<ExpenseType>] = [
+        CustomChartItem(criterion: .food, value: 70),
+        CustomChartItem(criterion: .shopping, value: 30),
+        CustomChartItem(criterion: .transportation, value: 50),
+        CustomChartItem(criterion: .room, value: 60),
+        CustomChartItem(criterion: .other, value: 20)
+    ]
+    
+    static let barChartDummies: [CustomChartItem<Date>] = [
         CustomChartItem(
-            category: .food,
-            date: Date.yearMonthDateFormatter.date(from: "2022-11-30") ?? Date(),
+            criterion: Date.yearMonthDateFormatter.date(from: "2022-11-30") ?? Date(),
             value: 70
         ),
         CustomChartItem(
-            category: .shopping,
-            date: Date.yearMonthDateFormatter.date(from: "2022-11-30") ?? Date(),
+            criterion: Date.yearMonthDateFormatter.date(from: "2022-11-30") ?? Date(),
             value: 30
         ),
         CustomChartItem(
-            category: .transportation,
-            date: Date.yearMonthDateFormatter.date(from: "2022-11-30") ?? Date(),
+            criterion: Date.yearMonthDateFormatter.date(from: "2022-11-30") ?? Date(),
             value: 50
         ),
         CustomChartItem(
-            category: .room,
-            date: Date.yearMonthDateFormatter.date(from: "2022-11-30") ?? Date(),
+            criterion: Date.yearMonthDateFormatter.date(from: "2022-11-30") ?? Date(),
             value: 60
         ),
         CustomChartItem(
-            category: .other,
-            date: Date.yearMonthDateFormatter.date(from: "2022-11-30") ?? Date(),
+            criterion: Date.yearMonthDateFormatter.date(from: "2022-11-30") ?? Date(),
             value: 20
         )
     ]

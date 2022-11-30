@@ -12,7 +12,7 @@ final class CustomBarChart: UIView {
 
     // MARK: - Properties
 
-    private var items: [CustomChartItem] = []
+    private var items: [CustomChartItem<Date>] = []
     
     private var isAnimating: Bool = false
 
@@ -30,7 +30,7 @@ final class CustomBarChart: UIView {
     /// - Parameters:
     ///   - data: 차트 데이터 값의 배열
     convenience init(
-        items: [CustomChartItem],
+        items: [CustomChartItem<Date>],
         frame: CGRect = .zero
     ) {
         self.init(frame: frame)
@@ -94,7 +94,7 @@ final class CustomBarChart: UIView {
 
     /// 차트를 표시하는 데이터를 변경할 경우 실행하는 메서드. 데이터를 설정하고 차트를 다시 그린다.
     /// - Parameter data: 변경할 차트 데이터
-    func setupData(with data: [CustomChartItem]) {
+    func setupData(with data: [CustomChartItem<Date>]) {
         self.items = data
         self.isAnimating = !data.isEmpty
 
