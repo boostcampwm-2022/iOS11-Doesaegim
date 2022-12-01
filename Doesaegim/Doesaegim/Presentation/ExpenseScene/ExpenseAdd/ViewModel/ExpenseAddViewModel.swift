@@ -32,15 +32,23 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
         }
     }
     
+    var isClearInput: Bool {
+        didSet {
+            delegate?.backButtonDidTap(isClear: isClearInput)
+        }
+    }
+    
     init() {
-        self.isValidName = false
-        self.isValidAmount = false
-        self.isValidUnit = false
-        self.isValidCategory = false
-        self.isValidDate = false
-        self.isValidInput = isValidName && isValidAmount && isValidUnit && isValidCategory && isValidDate
+        isValidName = false
+        isValidAmount = false
+        isValidUnit = false
+        isValidCategory = false
+        isValidDate = false
+        isValidInput = isValidName && isValidAmount && isValidUnit && isValidCategory && isValidDate
         
         exchangeCalculataion = 0
+        
+        isClearInput = true
     }
     
     // MARK: - Helpers
@@ -124,4 +132,34 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
     }
     
     
+    func isClearInput(
+        name: String?,
+        amount: String?,
+        unit: String?,
+        category: String?,
+        date: String?,
+        description: String?
+    ) {
+        guard let name, name.isEmpty,
+              let amount, amount.isEmpty,
+              let unit, unit == StringLiteral.moneyUnitButtonPlaceholder,
+              let category, category == StringLiteral.categoryButtonPlaceholder,
+              let date, date == StringLiteral.dateButtonPlaceholder,
+              let description, description == StringLiteral.descriptionTextViewPlaceholder else {
+            isClearInput = false
+            return
+        }
+        isClearInput = true
+    }
+    
+    
+}
+fileprivate extension ExpenseAddViewModel {
+    enum StringLiteral {
+        static let titleTextFieldPlaceholder = "지출의 이름을 입력해주세요."
+        static let moneyUnitButtonPlaceholder = "화폐 단위를 입력해주세요."
+        static let categoryButtonPlaceholder = "카테고리를 입력해주세요."
+        static let dateButtonPlaceholder = "날짜를 입력해주세요."
+        static let descriptionTextViewPlaceholder = "설명을 입력해주세요."
+    }
 }

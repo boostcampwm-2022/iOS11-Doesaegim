@@ -29,6 +29,12 @@ final class PlanAddViewModel: PlanAddViewProtocol {
         }
     }
     
+    var isClearInput: Bool {
+        didSet {
+            delegate?.backButtonDidTap(isClear: isClearInput)
+        }
+    }
+    
     // MARK: - Lifecycles
     
     init() {
@@ -36,6 +42,7 @@ final class PlanAddViewModel: PlanAddViewProtocol {
         isValidPlace = false
         isValidDate = false
         isValidInput = isValidName && isValidPlace && isValidDate
+        isClearInput = true
     }
     
     // MARK: - Helpers
@@ -88,5 +95,24 @@ final class PlanAddViewModel: PlanAddViewProtocol {
             print(error.localizedDescription)
             
         }
+    }
+    
+    func isClearInput(title: String?, place: String?, date: String?, description: String?) {
+        guard let title, title.isEmpty,
+              let place, place == StringLiteral.placeTextPlaceHolder,
+              let date, date == StringLiteral.datePlaceHolder,
+              let description, description == StringLiteral.descriptionTextViewPlaceHolder else {
+            isClearInput = false
+            return
+        }
+        isClearInput = true
+    }
+}
+
+fileprivate extension PlanAddViewModel {
+    enum StringLiteral {
+        static let placeTextPlaceHolder = "장소를 검색해 주세요."
+        static let datePlaceHolder = "날짜와 시간을 입력해 주세요."
+        static let descriptionTextViewPlaceHolder = "설명을 입력해주세요."
     }
 }
