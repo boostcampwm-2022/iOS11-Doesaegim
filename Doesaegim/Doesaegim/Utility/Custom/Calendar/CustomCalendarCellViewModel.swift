@@ -24,7 +24,7 @@ final class CustomCalendarCellViewModel: CustomCalendarCellProtocol {
     func checkDateIsSunday(to date: Date) {
         let calendar = Calendar.current
         let week = calendar.component(.weekday, from: date)
-        isSunday = week == 2
+        isSunday = week == 1
     }
     
 }
