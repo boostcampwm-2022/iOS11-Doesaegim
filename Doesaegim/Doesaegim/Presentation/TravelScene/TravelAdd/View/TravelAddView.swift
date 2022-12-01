@@ -59,14 +59,9 @@ final class TravelAddView: UIView {
         return label
     }()
     
-    let travelTitleTextField: UITextField = {
-        let textField = UITextField()
+    let travelTitleTextField: AddViewTextField = {
+        let textField = AddViewTextField()
         textField.placeholder = StringLiteral.travelTitlePlaceholder
-        textField.layer.cornerRadius = Metric.cornerRadius
-        textField.backgroundColor = .grey1
-        textField.textColor = .black
-        textField.font = .systemFont(ofSize: 17, weight: .regular)
-        textField.addPadding(witdh: 8)
         
         return textField
     }()
@@ -132,8 +127,6 @@ final class TravelAddView: UIView {
         )
         return customCalendar
     }()
-    
-    // MARK: - Properties
     
     // MARK: - Lifecycles
     
