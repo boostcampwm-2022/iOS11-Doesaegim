@@ -20,7 +20,6 @@ final class DiaryListViewController: UIViewController {
         = NSDiffableDataSourceSnapshot<String, DiaryInfoViewModel>
     typealias HeaderRegistration
         = UICollectionView.SupplementaryRegistration<DiaryListHeaderView>
-    // TODO: - 헤더 등록타입
     
     // MARK: - Properties
     
@@ -213,6 +212,8 @@ extension DiaryListViewController: UICollectionViewDelegate {
     }
 }
 
+// MARK: - DiaryListViewModelDelegate
+
 extension DiaryListViewController: DiaryListViewModelDelegate {
     
     func diaryInfoDidChage() {
@@ -231,6 +232,17 @@ extension DiaryListViewController: DiaryListViewModelDelegate {
         }
         
         diaryDataSource?.apply(snapshot, animatingDifferences: true)
+    }
+    
+    func diaryListFetchDidFail() {
+        let alert = UIAlertController(
+            title: "불러오기 실패",
+            message: "다이어리 정보를 불러오는데 실패하였습니다",
+            preferredStyle: .alert
+        )
+        let alertAction = UIAlertAction(title: "확인", style: .default)
+        alert.addAction(alertAction)
+        present(alert, animated: true)
     }
 }
 

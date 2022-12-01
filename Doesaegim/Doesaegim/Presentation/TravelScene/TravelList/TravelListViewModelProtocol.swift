@@ -35,4 +35,8 @@ protocol TravelListViewModelDelegate: AnyObject {
     /// `TravelListViewModelProtocol`을 준수하는 클래스에서 삭제요청이 실패했을 때 호출되는 메서드 입니다.
     /// 사용자에게 삭제를 실패했다는 알림창을 띄워주도록 구현되어야합니다.
     func travelListDeleteDataDidFail()
+    
+    /// `TravelListViewModelProtocol`을 준수하는 클래스에서 fetch 요청이 실패했을 때 호출되는 메서드 입니다.
+    /// 사용자에게 여행정보 데이터를 불러오는데 실패하였다는 알림창을 띄워주도록 구현되어야합니다.
+    func travelListFetchDidFail()
 }

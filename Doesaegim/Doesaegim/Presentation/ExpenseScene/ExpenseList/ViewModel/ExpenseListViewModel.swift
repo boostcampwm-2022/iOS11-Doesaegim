@@ -91,7 +91,6 @@ extension ExpenseListViewModel {
                 travel.addToExpense(expense)
             case .failure(let error):
                 print(error.localizedDescription)
-                // TODO: 사용자 에러 알림 추가
             }
         }
         

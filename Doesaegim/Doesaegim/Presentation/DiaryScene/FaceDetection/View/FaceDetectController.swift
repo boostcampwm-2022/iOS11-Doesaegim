@@ -321,7 +321,7 @@ extension FaceDetectController: FaceDetectViewModeleDelegate {
             message: "얼굴인식에 실패하였습니다",
             preferredStyle: .alert
         )
-        let alertAction = UIAlertAction(title: "네", style: .default)
+        let alertAction = UIAlertAction(title: "확인", style: .default)
         alert.addAction(alertAction)
         present(alert, animated: true, completion: nil)
     }
@@ -332,7 +332,7 @@ extension FaceDetectController: FaceDetectViewModeleDelegate {
             message: "이전 화면으로 돌아갑니다",
             preferredStyle: .alert
         )
-        let alertAction = UIAlertAction(title: "네", style: .default) { _ in
+        let alertAction = UIAlertAction(title: "확인", style: .default) { _ in
             self.navigationController?.popViewController(animated: true)
         }
         alert.addAction(alertAction)

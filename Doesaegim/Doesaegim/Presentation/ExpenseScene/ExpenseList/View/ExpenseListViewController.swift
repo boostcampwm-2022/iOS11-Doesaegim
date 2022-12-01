@@ -53,11 +53,6 @@ final class ExpenseListViewController: UIViewController {
         viewModel?.fetchCurrentTravel(with: travelID)
 //        viewModel?.addExpenseData()
         viewModel?.fetchExpenseData()
-        
-        // TODO: - 임시 데이터 추가코드 추후 삭제
-        for _ in 0..<10 {
-            
-        }
     }
     
     // MARK: - Configuration
@@ -89,7 +84,6 @@ final class ExpenseListViewController: UIViewController {
         }
         
         placeholdView.snp.makeConstraints {
-            // TODO: - 뷰의 위치 추후 다시 설정
             $0.centerX.equalTo(view.snp.centerX)
             $0.centerY.equalTo(view.snp.centerY).multipliedBy(1.3)
             $0.width.equalTo(view.bounds.width - 100)
@@ -202,13 +196,11 @@ final class ExpenseListViewController: UIViewController {
             supplementaryView.configureData(with: self?.viewModel)
         }
         
-        // TODO: - section Header 타이틀 바꾸기
         let sectionHeaderRegistration = SectionHeaderRegistration(
             elementKind: HeaderKind.sectionHeader
         ) { _, _, _ in
         }
         
-        // TODO: - 추후 self에 접근한다면 [weak self] 작성
         expenseDataSource?.supplementaryViewProvider = { (collectionView, kind, indexPath) in
             
             if kind == HeaderKind.globalHeader {
@@ -270,7 +262,7 @@ extension ExpenseListViewController: ExpenseListViewModelDelegate {
             preferredStyle: .alert
         )
         
-        let alertAction = UIAlertAction(title: "네", style: .default)
+        let alertAction = UIAlertAction(title: "확인", style: .default)
         alert.addAction(alertAction)
         present(alert, animated: true, completion: nil)
     }

@@ -78,7 +78,7 @@ extension DiaryListViewModel {
             
         case .failure(let error):
             print(error.localizedDescription)
-            // TODO: - 에러처리
+            delegate?.diaryListFetchDidFail()
         }
         
     }

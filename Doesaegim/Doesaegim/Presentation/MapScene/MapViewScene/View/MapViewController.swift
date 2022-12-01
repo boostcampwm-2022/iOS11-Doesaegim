@@ -109,7 +109,6 @@ final class MapViewController: UIViewController {
         
         let pin = DiaryAnnotation(coordinate: coordinate)
         pin.configure(with: diaryInfo)
-        // TODO: - 이미지 경로 이곳에서 설정하고 mapView(annotation:mapView) 메서드에서 경로로 이미지받아와서 붙인다.
         mapView.addAnnotation(pin)
     }
     
@@ -135,8 +134,7 @@ extension MapViewController: MKMapViewDelegate {
         if let annotation = view.annotation, annotation.isKind(of: DiaryAnnotation.self) {
             guard let annotation = annotation as? DiaryAnnotation,
                   let id = annotation.id else { return }
-            
-//            let diaryViewController = DiaryDetailViewController(id: id)
+        
             let diaryViewController = DiaryDetailViewController(id: id)
             diaryViewController.modalPresentationStyle = .popover
             let presentationController =  diaryViewController.popoverPresentationController

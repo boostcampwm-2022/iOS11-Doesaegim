@@ -22,5 +22,6 @@ protocol DiaryListViewModelProtocol: AnyObject {
 protocol DiaryListViewModelDelegate: AnyObject {
     
     func diaryInfoDidChage()
+    func diaryListFetchDidFail()
     
 }
