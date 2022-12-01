@@ -314,4 +314,28 @@ extension FaceDetectController: FaceDetectViewModeleDelegate {
         detectDataSource?.apply(snapshot)
         
     }
+    
+    func faceDetectDidFail() {
+        let alert = UIAlertController(
+            title: "인식 실패",
+            message: "얼굴인식에 실패하였습니다",
+            preferredStyle: .alert
+        )
+        let alertAction = UIAlertAction(title: "네", style: .default)
+        alert.addAction(alertAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func faceDetectCountZero() {
+        let alert = UIAlertController(
+            title: "인식된 얼굴이 없습니다",
+            message: "이전 화면으로 돌아갑니다",
+            preferredStyle: .alert
+        )
+        let alertAction = UIAlertAction(title: "네", style: .default) { _ in
+            self.navigationController?.popViewController(animated: true)
+        }
+        alert.addAction(alertAction)
+        present(alert, animated: true, completion: nil)
+    }
 }

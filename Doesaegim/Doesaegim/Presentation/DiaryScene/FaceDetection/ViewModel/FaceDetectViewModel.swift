@@ -66,12 +66,13 @@ extension FaceDetectViewModel {
             options: [:]
         )
         
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             do {
                 try imageRequestHandler.perform(reqeusts)
             } catch {
                 print(error.localizedDescription)
                 // TODO: - 에러처리. 알림 등
+                self?.delegate?.faceDetectDidFail()
                 return
             }
         }
@@ -124,6 +125,7 @@ extension FaceDetectViewModel {
         // TODO: - 사용자에게 알림 등 에러처리.
         if let error = error {
             print(error.localizedDescription)
+            delegate?.faceDetectDidFail()
             return
         }
         
@@ -131,6 +133,7 @@ extension FaceDetectViewModel {
         DispatchQueue.main.async {
             guard let drawLayer = self.pathLayer,
                   let results = request?.results as? [VNFaceObservation] else { return }
+            if results.isEmpty { self.delegate?.faceDetectCountZero() } // 인식된 얼굴이 없을 때 delegate메서드 호출
             self.delegate?.drawFaceDetection(faces: results, onImageWithBounds: drawLayer.bounds)
             drawLayer.setNeedsDisplay()
         }

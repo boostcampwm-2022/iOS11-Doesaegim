@@ -43,7 +43,8 @@ extension ExpenseListViewModel {
             
         case .failure(let error):
             print(error.localizedDescription)
-            // TODO: - 사용자 에러처리, 알림 등 delegate 메서드 실행
+            // 사용자에게 데이터를 불러오기 실패 알림을 보여준다.
+            delegate?.expenseListFetchDidFail()
         }
         
     }
@@ -65,9 +66,6 @@ extension ExpenseListViewModel {
         }
         sections = newSections.sorted(by: sortByDateString)
         expenseInfos = newExpenses.sorted(by: sortByDate)
-        
-        
-//        expenseInfos.append(contentsOf: newExpenses)
     }
     
     // 임시로 작성한 메서드. 추후 삭제 더미 지출 데이터를 추가한다.

@@ -27,5 +27,7 @@ protocol FaceDetectViewModeleDelegate: AnyObject {
     
     func drawFaceDetection(faces: [VNFaceObservation], onImageWithBounds bounds: CGRect)
     func detectInfoDidChange()
+    func faceDetectDidFail()
+    func faceDetectCountZero()
     
 }

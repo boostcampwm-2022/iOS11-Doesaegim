@@ -183,6 +183,19 @@ extension TravelListViewController: TravelListViewModelDelegate {
             placeholdLabel.isHidden = true
         }
     }
+    
+    func travelListDeleteDataDidFail() {
+        let alert = UIAlertController(
+            title: "삭제 실패",
+            message: "여행정보를 삭제하는데에 실피하였습니다.",
+            preferredStyle: .alert
+        )
+        
+        let okAction = UIAlertAction(title: "네", style: .default)
+        alert.addAction(okAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 // MARK: - UICollectionViewDelegate
@@ -233,4 +246,6 @@ extension TravelListViewController {
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
+    
+
 }

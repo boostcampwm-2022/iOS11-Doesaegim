@@ -248,12 +248,7 @@ extension ExpenseListViewController: ExpenseListViewModelDelegate {
         guard let viewModel = viewModel else { return }
         
         let expenseInfos = viewModel.expenseInfos
-        
-        if expenseInfos.isEmpty {
-            placeholdView.isHidden = false
-        } else {
-            placeholdView.isHidden = true
-        }
+        placeholdView.isHidden = !expenseInfos.isEmpty
         
         var snapshot = SnapShot()
         snapshot.appendSections(viewModel.sections)
@@ -266,6 +261,18 @@ extension ExpenseListViewController: ExpenseListViewModelDelegate {
         }
         
         expenseDataSource?.apply(snapshot)
+    }
+    
+    func expenseListFetchDidFail() {
+        let alert = UIAlertController(
+            title: "불러오기 실패",
+            message: "지출 정보를 불러오는데에 실패하였습니다",
+            preferredStyle: .alert
+        )
+        
+        let alertAction = UIAlertAction(title: "네", style: .default)
+        alert.addAction(alertAction)
+        present(alert, animated: true, completion: nil)
     }
 }
 
