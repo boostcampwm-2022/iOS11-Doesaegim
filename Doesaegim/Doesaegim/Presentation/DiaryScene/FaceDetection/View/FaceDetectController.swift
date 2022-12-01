@@ -228,7 +228,6 @@ extension FaceDetectController {
         var imageWidth = fullImageWidth / scaleDownRatio
         var imageHeight = fullImageHeight / scaleDownRatio
         
-        // TODO: - 다시 살펴보기 -> imageView의 leading constraint만큼 더해주어야 한다.
         let xLayer = (imageFrame.width - imageWidth) / 2 + 60
         let yLayer = imageView.frame.minY + (imageFrame.height - imageHeight) / 2
 

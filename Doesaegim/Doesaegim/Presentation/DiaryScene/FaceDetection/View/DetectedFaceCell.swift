@@ -11,7 +11,7 @@ final class DetectedFaceCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    static let identifier: String = NSStringFromClass(DetectedFaceCell.self)
+    static let reusableID: String = String(describing: DetectedFaceCell.self)
     
     let imageView: UIImageView = {
         let imageView = UIImageView()

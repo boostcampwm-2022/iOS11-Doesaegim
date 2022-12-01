@@ -12,7 +12,6 @@ import Vision
 
 final class FaceDetectViewModel: FaceDetectViewModelProtocol {
     var delegate: FaceDetectViewModeleDelegate?
-    // TODO: - boundInfos didSet... 변경에 따른 컬렉션뷰도 변경하도록 수정하기
     var detectInfos: [DetectInfoViewModel] {
         didSet {
             delegate?.detectInfoDidChange()
@@ -71,7 +70,6 @@ extension FaceDetectViewModel {
                 try imageRequestHandler.perform(reqeusts)
             } catch {
                 print(error.localizedDescription)
-                // TODO: - 에러처리. 알림 등
                 self?.delegate?.faceDetectDidFail()
                 return
             }
@@ -114,14 +112,13 @@ extension FaceDetectViewModel {
 
 extension FaceDetectViewModel {
     fileprivate func handleDetectedFaces(request: VNRequest?, error: Error?) {
-        // TODO: - 사용자에게 알림 등 에러처리.
         if let error = error {
             print(error.localizedDescription)
             delegate?.faceDetectDidFail()
             return
         }
         
-        // TODO: - 인식한 얼굴의 위치에 사각형을 그려주는 작업. 화면에 그리는 것이기 때문에 main thread에서 작업해야 함.
+        // 인식한 얼굴의 위치에 사각형을 그려주는 작업. 화면에 그리는 것이기 때문에 main thread에서 작업해야 함.
         DispatchQueue.main.async {
             guard let drawLayer = self.pathLayer,
                   let results = request?.results as? [VNFaceObservation] else { return }
