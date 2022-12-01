@@ -50,8 +50,10 @@ final class ExpenseListViewController: UIViewController {
         configureCollectionView()
         configureCollectionViewDataSource()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         viewModel?.fetchCurrentTravel(with: travelID)
-//        viewModel?.addExpenseData()
         viewModel?.fetchExpenseData()
     }
     

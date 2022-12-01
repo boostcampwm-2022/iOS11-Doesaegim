@@ -55,9 +55,6 @@ final class DiaryListViewController: UIViewController {
         configure()
         
         viewModel?.delegate = self
-        
-//        viewModel?.addDummyDiaryData()
-//        viewModel?.fetchDiary()
     }
 
     override func viewWillAppear(_ animated: Bool) {
