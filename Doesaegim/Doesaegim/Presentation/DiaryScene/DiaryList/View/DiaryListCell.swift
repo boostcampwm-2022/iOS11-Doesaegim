@@ -64,6 +64,7 @@ final class DiaryListCell: UICollectionViewCell {
     
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 10
         
