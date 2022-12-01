@@ -11,8 +11,8 @@ final class ExpenseCollectionHeaderView: UICollectionReusableView {
     
     // MARK: - UI Properties
     
-    /// 원형 차트 뷰
-    private lazy var pieChart = CustomPieChart(items: data)
+    /// 세그먼티드 컨트롤, 원형 차트, 막대 차트가 포함된 차트 뷰
+    private let expenseChartView = ExpenseChartView()
     
     /// 여행 제목 레이블
     private let travelTitleLabel: UILabel = {
@@ -59,13 +59,6 @@ final class ExpenseCollectionHeaderView: UICollectionReusableView {
         }
     }
     
-    /// 차트 데이터
-    private var data: [CustomChartItem] = ExpenseCollectionHeaderView.dummyData {
-        didSet {
-            pieChart.setupData(with: data)
-        }
-    }
-    
     // MARK: - Init
     
     override init(frame: CGRect) {
@@ -90,7 +83,8 @@ final class ExpenseCollectionHeaderView: UICollectionReusableView {
     
     /// 차트 뷰, 여행 타이틀 레이블, 예산 레이블 등의 서브 뷰들을 추가한다.
     private func configureSubviews() {
-        contentStack.addArrangedSubviews(pieChart, travelTitleLabel, expenseBudgetLabel)
+        contentStack.addArrangedSubviews(expenseChartView, travelTitleLabel, expenseBudgetLabel)
+
         addSubviews(contentStack, blurEffectView)
     }
     
@@ -105,28 +99,12 @@ final class ExpenseCollectionHeaderView: UICollectionReusableView {
     /// - Parameter data: 여행 제목, 지출 데이터가 포함된 뷰모델 프로토콜
     func configureData(with data: ExpenseListViewModelProtocol?) {
         guard let data else { return }
-        
-        var graphData: [CustomChartItem] = ExpenseType.allCases.map {
-            CustomChartItem(category: $0, value: 0)
-        } // 사용자가 지출정보를 추가하는 순서대로 조각이 표시되는 게 아닌, 카테고리 자체 순서대로 조각이 추가되도록
-        
-        data.expenseInfos.forEach { item in
-            guard let type = ExpenseType(rawValue: item.category) else { return }
-            let graphValue = CGFloat(item.cost)
-            
-            if let foundIndex = graphData.firstIndex(where: { $0.category == type }) {
-                graphData[foundIndex].value += graphValue
-            }
-        }
-        graphData = graphData.filter { $0.value != 0 }
-        
+        expenseChartView.setupData(with: data)
         let totalExpenses = data.expenseInfos.reduce(0) { $0 + $1.cost }
         
         travelTitleLabel.text = data.currentTravel?.name
         expenseBudgetLabel.text = "총 지출액: \(totalExpenses.numberFormatter())원"
-        
-        if !graphData.isEmpty { self.data = graphData }
-        isBlur = graphData.isEmpty
+        isBlur = data.expenseInfos.isEmpty
     }
 }
 
@@ -141,16 +119,4 @@ extension ExpenseCollectionHeaderView {
         static let defaultTravelTitle = "되새김 여행"
         static let defaultExpenseBudgetText = "129,000 / 320,000"
     }
-}
-
-// MARK: - Chart dummy data
-
-extension ExpenseCollectionHeaderView {
-    static let dummyData = [
-        CustomChartItem(category: .food, value: 70),
-        CustomChartItem(category: .shopping, value: 30),
-        CustomChartItem(category: .transportation, value: 50),
-        CustomChartItem(category: .room, value: 60),
-        CustomChartItem(category: .other, value: 20)
-    ]
 }

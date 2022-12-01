@@ -54,6 +54,11 @@
 		B57D962E2922318F00B510B8 /* ExpenseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962D2922318F00B510B8 /* ExpenseDTO.swift */; };
 		B57D9630292231FC00B510B8 /* DiaryDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962F292231FC00B510B8 /* DiaryDTO.swift */; };
 		B595A984292CE53100C3B897 /* ExpenseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B595A983292CE53100C3B897 /* ExpenseType.swift */; };
+		B5B497CB29374BEF009AE4AC /* CustomBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B497CA29374BEF009AE4AC /* CustomBarChart.swift */; };
+		B5B497CD29374C58009AE4AC /* BarShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B497CC29374C58009AE4AC /* BarShapeLayer.swift */; };
+		B5B497D6293777EE009AE4AC /* ExpenseChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B497D5293777EE009AE4AC /* ExpenseChartView.swift */; };
+		B5B497DA29378ABF009AE4AC /* BarBackgroundLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B497D929378ABF009AE4AC /* BarBackgroundLayer.swift */; };
+		B5B497DC29379FC3009AE4AC /* BarTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B497DB29379FC3009AE4AC /* BarTextLayer.swift */; };
 		B5C096B629235416007426B1 /* SearchingLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096B529235416007426B1 /* SearchingLocationViewController.swift */; };
 		B5C096B829235428007426B1 /* SearchingLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096B729235428007426B1 /* SearchingLocationView.swift */; };
 		B5C096BC29235B08007426B1 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C096BB29235B08007426B1 /* SearchResultCell.swift */; };
@@ -227,6 +232,11 @@
 		B57D962D2922318F00B510B8 /* ExpenseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDTO.swift; sourceTree = "<group>"; };
 		B57D962F292231FC00B510B8 /* DiaryDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryDTO.swift; sourceTree = "<group>"; };
 		B595A983292CE53100C3B897 /* ExpenseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseType.swift; sourceTree = "<group>"; };
+		B5B497CA29374BEF009AE4AC /* CustomBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBarChart.swift; sourceTree = "<group>"; };
+		B5B497CC29374C58009AE4AC /* BarShapeLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarShapeLayer.swift; sourceTree = "<group>"; };
+		B5B497D5293777EE009AE4AC /* ExpenseChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseChartView.swift; sourceTree = "<group>"; };
+		B5B497D929378ABF009AE4AC /* BarBackgroundLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarBackgroundLayer.swift; sourceTree = "<group>"; };
+		B5B497DB29379FC3009AE4AC /* BarTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarTextLayer.swift; sourceTree = "<group>"; };
 		B5C096B529235416007426B1 /* SearchingLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationViewController.swift; sourceTree = "<group>"; };
 		B5C096B729235428007426B1 /* SearchingLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationView.swift; sourceTree = "<group>"; };
 		B5C096BB29235B08007426B1 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
@@ -535,6 +545,7 @@
 			children = (
 				B53763D4292B61A40073BF46 /* CustomChartItem.swift */,
 				B53763E4292B99D10073BF46 /* PieChart */,
+				B5B497C929374BDC009AE4AC /* BarChart */,
 			);
 			path = CustomGraph;
 			sourceTree = "<group>";
@@ -577,6 +588,17 @@
 				B57D962F292231FC00B510B8 /* DiaryDTO.swift */,
 			);
 			path = PersistentDTO;
+			sourceTree = "<group>";
+		};
+		B5B497C929374BDC009AE4AC /* BarChart */ = {
+			isa = PBXGroup;
+			children = (
+				B5B497CA29374BEF009AE4AC /* CustomBarChart.swift */,
+				B5B497CC29374C58009AE4AC /* BarShapeLayer.swift */,
+				B5B497D929378ABF009AE4AC /* BarBackgroundLayer.swift */,
+				B5B497DB29379FC3009AE4AC /* BarTextLayer.swift */,
+			);
+			path = BarChart;
 			sourceTree = "<group>";
 		};
 		B5C096B2292353EE007426B1 /* SearchingLocation */ = {
@@ -842,6 +864,7 @@
 				BBB31A3D2926007D00C9E3A9 /* ExpenseListViewController.swift */,
 				BB7D9A252926088A00BF2BD6 /* ExpensePlaceholdView.swift */,
 				BB7D9A2929261C0600BF2BD6 /* ExpenseListCell.swift */,
+				B5B497D5293777EE009AE4AC /* ExpenseChartView.swift */,
 				BBDB2E9329262BB300752924 /* ExpenseCollectionHeaderView.swift */,
 				BBDB2E95292635FD00752924 /* ExpenseSectionHeaderView.swift */,
 			);
@@ -1380,6 +1403,7 @@
 				EEB6C503292CC88B0060A459 /* ExchangeResponse.swift in Sources */,
 				A4CC04A429221EEE00BB678B /* Plan+CoreDataClass.swift in Sources */,
 				EEB6C500292CC4910060A459 /* Resource.swift in Sources */,
+				B5B497CB29374BEF009AE4AC /* CustomBarChart.swift in Sources */,
 				EE116C5E2924CB6B0017B519 /* TravelAddViewProtocol.swift in Sources */,
 				EEB6C4FB292CA9200060A459 /* ExpenseAddViewProtocol.swift in Sources */,
 				BBDB2E96292635FD00752924 /* ExpenseSectionHeaderView.swift in Sources */,
@@ -1415,6 +1439,7 @@
 				BB9DB8122928D0BA00102EC8 /* PersistentRepositoryProtocol.swift in Sources */,
 				A4CC04C62922799600BB678B /* CheckBox.swift in Sources */,
 				BB3DB922292CA79500C70D62 /* DiaryMapInfoViewModel.swift in Sources */,
+				B5B497D6293777EE009AE4AC /* ExpenseChartView.swift in Sources */,
 				BB3DB926292CF89400C70D62 /* DiaryAnnotation.swift in Sources */,
 				A4CC04D1292324B000BB678B /* EmptyLabeledCollectionView.swift in Sources */,
 				BBEEFA8A29376BC8005DEF38 /* UIImage+.swift in Sources */,
@@ -1432,6 +1457,7 @@
 				BB5771AC2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift in Sources */,
 				BB5771A42923A08F0034047D /* ExpenseTravelViewModel.swift in Sources */,
 				EEBA25FB292D1AE3001F8B66 /* String+ConvertRemoveComma.swift in Sources */,
+				B5B497DA29378ABF009AE4AC /* BarBackgroundLayer.swift in Sources */,
 				EEDB753329260DFB0069A7F5 /* PlanAddViewModel.swift in Sources */,
 				BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */,
 				A4C3BB6F292F05C1001C0514 /* ProgressiveImageView.swift in Sources */,
@@ -1439,6 +1465,7 @@
 				B5C096BC29235B08007426B1 /* SearchResultCell.swift in Sources */,
 				B5DE4D4029271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift in Sources */,
 				BBE695DA29228C570015FAD4 /* TravelListViewModelProtocol.swift in Sources */,
+				B5B497CD29374C58009AE4AC /* BarShapeLayer.swift in Sources */,
 				B5C096C029236BC0007426B1 /* SearchResultCellViewModel.swift in Sources */,
 				A48E9948292515020029D57D /* UIViewController+PresentAlert.swift in Sources */,
 				BB6BE55B2936020300857D25 /* FaceDetectController+CollectionView.swift in Sources */,
@@ -1498,6 +1525,7 @@
 				EEDB752F2925E8DD0069A7F5 /* CalendarViewController.swift in Sources */,
 				B5D64E67292DFED500E1CC81 /* DiaryDetailViewController.swift in Sources */,
 				B5D64E6C292E22A400E1CC81 /* DiaryDetailViewModel.swift in Sources */,
+				B5B497DC29379FC3009AE4AC /* BarTextLayer.swift in Sources */,
 				EEB6C4FD292CC29B0060A459 /* NetworkManager.swift in Sources */,
 				A4C3BB75292F3810001C0514 /* ImageStatus.swift in Sources */,
 				EE85FBC6292BAADC00FF0C7C /* ExpenseAddView.swift in Sources */,
