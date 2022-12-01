@@ -39,6 +39,15 @@ final class FaceDetectController: UIViewController {
         return imageView
     }()
     
+    private let guideLabel: UILabel = {
+        let label = UILabel()
+        
+        label.textColor = .primaryOrange
+        label.text = "모자이크 처리할 얼굴을 선택해주세요"
+        
+        return label
+    }()
+    
     lazy var collectionView: UICollectionView = {
         let layout = createCompositionalLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -101,14 +110,16 @@ final class FaceDetectController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        collectionView.delegate = self
         configureSubviews()
         configureConstraints()
+        configureNavigationBar()
         configureButtonAction()
         configureCollectionViewDataSource()
     }
     
-    override func viewDidLayoutSubviews() {
+    override func viewDidAppear(_ animated: Bool) {
         startDetect()
     }
 }
@@ -121,6 +132,7 @@ extension FaceDetectController {
     
     private func configureSubviews() {
         view.addSubview(imageView)
+        view.addSubview(guideLabel)
         view.addSubview(collectionView)
         view.addSubview(confirmButton)
     }
@@ -128,13 +140,18 @@ extension FaceDetectController {
     private func configureConstraints() {
         imageView.snp.makeConstraints {
             $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(60)
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(8)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(6)
             $0.height.equalTo(imageView.snp.width)
+        }
+        
+        guideLabel.snp.makeConstraints {
+            $0.top.equalTo(imageView.snp.bottom).offset(6)
+            $0.centerX.equalToSuperview()
         }
         
         collectionView.snp.makeConstraints {
             $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
-            $0.top.equalTo(imageView.snp.bottom).offset(6)
+            $0.top.equalTo(guideLabel.snp.bottom).offset(6)
         }
         
         confirmButton.snp.makeConstraints {
@@ -145,6 +162,10 @@ extension FaceDetectController {
         }
     }
     
+    private func configureNavigationBar() {
+        navigationItem.title = "얼굴 선택하기"
+    }
+    
     private func configureButtonAction() {
         confirmButton.addTarget(self, action: #selector(confirmButtonDidTap), for: .touchUpInside)
     }
@@ -152,7 +173,15 @@ extension FaceDetectController {
     // MARK: - Button Action
     
     @objc private func confirmButtonDidTap() {
-        print("버튼이 탭 되었습니다~")
+        guard let viewModel = viewModel,
+              let image = currentImage else { return }
+        let selectedFaces = viewModel.detectInfos.filter({ $0.isSelected })
+        
+        // 다음 뷰 컨트롤러에 현재 작업하고 있는 이미지와 선택된 얼굴의 DetectInfoViewModel인스턴스 배열을 넘겨준다.
+        // 모자이크 처리 할 뷰 컨트롤러에 이미지와 [DetectInfoViewModel] 파라미터를 받도록 해주세요
+        let mosaicController = TempMosaicViewController(image: image, selectedFaces: selectedFaces)
+        navigationController?.pushViewController(mosaicController, animated: true)
+        
     }
     
     // MARK: - ETC
@@ -177,7 +206,7 @@ extension FaceDetectController {
         pathLayer = nil
         imageView.image = nil
         
-        let correctedImage = scaleAndOrient(image: image)
+        let correctedImage = image.scaleAndOrient()
         
         imageView.image = correctedImage
         
@@ -211,86 +240,6 @@ extension FaceDetectController {
         pathLayer = drawingLayer
         viewModel?.pathLayer = pathLayer
         view.layer.addSublayer(pathLayer!)
-    }
-    
-    /// 이미지의 해상도를 재조정하고 상태에 따라 방향전환을 해주는 메서드
-    /// - Parameter image: 반영할 `UIImage`
-    /// - Returns: 해상도와 방향이 조정된 `UIImage`
-    private func scaleAndOrient(image: UIImage) -> UIImage {
-        
-        let maxResolution: CGFloat = 640
-        
-        guard let cgImage = image.cgImage else { return image }
-        
-        let width = CGFloat(cgImage.width)
-        let height = CGFloat(cgImage.height)
-        var transform = CGAffineTransform.identity
-        
-        var bounds = CGRect(x: 0, y: 0, width: width, height: height)
-        
-        let isWidthBiggerThanMaxResolution = width > maxResolution
-        let isHeightBiggerThanMaxResolution = height > maxResolution
-        if isWidthBiggerThanMaxResolution || isHeightBiggerThanMaxResolution {
-            let ratio = width / height
-            if width > height {
-                bounds.size.width = maxResolution
-                bounds.size.height = round(maxResolution / ratio)
-            } else {
-                bounds.size.width = round(maxResolution * ratio)
-                bounds.size.height = maxResolution
-            }
-        }
-        
-        let scaleRatio = bounds.size.width / width
-        let orientation = image.imageOrientation
-        switch orientation {
-        case .up:
-            transform = .identity
-        case .down:
-            transform = CGAffineTransform(translationX: width, y: height).rotated(by: .pi)
-        case .left:
-            let boundsHeight = bounds.size.height
-            bounds.size.height = bounds.size.width
-            bounds.size.width = boundsHeight
-            transform = CGAffineTransform(translationX: 0, y: width).rotated(by: 3.0 * .pi / 2.0)
-        case .right:
-            let boundsHeight = bounds.size.height
-            bounds.size.height = bounds.size.width
-            bounds.size.width = boundsHeight
-            transform = CGAffineTransform(translationX: height, y: 0).rotated(by: .pi / 2.0)
-        case .upMirrored:
-            transform = CGAffineTransform(translationX: width, y: 0).scaledBy(x: -1, y: 1)
-        case .downMirrored:
-            transform = CGAffineTransform(translationX: 0, y: height).scaledBy(x: 1, y: -1)
-        case .leftMirrored:
-            let boundsHeight = bounds.size.height
-            bounds.size.height = bounds.size.width
-            bounds.size.width = boundsHeight
-            transform = CGAffineTransform(translationX: height, y: width).scaledBy(x: -1, y: 1).rotated(by: 3.0 * .pi / 2.0)
-        case .rightMirrored:
-            let boundsHeight = bounds.size.height
-            bounds.size.height = bounds.size.width
-            bounds.size.width = boundsHeight
-            transform = CGAffineTransform(scaleX: -1, y: 1).rotated(by: .pi / 2.0)
-        default:
-            transform = .identity
-        }
-        
-        return UIGraphicsImageRenderer(size: bounds.size).image { rendererContext in
-            let context = rendererContext.cgContext
-            
-            if orientation == .right || orientation == .left {
-                context.scaleBy(x: -scaleRatio, y: scaleRatio)
-                context.translateBy(x: -height, y: 0)
-            } else {
-                context.scaleBy(x: scaleRatio, y: -scaleRatio)
-                context.translateBy(x: 0, y: -height)
-            }
-            
-            context.concatenate(transform)
-            context.draw(cgImage, in: CGRect(x: 0, y: 0, width: width, height: height))
-        }
-        
     }
     
 }
@@ -345,8 +294,6 @@ extension FaceDetectController: FaceDetectViewModeleDelegate {
         faces.forEach { observation in
             let faceBox = boundingBox(forRegionOfInterest: observation.boundingBox, withInImageBounds: bounds)
             let faceLayer = shapeLayer(color: .yellow, frame: faceBox)
-            // TODO: - 얼굴이 9개인데 왜 그 이상으로 호출되지...? 흠...
-    //            viewModel.addDetectInfo(with: self.currentImage, bound: bounds)
             pathLayer?.addSublayer(faceLayer)
             
         }

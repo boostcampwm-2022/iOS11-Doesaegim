@@ -118,6 +118,8 @@
 		BBE695DA29228C570015FAD4 /* TravelListViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE695D929228C570015FAD4 /* TravelListViewModelProtocol.swift */; };
 		BBEC31F729349FDE0064CCFA /* FaceDetectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEC31F629349FDE0064CCFA /* FaceDetectController.swift */; };
 		BBEC31FA2934B40B0064CCFA /* CGImagePropertyOrientation+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEC31F92934B40B0064CCFA /* CGImagePropertyOrientation+.swift */; };
+		BBEEFA8A29376BC8005DEF38 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEEFA8929376BC8005DEF38 /* UIImage+.swift */; };
+		BBEEFA8C29377572005DEF38 /* TempMosaicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEEFA8B29377572005DEF38 /* TempMosaicViewController.swift */; };
 		BBFAC087291CBDD700D7FD57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC086291CBDD700D7FD57 /* AppDelegate.swift */; };
 		BBFAC089291CBDD700D7FD57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC088291CBDD700D7FD57 /* SceneDelegate.swift */; };
 		BBFAC08B291CBDD700D7FD57 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC08A291CBDD700D7FD57 /* MainTabBarController.swift */; };
@@ -287,6 +289,8 @@
 		BBE695D929228C570015FAD4 /* TravelListViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListViewModelProtocol.swift; sourceTree = "<group>"; };
 		BBEC31F629349FDE0064CCFA /* FaceDetectController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDetectController.swift; sourceTree = "<group>"; };
 		BBEC31F92934B40B0064CCFA /* CGImagePropertyOrientation+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImagePropertyOrientation+.swift"; sourceTree = "<group>"; };
+		BBEEFA8929376BC8005DEF38 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
+		BBEEFA8B29377572005DEF38 /* TempMosaicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempMosaicViewController.swift; sourceTree = "<group>"; };
 		BBFAC083291CBDD700D7FD57 /* Doesaegim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doesaegim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBFAC086291CBDD700D7FD57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BBFAC088291CBDD700D7FD57 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -800,6 +804,7 @@
 				BB6BE55C29360A2F00857D25 /* DetectedFaceCell.swift */,
 				BBEC31F629349FDE0064CCFA /* FaceDetectController.swift */,
 				BB6BE55A2936020300857D25 /* FaceDetectController+CollectionView.swift */,
+				BBEEFA8B29377572005DEF38 /* TempMosaicViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -879,6 +884,7 @@
 		BBD0D064291DED61007D0D82 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				BBEEFA8829376BC3005DEF38 /* UIImage */,
 				BBEC31F82934B3ED0064CCFA /* CGImagePropertyOrientation */,
 				EEBA25F9292D1AB2001F8B66 /* String */,
 				BB5DE44A292B8DF4001DA6F6 /* Int */,
@@ -913,6 +919,14 @@
 				BBEC31F92934B40B0064CCFA /* CGImagePropertyOrientation+.swift */,
 			);
 			path = CGImagePropertyOrientation;
+			sourceTree = "<group>";
+		};
+		BBEEFA8829376BC3005DEF38 /* UIImage */ = {
+			isa = PBXGroup;
+			children = (
+				BBEEFA8929376BC8005DEF38 /* UIImage+.swift */,
+			);
+			path = UIImage;
 			sourceTree = "<group>";
 		};
 		BBF10A8929231DAD00F8E078 /* TravelList */ = {
@@ -1355,6 +1369,7 @@
 				B5C096B629235416007426B1 /* SearchingLocationViewController.swift in Sources */,
 				BBD0D05B291DE956007D0D82 /* TravelListViewController.swift in Sources */,
 				BBE695D829228B560015FAD4 /* TravelListViewModel.swift in Sources */,
+				BBEEFA8C29377572005DEF38 /* TempMosaicViewController.swift in Sources */,
 				BB9DB80E2928CA6A00102EC8 /* ExpenseListViewModelProtocol.swift in Sources */,
 				EE3FB856293751A00024AEE1 /* DiaryPhotoDetailViewController.swift in Sources */,
 				B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */,
@@ -1402,6 +1417,7 @@
 				BB3DB922292CA79500C70D62 /* DiaryMapInfoViewModel.swift in Sources */,
 				BB3DB926292CF89400C70D62 /* DiaryAnnotation.swift in Sources */,
 				A4CC04D1292324B000BB678B /* EmptyLabeledCollectionView.swift in Sources */,
+				BBEEFA8A29376BC8005DEF38 /* UIImage+.swift in Sources */,
 				BBFAC08B291CBDD700D7FD57 /* MainTabBarController.swift in Sources */,
 				A4EB25C2292BB518002D129A /* DiaryAddLocalRepository.swift in Sources */,
 				B5C096C629238A0B007426B1 /* SearchingLocationViewModelDelegate.swift in Sources */,
