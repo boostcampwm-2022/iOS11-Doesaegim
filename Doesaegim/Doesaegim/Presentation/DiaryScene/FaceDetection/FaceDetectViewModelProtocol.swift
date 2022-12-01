@@ -19,7 +19,6 @@ protocol FaceDetectViewModelProtocol: AnyObject {
     func performVisionRequest(image: CGImage, orientation: CGImagePropertyOrientation)
     func cropImage(of image: UIImage?, with cropRect: CGRect) -> UIImage?
     func addDetectInfo(with image: UIImage?, boundingBox: CGRect)
-    func addDetectInfo(with image: UIImage?, bound: CGRect)
     
 }
 

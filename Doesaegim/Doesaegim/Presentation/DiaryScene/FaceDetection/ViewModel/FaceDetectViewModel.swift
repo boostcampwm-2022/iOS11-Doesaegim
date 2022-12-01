@@ -93,14 +93,6 @@ extension FaceDetectViewModel {
         detectInfos.append(newDetectInfo)
     }
     
-    func addDetectInfo(with image: UIImage?, bound: CGRect) {
-        guard let image = image,
-              let croppedImage = cropImage(of: image, with: bound) else { return }
-        
-        let newDetectInfo = DetectInfoViewModel(uuid: UUID(), image: croppedImage, bound: bound)
-        detectInfos.append(newDetectInfo)
-    }
-    
     func cropImage(of image: UIImage?, with cropRect: CGRect) -> UIImage? {
         
         guard let image = image,
