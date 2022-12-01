@@ -23,17 +23,7 @@ final class FaceDetectViewModel: FaceDetectViewModelProtocol {
     private lazy var faceDetectionRequest
         = VNDetectFaceRectanglesRequest(completionHandler: handleDetectedFaces)
     
-    init(image: UIImage?) {
-        self.image = image
-        detectInfos = []
-        // 시뮬레이터에서 동작할 수 있도록
-#if targetEnvironment(simulator)
-        faceDetectionRequest.usesCPUOnly = true
-#endif
-    }
-    
-    init(imageData: Data) {
-        self.image = UIImage(data: imageData)
+    init() {
         detectInfos = []
         // 시뮬레이터에서 동작할 수 있도록
 #if targetEnvironment(simulator)

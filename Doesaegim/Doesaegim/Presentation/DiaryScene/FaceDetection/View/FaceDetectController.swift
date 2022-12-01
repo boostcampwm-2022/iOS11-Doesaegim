@@ -74,17 +74,6 @@ final class FaceDetectController: UIViewController {
     
     // MARK: - Initializer(s)
     
-    /// 기본이미지를 받아오는 생성자. 실험시 이 생성자를 사용한다.
-    init() {
-        super.init(nibName: nil, bundle: nil)
-        self.currentImage = UIImage(named: "face_example")
-//        self.currentImage = UIImage(named: "monalisa")
-        imageView.image = self.currentImage
-        self.viewModel = FaceDetectViewModel(image: UIImage(named: "face_example"))
-//        self.viewModel = FaceDetectViewModel(image: UIImage(named: "monalisa"))
-        self.viewModel?.delegate = self
-    }
-    
     init(data: Data, viewModel: FaceDetectViewModelProtocol) {
         super.init(nibName: nil, bundle: nil)
         let image = UIImage(data: data)

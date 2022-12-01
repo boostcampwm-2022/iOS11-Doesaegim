@@ -85,7 +85,7 @@ final class DiaryPhotoDetailViewController: UIViewController {
             title: "모자이크 후 공유하기") { [weak self] _ in
                 guard let self,
                       let image = self.photoImageView.image else { return }
-                let controller = FaceDetectController(image: image, viewModel: FaceDetectViewModel(image: image))
+                let controller = FaceDetectController(image: image, viewModel: FaceDetectViewModel())
                 self.navigationController?.pushViewController(controller, animated: true)
             }
         let sharedToActivityViewController = UIAction(
