@@ -12,6 +12,9 @@
 		A48E994A292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48E9949292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift */; };
 		A4971D74291CC3A9008B337F /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = A4971D73291CC3A9008B337F /* .swiftlint.yml */; };
 		A49FD4662934DF7D00A92427 /* TranslucentActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49FD4652934DF7D00A92427 /* TranslucentActivityIndicatorView.swift */; };
+		A4B82D8A2938933100347B71 /* BlurredImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B82D892938933100347B71 /* BlurredImageViewController.swift */; };
+		A4B82D8C2938B6F200347B71 /* CIImage+Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B82D8B2938B6F200347B71 /* CIImage+Filters.swift */; };
+		A4B82D8E2938BB4C00347B71 /* BlurredImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B82D8D2938BB4C00347B71 /* BlurredImageViewModel.swift */; };
 		A4C3BB6F292F05C1001C0514 /* ProgressiveImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C3BB6E292F05C1001C0514 /* ProgressiveImageView.swift */; };
 		A4C3BB71292F0979001C0514 /* ProgressiveImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C3BB70292F0979001C0514 /* ProgressiveImageCollectionViewCell.swift */; };
 		A4C3BB75292F3810001C0514 /* ImageStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C3BB74292F3810001C0514 /* ImageStatus.swift */; };
@@ -124,7 +127,6 @@
 		BBEC31F729349FDE0064CCFA /* FaceDetectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEC31F629349FDE0064CCFA /* FaceDetectController.swift */; };
 		BBEC31FA2934B40B0064CCFA /* CGImagePropertyOrientation+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEC31F92934B40B0064CCFA /* CGImagePropertyOrientation+.swift */; };
 		BBEEFA8A29376BC8005DEF38 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEEFA8929376BC8005DEF38 /* UIImage+.swift */; };
-		BBEEFA8C29377572005DEF38 /* TempMosaicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEEFA8B29377572005DEF38 /* TempMosaicViewController.swift */; };
 		BBFAC087291CBDD700D7FD57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC086291CBDD700D7FD57 /* AppDelegate.swift */; };
 		BBFAC089291CBDD700D7FD57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC088291CBDD700D7FD57 /* SceneDelegate.swift */; };
 		BBFAC08B291CBDD700D7FD57 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC08A291CBDD700D7FD57 /* MainTabBarController.swift */; };
@@ -190,6 +192,9 @@
 		A48E9949292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+SetRightBarPlusButton.swift"; sourceTree = "<group>"; };
 		A4971D73291CC3A9008B337F /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		A49FD4652934DF7D00A92427 /* TranslucentActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslucentActivityIndicatorView.swift; sourceTree = "<group>"; };
+		A4B82D892938933100347B71 /* BlurredImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurredImageViewController.swift; sourceTree = "<group>"; };
+		A4B82D8B2938B6F200347B71 /* CIImage+Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CIImage+Filters.swift"; sourceTree = "<group>"; };
+		A4B82D8D2938BB4C00347B71 /* BlurredImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurredImageViewModel.swift; sourceTree = "<group>"; };
 		A4C3BB6E292F05C1001C0514 /* ProgressiveImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressiveImageView.swift; sourceTree = "<group>"; };
 		A4C3BB70292F0979001C0514 /* ProgressiveImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressiveImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		A4C3BB74292F3810001C0514 /* ImageStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStatus.swift; sourceTree = "<group>"; };
@@ -300,7 +305,6 @@
 		BBEC31F629349FDE0064CCFA /* FaceDetectController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceDetectController.swift; sourceTree = "<group>"; };
 		BBEC31F92934B40B0064CCFA /* CGImagePropertyOrientation+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGImagePropertyOrientation+.swift"; sourceTree = "<group>"; };
 		BBEEFA8929376BC8005DEF38 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
-		BBEEFA8B29377572005DEF38 /* TempMosaicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempMosaicViewController.swift; sourceTree = "<group>"; };
 		BBFAC083291CBDD700D7FD57 /* Doesaegim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doesaegim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBFAC086291CBDD700D7FD57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BBFAC088291CBDD700D7FD57 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -826,7 +830,7 @@
 				BB6BE55C29360A2F00857D25 /* DetectedFaceCell.swift */,
 				BBEC31F629349FDE0064CCFA /* FaceDetectController.swift */,
 				BB6BE55A2936020300857D25 /* FaceDetectController+CollectionView.swift */,
-				BBEEFA8B29377572005DEF38 /* TempMosaicViewController.swift */,
+				A4B82D892938933100347B71 /* BlurredImageViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -835,6 +839,7 @@
 			isa = PBXGroup;
 			children = (
 				BB6BE5562935E68E00857D25 /* FaceDetectViewModel.swift */,
+				A4B82D8D2938BB4C00347B71 /* BlurredImageViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -922,6 +927,7 @@
 				A48E9949292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift */,
 				A4EB00DB2926456D00A83936 /* UIScrollView+DidPassPoint.swift */,
 				BB3DB918292C649600C70D62 /* UIView+Frame.swift */,
+				A4B82D8B2938B6F200347B71 /* CIImage+Filters.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1392,7 +1398,6 @@
 				B5C096B629235416007426B1 /* SearchingLocationViewController.swift in Sources */,
 				BBD0D05B291DE956007D0D82 /* TravelListViewController.swift in Sources */,
 				BBE695D829228B560015FAD4 /* TravelListViewModel.swift in Sources */,
-				BBEEFA8C29377572005DEF38 /* TempMosaicViewController.swift in Sources */,
 				BB9DB80E2928CA6A00102EC8 /* ExpenseListViewModelProtocol.swift in Sources */,
 				EE3FB856293751A00024AEE1 /* DiaryPhotoDetailViewController.swift in Sources */,
 				B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */,
@@ -1426,6 +1431,7 @@
 				BBFAC091291CBDD700D7FD57 /* Doesaegim.xcdatamodeld in Sources */,
 				B5D64E76292E3B6C00E1CC81 /* DiaryDetailLocalRepository.swift in Sources */,
 				BB02B096292F2A4900FE11DA /* DiaryInfoViewModel.swift in Sources */,
+				A4B82D8C2938B6F200347B71 /* CIImage+Filters.swift in Sources */,
 				BB6079B1292F3ECF00BF30C8 /* DiaryListCell.swift in Sources */,
 				EE12EA132934AF2900D41DFE /* CustomCalendarCellProtocol.swift in Sources */,
 				A4CC04D5292332C600BB678B /* UILabel+ChangeFontSize.swift in Sources */,
@@ -1438,6 +1444,7 @@
 				A4EB25CB292C92F1002D129A /* PickerDataSource.swift in Sources */,
 				BB9DB8122928D0BA00102EC8 /* PersistentRepositoryProtocol.swift in Sources */,
 				A4CC04C62922799600BB678B /* CheckBox.swift in Sources */,
+				A4B82D8A2938933100347B71 /* BlurredImageViewController.swift in Sources */,
 				BB3DB922292CA79500C70D62 /* DiaryMapInfoViewModel.swift in Sources */,
 				B5B497D6293777EE009AE4AC /* ExpenseChartView.swift in Sources */,
 				BB3DB926292CF89400C70D62 /* DiaryAnnotation.swift in Sources */,
@@ -1487,6 +1494,7 @@
 				B595A984292CE53100C3B897 /* ExpenseType.swift in Sources */,
 				BBFAC087291CBDD700D7FD57 /* AppDelegate.swift in Sources */,
 				A4CC04DE2923543500BB678B /* PlanListViewModel.swift in Sources */,
+				A4B82D8E2938BB4C00347B71 /* BlurredImageViewModel.swift in Sources */,
 				EE116C582924AA0D0017B519 /* CustomCalendarCell.swift in Sources */,
 				BB6BE55D29360A2F00857D25 /* DetectedFaceCell.swift in Sources */,
 				BBB31A392925F77900C9E3A9 /* ExpenseTravelListCell.swift in Sources */,
@@ -1697,7 +1705,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = H2N9KXXP3M;
+				DEVELOPMENT_TEAM = WA6PY6NL25;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Doesaegim/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1725,7 +1733,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = H2N9KXXP3M;
+				DEVELOPMENT_TEAM = WA6PY6NL25;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Doesaegim/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
