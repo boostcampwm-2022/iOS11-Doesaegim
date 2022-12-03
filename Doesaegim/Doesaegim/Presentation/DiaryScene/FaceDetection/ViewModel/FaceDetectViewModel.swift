@@ -12,7 +12,6 @@ import Vision
 
 final class FaceDetectViewModel: FaceDetectViewModelProtocol {
     var delegate: FaceDetectViewModeleDelegate?
-    // TODO: - boundInfos didSet... 변경에 따른 컬렉션뷰도 변경하도록 수정하기
     var detectInfos: [DetectInfoViewModel] {
         didSet {
             delegate?.detectInfoDidChange()
@@ -24,17 +23,7 @@ final class FaceDetectViewModel: FaceDetectViewModelProtocol {
     private lazy var faceDetectionRequest
         = VNDetectFaceRectanglesRequest(completionHandler: handleDetectedFaces)
     
-    init(image: UIImage?) {
-        self.image = image
-        detectInfos = []
-        // 시뮬레이터에서 동작할 수 있도록
-#if targetEnvironment(simulator)
-        faceDetectionRequest.usesCPUOnly = true
-#endif
-    }
-    
-    init(imageData: Data) {
-        self.image = UIImage(data: imageData)
+    init() {
         detectInfos = []
         // 시뮬레이터에서 동작할 수 있도록
 #if targetEnvironment(simulator)
@@ -66,12 +55,12 @@ extension FaceDetectViewModel {
             options: [:]
         )
         
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             do {
                 try imageRequestHandler.perform(reqeusts)
             } catch {
                 print(error.localizedDescription)
-                // TODO: - 에러처리. 알림 등
+                self?.delegate?.faceDetectDidFail()
                 return
             }
         }
@@ -89,14 +78,6 @@ extension FaceDetectViewModel {
         
         guard let croppedImage = cropImage(of: image, with: rect) else { return }
         let newDetectInfo = DetectInfoViewModel(uuid: UUID(), image: croppedImage, bound: rect)
-        detectInfos.append(newDetectInfo)
-    }
-    
-    func addDetectInfo(with image: UIImage?, bound: CGRect) {
-        guard let image = image,
-              let croppedImage = cropImage(of: image, with: bound) else { return }
-        
-        let newDetectInfo = DetectInfoViewModel(uuid: UUID(), image: croppedImage, bound: bound)
         detectInfos.append(newDetectInfo)
     }
     
@@ -121,16 +102,17 @@ extension FaceDetectViewModel {
 
 extension FaceDetectViewModel {
     fileprivate func handleDetectedFaces(request: VNRequest?, error: Error?) {
-        // TODO: - 사용자에게 알림 등 에러처리.
         if let error = error {
             print(error.localizedDescription)
+            delegate?.faceDetectDidFail()
             return
         }
         
-        // TODO: - 인식한 얼굴의 위치에 사각형을 그려주는 작업. 화면에 그리는 것이기 때문에 main thread에서 작업해야 함.
+        // 인식한 얼굴의 위치에 사각형을 그려주는 작업. 화면에 그리는 것이기 때문에 main thread에서 작업해야 함.
         DispatchQueue.main.async {
             guard let drawLayer = self.pathLayer,
                   let results = request?.results as? [VNFaceObservation] else { return }
+            if results.isEmpty { self.delegate?.faceDetectCountZero() } // 인식된 얼굴이 없을 때 delegate메서드 호출
             self.delegate?.drawFaceDetection(faces: results, onImageWithBounds: drawLayer.bounds)
             drawLayer.setNeedsDisplay()
         }

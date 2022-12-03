@@ -74,17 +74,6 @@ final class FaceDetectController: UIViewController {
     
     // MARK: - Initializer(s)
     
-    /// 기본이미지를 받아오는 생성자. 실험시 이 생성자를 사용한다.
-    init() {
-        super.init(nibName: nil, bundle: nil)
-        self.currentImage = UIImage(named: "face_example")
-//        self.currentImage = UIImage(named: "monalisa")
-        imageView.image = self.currentImage
-        self.viewModel = FaceDetectViewModel(image: UIImage(named: "face_example"))
-//        self.viewModel = FaceDetectViewModel(image: UIImage(named: "monalisa"))
-        self.viewModel?.delegate = self
-    }
-    
     init(data: Data, viewModel: FaceDetectViewModelProtocol) {
         super.init(nibName: nil, bundle: nil)
         let image = UIImage(data: data)
@@ -228,7 +217,6 @@ extension FaceDetectController {
         var imageWidth = fullImageWidth / scaleDownRatio
         var imageHeight = fullImageHeight / scaleDownRatio
         
-        // TODO: - 다시 살펴보기 -> imageView의 leading constraint만큼 더해주어야 한다.
         let xLayer = (imageFrame.width - imageWidth) / 2 + 60
         let yLayer = imageView.frame.minY + (imageFrame.height - imageHeight) / 2
 
@@ -312,5 +300,29 @@ extension FaceDetectController: FaceDetectViewModeleDelegate {
         snapshot.appendItems(detectInfos)
         detectDataSource?.apply(snapshot)
         
+    }
+    
+    func faceDetectDidFail() {
+        let alert = UIAlertController(
+            title: "인식 실패",
+            message: "얼굴인식에 실패하였습니다",
+            preferredStyle: .alert
+        )
+        let alertAction = UIAlertAction(title: "확인", style: .default)
+        alert.addAction(alertAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func faceDetectCountZero() {
+        let alert = UIAlertController(
+            title: "인식된 얼굴이 없습니다",
+            message: "이전 화면으로 돌아갑니다",
+            preferredStyle: .alert
+        )
+        let alertAction = UIAlertAction(title: "확인", style: .default) { _ in
+            self.navigationController?.popViewController(animated: true)
+        }
+        alert.addAction(alertAction)
+        present(alert, animated: true, completion: nil)
     }
 }

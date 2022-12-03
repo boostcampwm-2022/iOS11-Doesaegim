@@ -115,13 +115,10 @@ final class ExpenseTravelListController: UIViewController {
             cell.configureContent(with: identifier, cost: cost ?? 0)
             
             // TODO: - 페이지 네이션 기준도 상수로 만들어서 사용하면 좋겠다.
-            // pagination
-//            if let viewModel = self.viewModel,
             if indexPath.row == viewModel.travelInfos.count - 3 {
                 DispatchQueue.main.async {
                     viewModel.fetchTravelInfo()
                 }
-                //            }
             }
         }
         
@@ -177,10 +174,17 @@ extension ExpenseTravelListController: ExpenseTravelViewModelDelegate {
         }
         
         let travelInfos = viewModel.travelInfos
-        if travelInfos.isEmpty {
-            placeholdLabel.isHidden = false
-        } else {
-            placeholdLabel.isHidden = true
-        }
+        placeholdLabel.isHidden = !travelInfos.isEmpty
+    }
+    
+    func travelListFetchDidFail() {
+        let alert = UIAlertController(
+            title: "불러오기 실패",
+            message: "여행정보 불러오기를 실패하였습니다",
+            preferredStyle: .alert
+        )
+        let alertAction = UIAlertAction(title: "확인", style: .default)
+        alert.addAction(alertAction)
+        present(alert, animated: true, completion: nil)
     }
 }

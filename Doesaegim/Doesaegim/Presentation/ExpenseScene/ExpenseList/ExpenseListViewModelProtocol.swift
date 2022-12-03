@@ -26,4 +26,8 @@ protocol ExpenseListViewModelDelegate: AnyObject {
     /// `expenseInfos` 데이터를 바탕으로 `UICollectionView`의 스냅샷을 반영하는데에 사용합니다.
     func expenseListDidChanged()
     
+    /// ExpenseListViewModelProtocol에서 데이터를 패치 해오는 동작이 실패했을 때 호출되는 메서드
+    /// 사용자에게 데이터를 불러오는데 실패하였다는 Aelrt를 보여주어야합니다.
+    func expenseListFetchDidFail()
+    
 }

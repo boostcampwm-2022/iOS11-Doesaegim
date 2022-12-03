@@ -41,6 +41,10 @@ final class DiaryPhotoDetailViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        configurePhotoImageView()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         photoImageView.image = nil
     }
@@ -79,9 +83,10 @@ final class DiaryPhotoDetailViewController: UIViewController {
         
         let mosaicToShare = UIAction(
             title: "모자이크 후 공유하기") { [weak self] _ in
-                guard let self else { return }
-                // TODO: 모자이크 화면으로 넘기기..?
-                print("모자이크 공유 선택")
+                guard let self,
+                      let image = self.photoImageView.image else { return }
+                let controller = FaceDetectController(image: image, viewModel: FaceDetectViewModel())
+                self.navigationController?.pushViewController(controller, animated: true)
             }
         let sharedToActivityViewController = UIAction(
             title: "공유하기") { [weak self] _ in
