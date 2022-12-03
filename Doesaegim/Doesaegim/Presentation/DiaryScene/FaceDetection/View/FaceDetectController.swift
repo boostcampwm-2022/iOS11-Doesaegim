@@ -162,15 +162,15 @@ extension FaceDetectController {
     // MARK: - Button Action
     
     @objc private func confirmButtonDidTap() {
-        guard let viewModel = viewModel,
-              let image = currentImage else { return }
-        let selectedFaces = viewModel.detectInfos.filter({ $0.isSelected })
-        
-        // 다음 뷰 컨트롤러에 현재 작업하고 있는 이미지와 선택된 얼굴의 DetectInfoViewModel인스턴스 배열을 넘겨준다.
-        // 모자이크 처리 할 뷰 컨트롤러에 이미지와 [DetectInfoViewModel] 파라미터를 받도록 해주세요
-        let mosaicController = TempMosaicViewController(image: image, selectedFaces: selectedFaces)
-        navigationController?.pushViewController(mosaicController, animated: true)
-        
+        guard let currentImage,
+              let selectedFaces = viewModel?.detectInfos.filter({ $0.isSelected }).map({ $0.bound })
+        else {
+            return
+        }
+
+        let viewModel = BlurredImageViewModel(image: currentImage, selectedFaceRects: selectedFaces)
+        let viewController = BlurredImageViewController(viewModel: viewModel)
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     // MARK: - ETC
@@ -245,7 +245,6 @@ extension FaceDetectController {
         rect.origin.x *= imageWidth
         rect.origin.x += bounds.origin.x
         rect.origin.y = (1 - rect.origin.y) * imageHeight + bounds.origin.y
-        
         rect.size.width *= imageWidth
         rect.size.height *= imageHeight
         

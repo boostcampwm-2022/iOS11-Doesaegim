@@ -19,7 +19,7 @@ final class ShareManager {
         let renderImage = renderer.image { _ in
             shareView.drawHierarchy(in: shareView.bounds, afterScreenUpdates: true)
         }
-        
+
         let activityViewController = UIActivityViewController(
             activityItems: [renderImage],
             applicationActivities: nil
@@ -34,6 +34,24 @@ final class ShareManager {
         )
         activityViewController.popoverPresentationController?.permittedArrowDirections = []
         
+        viewController.present(activityViewController, animated: true)
+    }
+
+    func shareToActivityViewController(with image: UIImage, to viewController: UIViewController) {
+        let activityViewController = UIActivityViewController(
+            activityItems: [image],
+            applicationActivities: nil
+        )
+        activityViewController.excludedActivityTypes = [.saveToCameraRoll]
+        activityViewController.popoverPresentationController?.sourceView = viewController.view
+        activityViewController.popoverPresentationController?.sourceRect = CGRect(
+            x: viewController.view.bounds.minX,
+            y: viewController.view.bounds.minY,
+            width: 0,
+            height: 0
+        )
+        activityViewController.popoverPresentationController?.permittedArrowDirections = []
+
         viewController.present(activityViewController, animated: true)
     }
     
@@ -66,6 +84,35 @@ final class ShareManager {
             UIPasteboard.OptionsKey.expirationDate: Date().addingTimeInterval(300)
         ]
         
+        UIPasteboard.general.setItems([pasteboardItems], options: pasteboardOptions)
+        UIApplication.shared.open(storyShareURL, options: [:], completionHandler: nil)
+    }
+
+    func shareToInstagramStory(with image: UIImage, to viewController: UIViewController) {
+        guard let storyShareURL = URL(string: "instagram-stories://share") else {
+            viewController.presentErrorAlert(title: "공유하기 기능을 사용할 수 없어요.")
+            return
+        }
+        guard UIApplication.shared.canOpenURL(storyShareURL) else {
+            viewController.presentErrorAlert(title: "인스타그램 앱을 설치하셔야 이용할 수 있어요.")
+            return
+        }
+
+        guard let imageData = image.pngData() else {
+            viewController.presentErrorAlert(title: "공유할 수 없는 이미지 유형입니다.")
+            return
+        }
+
+        let pasteboardItems: [String: Any] = [
+            "com.instagram.sharedSticker.stickerImage": imageData,
+            "com.instagram.sharedSticker.backgroundTopColor": "#636e72",
+            "com.instagram.sharedSticker.backgroundBottomColor": "#b2bec3"
+        ]
+
+        let pasteboardOptions = [
+            UIPasteboard.OptionsKey.expirationDate: Date().addingTimeInterval(300)
+        ]
+
         UIPasteboard.general.setItems([pasteboardItems], options: pasteboardOptions)
         UIApplication.shared.open(storyShareURL, options: [:], completionHandler: nil)
     }
