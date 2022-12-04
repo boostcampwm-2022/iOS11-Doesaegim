@@ -12,8 +12,8 @@ final class ExpenseChartView: UIView {
     // MARK: - UI Properties
     
     private let segmentedControl: UISegmentedControl = {
-        let control = UISegmentedControl(items: ["카테고리별", "날짜별"])
-        control.selectedSegmentIndex = 0
+        let control = UISegmentedControl(items: CustomChartType.allCases.map { $0.title })
+        control.selectedSegmentIndex = CustomChartType.pie.rawValue
         
         return control
     }()
@@ -49,7 +49,7 @@ final class ExpenseChartView: UIView {
     }
     
     /// 막대 차트 데이터
-    private var barChartData: [CustomChartItem<Date>] = ExpenseChartView.barChartDummies {
+    private var barChartData: [CustomChartItem<Date>] = [] {
         didSet {
             barChart.setupData(with: barChartData)
         }
@@ -94,7 +94,7 @@ final class ExpenseChartView: UIView {
     /// 초기에 화면 진입 시 어떤 차트를 보여줄 것인지 지정한다.
     private func configureInitialChartView() {
         pieChart.isHidden = false
-        barChart.isHidden = true
+        barChart.isHidden = !pieChart.isHidden
     }
     
     /// 세그먼티드 컨트롤에 액션을 추가한다.
@@ -112,7 +112,7 @@ final class ExpenseChartView: UIView {
     @objc func segmentedControlValueDidChange() {
         let selectedIndex = segmentedControl.selectedSegmentIndex
         
-        pieChart.isHidden = selectedIndex == 0 ? false : true
+        pieChart.isHidden = selectedIndex != CustomChartType.pie.rawValue
         barChart.isHidden = !pieChart.isHidden
         
         if !pieChart.isHidden {
@@ -161,7 +161,7 @@ final class ExpenseChartView: UIView {
         expenseData.forEach { item in
             let graphValue = CGFloat(item.cost)
             
-            if let foundIndex = chartData.firstIndex(where: {$0.criterion == item.date }) {
+            if let foundIndex = chartData.firstIndex(where: { $0.criterion == item.date }) {
                 chartData[foundIndex].value += graphValue
             } else {
                 chartData.append(CustomChartItem(criterion: item.date, value: graphValue))
@@ -181,28 +181,5 @@ extension ExpenseChartView {
         CustomChartItem(criterion: .transportation, value: 50),
         CustomChartItem(criterion: .room, value: 60),
         CustomChartItem(criterion: .other, value: 20)
-    ]
-    
-    static let barChartDummies: [CustomChartItem<Date>] = [
-        CustomChartItem(
-            criterion: Date.yearMonthDateFormatter.date(from: "2022-11-30") ?? Date(),
-            value: 70
-        ),
-        CustomChartItem(
-            criterion: Date.yearMonthDateFormatter.date(from: "2022-11-30") ?? Date(),
-            value: 30
-        ),
-        CustomChartItem(
-            criterion: Date.yearMonthDateFormatter.date(from: "2022-11-30") ?? Date(),
-            value: 50
-        ),
-        CustomChartItem(
-            criterion: Date.yearMonthDateFormatter.date(from: "2022-11-30") ?? Date(),
-            value: 60
-        ),
-        CustomChartItem(
-            criterion: Date.yearMonthDateFormatter.date(from: "2022-11-30") ?? Date(),
-            value: 20
-        )
     ]
 }

@@ -52,6 +52,7 @@
 		B53763D5292B61A40073BF46 /* CustomChartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763D4292B61A40073BF46 /* CustomChartItem.swift */; };
 		B53763E3292B99B80073BF46 /* PieceShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763E2292B99B80073BF46 /* PieceShapeLayer.swift */; };
 		B53763E8292BA0760073BF46 /* PieceTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763E7292BA0760073BF46 /* PieceTextLayer.swift */; };
+		B5716134293CE56E002FDC35 /* CustomChartType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5716133293CE56E002FDC35 /* CustomChartType.swift */; };
 		B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D96252922301E00B510B8 /* TravelDTO.swift */; };
 		B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D9627292230CA00B510B8 /* PlanDTO.swift */; };
 		B57D962C2922315500B510B8 /* LocationDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D962B2922315500B510B8 /* LocationDTO.swift */; };
@@ -236,6 +237,7 @@
 		B53763D4292B61A40073BF46 /* CustomChartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChartItem.swift; sourceTree = "<group>"; };
 		B53763E2292B99B80073BF46 /* PieceShapeLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceShapeLayer.swift; sourceTree = "<group>"; };
 		B53763E7292BA0760073BF46 /* PieceTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceTextLayer.swift; sourceTree = "<group>"; };
+		B5716133293CE56E002FDC35 /* CustomChartType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChartType.swift; sourceTree = "<group>"; };
 		B57D96252922301E00B510B8 /* TravelDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDTO.swift; sourceTree = "<group>"; };
 		B57D9627292230CA00B510B8 /* PlanDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDTO.swift; sourceTree = "<group>"; };
 		B57D962B2922315500B510B8 /* LocationDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDTO.swift; sourceTree = "<group>"; };
@@ -555,6 +557,7 @@
 		B53763C8292B56600073BF46 /* CustomGraph */ = {
 			isa = PBXGroup;
 			children = (
+				B5716133293CE56E002FDC35 /* CustomChartType.swift */,
 				B53763D4292B61A40073BF46 /* CustomChartItem.swift */,
 				B53763E4292B99D10073BF46 /* PieChart */,
 				B5B497C929374BDC009AE4AC /* BarChart */,
@@ -1420,6 +1423,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE3FB85929375C960024AEE1 /* SharePopoverViewController.swift in Sources */,
+				B5716134293CE56E002FDC35 /* CustomChartType.swift in Sources */,
 				B5C421A4292F204900963B17 /* ExpenseAddPickerViewController.swift in Sources */,
 				B5C421A3292F201700963B17 /* ExpenseAddPickerViewProtocol.swift in Sources */,
 				EEA1C826292F4E6000B80901 /* ExchangeMemoryCache.swift in Sources */,
