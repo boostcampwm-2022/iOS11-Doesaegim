@@ -85,13 +85,15 @@ final class CustomPieChart: UIView {
         )
         layer.addSublayer(pieceLayer)
         
-        guard let boundingBox = pieceLayer.path?.boundingBox else { return }
-        let textLayer = PieceTextLayer(
-            center: CGPoint(x: rect.width/2, y: rect.height/2),
-            pieceBounds: boundingBox,
-            text: "\(category.rawValue)\n\(String(format: "%.2f", ratio * 100))%"
-        )
-        layer.addSublayer(textLayer)
+        if ratio >= Metric.textPresentedPercentage {
+            let textLayer = PieceTextLayer(
+                rect: rect,
+                startAngle: startAngle,
+                angle: ratio * Metric.angle,
+                text: "\(category.rawValue)\n\(String(format: "%.2f", ratio * 100))%"
+            )
+            layer.addSublayer(textLayer)
+        }
         
         if isAnimating {
             let pieceAnimation = configureLayerAnimation()
@@ -177,6 +179,9 @@ extension CustomPieChart {
         static let animationFromValue: CGFloat = 0
         static let animationToValue: CGFloat = 1
         static let animationDuration: CGFloat = 1.2
+        
+        /// 텍스트를 표시하는 기준이 되는 파이 차트 조각의 비율. 5%이상일 경우에만 텍스트를 표시한다
+        static let textPresentedPercentage: CGFloat = 0.05
     }
     
     enum StringLiteral {
