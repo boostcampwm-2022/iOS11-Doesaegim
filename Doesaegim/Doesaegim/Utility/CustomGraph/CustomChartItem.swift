@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CustomChartItem<T: Equatable> {
+struct CustomChartItem<T: Equatable>: Equatable {
     
     /// 차트데이터를 구분 짓는 기준이 되는 값.
     /// 원형 차트에서는 ExpenseType이, 막대 차트에서는 Date가 기준이 된다.

@@ -43,15 +43,17 @@ final class ExpenseChartView: UIView {
     
     /// 원형 차트 데이터
     private var pieChartData: [CustomChartItem<ExpenseType>] = ExpenseChartView.pieChartDummies {
-        didSet {
-            pieChart.setupData(with: pieChartData)
+        willSet {
+            guard pieChartData != newValue else { return }
+            pieChart.setupData(with: newValue)
         }
     }
     
     /// 막대 차트 데이터
     private var barChartData: [CustomChartItem<Date>] = [] {
-        didSet {
-            barChart.setupData(with: barChartData)
+        willSet {
+            guard barChartData != newValue else { return }
+            barChart.setupData(with: newValue)
         }
     }
     
