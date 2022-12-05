@@ -76,7 +76,16 @@ final class TravelAddViewModel: TravelAddViewProtocol {
     
     // MARK: - CoreData Function
     
-    func addTravel(travel: TravelDTO) -> Result<Travel, Error> {
-        return repository.addTravel(travel)
+    func addTravel(name: String?, startDateString: String?, endDateString: String?) -> Result<Travel, Error> {
+        guard let name,
+              let startDateString,
+              let startDate = Date.yearMonthDayDateFormatter.date(from: startDateString),
+              let endDateString,
+              let endDate = Date.yearMonthDayDateFormatter.date(from: endDateString) else {
+            return .failure(CoreDataError.saveFailure(.travel))
+        }
+        
+        let travelDTO = TravelDTO(name: name, startDate: startDate, endDate: endDate)
+        return repository.addTravel(travelDTO)
     }
 }

@@ -41,6 +41,7 @@ final class TravelAddViewController: UIViewController {
         configureViews()
         setKeyboardNotification()
         setDelegate()
+        setAddTargets()
         bindCalendar()
     }
     
@@ -167,16 +168,12 @@ extension TravelAddViewController {
         viewModel.travelTitleDidChanged(title: sender.text)
     }
     
-    @objc func addButtonTouchUpInside() {
-        guard let name = rootView.travelTitleTextField.text,
-              let startDateString = rootView.travelDateStartLabel.text,
-              let startDate = dateFormatter.date(from: startDateString),
-              let endDateString = rootView.travelDateEndLabel.text,
-              let endDate = dateFormatter.date(from: endDateString) else { return }
-        
-        let travelDTO = TravelDTO(name: name, startDate: startDate, endDate: endDate)
-        
-        let result = viewModel.addTravel(travel: travelDTO)
+    @objc func addButtonTouchUpInside() {        
+        let result = viewModel.addTravel(
+            name: rootView.travelTitleTextField.text,
+            startDateString: rootView.travelDateStartLabel.text,
+            endDateString: rootView.travelDateEndLabel.text
+        )
         switch result {
         case .success:
             navigationController?.popViewController(animated: true)
