@@ -15,6 +15,7 @@
 		A4B82D8A2938933100347B71 /* BlurredImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B82D892938933100347B71 /* BlurredImageViewController.swift */; };
 		A4B82D8C2938B6F200347B71 /* CIImage+Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B82D8B2938B6F200347B71 /* CIImage+Filters.swift */; };
 		A4B82D8E2938BB4C00347B71 /* BlurredImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B82D8D2938BB4C00347B71 /* BlurredImageViewModel.swift */; };
+		A4B82DD4293D7F2100347B71 /* Array+SafeIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B82DD3293D7F2100347B71 /* Array+SafeIndex.swift */; };
 		A4C3BB6F292F05C1001C0514 /* ProgressiveImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C3BB6E292F05C1001C0514 /* ProgressiveImageView.swift */; };
 		A4C3BB71292F0979001C0514 /* ProgressiveImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C3BB70292F0979001C0514 /* ProgressiveImageCollectionViewCell.swift */; };
 		A4C3BB75292F3810001C0514 /* ImageStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C3BB74292F3810001C0514 /* ImageStatus.swift */; };
@@ -195,6 +196,7 @@
 		A4B82D892938933100347B71 /* BlurredImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurredImageViewController.swift; sourceTree = "<group>"; };
 		A4B82D8B2938B6F200347B71 /* CIImage+Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CIImage+Filters.swift"; sourceTree = "<group>"; };
 		A4B82D8D2938BB4C00347B71 /* BlurredImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurredImageViewModel.swift; sourceTree = "<group>"; };
+		A4B82DD3293D7F2100347B71 /* Array+SafeIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+SafeIndex.swift"; sourceTree = "<group>"; };
 		A4C3BB6E292F05C1001C0514 /* ProgressiveImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressiveImageView.swift; sourceTree = "<group>"; };
 		A4C3BB70292F0979001C0514 /* ProgressiveImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressiveImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		A4C3BB74292F3810001C0514 /* ImageStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStatus.swift; sourceTree = "<group>"; };
@@ -928,6 +930,7 @@
 				A4EB00DB2926456D00A83936 /* UIScrollView+DidPassPoint.swift */,
 				BB3DB918292C649600C70D62 /* UIView+Frame.swift */,
 				A4B82D8B2938B6F200347B71 /* CIImage+Filters.swift */,
+				A4B82DD3293D7F2100347B71 /* Array+SafeIndex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1531,6 +1534,7 @@
 				A4EB25C4292BB828002D129A /* DiaryAddViewModel.swift in Sources */,
 				A4EB25BF292BB4F1002D129A /* DiaryAddRepository.swift in Sources */,
 				EEDB752F2925E8DD0069A7F5 /* CalendarViewController.swift in Sources */,
+				A4B82DD4293D7F2100347B71 /* Array+SafeIndex.swift in Sources */,
 				B5D64E67292DFED500E1CC81 /* DiaryDetailViewController.swift in Sources */,
 				B5D64E6C292E22A400E1CC81 /* DiaryDetailViewModel.swift in Sources */,
 				B5B497DC29379FC3009AE4AC /* BarTextLayer.swift in Sources */,

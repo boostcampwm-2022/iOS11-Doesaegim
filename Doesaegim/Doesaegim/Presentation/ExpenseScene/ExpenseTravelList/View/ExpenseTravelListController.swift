@@ -110,9 +110,8 @@ final class ExpenseTravelListController: UIViewController {
     private func configureCollectionViewDataSource() {
         let travelCell =  CellRegistration { cell, indexPath, identifier in
             guard let viewModel = self.viewModel,
-                  indexPath.row < viewModel.costs.count else { return }
-            let cost = viewModel.costs[indexPath.row]
-            cell.configureContent(with: identifier, cost: cost ?? 0)
+                  let cost = viewModel.costs[safeIndex: indexPath.row] else { return }
+            cell.configureContent(with: identifier, cost: cost)
             
             // TODO: - 페이지 네이션 기준도 상수로 만들어서 사용하면 좋겠다.
             if indexPath.row == viewModel.travelInfos.count - 3 {
