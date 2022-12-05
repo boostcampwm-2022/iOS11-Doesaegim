@@ -507,6 +507,7 @@
 		A4CC04DB292351E700BB678B /* TravelScene */ = {
 			isa = PBXGroup;
 			children = (
+				EE206E9B293DF11C003F2C78 /* PlanAdd */,
 				EE5D50F1293DD402006ECE87 /* TravelAdd */,
 				A4CC04DC292351F800BB678B /* PlanList */,
 			);
@@ -1037,6 +1038,7 @@
 		EE116C542924AA0D0017B519 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				EE206E9C293DF171003F2C78 /* AddViewComponents */,
 				EEB6C4F1292C8CA30060A459 /* Calendar */,
 			);
 			path = Custom;
@@ -1067,6 +1069,22 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		EE206E9B293DF11C003F2C78 /* PlanAdd */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PlanAdd;
+			sourceTree = "<group>";
+		};
+		EE206E9C293DF171003F2C78 /* AddViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				EE3FB85B29386B850024AEE1 /* AddViewSubtitleLabel.swift */,
+				EE3FB85F293894810024AEE1 /* AddViewTextField.swift */,
+			);
+			path = AddViewComponents;
+			sourceTree = "<group>";
+		};
 		EE3E29B92923C85B007C7FC7 /* TravelAdd */ = {
 			isa = PBXGroup;
 			children = (
@@ -1081,9 +1099,7 @@
 			children = (
 				EE3E29BB2923C870007C7FC7 /* TravelAddViewController.swift */,
 				EE116C5D2924CB6B0017B519 /* TravelAddViewProtocol.swift */,
-				EE3FB85B29386B850024AEE1 /* AddViewSubtitleLabel.swift */,
 				EE3FB85D2938738A0024AEE1 /* TravelAddView.swift */,
-				EE3FB85F293894810024AEE1 /* AddViewTextField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
