@@ -179,11 +179,10 @@ extension DiaryListViewController {
             )
             
             guard let viewModel = self?.viewModel,
-                  indexPath.section < viewModel.travelSections.count else {
+                  let travelName = viewModel.travelSections[safeIndex: indexPath.section] else {
                 return UICollectionReusableView()
             }
-            
-            let travelName = viewModel.travelSections[indexPath.section]
+
             sectionHeader.configureData(with: travelName)
             
             return sectionHeader
