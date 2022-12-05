@@ -19,6 +19,8 @@ protocol ExpenseAddViewProtocol: AnyObject {
     var isValidDate: Bool { get set }
     var isValidInput: Bool { get set }
     
+    var isClearInput: Bool { get set }
+    
     func isValidNameTextField(text: String?)
     func isValidAmountTextField(text: String?)
     func isValidUnitItem(item: String?)
@@ -27,9 +29,19 @@ protocol ExpenseAddViewProtocol: AnyObject {
     
     func exchangeLabelShow(amount: String?, unit: String)
     func postExpense(expense: ExpenseDTO, completion: @escaping () -> Void)
+    
+    func isClearInput(
+        name: String?,
+        amount: String?,
+        unit: String?,
+        category: String?,
+        date: String?,
+        description: String?
+    )
 }
 
 protocol ExpenseAddViewDelegate: AnyObject {
     func isValidInput(isValid: Bool)
     func exchangeLabelUpdate(result: Int)
+    func backButtonDidTap(isClear: Bool)
 }

@@ -11,7 +11,7 @@ final class DiaryListCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    static let identifier: String = NSStringFromClass(ExpenseListCell.self)
+    static let reusableID: String = String(describing: DiaryListCell.self)
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -64,6 +64,7 @@ final class DiaryListCell: UICollectionViewCell {
     
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 10
         

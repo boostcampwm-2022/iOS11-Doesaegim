@@ -88,7 +88,7 @@ final class PlanAddViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.backgroundColor = .grey1
         button.setTitleColor(.grey3, for: .normal)
-        button.setTitle("장소를 검색해주세요", for: .normal)
+        button.setTitle(StringLiteral.placeTextPlaceHolder, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
         button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         button.titleEdgeInsets = .init(top: 0, left: 15, bottom: 0, right: -5)
@@ -124,7 +124,7 @@ final class PlanAddViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.backgroundColor = .grey1
         button.setTitleColor(.grey3, for: .normal)
-        button.setTitle("날짜와 시간을 입력해주세요.", for: .normal)
+        button.setTitle(StringLiteral.datePlaceHolder, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
         button.setImage(UIImage(systemName: "calendar"), for: .normal)
         button.titleEdgeInsets = .init(top: 0, left: 15, bottom: 0, right: -5)
@@ -215,8 +215,8 @@ final class PlanAddViewController: UIViewController {
     private func configureViews() {
         configureSubviews()
         configureConstraint()
+        configureNavigationBar()
         setKeyboardNotification()
-        navigationItem.title = "일정 추가"
     }
     
     private func configureSubviews() {
@@ -286,6 +286,16 @@ final class PlanAddViewController: UIViewController {
             $0.top.equalTo(descriptionTextView.snp.bottom).offset(40)
             $0.height.equalTo(48)
         }
+    }
+    
+    private func configureNavigationBar() {
+        navigationItem.title = "일정 추가"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "chevron.backward"),
+            style: .done,
+            target: self,
+            action: #selector(backButtonTouchUpInside)
+        )
     }
     
 }
@@ -369,6 +379,15 @@ extension PlanAddViewController {
             self?.navigationController?.popViewController(animated: true)
         }
     }
+    
+    @objc func backButtonTouchUpInside() {
+        viewModel.isClearInput(
+            title: planTitleTextField.text,
+            place: placeSearchButton.titleLabel?.text,
+            date: dateInputButton.titleLabel?.text,
+            description: descriptionTextView.text
+        )
+    }
 }
 
 // MARK: - TextField Delegate
@@ -409,6 +428,15 @@ extension PlanAddViewController: PlanAddViewDelegate {
     func planAddViewDidSelectLocation(locationName: String) {
         placeSearchButton.setTitle(locationName, for: .normal)
     }
+    
+    func backButtonDidTap(isClear: Bool) {
+        if !isClear {
+            presentIsClearAlert()
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
+    }
+    
 }
 
 // MARK: - SearchingLocationViewControllerDelegate
@@ -433,6 +461,8 @@ extension PlanAddViewController: CalendarViewDelegate {
 extension PlanAddViewController {
     enum StringLiteral {
         static let planTextFieldPlaceHolder = "일정의 이름을 입력해주세요."
+        static let placeTextPlaceHolder = "장소를 검색해 주세요."
+        static let datePlaceHolder = "날짜와 시간을 입력해 주세요."
         static let descriptionTextViewPlaceHolder = "설명을 입력해주세요."
     }
 }

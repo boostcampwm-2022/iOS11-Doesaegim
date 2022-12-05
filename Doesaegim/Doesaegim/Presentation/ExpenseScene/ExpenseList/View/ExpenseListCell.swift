@@ -9,7 +9,7 @@ import UIKit
 
 final class ExpenseListCell: UICollectionViewListCell {
     
-    static let identifier: String = "\(String(describing: ExpenseListCell.self))"
+    static let identifier: String = String(describing: ExpenseListCell.self)
     
     // MARK: - Properties
     

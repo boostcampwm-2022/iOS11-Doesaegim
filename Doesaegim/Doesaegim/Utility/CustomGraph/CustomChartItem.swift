@@ -7,15 +7,17 @@
 
 import Foundation
 
-struct CustomChartItem {
-    // TODO: 막대 차트에서도 사용할 거라면 category 대신 다른 걸 사용해야함. 막대 차트는 카테고리 기준이 아니니까..!
-    let category: ExpenseType
+struct CustomChartItem<T: Equatable> {
+    
+    /// 차트데이터를 구분 짓는 기준이 되는 값.
+    /// 원형 차트에서는 ExpenseType이, 막대 차트에서는 Date가 기준이 된다.
+    let criterion: T
     
     /// 차트 데이터 값
-    let value: CGFloat
+    var value: CGFloat
     
-    init(category: ExpenseType, value: CGFloat) {
-        self.category = category
+    init(criterion: T, value: CGFloat) {
+        self.criterion = criterion
         self.value = value
     }
 }

@@ -50,14 +50,11 @@ final class ExpenseListViewController: UIViewController {
         configureCollectionView()
         configureCollectionViewDataSource()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         viewModel?.fetchCurrentTravel(with: travelID)
-//        viewModel?.addExpenseData()
         viewModel?.fetchExpenseData()
-        
-        // TODO: - 임시 데이터 추가코드 추후 삭제
-        for _ in 0..<10 {
-            
-        }
     }
     
     // MARK: - Configuration
@@ -89,7 +86,6 @@ final class ExpenseListViewController: UIViewController {
         }
         
         placeholdView.snp.makeConstraints {
-            // TODO: - 뷰의 위치 추후 다시 설정
             $0.centerX.equalTo(view.snp.centerX)
             $0.centerY.equalTo(view.snp.centerY).multipliedBy(1.3)
             $0.width.equalTo(view.bounds.width - 100)
@@ -202,13 +198,11 @@ final class ExpenseListViewController: UIViewController {
             supplementaryView.configureData(with: self?.viewModel)
         }
         
-        // TODO: - section Header 타이틀 바꾸기
         let sectionHeaderRegistration = SectionHeaderRegistration(
             elementKind: HeaderKind.sectionHeader
         ) { _, _, _ in
         }
         
-        // TODO: - 추후 self에 접근한다면 [weak self] 작성
         expenseDataSource?.supplementaryViewProvider = { (collectionView, kind, indexPath) in
             
             if kind == HeaderKind.globalHeader {
@@ -248,12 +242,7 @@ extension ExpenseListViewController: ExpenseListViewModelDelegate {
         guard let viewModel = viewModel else { return }
         
         let expenseInfos = viewModel.expenseInfos
-        
-        if expenseInfos.isEmpty {
-            placeholdView.isHidden = false
-        } else {
-            placeholdView.isHidden = true
-        }
+        placeholdView.isHidden = !expenseInfos.isEmpty
         
         var snapshot = SnapShot()
         snapshot.appendSections(viewModel.sections)
@@ -266,6 +255,18 @@ extension ExpenseListViewController: ExpenseListViewModelDelegate {
         }
         
         expenseDataSource?.apply(snapshot)
+    }
+    
+    func expenseListFetchDidFail() {
+        let alert = UIAlertController(
+            title: "불러오기 실패",
+            message: "지출 정보를 불러오는데에 실패하였습니다",
+            preferredStyle: .alert
+        )
+        
+        let alertAction = UIAlertAction(title: "확인", style: .default)
+        alert.addAction(alertAction)
+        present(alert, animated: true, completion: nil)
     }
 }
 

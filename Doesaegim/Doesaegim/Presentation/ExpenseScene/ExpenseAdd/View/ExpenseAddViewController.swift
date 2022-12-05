@@ -42,12 +42,19 @@ final class ExpenseAddViewController: UIViewController {
         setKeyboardNotification()
         setAddTarget()
         viewModel.delegate = self
+        rootView.descriptionTextView.delegate = self
     }
     
     // MARK: - Configure Function
     
     private func configureNavigation() {
         navigationItem.title = "지출 추가"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "chevron.backward"),
+            style: .done,
+            target: self,
+            action: #selector(backButtonTouchUpInside)
+        )
     }
     
     // MARK: - AddTarget
@@ -82,6 +89,17 @@ final class ExpenseAddViewController: UIViewController {
             self,
             action: #selector(addButtonTouchUpInside),
             for: .touchUpInside
+        )
+    }
+    
+    @objc func backButtonTouchUpInside() {
+        viewModel.isClearInput(
+            name: rootView.titleTextField.text,
+            amount: rootView.amountTextField.text,
+            unit: rootView.moneyUnitButton.titleLabel?.text,
+            category: rootView.categoryButton.titleLabel?.text,
+            date: rootView.dateButton.titleLabel?.text,
+            description: rootView.descriptionTextView.text
         )
     }
 }
@@ -192,6 +210,15 @@ extension ExpenseAddViewController: ExpenseAddViewDelegate {
         rootView.moneyUnitExchangeLabel.text = "원화로 계산하면 약 \(result.numberFormatter()) 원 입니다."
         print(result)
     }
+    
+    func backButtonDidTap(isClear: Bool) {
+        if !isClear {
+            presentIsClearAlert()
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
+    }
+    
 }
 
 // MARK: - Keyboard
@@ -228,5 +255,22 @@ extension ExpenseAddViewController {
     
     @objc private func keyboardWillHide(notification: NSNotification) {
         rootView.scrollView.contentInset = .zero
+    }
+}
+
+// MARK: - TextViewDelegate
+extension ExpenseAddViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == ExpenseAddView.StringLiteral.descriptionTextViewPlaceholder {
+            textView.text = nil
+            textView.textColor = .black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            textView.text = ExpenseAddView.StringLiteral.descriptionTextViewPlaceholder
+            textView.textColor = .grey3
+        }
     }
 }

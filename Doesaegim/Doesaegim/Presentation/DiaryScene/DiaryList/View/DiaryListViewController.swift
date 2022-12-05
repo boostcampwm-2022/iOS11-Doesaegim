@@ -13,14 +13,13 @@ import SnapKit
 final class DiaryListViewController: UIViewController {
     
     typealias DataSource
-        = UICollectionViewDiffableDataSource<UUID, DiaryInfoViewModel>
+        = UICollectionViewDiffableDataSource<String, DiaryInfoViewModel>
     typealias CellRegistration
         = UICollectionView.CellRegistration<DiaryListCell, DiaryInfoViewModel>
     typealias SnapShot
-        = NSDiffableDataSourceSnapshot<UUID, DiaryInfoViewModel>
+        = NSDiffableDataSourceSnapshot<String, DiaryInfoViewModel>
     typealias HeaderRegistration
         = UICollectionView.SupplementaryRegistration<DiaryListHeaderView>
-    // TODO: - 헤더 등록타입
     
     // MARK: - Properties
     
@@ -56,11 +55,14 @@ final class DiaryListViewController: UIViewController {
         configure()
         
         viewModel?.delegate = self
-        viewModel?.fetchDiary()
-//        viewModel?.addDummyDiaryData()
-//        viewModel?.fetchDiary()
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        tabBarController?.tabBar.isHidden = false
+        viewModel?.fetchDiary()
+    }
 }
 
 extension DiaryListViewController {
@@ -144,9 +146,11 @@ extension DiaryListViewController {
     
     private func configureCollectionViewDataSource() {
         
+        var uuid: UUID?
         let diaryCell = CellRegistration { cell, _, identifier in
             // TODO: - 셀 설정
             cell.configureData(with: identifier)
+            uuid = identifier.travelID
         }
         
         diaryDataSource = DataSource(
@@ -161,24 +165,27 @@ extension DiaryListViewController {
         )
         
         let headerRegistration = HeaderRegistration(
-            elementKind: UICollectionView.elementKindSectionHeader) { [weak self] headerView, _, indexPath in
-                guard let viewModel = self?.viewModel,
-                      indexPath.row < viewModel.diaryInfos.count,
-                      let uuid = viewModel.diaryInfos[indexPath.row].travelID,
-                      let travelName = viewModel.idAndTravelDictionary[uuid] else { return }
-                headerView.configureData(with: travelName)
-            }
+            elementKind: UICollectionView.elementKindSectionHeader
+        ) { _, _, _ in
+        }
         
         // TODO: - 섹션 등록
             
-        diaryDataSource?.supplementaryViewProvider = { [weak self] (collectionView, kind, indexPath) in
+        diaryDataSource?.supplementaryViewProvider = { [weak self] (collectionView, _, indexPath) in
             
             let sectionHeader = collectionView.dequeueConfiguredReusableSupplementary(
                 using: headerRegistration,
                 for: indexPath
             )
-            return sectionHeader
             
+            guard let viewModel = self?.viewModel,
+                  let travelName = viewModel.travelSections[safeIndex: indexPath.section] else {
+                return UICollectionReusableView()
+            }
+
+            sectionHeader.configureData(with: travelName)
+            
+            return sectionHeader
         }
     }
     
@@ -188,13 +195,20 @@ extension DiaryListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // TODO: - 다이어리 선택 뷰, safe index 설정
         guard let viewModel = viewModel,
-              indexPath.row < viewModel.diaryInfos.count else { return }
-        let uuid = viewModel.diaryInfos[indexPath.row].id
+              indexPath.row < viewModel.diaryInfos.count,
+              let diary = viewModel.sectionDiaryDictionary[indexPath.section] else { return }
+        
         // uuid를 생성자에 넘기고 다이어리 디테일 뷰 푸시
+        let section = indexPath.section
+        let row = indexPath.row
+        let uuid = diary[row].id
+        
         let controller = DiaryDetailViewController(id: uuid)
         navigationController?.pushViewController(controller, animated: true)
     }
 }
+
+// MARK: - DiaryListViewModelDelegate
 
 extension DiaryListViewController: DiaryListViewModelDelegate {
     
@@ -206,14 +220,25 @@ extension DiaryListViewController: DiaryListViewModelDelegate {
         var snapshot = SnapShot()
         
         diaryInfos.forEach { info in
-            guard let travelID = info.travelID else { return }
-            if !snapshot.sectionIdentifiers.contains(travelID) {
-                snapshot.appendSections([travelID])
+            guard let travelName = info.travelName else { return }
+            if !snapshot.sectionIdentifiers.contains(travelName) {
+                snapshot.appendSections([travelName])
             }
-            snapshot.appendItems([info], toSection: travelID)
+            snapshot.appendItems([info], toSection: travelName)
         }
         
         diaryDataSource?.apply(snapshot, animatingDifferences: true)
+    }
+    
+    func diaryListFetchDidFail() {
+        let alert = UIAlertController(
+            title: "불러오기 실패",
+            message: "다이어리 정보를 불러오는데 실패하였습니다",
+            preferredStyle: .alert
+        )
+        let alertAction = UIAlertAction(title: "확인", style: .default)
+        alert.addAction(alertAction)
+        present(alert, animated: true)
     }
 }
 
@@ -222,7 +247,7 @@ extension DiaryListViewController {
     private func deleteDiary(with diaryInfo: DiaryInfoViewModel) {
         let travelID = diaryInfo.travelID
         let dairyID = diaryInfo.id
-        // 뷰모델 삭제 메서드 호출
+        // TODO: - 뷰모델 삭제 메서드 호출
     }
     
     private func makeSwipeAction(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {

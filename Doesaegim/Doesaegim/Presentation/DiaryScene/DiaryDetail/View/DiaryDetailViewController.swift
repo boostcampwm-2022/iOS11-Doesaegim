@@ -59,11 +59,14 @@ final class DiaryDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         guard isInitializedViewModel() else {
             presentErrorAlert(title: "다이어리 정보를 찾을 수 없습니다.", handler: { [weak self] _ in
-                // FIXME: 모달창으로 띄워진다면? 사라지지 않음...
-                self?.navigationController?.popViewController(animated: true)
+                self?.viewModelDidNotInitialized()
             })
             return
         }
@@ -75,8 +78,16 @@ final class DiaryDetailViewController: UIViewController {
     // MARK: - Configure Functions
     
     private func isInitializedViewModel() -> Bool {
-        guard viewModel != nil else { return false }
-        return true
+        return viewModel != nil
+    }
+    
+    /// 뷰모델이 이니셜라이징 되지 않았을 경우 해당 뷰를 pop 또는 dismiss 처리한다.
+    private func viewModelDidNotInitialized() {
+        if let navigationController = navigationController {
+            navigationController.popViewController(animated: true)
+            return
+        }
+        dismiss(animated: true)
     }
     
     private func bindToViewModel() {
@@ -126,6 +137,7 @@ final class DiaryDetailViewController: UIViewController {
         snapshot.appendItems(viewModel.cellViewModels)
         
         imageSliderDataSource?.apply(snapshot)
+        rootView.setupImageSliderShowing(with: viewModel.cellViewModels.isEmpty)
     }
 }
 
@@ -161,5 +173,12 @@ extension DiaryDetailViewController {
 extension DiaryDetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // TODO: 이미지를 선택했을 때 이미지 상세 화면으로 이동하도록 구현
+        guard let imageSliderDataSource,
+              let item = imageSliderDataSource.itemIdentifier(for: indexPath) else {
+            return
+        }
+        
+        let photoDetailViewController = DiaryPhotoDetailViewController(item: item)
+        navigationController?.pushViewController(photoDetailViewController, animated: true)
     }
 }

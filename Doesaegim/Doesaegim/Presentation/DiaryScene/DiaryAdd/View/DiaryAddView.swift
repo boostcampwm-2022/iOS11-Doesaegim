@@ -50,7 +50,7 @@ final class DiaryAddView: UIView {
         return textView
     }()
 
-    private let addPhotoButton: UIButton = {
+    let addPhotoButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(.init(systemName: StringLiteral.squaredPlus), for: .normal)
@@ -61,7 +61,15 @@ final class DiaryAddView: UIView {
         return button
     }()
 
-    private let imageSlider: UICollectionView = {
+    let pageControl: UIPageControl = {
+        let control = UIPageControl()
+        control.pageIndicatorTintColor = .grey1
+        control.currentPageIndicatorTintColor = .primaryOrange
+
+        return control
+    }()
+
+    private(set) lazy var imageSlider: UICollectionView = {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(Metric.one),
             heightDimension: .fractionalHeight(Metric.one)
@@ -76,21 +84,18 @@ final class DiaryAddView: UIView {
 
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .paging
+        section.visibleItemsInvalidationHandler = { [weak self] visibleItems, _, _ in
+            self?.pageControl.currentPage = visibleItems.last?.indexPath.row ?? .zero
+        }
+
         let layout = UICollectionViewCompositionalLayout(section: section)
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.allowsSelection = false
 
         return collectionView
-    }()
-
-    private let pageControl: UIPageControl = {
-        let control = UIPageControl()
-        control.pageIndicatorTintColor = .grey1
-        control.currentPageIndicatorTintColor = .primaryOrange
-
-        return control
     }()
 
     private let divider: UIView = {
@@ -110,8 +115,24 @@ final class DiaryAddView: UIView {
         return stack
     }()
 
+    private let activityIndicator: TranslucentActivityIndicatorView = {
+        let view = TranslucentActivityIndicatorView()
+        view.isHidden = true
+        return view
+    }()
+
     
     // MARK: - Properties
+
+    var isSaving = true {
+        didSet {
+            if isSaving {
+                activityIndicator.startAnimating()
+            } else {
+                activityIndicator.stopAnimating()
+            }
+        }
+    }
 
 
     // MARK: - Init(s)
@@ -138,7 +159,7 @@ final class DiaryAddView: UIView {
     }
 
     private func configureSubviews() {
-        addSubview(scrollView)
+        addSubviews(scrollView, activityIndicator)
         scrollView.addSubview(contentStack)
         let contentStackSubviews = [
             travelTextField, placeSearchButton,
@@ -146,8 +167,8 @@ final class DiaryAddView: UIView {
             titleTextField, divider, contentTextView
         ]
         contentStack.addArrangedSubviews(contentStackSubviews)
+        contentStack.addSubview(addPhotoButton)
         travelTextField.inputView = travelPicker
-        imageSlider.addSubview(addPhotoButton)
         scrollView.addGestureRecognizer(UITapGestureRecognizer(
             target: self, action: #selector(backgroundDidTap)
         ))
@@ -170,7 +191,8 @@ final class DiaryAddView: UIView {
             $0.height.equalTo(imageSlider.snp.width)
         }
         divider.snp.makeConstraints { $0.height.equalTo(Metric.one)}
-        addPhotoButton.snp.makeConstraints { $0.center.equalToSuperview() }
+        addPhotoButton.snp.makeConstraints { $0.center.equalTo(imageSlider) }
+        activityIndicator.snp.makeConstraints { $0.edges.equalToSuperview() }
     }
 }
 
