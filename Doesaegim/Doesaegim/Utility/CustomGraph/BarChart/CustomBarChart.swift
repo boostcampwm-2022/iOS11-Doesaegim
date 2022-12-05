@@ -113,7 +113,7 @@ final class CustomBarChart: UIView {
         self.items = data
         self.isAnimating = !data.isEmpty
 
-        setNeedsDisplay()
+        executeAnimation()
     }
     
     // MARK: - Animation Functions

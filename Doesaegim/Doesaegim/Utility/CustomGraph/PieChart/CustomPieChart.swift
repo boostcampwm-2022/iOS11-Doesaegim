@@ -124,14 +124,15 @@ final class CustomPieChart: UIView {
     func setupData(with data: [CustomChartItem<ExpenseType>]) {
         self.items = data
         self.isAnimating = !data.isEmpty
-        initializeAnimation()
         
-        setNeedsDisplay()
+        executeAnimation()
     }
     
     // MARK: - Animation Functions
     
+    /// 애니메이션을 초기화하는 메서드. 기존에 추가되었던 서브레이어들을 모두 삭제하고 시작 각도와 애니메이션이 진행되어야할 순서를 초기화한다.
     private func initializeAnimation() {
+        removeAllSubLayers()
         startAngle = Metric.initialStartAngle
         currentIndex = 0
     }
@@ -150,7 +151,6 @@ final class CustomPieChart: UIView {
     /// 외부의 값 변화로 인해 애니메이션을 재실행할 경우 활용할 수 있는 메서드.
     /// 이전에 등록된 서브레이어들을 모두 제거하고, 애니메이션 설정 값들을 초기화 한 후 `draw(_:)`메서드를 재실행한다.
     func executeAnimation() {
-        removeAllSubLayers()
         initializeAnimation()
         setNeedsDisplay()
     }
