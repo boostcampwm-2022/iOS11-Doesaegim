@@ -18,7 +18,7 @@ protocol TravelAddViewProtocol: AnyObject {
     func travelTitleDidChanged(title: String?)
     func travelDateTapped(dates: [Date], completion: @escaping ((Bool) -> Void))
     
-    func postTravel(travel: TravelDTO, completion: @escaping (() -> Void))
+    func addTravel(travel: TravelDTO) -> Result<Travel, Error>
 }
 
 protocol TravelAddViewDelegate: AnyObject {

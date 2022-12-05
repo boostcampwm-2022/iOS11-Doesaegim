@@ -11,6 +11,8 @@ final class TravelAddViewModel: TravelAddViewProtocol {
     
     // MARK: - Properties
     
+    private let repository: TravelAddRepository
+    
     weak var delegate: TravelAddViewDelegate?
     
     var isValidTextField: Bool
@@ -33,6 +35,7 @@ final class TravelAddViewModel: TravelAddViewProtocol {
         isValidDate = false
         isValidInput = isValidTextField && isValidDate
         isClearInput = true
+        repository = TravelAddLocalRepository()
     }
     
     // MARK: - Functions
@@ -73,14 +76,7 @@ final class TravelAddViewModel: TravelAddViewProtocol {
     
     // MARK: - CoreData Function
     
-    func postTravel(travel: TravelDTO, completion: @escaping (() -> Void)) {
-        let result = Travel.addAndSave(with: travel)
-        switch result {
-        case .success:
-            completion()
-        case .failure(let error):
-            print(error.localizedDescription)
-            
-        }
+    func addTravel(travel: TravelDTO) -> Result<Travel, Error> {
+        return repository.addTravel(travel)
     }
 }

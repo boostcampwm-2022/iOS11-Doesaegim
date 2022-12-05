@@ -168,9 +168,12 @@ extension TravelAddViewController {
         
         let travelDTO = TravelDTO(name: name, startDate: startDate, endDate: endDate)
         
-        viewModel.postTravel(travel: travelDTO) { [weak self] in
-            guard let self else { return }
-            self.navigationController?.popViewController(animated: true)
+        let result = viewModel.addTravel(travel: travelDTO)
+        switch result {
+        case .success:
+            navigationController?.popViewController(animated: true)
+        case .failure(let error):
+            print(error.localizedDescription)
         }
     }
     
