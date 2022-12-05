@@ -173,6 +173,7 @@ extension TravelAddViewController {
         case .success:
             navigationController?.popViewController(animated: true)
         case .failure(let error):
+            presentErrorAlert(title: CoreDataError.saveFailure(.travel).errorDescription)
             print(error.localizedDescription)
         }
     }
