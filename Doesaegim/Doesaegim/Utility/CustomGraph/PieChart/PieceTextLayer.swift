@@ -11,34 +11,23 @@ final class PieceTextLayer: CATextLayer {
     
     // MARK: - Properties
     
-    /// 파이 차트의 영역값
-    private let rect: CGRect
+    /// 파이 차트의 중심값
+    private let center: CGPoint
     
-    /// 텍스트를 표시할 조각의 시작 지점 각도
-    private let startAngle: CGFloat
+    /// 파이 조각의 반지름
+    private let radius: CGFloat
     
-    /// 텍스트를 표시할 조각의 자체 각도.
+    /// 텍스트를 표시할 지점의 각도.
     private let angle: CGFloat
     
     /// 파이 조각에 표시할 텍스트
     private let text: String
     
-    // MARK: - Computed Properties
-        
-    private var center: CGPoint {
-        return CGPoint(x: rect.midX, y: rect.midY)
-    }
-    
-    private var radius: CGFloat {
-        let diameter = min(rect.width, rect.height)
-        return diameter * Metric.radiusRatio
-    }
-    
     // MARK: - Init
     
-    init(rect: CGRect, startAngle: CGFloat, angle: CGFloat, text: String) {
-        self.rect = rect
-        self.startAngle = startAngle
+    init(center: CGPoint, radius: CGFloat, angle: CGFloat, text: String) {
+        self.center = center
+        self.radius = radius
         self.angle = angle
         self.text = text
         
@@ -81,15 +70,13 @@ final class PieceTextLayer: CATextLayer {
             ]
         )
         string = attributedString
-        alignmentMode = .left
+        alignmentMode = .center
     }
     
     /// 파이 조각의 중간 위치 값을 구해 반환한다. 해당 위치는 텍스트의 midX, midY 좌표값이 된다.
     private func configurePosition() -> CGPoint {
-        let halfAngle: CGFloat = startAngle + angle / 2
-        
-        let xCoordinate = center.x + cos(halfAngle) * radius * Metric.positionRatio
-        let yCoordinate = center.y + sin(halfAngle) * radius * Metric.positionRatio
+        let xCoordinate = center.x + cos(angle) * radius * Metric.positionRatio
+        let yCoordinate = center.y + sin(angle) * radius * Metric.positionRatio
         
         return CGPoint(x: xCoordinate, y: yCoordinate)
     }

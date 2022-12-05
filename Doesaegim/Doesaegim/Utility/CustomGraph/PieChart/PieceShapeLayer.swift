@@ -11,36 +11,27 @@ final class PieceShapeLayer: CAShapeLayer {
     
     // MARK: - Properties
     
-    private let rect: CGRect
+    private let center: CGPoint
+    
+    private let radius: CGFloat
     
     private let startAngle: CGFloat
     
-    private let angleRatio: CGFloat
+    private let angle: CGFloat
     
     private let color: CGColor
     
     // MARK: - Computed Properties
     
-    private var center: CGPoint {
-        return CGPoint(x: rect.midX, y: rect.midY)
-    }
-    
-    private var radius: CGFloat {
-        // 차트뷰가 그려질 뷰의 너비, 높이값이 다를 경우 차트뷰의 지름은 작은 값을 따라간다.
-        let diameter = min(rect.width, rect.height)
-        return diameter * Metric.radiusRatio
-    }
-    
-    private var strokeWidth: CGFloat {
-        return radius * 2
-    }
+    private var strokeWidth: CGFloat { radius * 2 }
     
     // MARK: - Init
     
-    init(rect: CGRect, startAngle: CGFloat, angleRatio: CGFloat, color: CGColor) {
-        self.rect = rect
+    init(center: CGPoint, radius: CGFloat, startAngle: CGFloat, angle: CGFloat, color: CGColor) {
+        self.center = center
+        self.radius = radius
         self.startAngle = startAngle
-        self.angleRatio = angleRatio
+        self.angle = angle
         self.color = color
         
         super.init()
@@ -62,7 +53,7 @@ final class PieceShapeLayer: CAShapeLayer {
             arcCenter: center,
             radius: radius,
             startAngle: startAngle,
-            endAngle: startAngle + angleRatio,
+            endAngle: startAngle + angle,
             clockwise: true
         )
         UIColor.clear.set()
