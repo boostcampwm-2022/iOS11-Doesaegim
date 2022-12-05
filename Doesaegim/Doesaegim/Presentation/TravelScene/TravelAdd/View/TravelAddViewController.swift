@@ -44,6 +44,10 @@ final class TravelAddViewController: UIViewController {
         bindCalendar()
     }
     
+    deinit {
+        removeKeyboardNotification()
+    }
+    
     // MARK: - Configure Functions
     
     private func configureViews() {
@@ -124,6 +128,10 @@ extension TravelAddViewController {
             selector: #selector(keyboardWillHide),
             name: UIResponder.keyboardWillHideNotification, object: nil
         )
+    }
+    
+    private func removeKeyboardNotification() {
+        NotificationCenter.default.removeObserver(self)
     }
     
     @objc private func keyboardWillShow(notification: NSNotification) {
