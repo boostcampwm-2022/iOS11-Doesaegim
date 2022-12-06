@@ -71,21 +71,16 @@ final class TravelAddViewController: UIViewController {
     private func bindCalendar() {
         rootView.customCalendar.completionHandler = { [weak self] dates in
             self?.viewModel.travelDateTapped(dates: dates) { isSuccess in
-                if isSuccess {
-                    if let startDate = dates.first, let endDate = dates.last {
-                        let startDateString = Date.yearMonthDayDateFormatter.string(from: startDate)
-                        let endDateString = Date.yearMonthDayDateFormatter.string(from: endDate)
-                        self?.rootView.travelDateStartLabel.text = startDateString
-                        self?.rootView.travelDateStartLabel.textColor = .black
-                        self?.rootView.travelDateEndLabel.text = endDateString
-                        self?.rootView.travelDateEndLabel.textColor = .black
-                    } else {
-                        self?.presentErrorAlert(title: "날짜를 다시 입력해주세요")
-                    }
-                } else {
+                guard isSuccess, let startDate = dates.first, let endDate = dates.last else {
                     self?.presentErrorAlert(title: "날짜를 다시 입력해주세요")
+                    return
                 }
-                
+                let startDateString = Date.yearMonthDayDateFormatter.string(from: startDate)
+                let endDateString = Date.yearMonthDayDateFormatter.string(from: endDate)
+                self?.rootView.travelDateStartLabel.text = startDateString
+                self?.rootView.travelDateStartLabel.textColor = .black
+                self?.rootView.travelDateEndLabel.text = endDateString
+                self?.rootView.travelDateEndLabel.textColor = .black
             }
         }
     }
@@ -168,7 +163,7 @@ extension TravelAddViewController {
         viewModel.travelTitleDidChanged(title: sender.text)
     }
     
-    @objc func addButtonTouchUpInside() {        
+    @objc func addButtonTouchUpInside() {
         let result = viewModel.addTravel(
             name: rootView.travelTitleTextField.text,
             startDateString: rootView.travelDateStartLabel.text,
