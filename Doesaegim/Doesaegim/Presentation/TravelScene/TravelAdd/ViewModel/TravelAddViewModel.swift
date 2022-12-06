@@ -11,6 +11,8 @@ final class TravelAddViewModel: TravelAddViewProtocol {
     
     // MARK: - Properties
     
+    private let repository: TravelAddRepository
+    
     weak var delegate: TravelAddViewDelegate?
     
     var isValidTextField: Bool
@@ -33,6 +35,7 @@ final class TravelAddViewModel: TravelAddViewProtocol {
         isValidDate = false
         isValidInput = isValidTextField && isValidDate
         isClearInput = true
+        repository = TravelAddLocalRepository()
     }
     
     // MARK: - Functions
@@ -62,8 +65,8 @@ final class TravelAddViewModel: TravelAddViewProtocol {
     
     func isClearInput(title: String?, startDate: String?, endDate: String?) {
         guard let title, title.isEmpty,
-        let startDate, startDate == TravelAddViewController.StringLiteral.startDateLabelPlaceholder,
-        let endDate, endDate == TravelAddViewController.StringLiteral.endDateLabelPlaceholder else {
+              startDate == TravelAddView.StringLiteral.startDateLabelPlaceholder,
+              endDate == TravelAddView.StringLiteral.endDateLabelPlaceholder else {
             isClearInput = false
             return
         }
@@ -73,14 +76,16 @@ final class TravelAddViewModel: TravelAddViewProtocol {
     
     // MARK: - CoreData Function
     
-    func postTravel(travel: TravelDTO, completion: @escaping (() -> Void)) {
-        let result = Travel.addAndSave(with: travel)
-        switch result {
-        case .success:
-            completion()
-        case .failure(let error):
-            print(error.localizedDescription)
-            
+    func addTravel(name: String?, startDateString: String?, endDateString: String?) -> Result<Travel, Error> {
+        guard let name,
+              let startDateString,
+              let startDate = Date.yearMonthDayDateFormatter.date(from: startDateString),
+              let endDateString,
+              let endDate = Date.yearMonthDayDateFormatter.date(from: endDateString) else {
+            return .failure(CoreDataError.saveFailure(.travel))
         }
+        
+        let travelDTO = TravelDTO(name: name, startDate: startDate, endDate: endDate)
+        return repository.addTravel(travelDTO)
     }
 }

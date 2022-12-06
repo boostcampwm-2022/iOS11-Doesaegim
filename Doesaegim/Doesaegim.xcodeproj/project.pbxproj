@@ -156,6 +156,11 @@
 		EE3FB8492935E1660024AEE1 /* ShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3FB8482935E1660024AEE1 /* ShareManager.swift */; };
 		EE3FB856293751A00024AEE1 /* DiaryPhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3FB855293751A00024AEE1 /* DiaryPhotoDetailViewController.swift */; };
 		EE3FB85929375C960024AEE1 /* SharePopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3FB85829375C960024AEE1 /* SharePopoverViewController.swift */; };
+		EE3FB85C29386B850024AEE1 /* AddViewSubtitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3FB85B29386B850024AEE1 /* AddViewSubtitleLabel.swift */; };
+		EE3FB85E2938738A0024AEE1 /* TravelAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3FB85D2938738A0024AEE1 /* TravelAddView.swift */; };
+		EE3FB860293894810024AEE1 /* AddViewTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3FB85F293894810024AEE1 /* AddViewTextField.swift */; };
+		EE5D50F3293DD413006ECE87 /* TravelAddRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5D50F2293DD413006ECE87 /* TravelAddRepository.swift */; };
+		EE5D50F5293DD495006ECE87 /* TravelAddLocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5D50F4293DD495006ECE87 /* TravelAddLocalRepository.swift */; };
 		EE85FBC3292BA9B600FF0C7C /* ExpenseAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE85FBC2292BA9B600FF0C7C /* ExpenseAddViewController.swift */; };
 		EE85FBC6292BAADC00FF0C7C /* ExpenseAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE85FBC5292BAADC00FF0C7C /* ExpenseAddView.swift */; };
 		EEA1C824292F395100B80901 /* ExchangeDiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA1C823292F395100B80901 /* ExchangeDiskCache.swift */; };
@@ -342,6 +347,11 @@
 		EE3FB8482935E1660024AEE1 /* ShareManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareManager.swift; sourceTree = "<group>"; };
 		EE3FB855293751A00024AEE1 /* DiaryPhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPhotoDetailViewController.swift; sourceTree = "<group>"; };
 		EE3FB85829375C960024AEE1 /* SharePopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePopoverViewController.swift; sourceTree = "<group>"; };
+		EE3FB85B29386B850024AEE1 /* AddViewSubtitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewSubtitleLabel.swift; sourceTree = "<group>"; };
+		EE3FB85D2938738A0024AEE1 /* TravelAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAddView.swift; sourceTree = "<group>"; };
+		EE3FB85F293894810024AEE1 /* AddViewTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewTextField.swift; sourceTree = "<group>"; };
+		EE5D50F2293DD413006ECE87 /* TravelAddRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAddRepository.swift; sourceTree = "<group>"; };
+		EE5D50F4293DD495006ECE87 /* TravelAddLocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAddLocalRepository.swift; sourceTree = "<group>"; };
 		EE85FBC2292BA9B600FF0C7C /* ExpenseAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddViewController.swift; sourceTree = "<group>"; };
 		EE85FBC5292BAADC00FF0C7C /* ExpenseAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddView.swift; sourceTree = "<group>"; };
 		EEA1C823292F395100B80901 /* ExchangeDiskCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeDiskCache.swift; sourceTree = "<group>"; };
@@ -519,6 +529,8 @@
 		A4CC04DB292351E700BB678B /* TravelScene */ = {
 			isa = PBXGroup;
 			children = (
+				EE206E9B293DF11C003F2C78 /* PlanAdd */,
+				EE5D50F1293DD402006ECE87 /* TravelAdd */,
 				A4CC04DC292351F800BB678B /* PlanList */,
 			);
 			path = TravelScene;
@@ -1065,6 +1077,7 @@
 		EE116C542924AA0D0017B519 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				EE206E9C293DF171003F2C78 /* AddViewComponents */,
 				EEB6C4F1292C8CA30060A459 /* Calendar */,
 			);
 			path = Custom;
@@ -1095,6 +1108,22 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		EE206E9B293DF11C003F2C78 /* PlanAdd */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PlanAdd;
+			sourceTree = "<group>";
+		};
+		EE206E9C293DF171003F2C78 /* AddViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				EE3FB85B29386B850024AEE1 /* AddViewSubtitleLabel.swift */,
+				EE3FB85F293894810024AEE1 /* AddViewTextField.swift */,
+			);
+			path = AddViewComponents;
+			sourceTree = "<group>";
+		};
 		EE3E29B92923C85B007C7FC7 /* TravelAdd */ = {
 			isa = PBXGroup;
 			children = (
@@ -1109,6 +1138,7 @@
 			children = (
 				EE3E29BB2923C870007C7FC7 /* TravelAddViewController.swift */,
 				EE116C5D2924CB6B0017B519 /* TravelAddViewProtocol.swift */,
+				EE3FB85D2938738A0024AEE1 /* TravelAddView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1128,6 +1158,15 @@
 				EE3FB85829375C960024AEE1 /* SharePopoverViewController.swift */,
 			);
 			path = Popover;
+			sourceTree = "<group>";
+		};
+		EE5D50F1293DD402006ECE87 /* TravelAdd */ = {
+			isa = PBXGroup;
+			children = (
+				EE5D50F2293DD413006ECE87 /* TravelAddRepository.swift */,
+				EE5D50F4293DD495006ECE87 /* TravelAddLocalRepository.swift */,
+			);
+			path = TravelAdd;
 			sourceTree = "<group>";
 		};
 		EE85FBC1292BA9A600FF0C7C /* ExpenseAdd */ = {
@@ -1435,6 +1474,7 @@
 				BBE695D829228B560015FAD4 /* TravelListViewModel.swift in Sources */,
 				BB9DB80E2928CA6A00102EC8 /* ExpenseListViewModelProtocol.swift in Sources */,
 				EE3FB856293751A00024AEE1 /* DiaryPhotoDetailViewController.swift in Sources */,
+				EE5D50F3293DD413006ECE87 /* TravelAddRepository.swift in Sources */,
 				B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */,
 				EEB6C4F8292CA8DB0060A459 /* ExpenseAddViewModel.swift in Sources */,
 				BB02B090292F294C00FE11DA /* DiaryListViewController.swift in Sources */,
@@ -1449,6 +1489,7 @@
 				BBDB2E96292635FD00752924 /* ExpenseSectionHeaderView.swift in Sources */,
 				B5D64E6E292E254A00E1CC81 /* DiaryDetailViewModelDelegate.swift in Sources */,
 				B53763CC292B56600073BF46 /* CustomPieChart.swift in Sources */,
+				EE5D50F5293DD495006ECE87 /* TravelAddLocalRepository.swift in Sources */,
 				B53763E3292B99B80073BF46 /* PieceShapeLayer.swift in Sources */,
 				A4C3BB78292F384B001C0514 /* ImageManager.swift in Sources */,
 				EE3E29BC2923C870007C7FC7 /* TravelAddViewController.swift in Sources */,
@@ -1473,6 +1514,7 @@
 				BB288FC8292E167900065D04 /* DiaryCalloutView.swift in Sources */,
 				BBDB2E9429262BB300752924 /* ExpenseCollectionHeaderView.swift in Sources */,
 				B5D64E61292DF06400E1CC81 /* PlaceSearchButton.swift in Sources */,
+				EE3FB85C29386B850024AEE1 /* AddViewSubtitleLabel.swift in Sources */,
 				BBB31A372925F5E400C9E3A9 /* TravelListCell.swift in Sources */,
 				B5D64E69292DFEF000E1CC81 /* DiaryDetailView.swift in Sources */,
 				B5D64E72292E3B1300E1CC81 /* DiaryDetailRepository.swift in Sources */,
@@ -1552,6 +1594,7 @@
 				BB7D9A2A29261C0600BF2BD6 /* ExpenseListCell.swift in Sources */,
 				A4CC04C929227C7200BB678B /* PlanCollectionViewCell.swift in Sources */,
 				A4CC04D72923347E00BB678B /* PlanListViewController.swift in Sources */,
+				EE3FB85E2938738A0024AEE1 /* TravelAddView.swift in Sources */,
 				A48E9946292512BC0029D57D /* CoreDataError.swift in Sources */,
 				BB9DB8102928D09200102EC8 /* PersistentRepository.swift in Sources */,
 				BBB31A3E2926007D00C9E3A9 /* ExpenseListViewController.swift in Sources */,
@@ -1568,6 +1611,7 @@
 				EEDB752F2925E8DD0069A7F5 /* CalendarViewController.swift in Sources */,
 				A4B82DD4293D7F2100347B71 /* Array+SafeIndex.swift in Sources */,
 				B5D64E67292DFED500E1CC81 /* DiaryDetailViewController.swift in Sources */,
+				EE3FB860293894810024AEE1 /* AddViewTextField.swift in Sources */,
 				B5D64E6C292E22A400E1CC81 /* DiaryDetailViewModel.swift in Sources */,
 				B5B497DC29379FC3009AE4AC /* BarTextLayer.swift in Sources */,
 				EEB6C4FD292CC29B0060A459 /* NetworkManager.swift in Sources */,
