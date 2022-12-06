@@ -43,15 +43,17 @@ final class ExpenseChartView: UIView {
     
     /// 원형 차트 데이터
     private var pieChartData: [CustomChartItem<ExpenseType>] = ExpenseChartView.pieChartDummies {
-        didSet {
-            pieChart.setupData(with: pieChartData)
+        willSet {
+            guard pieChartData != newValue else { return }
+            pieChart.setupData(with: newValue)
         }
     }
     
     /// 막대 차트 데이터
     private var barChartData: [CustomChartItem<Date>] = [] {
-        didSet {
-            barChart.setupData(with: barChartData)
+        willSet {
+            guard barChartData != newValue else { return }
+            barChart.setupData(with: newValue)
         }
     }
     
@@ -116,6 +118,7 @@ final class ExpenseChartView: UIView {
         barChart.isHidden = !pieChart.isHidden
         
         if !pieChart.isHidden {
+            
             pieChart.executeAnimation()
         } else {
             barChart.executeAnimation()
@@ -168,7 +171,6 @@ final class ExpenseChartView: UIView {
             }
         }
         chartData.sort { $0.criterion < $1.criterion }
-        
         if !chartData.isEmpty { self.barChartData = chartData }
     }
 
