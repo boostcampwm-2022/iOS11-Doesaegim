@@ -65,8 +65,8 @@ final class TravelAddViewModel: TravelAddViewProtocol {
     
     func isClearInput(title: String?, startDate: String?, endDate: String?) {
         guard let title, title.isEmpty,
-        let startDate, startDate == TravelAddView.StringLiteral.startDateLabelPlaceholder,
-        let endDate, endDate == TravelAddView.StringLiteral.endDateLabelPlaceholder else {
+              startDate == TravelAddView.StringLiteral.startDateLabelPlaceholder,
+              endDate == TravelAddView.StringLiteral.endDateLabelPlaceholder else {
             isClearInput = false
             return
         }
