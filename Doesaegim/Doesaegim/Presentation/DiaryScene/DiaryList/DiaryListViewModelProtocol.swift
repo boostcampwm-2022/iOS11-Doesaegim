@@ -10,9 +10,10 @@ import Foundation
 protocol DiaryListViewModelProtocol: AnyObject {
     
     var delegate: DiaryListViewModelDelegate? { get set }
-    var travelSections: [String] { get set }
-    var diaryInfos: [DiaryInfoViewModel] { get set }
-    var sectionDiaryDictionary: [Int: [DiaryInfoViewModel]] { get set }
+//    var travelSections: [String] { get set }
+//    var diaryInfos: [DiaryInfoViewModel] { get set }
+//    var sectionDiaryDictionary: [Int: [DiaryInfoViewModel]] { get set }
+    var travelDiaryInfos: [(startDate: Date, travelName: String, diaryInfos: [DiaryInfoViewModel])] { get set }
     
     func fetchDiary()
     func addDummyDiaryData() // 추후 삭제

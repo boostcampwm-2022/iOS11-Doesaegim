@@ -12,6 +12,7 @@ struct DiaryInfoViewModel: Hashable {
     
     var travelID: UUID?
     var travelName: String?
+    var travelDate: Date?
     let id: UUID
     let content: String
     let date: Date
