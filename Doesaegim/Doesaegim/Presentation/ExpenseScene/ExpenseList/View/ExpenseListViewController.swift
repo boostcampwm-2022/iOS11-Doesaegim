@@ -254,7 +254,10 @@ extension ExpenseListViewController: ExpenseListViewModelDelegate {
             snapshot.appendItems([info], toSection: dateString)
         }
         
-        expenseDataSource?.apply(snapshot)
+        expenseDataSource?.apply(snapshot, completion: { [weak self] in
+            self?.expenseCollectionView.reloadData()
+        })
+
     }
     
     func expenseListFetchDidFail() {
