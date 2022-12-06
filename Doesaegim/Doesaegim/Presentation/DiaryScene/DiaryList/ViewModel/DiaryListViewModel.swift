@@ -65,8 +65,7 @@ extension DiaryListViewModel {
                     currentTravel = travel
                 }
             }
-            travelDiaryInfos = newInfos
-            travelDiaryInfos.sorted(by: sortByDate)
+            travelDiaryInfos = newInfos.sorted(by: sortByDate)
             
         case .failure(let error):
             print(error.localizedDescription)
