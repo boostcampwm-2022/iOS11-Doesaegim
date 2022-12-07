@@ -62,16 +62,33 @@ extension SettingViewController {
 
 extension SettingViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let settingInfo = viewModel.settingInfos[safeIndex: indexPath.section],
+              let info = settingInfo.options[safeIndex: indexPath.row] else { return }
+        // TODO: - 핸들러 실행 또는 네비게이션 바 이동
+        
+    }
+    
+    
+    
 }
 
 extension SettingViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.settingInfos.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let options = viewModel.settingInfos[safeIndex: section]?.options else { return 0 }
+        return options.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let settingInfo = viewModel.settingInfos[safeIndex: indexPath.row],
+        guard let settingInfos = viewModel.settingInfos[safeIndex: indexPath.section],
+              let info = settingInfos.options[safeIndex: indexPath.row],
               let cell = tableView.dequeueReusableCell(
                 withIdentifier: SettingTableViewCell.identifier,
                 for: indexPath
@@ -79,7 +96,18 @@ extension SettingViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        cell.configure(with: settingInfo)
+        cell.configure(with: info)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard let settingInfos = viewModel.settingInfos[safeIndex: section] else { return nil }
+        return settingInfos.title
+    }
 }
+
+struct SettingSection {
+    let title: String
+    let options: [SettingOptionViewModel]
+}
+

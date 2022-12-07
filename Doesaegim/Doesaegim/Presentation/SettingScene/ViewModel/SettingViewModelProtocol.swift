@@ -9,7 +9,7 @@ import Foundation
 
 protocol SettingViewModelProtocol {
     
-    var settingInfos: [SettingOptionViewModel] { get set }
+    var settingInfos: [SettingSection] { get set }
     
     func configureSettingInfos()
     
