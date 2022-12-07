@@ -171,13 +171,12 @@ final class PlanAddViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel: PlanAddViewModel
-    private let travel: Travel
+    private var locationDTO: LocationDTO?
     
     // MARK: - Lifecycles
     
     init(travel: Travel) {
-        viewModel = PlanAddViewModel()
-        self.travel = travel
+        viewModel = PlanAddViewModel(travel: travel)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -344,13 +343,7 @@ extension PlanAddViewController {
 
 extension PlanAddViewController {
     @objc func dateInputButtonTouchUpInside() {
-        let calendarViewController = CalendarViewController(
-            touchOption: .single, type: .dateAndTime, startDate: travel.startDate, endDate: travel.endDate
-        )
-        print(travel)
-        calendarViewController.delegate = self
-        
-        present(calendarViewController, animated: true)
+        viewModel.dateButtonTapped()
     }
     
     @objc func textFieldDidChange(_ sender: UITextField) {
@@ -364,19 +357,19 @@ extension PlanAddViewController {
     }
     
     @objc func addButtonTouchUpInside() {
-        guard let name = planTitleTextField.text,
-              let dateString = dateInputButton.titleLabel?.text,
-              let date = Date.convertDateStringToDate(
-                dateString: dateString,
-                formatter: Date.yearMonthDayTimeDateFormatter
-              ),
-              let content = descriptionTextView.text
-        else {
-            return
-        }
-        let planDTO = PlanDTO(name: name, date: date, content: content, travel: travel)
-        viewModel.postPlan(plan: planDTO) { [weak self] in
-            self?.navigationController?.popViewController(animated: true)
+        let result = viewModel.addPlan(
+            name: planTitleTextField.text,
+            dateString: dateInputButton.titleLabel?.text,
+            locationDTO: locationDTO,
+            content: descriptionTextView.text
+        )
+        
+        switch result {
+        case .success:
+            navigationController?.popViewController(animated: true)
+        case .failure(let error):
+            presentErrorAlert(title: CoreDataError.saveFailure(.plan).errorDescription)
+            print(error.localizedDescription)
         }
     }
     
@@ -437,6 +430,16 @@ extension PlanAddViewController: PlanAddViewDelegate {
         }
     }
     
+    func presentCalendarViewController(travel: Travel) {
+        let calendarViewController = CalendarViewController(
+            touchOption: .single, type: .dateAndTime, startDate: travel.startDate, endDate: travel.endDate
+        )
+        calendarViewController.delegate = self
+        
+        present(calendarViewController, animated: true)
+    }
+    
+    
 }
 
 // MARK: - SearchingLocationViewControllerDelegate
@@ -444,6 +447,7 @@ extension PlanAddViewController: PlanAddViewDelegate {
 extension PlanAddViewController: SearchingLocationViewControllerDelegate {
     func searchingLocationViewController(didSelect location: LocationDTO) {
         viewModel.isValidPlace(place: location)
+        locationDTO = location
     }
 }
 

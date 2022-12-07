@@ -164,6 +164,8 @@
 		EE5D50F5293DD495006ECE87 /* TravelAddLocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5D50F4293DD495006ECE87 /* TravelAddLocalRepository.swift */; };
 		EE85FBC3292BA9B600FF0C7C /* ExpenseAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE85FBC2292BA9B600FF0C7C /* ExpenseAddViewController.swift */; };
 		EE85FBC6292BAADC00FF0C7C /* ExpenseAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE85FBC5292BAADC00FF0C7C /* ExpenseAddView.swift */; };
+		EE97A8B2294053CE00BB8390 /* PlanAddRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97A8B1294053CE00BB8390 /* PlanAddRepository.swift */; };
+		EE97A8B4294053DD00BB8390 /* PlanAddLocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97A8B3294053DD00BB8390 /* PlanAddLocalRepository.swift */; };
 		EEA1C824292F395100B80901 /* ExchangeDiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA1C823292F395100B80901 /* ExchangeDiskCache.swift */; };
 		EEA1C826292F4E6000B80901 /* ExchangeMemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA1C825292F4E6000B80901 /* ExchangeMemoryCache.swift */; };
 		EEB6C4F8292CA8DB0060A459 /* ExpenseAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4F7292CA8DB0060A459 /* ExpenseAddViewModel.swift */; };
@@ -356,6 +358,8 @@
 		EE5D50F4293DD495006ECE87 /* TravelAddLocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAddLocalRepository.swift; sourceTree = "<group>"; };
 		EE85FBC2292BA9B600FF0C7C /* ExpenseAddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddViewController.swift; sourceTree = "<group>"; };
 		EE85FBC5292BAADC00FF0C7C /* ExpenseAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddView.swift; sourceTree = "<group>"; };
+		EE97A8B1294053CE00BB8390 /* PlanAddRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanAddRepository.swift; sourceTree = "<group>"; };
+		EE97A8B3294053DD00BB8390 /* PlanAddLocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanAddLocalRepository.swift; sourceTree = "<group>"; };
 		EEA1C823292F395100B80901 /* ExchangeDiskCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeDiskCache.swift; sourceTree = "<group>"; };
 		EEA1C825292F4E6000B80901 /* ExchangeMemoryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeMemoryCache.swift; sourceTree = "<group>"; };
 		EEB6C4F3292C8CC50060A459 /* ExpenseAddPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddPickerViewController.swift; sourceTree = "<group>"; };
@@ -531,7 +535,7 @@
 		A4CC04DB292351E700BB678B /* TravelScene */ = {
 			isa = PBXGroup;
 			children = (
-				EE206E9B293DF11C003F2C78 /* PlanAdd */,
+				EE97A8B0294053C000BB8390 /* PlanAdd */,
 				EE5D50F1293DD402006ECE87 /* TravelAdd */,
 				A4CC04DC292351F800BB678B /* PlanList */,
 			);
@@ -1111,13 +1115,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		EE206E9B293DF11C003F2C78 /* PlanAdd */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PlanAdd;
-			sourceTree = "<group>";
-		};
 		EE206E9C293DF171003F2C78 /* AddViewComponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -1190,6 +1187,15 @@
 				EE85FBC5292BAADC00FF0C7C /* ExpenseAddView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		EE97A8B0294053C000BB8390 /* PlanAdd */ = {
+			isa = PBXGroup;
+			children = (
+				EE97A8B1294053CE00BB8390 /* PlanAddRepository.swift */,
+				EE97A8B3294053DD00BB8390 /* PlanAddLocalRepository.swift */,
+			);
+			path = PlanAdd;
 			sourceTree = "<group>";
 		};
 		EEA1C822292F391A00B80901 /* Exchange */ = {
@@ -1507,6 +1513,7 @@
 				A4CC04CF292281B400BB678B /* UIStackView+AddArrangedSubviews.swift in Sources */,
 				BBEC31FA2934B40B0064CCFA /* CGImagePropertyOrientation+.swift in Sources */,
 				A4CC04CB29227E5C00BB678B /* Constants.swift in Sources */,
+				EE97A8B4294053DD00BB8390 /* PlanAddLocalRepository.swift in Sources */,
 				A4CC04CD2922818900BB678B /* UIView+AddSubviews.swift in Sources */,
 				BBFAC091291CBDD700D7FD57 /* Doesaegim.xcdatamodeld in Sources */,
 				B5D64E76292E3B6C00E1CC81 /* DiaryDetailLocalRepository.swift in Sources */,
@@ -1592,6 +1599,7 @@
 				A4CC04A229221EEE00BB678B /* Diary+CoreDataClass.swift in Sources */,
 				EE116C5A2924AA0D0017B519 /* CustomCalendar.swift in Sources */,
 				A4EB00DC2926456D00A83936 /* UIScrollView+DidPassPoint.swift in Sources */,
+				EE97A8B2294053CE00BB8390 /* PlanAddRepository.swift in Sources */,
 				EEB6C506292CCE410060A459 /* ExchangeRateType.swift in Sources */,
 				EE3E29A829235F6B007C7FC7 /* UITextField+.swift in Sources */,
 				A4CC04822922191300BB678B /* PersistentManager.swift in Sources */,
