@@ -156,6 +156,7 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
     private func setAddTargets() {
         exitButton.addTarget(self, action: #selector(exitButtonTouchUpInside), for: .touchUpInside)
         addButton.addTarget(self, action: #selector(addButtonTouchUpInside), for: .touchUpInside)
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(exitButtonTouchUpInside)))
     }
     
     
