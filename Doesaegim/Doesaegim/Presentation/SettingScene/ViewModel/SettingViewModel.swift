@@ -24,32 +24,43 @@ extension SettingViewModel {
             SettingSection(
                 title: "사용설정",
                 options: [
-                    SettingOptionViewModel(
-                        title: "날짜/시간표시",
-                        icon: UIImage(systemName: "calendar"),
-                        iconTintColor: .primaryOrange, handler: {
-                            print("SET SETTING OPTION VIEWMODEL")
-                        }
+                    .staticCell(
+                        model: SettingOptionViewModel(
+                            title: "날짜/시간표시",
+                            icon: UIImage(systemName: "calendar"),
+                            iconTintColor: .primaryOrange,
+                            handler: {
+                                print("날짜/시간표시 셀 선택")
+                            }
+                        )
                     ),
-                    SettingOptionViewModel(
-                        title: "알림설정",
-                        icon: UIImage(systemName: "bell"),
-                        iconTintColor: .primaryOrange,
-                        handler: {
-                            print("SET SETTING OPTION VIEWMODEL")
-                        }
+                    
+                    .staticCell(
+                        model: SettingOptionViewModel(
+                            title: "알림설정",
+                            icon: UIImage(systemName: "bell"),
+                            iconTintColor: .primaryOrange,
+                            handler: {
+                                print("알림설정 셀 선택")
+                            }
+                        )
                     )
                 ]
             ),
             SettingSection(
+                
                 title: "애플리케이션",
                 options: [
-                    SettingOptionViewModel(
-                        title: "라이센스",
-                        icon: UIImage(systemName: "text.book.closed"),
-                        iconTintColor: .primaryOrange, handler: {
-                            print("SET SETTING OPTION VIEWMODEL")
-                        }
+                    .staticCell(
+                        model: SettingOptionViewModel(
+                            title: "라이센스",
+                            icon: UIImage(systemName: "text.book.closed"),
+                            iconTintColor: .primaryOrange,
+                            handler: {
+                                // TODO: - 라이센스 화면으로 이동 -> delegate 메서드 사용
+                                print("라이센스 셀 선택")
+                            }
+                        )
                     )
                 ]
             )
@@ -57,4 +68,9 @@ extension SettingViewModel {
         // 배열 삽입 끝
     }
     
+}
+
+struct SettingSection {
+    let title: String
+    let options: [SettringOptionType]
 }

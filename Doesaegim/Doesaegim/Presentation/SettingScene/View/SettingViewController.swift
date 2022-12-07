@@ -34,7 +34,6 @@ extension SettingViewController {
         configureNavigationBar()
         configureTableView()
         configureSubviews()
-        configureConstraints()
         
     }
     
@@ -52,12 +51,6 @@ extension SettingViewController {
         view.addSubview(tableView)
     }
     
-    private func configureConstraints() {
-        
-    }
-    
-    
-    
 }
 
 extension SettingViewController: UITableViewDelegate {
@@ -68,10 +61,15 @@ extension SettingViewController: UITableViewDelegate {
               let info = settingInfo.options[safeIndex: indexPath.row] else { return }
         // TODO: - 핸들러 실행 또는 네비게이션 바 이동
         
+        switch info {
+        case .staticCell(let model):
+            model.handler()
+            
+        default:
+            return
+        }
+        
     }
-    
-    
-    
 }
 
 extension SettingViewController: UITableViewDataSource {
@@ -88,16 +86,27 @@ extension SettingViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let settingInfos = viewModel.settingInfos[safeIndex: indexPath.section],
-              let info = settingInfos.options[safeIndex: indexPath.row],
-              let cell = tableView.dequeueReusableCell(
-                withIdentifier: SettingTableViewCell.identifier,
-                for: indexPath
-              ) as? SettingTableViewCell else {
+              let info = settingInfos.options[safeIndex: indexPath.row] else {
             return UITableViewCell()
         }
         
-        cell.configure(with: info)
-        return cell
+        switch info {
+        case .staticCell(let model):
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: SettingTableViewCell.identifier,
+                for: indexPath
+            ) as? SettingTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: model)
+            return cell
+            
+        case .switchCell(let model):
+            // TODO: - SwitchCell 설정 알림설정 등
+            return UITableViewCell()
+        }
+        
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -105,9 +114,3 @@ extension SettingViewController: UITableViewDataSource {
         return settingInfos.title
     }
 }
-
-struct SettingSection {
-    let title: String
-    let options: [SettingOptionViewModel]
-}
-

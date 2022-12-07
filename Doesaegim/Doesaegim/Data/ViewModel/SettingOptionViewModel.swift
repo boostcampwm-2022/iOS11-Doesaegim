@@ -16,3 +16,8 @@ struct SettingOptionViewModel {
     let handler: (() -> Void)
     
 }
+
+enum SettringOptionType {
+    case staticCell(model: SettingOptionViewModel)
+    case switchCell(model: SettingOptionViewModel)
+}
