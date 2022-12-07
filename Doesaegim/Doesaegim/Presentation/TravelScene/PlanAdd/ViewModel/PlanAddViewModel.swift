@@ -35,14 +35,19 @@ final class PlanAddViewModel: PlanAddViewProtocol {
         }
     }
     
+    private let travel: Travel
+    private let repository: PlanAddLocalRepository
+    
     // MARK: - Lifecycles
     
-    init() {
+    init(travel: Travel) {
         isValidName = false
         isValidPlace = false
         isValidDate = false
         isValidInput = isValidName && isValidPlace && isValidDate
         isClearInput = true
+        self.travel = travel
+        repository = PlanAddLocalRepository()
     }
     
     // MARK: - Helpers
@@ -106,6 +111,41 @@ final class PlanAddViewModel: PlanAddViewProtocol {
             return
         }
         isClearInput = true
+    }
+    
+    func addPlan(
+        name: String?,
+        dateString: String?,
+        locationDTO: LocationDTO?,
+        content: String?
+    ) -> Result<Plan, Error> {
+        guard let name,
+              let dateString,
+              let locationDTO,
+              let date = Date.convertDateStringToDate(
+                dateString: dateString,
+                formatter: Date.yearMonthDayTimeDateFormatter
+              )
+        else {
+            return .failure(CoreDataError.saveFailure(.plan))
+        }
+        let planDTO = PlanDTO(
+            name: name,
+            date: date,
+            content: content ?? "",
+            travel: travel,
+            location: locationDTO
+        )
+        
+        return repository.addPlan(planDTO)
+    }
+    
+    func dateButtonTapped() {
+        delegate?.presentCalendarViewController(travel: travel)
+    }
+    
+    func placeButtonTapped() {
+        delegate?.presentSearchingLocationViewController()
     }
 }
 
