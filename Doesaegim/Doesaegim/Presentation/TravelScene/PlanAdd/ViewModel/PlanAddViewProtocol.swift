@@ -21,7 +21,12 @@ protocol PlanAddViewProtocol: AnyObject {
     
     func isClearInput(title: String?, place: String?, date: String?, description: String?)
     
-    func addPlan(name: String?, dateString: String?, locationDTO: LocationDTO?, content: String?) -> Result<Plan, Error>
+    func addPlan(
+        name: String?,
+        dateString: String?,
+        locationDTO: LocationDTO?,
+        content: String?
+    ) -> Result<Plan, Error>
     func dateButtonTapped()
 }
 

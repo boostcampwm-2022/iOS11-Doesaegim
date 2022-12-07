@@ -113,7 +113,12 @@ final class PlanAddViewModel: PlanAddViewProtocol {
         isClearInput = true
     }
     
-    func addPlan(name: String?, dateString: String?, locationDTO: LocationDTO?, content: String?) -> Result<Plan, Error> {
+    func addPlan(
+        name: String?,
+        dateString: String?,
+        locationDTO: LocationDTO?,
+        content: String?
+    ) -> Result<Plan, Error> {
         guard let name,
               let dateString,
               let locationDTO,
@@ -124,7 +129,13 @@ final class PlanAddViewModel: PlanAddViewProtocol {
         else {
             return .failure(CoreDataError.saveFailure(.plan))
         }
-        let planDTO = PlanDTO(name: name, date: date, content: content ?? "", travel: travel, location: locationDTO)
+        let planDTO = PlanDTO(
+            name: name,
+            date: date,
+            content: content ?? "",
+            travel: travel,
+            location: locationDTO
+        )
         
         return repository.addPlan(planDTO)
     }

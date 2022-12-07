@@ -209,6 +209,10 @@ final class PlanAddViewController: UIViewController {
         viewModel.delegate = self
     }
     
+    deinit {
+        removeKeyboardNotification()
+    }
+    
     // MARK: - Configure Functions
     
     private func configureViews() {
@@ -313,6 +317,10 @@ extension PlanAddViewController {
             selector: #selector(keyboardWillHide),
             name: UIResponder.keyboardWillHideNotification, object: nil
         )
+    }
+    
+    private func removeKeyboardNotification() {
+        NotificationCenter.default.removeObserver(self)
     }
   
     @objc private func keyboardWillShow(notification: NSNotification) {
