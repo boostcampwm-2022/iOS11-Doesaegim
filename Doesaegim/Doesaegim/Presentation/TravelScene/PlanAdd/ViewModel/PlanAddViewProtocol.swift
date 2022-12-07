@@ -28,6 +28,7 @@ protocol PlanAddViewProtocol: AnyObject {
         content: String?
     ) -> Result<Plan, Error>
     func dateButtonTapped()
+    func placeButtonTapped()
 }
 
 protocol PlanAddViewDelegate: AnyObject {
@@ -35,4 +36,5 @@ protocol PlanAddViewDelegate: AnyObject {
     func planAddViewDidSelectLocation(locationName: String)
     func backButtonDidTap(isClear: Bool)
     func presentCalendarViewController(travel: Travel)
+    func presentSearchingLocationViewController()
 }

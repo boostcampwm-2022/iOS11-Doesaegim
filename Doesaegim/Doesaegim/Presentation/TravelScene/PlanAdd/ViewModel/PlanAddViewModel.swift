@@ -143,6 +143,10 @@ final class PlanAddViewModel: PlanAddViewProtocol {
     func dateButtonTapped() {
         delegate?.presentCalendarViewController(travel: travel)
     }
+    
+    func placeButtonTapped() {
+        delegate?.presentSearchingLocationViewController()
+    }
 }
 
 fileprivate extension PlanAddViewModel {

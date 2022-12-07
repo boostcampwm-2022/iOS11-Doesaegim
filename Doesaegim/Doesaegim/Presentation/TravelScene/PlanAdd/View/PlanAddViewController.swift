@@ -148,9 +148,7 @@ extension PlanAddViewController {
     }
     
     @objc func placeButtonTouchUpInside() {
-        let searchingLocationViewController = SearchingLocationViewController()
-        searchingLocationViewController.delegate = self
-        navigationController?.pushViewController(searchingLocationViewController, animated: true)
+        viewModel.placeButtonTapped()
     }
     
     @objc func addButtonTouchUpInside() {
@@ -233,6 +231,12 @@ extension PlanAddViewController: PlanAddViewDelegate {
         )
         calendarViewController.delegate = self
         present(calendarViewController, animated: true)
+    }
+    
+    func presentSearchingLocationViewController() {
+        let searchingLocationViewController = SearchingLocationViewController()
+        searchingLocationViewController.delegate = self
+        navigationController?.pushViewController(searchingLocationViewController, animated: true)
     }
 }
 
