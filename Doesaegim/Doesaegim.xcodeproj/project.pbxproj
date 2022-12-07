@@ -170,6 +170,8 @@
 		EE97A8B82940647A00BB8390 /* AddViewInputButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97A8B72940647A00BB8390 /* AddViewInputButton.swift */; };
 		EE97A8BA2940661600BB8390 /* AddViewCompleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97A8B92940661600BB8390 /* AddViewCompleteButton.swift */; };
 		EE97A8BC2940806100BB8390 /* ExchangeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97A8BB2940806100BB8390 /* ExchangeData.swift */; };
+		EE97A8C029408CB200BB8390 /* ExpenseAddRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97A8BF29408CB200BB8390 /* ExpenseAddRepository.swift */; };
+		EE97A8C229408CE000BB8390 /* ExpenseAddLocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97A8C129408CE000BB8390 /* ExpenseAddLocalRepository.swift */; };
 		EEA1C824292F395100B80901 /* ExchangeDiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA1C823292F395100B80901 /* ExchangeDiskCache.swift */; };
 		EEA1C826292F4E6000B80901 /* ExchangeMemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA1C825292F4E6000B80901 /* ExchangeMemoryCache.swift */; };
 		EEB6C4F8292CA8DB0060A459 /* ExpenseAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4F7292CA8DB0060A459 /* ExpenseAddViewModel.swift */; };
@@ -368,6 +370,8 @@
 		EE97A8B72940647A00BB8390 /* AddViewInputButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewInputButton.swift; sourceTree = "<group>"; };
 		EE97A8B92940661600BB8390 /* AddViewCompleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewCompleteButton.swift; sourceTree = "<group>"; };
 		EE97A8BB2940806100BB8390 /* ExchangeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeData.swift; sourceTree = "<group>"; };
+		EE97A8BF29408CB200BB8390 /* ExpenseAddRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddRepository.swift; sourceTree = "<group>"; };
+		EE97A8C129408CE000BB8390 /* ExpenseAddLocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddLocalRepository.swift; sourceTree = "<group>"; };
 		EEA1C823292F395100B80901 /* ExchangeDiskCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeDiskCache.swift; sourceTree = "<group>"; };
 		EEA1C825292F4E6000B80901 /* ExchangeMemoryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeMemoryCache.swift; sourceTree = "<group>"; };
 		EEB6C4F3292C8CC50060A459 /* ExpenseAddPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddPickerViewController.swift; sourceTree = "<group>"; };
@@ -533,6 +537,7 @@
 		A4CC04DA292351DC00BB678B /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				EE97A8BD29408BF900BB8390 /* ExpenseScene */,
 				BB9DB8132928D0C300102EC8 /* PersistentStorage */,
 				A4CC04DB292351E700BB678B /* TravelScene */,
 				A4EB25C0292BB4F7002D129A /* DiaryScene */,
@@ -1209,6 +1214,23 @@
 			path = PlanAdd;
 			sourceTree = "<group>";
 		};
+		EE97A8BD29408BF900BB8390 /* ExpenseScene */ = {
+			isa = PBXGroup;
+			children = (
+				EE97A8BE29408C0900BB8390 /* ExpenseAdd */,
+			);
+			path = ExpenseScene;
+			sourceTree = "<group>";
+		};
+		EE97A8BE29408C0900BB8390 /* ExpenseAdd */ = {
+			isa = PBXGroup;
+			children = (
+				EE97A8BF29408CB200BB8390 /* ExpenseAddRepository.swift */,
+				EE97A8C129408CE000BB8390 /* ExpenseAddLocalRepository.swift */,
+			);
+			path = ExpenseAdd;
+			sourceTree = "<group>";
+		};
 		EEA1C822292F391A00B80901 /* Exchange */ = {
 			isa = PBXGroup;
 			children = (
@@ -1510,6 +1532,7 @@
 				EEB6C4FB292CA9200060A459 /* ExpenseAddViewProtocol.swift in Sources */,
 				BBDB2E96292635FD00752924 /* ExpenseSectionHeaderView.swift in Sources */,
 				B5D64E6E292E254A00E1CC81 /* DiaryDetailViewModelDelegate.swift in Sources */,
+				EE97A8C029408CB200BB8390 /* ExpenseAddRepository.swift in Sources */,
 				B53763CC292B56600073BF46 /* CustomPieChart.swift in Sources */,
 				EE5D50F5293DD495006ECE87 /* TravelAddLocalRepository.swift in Sources */,
 				B53763E3292B99B80073BF46 /* PieceShapeLayer.swift in Sources */,
@@ -1620,6 +1643,7 @@
 				A4CC04822922191300BB678B /* PersistentManager.swift in Sources */,
 				BB7D9A2A29261C0600BF2BD6 /* ExpenseListCell.swift in Sources */,
 				A4CC04C929227C7200BB678B /* PlanCollectionViewCell.swift in Sources */,
+				EE97A8C229408CE000BB8390 /* ExpenseAddLocalRepository.swift in Sources */,
 				A4CC04D72923347E00BB678B /* PlanListViewController.swift in Sources */,
 				EE3FB85E2938738A0024AEE1 /* TravelAddView.swift in Sources */,
 				A48E9946292512BC0029D57D /* CoreDataError.swift in Sources */,

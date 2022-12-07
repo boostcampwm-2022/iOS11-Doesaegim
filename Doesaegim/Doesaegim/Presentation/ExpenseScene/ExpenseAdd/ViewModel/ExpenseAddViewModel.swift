@@ -8,11 +8,12 @@
 import Foundation
 
 final class ExpenseAddViewModel: ExpenseAddViewProtocol {
-    
+
     // MARK: - Properties
     
     weak var delegate: ExpenseAddViewDelegate?
-    var currentTravel: Travel?
+    private let travel: Travel
+    private let repository: ExpenseAddLocalRepository
     
     var isValidName: Bool
     var isValidAmount: Bool
@@ -38,7 +39,10 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
         }
     }
     
-    init() {
+    init(travel: Travel) {
+        self.travel = travel
+        repository = ExpenseAddLocalRepository()
+        
         isValidName = false
         isValidAmount = false
         isValidUnit = false
@@ -121,16 +125,29 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
         exchangeCalculataion = Int(rationalAmount * rationalUnit)
     }
     
-    func postExpense(expense: ExpenseDTO, completion: @escaping () -> Void) {
-        let result = Expense.addAndSave(with: expense)
-        switch result {
-        case .success(let expense):
-            completion()
-        case .failure(let error):
-            print(error.localizedDescription)
+    func addExpense(name: String?, category: String?, content: String?, cost: String?, date: String?, exchangeInfo: ExchangeData?) -> Result<Expense, Error> {
+        guard let name,
+              let category,
+              let exchangeInfo,
+              let costString = cost,
+              let cost = Double(costString),
+              let tradingStandardRate = Double(exchangeInfo.tradingStandardRate.convertRemoveComma()),
+              let tradingStandardRate = Double(exchangeInfo.tradingStandardRate.convertRemoveComma()),
+              let dateString = date,
+              let date = Date.yearMonthDayDateFormatter.date(from: dateString)
+               else {
+            return .failure(CoreDataError.saveFailure(.expense))
         }
+        let expenseDTO = ExpenseDTO(
+            name: name,
+            category: category,
+            content: content ?? "",
+            cost: Int64(cost * tradingStandardRate) ,
+            currency: exchangeInfo.currencyName,
+            date: date,
+            travel: travel)
+        return repository.addExpense(expenseDTO)
     }
-    
     
     func isClearInput(
         name: String?,
@@ -150,6 +167,10 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
             return
         }
         isClearInput = true
+    }
+    
+    func dateInputButtonTapped() {
+        delegate?.presentCalendarViewController(travel: travel)
     }
     
     
