@@ -16,8 +16,11 @@ final class PlanAddViewController: UIViewController {
     private let rootView = PlanAddView()
     
     // MARK: - Properties
-    
+
+    weak var delegate: PlanAddViewControllerDelegate?
+
     private let viewModel: PlanAddViewModel
+    
     private var locationDTO: LocationDTO?
     
     // MARK: - Lifecycles
@@ -160,7 +163,8 @@ extension PlanAddViewController {
         )
         
         switch result {
-        case .success:
+        case .success(let plan):
+            delegate?.planAddViewControllerDidAddPlan(plan)
             navigationController?.popViewController(animated: true)
         case .failure(let error):
             presentErrorAlert(title: CoreDataError.saveFailure(.plan).errorDescription)

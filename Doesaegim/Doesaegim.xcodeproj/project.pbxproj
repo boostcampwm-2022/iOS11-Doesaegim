@@ -12,6 +12,9 @@
 		A48E994A292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48E9949292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift */; };
 		A4971D74291CC3A9008B337F /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = A4971D73291CC3A9008B337F /* .swiftlint.yml */; };
 		A49FD4662934DF7D00A92427 /* TranslucentActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49FD4652934DF7D00A92427 /* TranslucentActivityIndicatorView.swift */; };
+		A4B38C3029407D1500E52150 /* PlanAddViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B38C2F29407D1500E52150 /* PlanAddViewControllerDelegate.swift */; };
+		A4B38C322940C73C00E52150 /* PlanListViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B38C312940C73C00E52150 /* PlanListViewModelDelegate.swift */; };
+		A4B38C342940D3D400E52150 /* PlanListSnapshotData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B38C332940D3D300E52150 /* PlanListSnapshotData.swift */; };
 		A4B82D8A2938933100347B71 /* BlurredImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B82D892938933100347B71 /* BlurredImageViewController.swift */; };
 		A4B82D8C2938B6F200347B71 /* CIImage+Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B82D8B2938B6F200347B71 /* CIImage+Filters.swift */; };
 		A4B82D8E2938BB4C00347B71 /* BlurredImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B82D8D2938BB4C00347B71 /* BlurredImageViewModel.swift */; };
@@ -207,6 +210,9 @@
 		A48E9949292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+SetRightBarPlusButton.swift"; sourceTree = "<group>"; };
 		A4971D73291CC3A9008B337F /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		A49FD4652934DF7D00A92427 /* TranslucentActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslucentActivityIndicatorView.swift; sourceTree = "<group>"; };
+		A4B38C2F29407D1500E52150 /* PlanAddViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanAddViewControllerDelegate.swift; sourceTree = "<group>"; };
+		A4B38C312940C73C00E52150 /* PlanListViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanListViewModelDelegate.swift; sourceTree = "<group>"; };
+		A4B38C332940D3D300E52150 /* PlanListSnapshotData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanListSnapshotData.swift; sourceTree = "<group>"; };
 		A4B82D892938933100347B71 /* BlurredImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurredImageViewController.swift; sourceTree = "<group>"; };
 		A4B82D8B2938B6F200347B71 /* CIImage+Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CIImage+Filters.swift"; sourceTree = "<group>"; };
 		A4B82D8D2938BB4C00347B71 /* BlurredImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurredImageViewModel.swift; sourceTree = "<group>"; };
@@ -503,6 +509,7 @@
 			children = (
 				A4CC04C029226C7900BB678B /* ViewModel */,
 				A4CC04C729227BA800BB678B /* View */,
+				A4B38C312940C73C00E52150 /* PlanListViewModelDelegate.swift */,
 			);
 			path = PlanList;
 			sourceTree = "<group>";
@@ -602,6 +609,7 @@
 			children = (
 				BB5771A52923AB0A0034047D /* ViewModel */,
 				B57D962329222FD900B510B8 /* DTO */,
+				A4B38C332940D3D300E52150 /* PlanListSnapshotData.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -1109,6 +1117,7 @@
 			children = (
 				EE116C652924ECC50017B519 /* View */,
 				EEDB753429260DFF0069A7F5 /* ViewModel */,
+				A4B38C2F29407D1500E52150 /* PlanAddViewControllerDelegate.swift */,
 			);
 			path = PlanAdd;
 			sourceTree = "<group>";
@@ -1490,6 +1499,7 @@
 				BB288FD0292E21E100065D04 /* FileManagerError.swift in Sources */,
 				B5C096B629235416007426B1 /* SearchingLocationViewController.swift in Sources */,
 				BBD0D05B291DE956007D0D82 /* TravelListViewController.swift in Sources */,
+				A4B38C322940C73C00E52150 /* PlanListViewModelDelegate.swift in Sources */,
 				BBE695D829228B560015FAD4 /* TravelListViewModel.swift in Sources */,
 				BB9DB80E2928CA6A00102EC8 /* ExpenseListViewModelProtocol.swift in Sources */,
 				EE3FB856293751A00024AEE1 /* DiaryPhotoDetailViewController.swift in Sources */,
@@ -1571,6 +1581,7 @@
 				B5DE4D4029271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift in Sources */,
 				BBE695DA29228C570015FAD4 /* TravelListViewModelProtocol.swift in Sources */,
 				B5B497CD29374C58009AE4AC /* BarShapeLayer.swift in Sources */,
+				A4B38C342940D3D400E52150 /* PlanListSnapshotData.swift in Sources */,
 				B5C096C029236BC0007426B1 /* SearchResultCellViewModel.swift in Sources */,
 				A48E9948292515020029D57D /* UIViewController+PresentAlert.swift in Sources */,
 				BB6BE55B2936020300857D25 /* FaceDetectController+CollectionView.swift in Sources */,
@@ -1608,6 +1619,7 @@
 				A4EB25C9292C92CC002D129A /* DiaryAddViewModelDelegate.swift in Sources */,
 				EE116C592924AA0D0017B519 /* CustomCalendarHeaderView.swift in Sources */,
 				A4CC04A229221EEE00BB678B /* Diary+CoreDataClass.swift in Sources */,
+				A4B38C3029407D1500E52150 /* PlanAddViewControllerDelegate.swift in Sources */,
 				EE116C5A2924AA0D0017B519 /* CustomCalendar.swift in Sources */,
 				A4EB00DC2926456D00A83936 /* UIScrollView+DidPassPoint.swift in Sources */,
 				EE97A8B2294053CE00BB8390 /* PlanAddRepository.swift in Sources */,
