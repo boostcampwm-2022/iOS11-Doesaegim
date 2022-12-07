@@ -150,13 +150,6 @@ extension ExpenseAddViewController {
             presentErrorAlert(title: CoreDataError.saveFailure(.expense).errorDescription)
         }
     }
-    
-    func presentExpenseAddPickerView(type: ExpenseAddPickerViewController.PickerType) {
-        let pickerViewController = ExpenseAddPickerViewController(type: type)
-        pickerViewController.delegate = self
-        present(pickerViewController, animated: true)
-    }
-    
 }
 
 // MARK: - CalendarDelegate
@@ -214,6 +207,12 @@ extension ExpenseAddViewController: ExpenseAddViewDelegate {
         )
         calendarViewController.delegate = self
         present(calendarViewController, animated: true)
+    }
+    
+    func presentExpenseAddPickerView(type: ExpenseAddPickerViewController.PickerType) {
+        let pickerViewController = ExpenseAddPickerViewController(type: type)
+        pickerViewController.delegate = self
+        present(pickerViewController, animated: true)
     }
 }
 
