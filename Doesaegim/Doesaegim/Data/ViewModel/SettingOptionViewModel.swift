@@ -17,7 +17,7 @@ struct SettingOptionViewModel {
     
 }
 
-enum SettringOptionType {
+enum SettingOptionType {
     case staticCell(model: SettingOptionViewModel)
     case switchCell(model: SettingOptionViewModel)
 }

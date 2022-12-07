@@ -789,8 +789,8 @@
 		BB305CBB2940844A006C3480 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				BB305CBC29408457006C3480 /* SettingViewModel.swift */,
 				BB305CBE294084BC006C3480 /* SettingViewModelProtocol.swift */,
+				BB305CBC29408457006C3480 /* SettingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";

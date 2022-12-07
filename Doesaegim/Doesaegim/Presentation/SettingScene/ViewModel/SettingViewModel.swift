@@ -72,5 +72,5 @@ extension SettingViewModel {
 
 struct SettingSection {
     let title: String
-    let options: [SettringOptionType]
+    let options: [SettingOptionType]
 }
