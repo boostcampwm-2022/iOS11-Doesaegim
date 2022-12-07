@@ -28,9 +28,7 @@ final class PlanAddView: UIView {
     private let planTitleStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fill
-        stackView.spacing = 12
+        stackView.spacing = Metric.stackViewSpacing
         
         return stackView
     }()
@@ -52,9 +50,7 @@ final class PlanAddView: UIView {
     private let placeTitleStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fill
-        stackView.spacing = 12
+        stackView.spacing = Metric.stackViewSpacing
         
         return stackView
     }()
@@ -77,9 +73,7 @@ final class PlanAddView: UIView {
     private let dateStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fill
-        stackView.spacing = 12
+        stackView.spacing = Metric.stackViewSpacing
         
         return stackView
     }()
@@ -109,12 +103,12 @@ final class PlanAddView: UIView {
     let descriptionTextView: UITextView = {
         let textView = UITextView()
         
-        textView.layer.cornerRadius = 10
+        textView.layer.cornerRadius = Metric.textViewCornerRadius
         textView.text = StringLiteral.descriptionTextViewPlaceHolder
         textView.textColor = .grey3
-        textView.font = .systemFont(ofSize: 14, weight: .regular)
+        textView.font = .systemFont(ofSize: Metric.textViewFontSize, weight: .regular)
         textView.backgroundColor = .grey1
-        textView.contentInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        textView.contentInset = textViewInset
         return textView
     }()
     
@@ -227,6 +221,12 @@ final class PlanAddView: UIView {
 // MARK: - Namespaces
 
 extension PlanAddView {
+    enum Metric {
+        static let stackViewSpacing: CGFloat = 12
+        static let textViewCornerRadius: CGFloat = 10
+        static let textViewFontSize: CGFloat = 14
+        static let textViewInset: UIEdgeInsets = .init(top: 8, left: 8, bottom: 8, right: 8)
+    }
     enum StringLiteral {
         static let planTextFieldPlaceHolder = "일정의 이름을 입력해주세요."
         static let placeTextPlaceHolder = "장소를 검색해 주세요."
