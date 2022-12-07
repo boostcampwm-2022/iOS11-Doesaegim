@@ -12,11 +12,21 @@ import SnapKit
 final class DiaryDetailView: UIView {
     // MARK: - UI Properties
     
+    /// 다이어리 조회 중 나타나는 액티비티 인디케이터 뷰
+    private let activityIndicatorView: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.hidesWhenStopped = true
+        indicator.startAnimating()
+        
+        return indicator
+    }()
+    
     /// 이미지 슬라이더 뷰.
     lazy var imageSlider: UICollectionView = {
         let layout = configureCompositionalLayout()
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
@@ -118,6 +128,7 @@ final class DiaryDetailView: UIView {
         
         let dateFormatter = Date.yearMonthDayTimeDateFormatter
         dateLabel.text = dateFormatter.string(from: diary.date ?? Date())
+        activityIndicatorView.stopAnimating()
     }
     
     func setupNumberOfPages(_ count: Int) {
@@ -146,7 +157,7 @@ final class DiaryDetailView: UIView {
         contentStack.addArrangedSubviews(imageStack, contentLabel, infoStack)
         
         scrollView.addSubview(contentStack)
-        addSubview(scrollView)
+        addSubviews(scrollView, activityIndicatorView)
     }
     
     private func configureConstraint() {
@@ -160,6 +171,7 @@ final class DiaryDetailView: UIView {
         imageStack.snp.makeConstraints { $0.horizontalEdges.equalToSuperview() }
         contentStack.snp.makeConstraints { $0.edges.width.equalToSuperview() }
         scrollView.snp.makeConstraints { $0.edges.equalToSuperview() }
+        activityIndicatorView.snp.makeConstraints { $0.edges.equalToSuperview() }
     }
     
     // MARK: - Collection View
