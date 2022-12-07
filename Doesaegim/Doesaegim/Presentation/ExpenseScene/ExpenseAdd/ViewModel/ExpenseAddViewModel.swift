@@ -173,6 +173,10 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
         delegate?.presentCalendarViewController(travel: travel)
     }
     
+    func pickerViewInputButtonTapped(type: ExpenseAddPickerViewController.PickerType) {
+        delegate?.presentExpenseAddPickerView(type: type)
+    }
+    
     
 }
 fileprivate extension ExpenseAddViewModel {

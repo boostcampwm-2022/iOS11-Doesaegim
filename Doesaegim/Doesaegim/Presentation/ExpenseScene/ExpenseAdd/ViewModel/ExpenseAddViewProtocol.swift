@@ -43,6 +43,7 @@ protocol ExpenseAddViewProtocol: AnyObject {
     ) -> Result<Expense, Error>
     
     func dateInputButtonTapped()
+    func pickerViewInputButtonTapped(type: ExpenseAddPickerViewController.PickerType)
     
 }
 
@@ -51,4 +52,7 @@ protocol ExpenseAddViewDelegate: AnyObject {
     func exchangeLabelUpdate(result: Int)
     func backButtonDidTap(isClear: Bool)
     func presentCalendarViewController(travel: Travel)
+    func presentExpenseAddPickerView(
+        type: ExpenseAddPickerViewController.PickerType
+    )
 }

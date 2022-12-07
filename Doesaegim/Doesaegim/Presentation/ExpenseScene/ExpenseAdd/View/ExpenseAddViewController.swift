@@ -112,9 +112,7 @@ extension ExpenseAddViewController {
     @objc func pickerViewButtonTouchUpInside(_ sender: UIButton) {
         let type: ExpenseAddPickerViewController.PickerType =
         sender == rootView.moneyUnitButton ? .moneyUnit : .category
-        let pickerViewController = ExpenseAddPickerViewController(type: type)
-        pickerViewController.delegate = self
-        present(pickerViewController, animated: true)
+        viewModel.pickerViewInputButtonTapped(type: type)
     }
     
     @objc func dateButtonTouchUpInside() {
@@ -151,6 +149,12 @@ extension ExpenseAddViewController {
             print(error.localizedDescription)
             presentErrorAlert(title: CoreDataError.saveFailure(.expense).errorDescription)
         }
+    }
+    
+    func presentExpenseAddPickerView(type: ExpenseAddPickerViewController.PickerType) {
+        let pickerViewController = ExpenseAddPickerViewController(type: type)
+        pickerViewController.delegate = self
+        present(pickerViewController, animated: true)
     }
     
 }
