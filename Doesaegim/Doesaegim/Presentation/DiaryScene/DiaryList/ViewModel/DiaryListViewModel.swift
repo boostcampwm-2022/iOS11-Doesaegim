@@ -10,17 +10,19 @@ import Foundation
 final class DiaryListViewModel: DiaryListViewModelProtocol {
     
     var delegate: DiaryListViewModelDelegate?
+    var travelSections: [String]
     var diaryInfos: [DiaryInfoViewModel] { // 여행UUID: 다이어리 목록
         didSet {
             delegate?.diaryInfoDidChage()
         }
     }
-    var idAndTravelDictionary: [UUID: String]
+    var sectionDiaryDictionary: [Int: [DiaryInfoViewModel]]
     var currentTravel: Travel? // 추후 삭제될 코드
     
     init() {
         self.diaryInfos = []
-        self.idAndTravelDictionary = [:]
+        self.travelSections = []
+        self.sectionDiaryDictionary = [:]
     }
     
 }
@@ -29,7 +31,8 @@ extension DiaryListViewModel {
     
     private func initializeInfo() {
         diaryInfos = []
-        idAndTravelDictionary = [:]
+        travelSections = []
+        sectionDiaryDictionary = [:]
     }
     
     func fetchDiary() {
@@ -56,21 +59,26 @@ extension DiaryListViewModel {
                           let name = travel.name else { return }
                     diaryInfo.travelID = travelID
                     diaryInfo.travelName = name
-                    idAndTravelDictionary[travelID] = name
                     newDiaries.append(diaryInfo)
                     
+                    if !travelSections.contains(name) {
+                        travelSections.append(name)
+                    }
+                    
+                    guard let section = travelSections.firstIndex(of: name) else { return }
+                    sectionDiaryDictionary[section, default: []].append(diaryInfo)
                 }
                 // TODO: - 추후삭제
                 if currentTravel == nil {
                     currentTravel = travel
                 }
             }
-//            print(newDiaries)
+            newDiaries = newDiaries.sorted(by: sortByDate)
             diaryInfos = newDiaries
             
         case .failure(let error):
             print(error.localizedDescription)
-            // TODO: - 에러처리
+            delegate?.diaryListFetchDidFail()
         }
         
     }
@@ -82,10 +90,11 @@ extension DiaryListViewModel {
             let dateComponents = DateComponents(year: 2022, month: 12, day: 24+count)
             let date = Calendar.current.date(from: dateComponents)!
             let dto = DiaryDTO(
+                id: UUID(),
                 content: "콘텐츠 콘텐츠 콘텐츠 \(count)",
                 date: date,
                 images: [],
-                title: "제목제목제목제목제목제목제목제목제목ㅁㄴㅇㄹㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇㄹ\(count)",
+                title: "제목\(count)",
                 location: LocationDTO(
                     name: "위치",
                     latitude: 37.5700,
@@ -95,6 +104,14 @@ extension DiaryListViewModel {
             )
             Diary.addAndSave(with: dto)
         }
+    }
+    
+    private func sortByDate(_ lhs: DiaryInfoViewModel, _ rhs: DiaryInfoViewModel) -> Bool {
+        let formatter = Date.yearTominuteFormatterWithoutSeparator
+        let date1 = formatter.string(from: lhs.date)
+        let date2 = formatter.string(from: rhs.date)
+        
+        return date1 > date2
     }
     
 }

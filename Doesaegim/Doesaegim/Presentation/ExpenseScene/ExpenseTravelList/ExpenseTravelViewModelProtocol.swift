@@ -30,4 +30,8 @@ protocol ExpenseTravelViewModelDelegate: AnyObject {
     /// 나타나도록, 비어있지 않다면 숨김처리 하도록 구현해야합니다.
     func travelPlaceholderShouldChange()
     
+    /// `ExpenseTravelViewModelProtocol`을 준수하는 클래스에서 여행정보를 영구저장소로부터 fetch를 실패했을 때 호출되는 메서드 입니다
+    /// 사용자에게 여행정보 데이터를 불러오는데에 실패했다는 알림창을 띄워주어야합니다.
+    func travelListFetchDidFail()
+    
 }

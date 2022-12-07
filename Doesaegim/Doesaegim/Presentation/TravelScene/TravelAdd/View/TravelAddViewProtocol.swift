@@ -13,13 +13,19 @@ protocol TravelAddViewProtocol: AnyObject {
     var isValidTextField: Bool { get set }
     var isValidDate: Bool { get set }
     var isValidInput: Bool { get set }
+    var isClearInput: Bool { get set }
     
     func travelTitleDidChanged(title: String?)
-    func travelDateTapped(dates: [String], completion: @escaping ((Bool) -> Void))
+    func travelDateTapped(dates: [Date], completion: @escaping ((Bool) -> Void))
     
-    func postTravel(travel: TravelDTO, completion: @escaping (() -> Void))
+    func addTravel(
+        name: String?,
+        startDateString: String?,
+        endDateString: String?
+    ) -> Result<Travel, Error>
 }
 
 protocol TravelAddViewDelegate: AnyObject {
     func travelAddFormDidChange(isValid: Bool)
+    func backButtonDidTap(isClear: Bool)
 }

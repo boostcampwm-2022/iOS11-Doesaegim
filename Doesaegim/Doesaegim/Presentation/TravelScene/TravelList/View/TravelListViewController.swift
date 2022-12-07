@@ -7,9 +7,8 @@
 
 import UIKit
 
-import SnapKit
 
-// TODO: - 클래스 이름 TravelListViewController로 바꾸면 좋을듯함...
+import SnapKit
 
 final class TravelListViewController: UIViewController {
 
@@ -60,21 +59,6 @@ final class TravelListViewController: UIViewController {
         configureConstraints()
         configureNavigationBar()
         configureCollectionViewDataSource()
-        
-        // TODO: - 임시 데이터 저장, 추후 삭제
-//        do {
-//            for index in 1...100 {
-//                try Travel.addAndSave(
-//                    with: TravelDTO(
-//                        name: "\(index)번째 여행!",
-//                        startDate: Date(),
-//                        endDate: Date()
-//                    )
-//                )
-//            }
-//        } catch {
-//            print(error.localizedDescription)
-//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -155,7 +139,6 @@ final class TravelListViewController: UIViewController {
 
 extension TravelListViewController: TravelListViewModelDelegate {
     func travelListSnapshotShouldChange() {
-        // TODO: - ViewModel 작성 후 identifierItem 작성
         
         guard let viewModel = viewModel else {
             return
@@ -182,6 +165,30 @@ extension TravelListViewController: TravelListViewModelDelegate {
         } else {
             placeholdLabel.isHidden = true
         }
+    }
+    
+    func travelListDeleteDataDidFail() {
+        let alert = UIAlertController(
+            title: "삭제 실패",
+            message: "여행정보를 삭제하기를 실패하였습니다",
+            preferredStyle: .alert
+        )
+        
+        let okAction = UIAlertAction(title: "확인", style: .default)
+        alert.addAction(okAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func travelListFetchDidFail() {
+        let alert = UIAlertController(
+            title: "로드 실패",
+            message: "여행정보 불러오기를 실패하였습니다",
+            preferredStyle: .alert
+        )
+        let alertAction = UIAlertAction(title: "확인", style: .default)
+        alert.addAction(alertAction)
+        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -233,4 +240,6 @@ extension TravelListViewController {
         }
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
+    
+
 }

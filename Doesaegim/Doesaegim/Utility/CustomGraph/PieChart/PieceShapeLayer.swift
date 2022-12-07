@@ -11,20 +11,27 @@ final class PieceShapeLayer: CAShapeLayer {
     
     // MARK: - Properties
     
-    private let rect: CGRect
+    private let center: CGPoint
+    
+    private let radius: CGFloat
     
     private let startAngle: CGFloat
     
-    private let angleRatio: CGFloat
+    private let angle: CGFloat
     
     private let color: CGColor
     
+    // MARK: - Computed Properties
+    
+    private var strokeWidth: CGFloat { radius * 2 }
+    
     // MARK: - Init
     
-    init(rect: CGRect, startAngle: CGFloat, angleRatio: CGFloat, color: CGColor) {
-        self.rect = rect
+    init(center: CGPoint, radius: CGFloat, startAngle: CGFloat, angle: CGFloat, color: CGColor) {
+        self.center = center
+        self.radius = radius
         self.startAngle = startAngle
-        self.angleRatio = angleRatio
+        self.angle = angle
         self.color = color
         
         super.init()
@@ -42,31 +49,24 @@ final class PieceShapeLayer: CAShapeLayer {
     
     /// 레이어의 path를 지정한다. 원형 차트의 조각을 여기서 그린다.
     private func configurePath() {
-        let center = CGPoint(x: rect.midX, y: rect.midY)
-        let radius = (rect.width < rect.height ? rect.width : rect.height) * Metric.radiusRatio
-        
-        let piecePath = UIBezierPath()
-        piecePath.lineWidth = Metric.spacing
-        
-        piecePath.move(to: center)
-        piecePath.addArc(
-            withCenter: center,
+        let piecePath = UIBezierPath(
+            arcCenter: center,
             radius: radius,
             startAngle: startAngle,
-            endAngle: startAngle + angleRatio,
+            endAngle: startAngle + angle,
             clockwise: true
         )
-        piecePath.close()
+        UIColor.clear.set()
+        piecePath.stroke()
         
         path = piecePath.cgPath
     }
     
     /// 레이어의 속성값을 지정한다.
     private func configureAttributes() {
-        lineWidth = Metric.spacing
-        lineJoin = .bevel
-        strokeColor = UIColor.white?.cgColor
-        fillColor = color
+        lineWidth = strokeWidth
+        strokeColor = color
+        fillColor = UIColor.clear.cgColor
     }
 }
 
@@ -75,6 +75,6 @@ final class PieceShapeLayer: CAShapeLayer {
 extension PieceShapeLayer {
     enum Metric {
         static let spacing: CGFloat = 5
-        static let radiusRatio: CGFloat = 0.4
+        static let radiusRatio: CGFloat = 0.23
     }
 }

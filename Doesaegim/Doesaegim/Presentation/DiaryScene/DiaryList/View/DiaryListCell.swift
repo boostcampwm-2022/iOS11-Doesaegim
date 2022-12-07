@@ -11,7 +11,7 @@ final class DiaryListCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    static let identifier: String = NSStringFromClass(ExpenseListCell.self)
+    static let reusableID: String = String(describing: DiaryListCell.self)
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -64,9 +64,9 @@ final class DiaryListCell: UICollectionViewCell {
     
     let thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(systemName: "photo.on.rectangle.angled")
-        imageView.layer.cornerRadius = 7
+        imageView.layer.cornerRadius = 10
         
         return imageView
     }()
@@ -89,12 +89,10 @@ extension DiaryListCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        thumbnailImageView.isHidden = false
         titleLabel.text = "제목제목제목제목"
         contentLabel.text = "컨텐츠 컨텐츠 컨텐츠"
         dateLabel.text = "날짜 날짜 날짜"
-        thumbnailImageView.image = UIImage(systemName: "photo.on.rectangle.angled")
-        configure()
+        thumbnailImageView.image = nil
     }
     
     // MARK: - Configuration
@@ -106,8 +104,8 @@ extension DiaryListCell {
     }
     
     private func configureView() {
-        layer.cornerRadius = 7
-        backgroundColor = .lightRed
+        layer.cornerRadius = 10
+        backgroundColor = .systemBackground
         addShadow()
     }
     
@@ -134,9 +132,9 @@ extension DiaryListCell {
         
         thumbnailImageView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.trailing.equalToSuperview().inset(-9)
-            $0.width.equalTo(45)
-            $0.height.equalTo(45)
+            $0.trailing.equalToSuperview().inset(9)
+            $0.width.equalTo(55)
+            $0.height.equalTo(55)
         }
     }
     
@@ -149,25 +147,20 @@ extension DiaryListCell {
         let dateString = formatter.string(from: data.date)
         
         dateLabel.text = dateString
-        
         if let imageData = data.imageData {
             thumbnailImageView.image = UIImage(data: imageData)
         } else {
-            // 섬네일 이미지 뷰를 없앤다. 없어진 constraint를 재설정한다.
-            thumbnailImageView.removeFromSuperview()
-            contentStackView.snp.makeConstraints {
-                // $0.trailing.equalToSuperView().inset(-9) 로 하니 constraint가 잡히지 않습니다.
-                $0.trailing.equalTo(self.snp.trailing).offset(-9)
-            }
+            thumbnailImageView.backgroundColor = .grey2
         }
     }
     
     // MARK: - Functions
     private func addShadow() {
         layer.masksToBounds = false
-        layer.shadowColor = UIColor.grey4?.cgColor
+        layer.shadowColor = UIColor.grey2?.cgColor
         layer.shadowOffset = CGSize(width: 1, height: 1)
         layer.shadowRadius = 3
         layer.shadowOpacity = 1
+
     }
 }

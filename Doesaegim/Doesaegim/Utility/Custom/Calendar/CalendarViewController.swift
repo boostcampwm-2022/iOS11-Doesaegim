@@ -33,9 +33,10 @@ final class CalendarViewController: UIViewController, CalendarProtocol {
         let calendar = CustomCalendar(
             frame: .zero,
             collectionViewLayout: CustomCalendar.createLayout(),
-            touchOption: touchOption
+            touchOption: touchOption,
+            startDate: startDate,
+            endDate: endDate
         )
-        
         calendar.completionHandler = { [weak self] dates in
             guard let self, dates.count == 1 else { return }
             switch self.touchOption {
@@ -74,17 +75,25 @@ final class CalendarViewController: UIViewController, CalendarProtocol {
     // MARK: - Properties
     
     weak var delegate: CalendarViewDelegate?
-    private var date: String?
+    private var date: Date?
     private let touchOption: CustomCalendar.TouchOption
     private let type: CustomCalendar.CalendarType
     private let dateFormatter = Date.timeDateFormatter
-    
+    private let startDate: Date?
+    private let endDate: Date?
     
     // MARK: - Lifecycles
     
-    init(touchOption: CustomCalendar.TouchOption, type: CustomCalendar.CalendarType) {
+    init(
+        touchOption: CustomCalendar.TouchOption,
+        type: CustomCalendar.CalendarType,
+        startDate: Date? = nil,
+        endDate: Date? = nil
+    ) {
         self.touchOption = touchOption
         self.type = type
+        self.startDate = startDate
+        self.endDate = endDate
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -145,9 +154,9 @@ extension CalendarViewController {
         }
         if type == .dateAndTime {
             let time = dateFormatter.string(from: timeDatepicker.date)
-            let dateString = "\(date) \(time)"
+            let dateString = "\(Date.yearMonthDayDateFormatter.string(from: date)) \(time)"
             delegate?.fetchDate(dateString: dateString)
-        } else { delegate?.fetchDate(dateString: date) }
+        } else { delegate?.fetchDate(dateString: Date.yearMonthDayDateFormatter.string(from: date)) }
         dismiss(animated: true)
             
     }

@@ -17,8 +17,9 @@ final class CustomCalendar: UICollectionView {
     
     struct Item: Hashable {
         let id = UUID()
-        let day: String
+        let date: Date?
         var isSelected: Bool = false
+        var isSelectable: Bool = true
     }
     
     // MARK: - typealias
@@ -37,13 +38,19 @@ final class CustomCalendar: UICollectionView {
     private var days: [Item] = []
     private let touchOption: TouchOption
     private var selectedCount = 0
-    private var selectedDates: [String] = []
+    private var selectedDates: [Date] = []
     
-    var completionHandler: (([String]) -> Void)?
+    var startDate: Date?
+    var endDate: Date?
+    
+    var completionHandler: (([Date]) -> Void)?
     
     // MARK: - Lifecycles
     
-    init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout, touchOption: TouchOption) {
+    init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout,
+         touchOption: TouchOption, startDate: Date? = nil, endDate: Date? = nil) {
+        self.startDate = startDate
+        self.endDate = endDate
         self.touchOption = touchOption
         super.init(frame: frame, collectionViewLayout: layout)
         delegate = self
@@ -178,14 +185,7 @@ final class CustomCalendar: UICollectionView {
         
         days.removeAll()
         
-        /// 첫번째 날짜가 시작할 때 부터 숫자를 채워줌, 이전 날짜는 공백으로 처리
-        for day in 0..<totalDays {
-            if day < firstWeekIndex {
-                days.append(Item(day: ""))
-            } else {
-                days.append(Item(day: "\(day - firstWeekIndex + 1)"))
-            }
-        }
+        setSelectableDay(firstWeekIndex: firstWeekIndex, totalDays: totalDays)
         
     }
 }
@@ -200,6 +200,59 @@ extension CustomCalendar {
         case date
         case dateAndTime
     }
+    
+    /// 첫번째 날짜가 시작할 때 부터 숫자를 채워줌, 이전 날짜는 공백으로 처리
+    /// - Parameters:
+    ///   - firstWeekIndex: 현재 달의 1일의 요일 월요일(0)
+    ///   - totalDays: 모든 날짜의 합
+    private func setSelectableDay(firstWeekIndex: Int, totalDays: Int) {
+        guard let currentYear = dateComponents.year, let month = dateComponents.month else {
+            return
+        }
+        let currentMonth = String(format: "%02d", month)
+        
+        switch touchOption {
+        case .single:
+            for day in 0..<totalDays {
+                if day < firstWeekIndex {
+                    days.append(Item(date: nil, isSelectable: false))
+                } else {
+                    let currentDay = String(format: "%02d", day - firstWeekIndex + 1)
+                    let stringDate = "\(currentYear)년 \(currentMonth)월 \(currentDay)일"
+                    guard let date = Date.yearMonthDayDateFormatter.date(from: stringDate) else {
+                        return
+                    }
+                    if let startDate, let endDate {
+                        let isSelectable =  (startDate...endDate) ~= date
+                        days.append(Item(date: date,
+                                         isSelectable: isSelectable))
+                    }
+                }
+            }
+        case .double:
+            for day in 0..<totalDays {
+                if day < firstWeekIndex {
+                    days.append(Item(date: nil, isSelectable: false))
+                } else {
+                    let currentDay = String(format: "%02d", day - firstWeekIndex + 1)
+                    let stringDate = "\(currentYear)년 \(currentMonth)월 \(currentDay)일"
+                    guard let date = Date.yearMonthDayDateFormatter.date(from: stringDate) else {
+                        return
+                    }
+                    if let selectedDate = selectedDates.first {
+                        let isSelectable = selectedDate <= date
+                        days.append(Item(date: date,
+                                         isSelected: selectedDate == date,
+                                         isSelectable: isSelectable))
+                    } else {
+                        days.append(Item(date: date,
+                                         isSelectable: true))
+                    }
+                    
+                }
+            }
+        }
+    }
 }
 
 // MARK: Calendar Cell Tapped
@@ -209,16 +262,19 @@ extension CustomCalendar: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let startDay = calendar.component(.weekday, from: today) - 1
         
+        guard days[indexPath.row].isSelectable else { return }
+        
         guard indexPath.row >= startDay,
               let currentYear = dateComponents.year,
               let month = dateComponents.month else { return }
         
         let currentMonth = String(format: "%02d", month)
         let currentDay = String(format: "%02d", indexPath.row - startDay + 1)
-        let date = "\(currentYear)년 \(currentMonth)월 \(currentDay)일"
+        let stringDate = "\(currentYear)년 \(currentMonth)월 \(currentDay)일"
         days[indexPath.row].isSelected.toggle()
         selectedCount += 1
         
+        guard let date = Date.yearMonthDayDateFormatter.date(from: stringDate) else { return }
         selectedDates.append(date)
         
         switch touchOption {
@@ -227,17 +283,21 @@ extension CustomCalendar: UICollectionViewDelegate {
             selectedDates.removeAll()
             selectedCount = 0
             configureSnapshot()
-            for index in 0..<days.count {
-                days[index].isSelected = false
-            }
+            days = days.map { Item(date: $0.date, isSelected: false, isSelectable: $0.isSelectable) }
         case .double:
-            if selectedCount == 2 {
+            if selectedCount == 1 {
+                if let selectedDate = selectedDates.first {
+                    days = days.map {
+                        $0.date == nil ? Item(date: nil, isSelectable: false)
+                        : Item(date: $0.date ?? Date(), isSelected: selectedDate == ($0.date ?? Date()),
+                               isSelectable: selectedDate <= ($0.date ?? Date()))
+                    }
+                }
+            } else if selectedCount == 2 {
                 completionHandler?(selectedDates)
                 selectedDates.removeAll()
                 selectedCount = 0
-                for index in 0..<days.count {
-                    days[index].isSelected = false
-                }
+                days = days.map { Item(date: $0.date, isSelected: false, isSelectable: true)}
             }
             configureSnapshot()
         }

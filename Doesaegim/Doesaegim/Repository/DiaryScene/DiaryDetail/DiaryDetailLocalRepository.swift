@@ -16,8 +16,8 @@ final class DiaryDetailLocalRepository: DiaryDetailRepository {
     /// 이미지 경로들을 통해 파일 시스템에서 해당 파일 데이터를 찾아 반환한다.
     /// - Parameter paths: 이미지 경로 배열
     /// - Returns: 이미지 데이터 배열
-    func getImageDatas(from paths: [String]) -> [Data]? {
-        let images = fileProcessManager.fetchImages(with: paths)
+    func getImageDatas(from paths: [String], diaryID: UUID) -> [Data]? {
+        let images = fileProcessManager.fetchImages(with: paths, diaryID: diaryID)
         return images
     }
     

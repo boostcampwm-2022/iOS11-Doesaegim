@@ -11,19 +11,31 @@ import MapKit
 
 final class MapViewController: UIViewController {
     
-    let mapView = MKMapView()
-    let coordinate = CLLocationCoordinate2D(latitude: 40.728, longitude: -74)
+    private var mapView: MKMapView?
+    private let coordinate = CLLocationCoordinate2D(latitude: 40.728, longitude: -74)
     let viewModel: MapViewModelProtocol = MapViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.delegate = self
-        configureSubviews()
-        configureMap()
+        
         configureAnnotationView()
 //        addDummyPins() // 더미 핀을 추가하고 싶을 때
         viewModel.fetchDiary()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configureMap()
+        configureSubviews()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        mapView?.delegate = nil
+        mapView?.removeFromSuperview()
+        mapView = nil
     }
     
     // 추후 지워질 함 수 더미 핀을 만드는 함수
@@ -57,17 +69,22 @@ final class MapViewController: UIViewController {
     // MARK: - Configuration
     
     private func configureSubviews() {
+        print(#function)
+        guard let mapView = mapView else { return }
         view.addSubview(mapView)
     }
     
     private func configureMap() {
-        mapView.frame = view.bounds
-        mapView.delegate = self
+        print(#function)
+        mapView = MKMapView()
+        mapView?.frame = view.bounds
+        mapView?.delegate = self
         centerMapOnJongRo()
         
     }
     
     private func centerMapOnJongRo() {
+        guard let mapView = mapView else { return }
         let jongRoCoordinate = CLLocationCoordinate2D(
             latitude: 37.5700,
             longitude: 126.9796
@@ -83,7 +100,7 @@ final class MapViewController: UIViewController {
     }
     
     private func configureAnnotationView() {
-
+        guard let mapView = mapView else { return }
         mapView.register(
             MKMarkerAnnotationView.self,
             forAnnotationViewWithReuseIdentifier: NSStringFromClass(DiaryAnnotation.self)
@@ -94,12 +111,14 @@ final class MapViewController: UIViewController {
     // MARK: - Functions
     
     private func clearAnnotation() {
+        guard let mapView = mapView else { return }
         let annotations = mapView.annotations
         mapView.removeAnnotations(annotations)
     }
     
     private func addPin(with diaryInfo: DiaryMapInfoViewModel) {
         
+        guard let mapView = mapView else { return }
         let latitude = diaryInfo.latitude
         let longitude = diaryInfo.longitude
         let coordinate = CLLocationCoordinate2D(
@@ -109,7 +128,6 @@ final class MapViewController: UIViewController {
         
         let pin = DiaryAnnotation(coordinate: coordinate)
         pin.configure(with: diaryInfo)
-        // TODO: - 이미지 경로 이곳에서 설정하고 mapView(annotation:mapView) 메서드에서 경로로 이미지받아와서 붙인다.
         mapView.addAnnotation(pin)
     }
     
@@ -133,12 +151,10 @@ extension MapViewController: MKMapViewDelegate {
                  calloutAccessoryControlTapped control: UIControl) {
         
         if let annotation = view.annotation, annotation.isKind(of: DiaryAnnotation.self) {
-            print("다이어리 어노테이션을 탭 했습니다.")
             guard let annotation = annotation as? DiaryAnnotation,
                   let id = annotation.id else { return }
-            
-//            let diaryViewController = DiaryDetailViewController(id: id)
-            let diaryViewController = TempDiaryViewController()
+        
+            let diaryViewController = DiaryDetailViewController(id: id)
             diaryViewController.modalPresentationStyle = .popover
             let presentationController =  diaryViewController.popoverPresentationController
             presentationController?.permittedArrowDirections = .any

@@ -18,7 +18,7 @@ struct DiaryAddLocalRepository: DiaryAddRepository {
     // MARK: - Functions
 
     func fetchAllTravels() -> Result<[Travel], Error> {
-        let request = Travel.fetchRequest()
+        let request = Travel.endDateSortedFetchRequest()
         request.fetchBatchSize = Metric.fetchBatchSize
 
         return persistentManager.fetch(request: request)

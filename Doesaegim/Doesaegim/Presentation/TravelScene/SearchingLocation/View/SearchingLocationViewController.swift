@@ -141,7 +141,11 @@ extension SearchingLocationViewController: UISearchBarDelegate {
 
 extension SearchingLocationViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedItem = viewModel.searchResultCellViewModels[indexPath.row]
+        guard let selectedItem = viewModel.searchResultCellViewModels[safeIndex: indexPath.row]
+        else {
+            return
+        }
+
         let selectedLocation = LocationDTO(
             name: selectedItem.name,
             latitude: selectedItem.latitude,

@@ -27,8 +27,8 @@ final class DiaryAnnotation: NSObject, MKAnnotation {
 extension DiaryAnnotation {
     func configure(with diaryInfo: DiaryMapInfoViewModel) {
         id = diaryInfo.id
-        title = diaryInfo.title
-        subtitle = diaryInfo.content // 내용을 나타낼찌, 날짜를 넣을지 추후 결정
+        title = diaryInfo.title.truncate(length: 8)
+        subtitle = diaryInfo.content.truncate(length: 10) // 내용을 나타낼찌, 날짜를 넣을지 추후 결정
         imageData = diaryInfo.imageData
     }
 }

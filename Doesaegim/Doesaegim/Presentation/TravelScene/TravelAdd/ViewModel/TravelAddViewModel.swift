@@ -11,6 +11,8 @@ final class TravelAddViewModel: TravelAddViewProtocol {
     
     // MARK: - Properties
     
+    private let repository: TravelAddRepository
+    
     weak var delegate: TravelAddViewDelegate?
     
     var isValidTextField: Bool
@@ -20,6 +22,11 @@ final class TravelAddViewModel: TravelAddViewProtocol {
             delegate?.travelAddFormDidChange(isValid: isValidInput)
         }
     }
+    var isClearInput: Bool {
+        didSet {
+            delegate?.backButtonDidTap(isClear: isClearInput)
+        }
+    }
     
     // MARK: - Lifecycles
     
@@ -27,6 +34,8 @@ final class TravelAddViewModel: TravelAddViewProtocol {
         isValidTextField = false
         isValidDate = false
         isValidInput = isValidTextField && isValidDate
+        isClearInput = true
+        repository = TravelAddLocalRepository()
     }
     
     // MARK: - Functions
@@ -41,7 +50,7 @@ final class TravelAddViewModel: TravelAddViewProtocol {
     }
     
     
-    func travelDateTapped(dates: [String], completion: @escaping ((Bool) -> Void)) {
+    func travelDateTapped(dates: [Date], completion: @escaping ((Bool) -> Void)) {
         defer {
             isValidInput = isValidTextField && isValidDate
             completion(isValidDate)
@@ -54,16 +63,29 @@ final class TravelAddViewModel: TravelAddViewProtocol {
         
     }
     
+    func isClearInput(title: String?, startDate: String?, endDate: String?) {
+        guard let title, title.isEmpty,
+              startDate == TravelAddView.StringLiteral.startDateLabelPlaceholder,
+              endDate == TravelAddView.StringLiteral.endDateLabelPlaceholder else {
+            isClearInput = false
+            return
+        }
+        
+        isClearInput = true
+    }
+    
     // MARK: - CoreData Function
     
-    func postTravel(travel: TravelDTO, completion: @escaping (() -> Void)) {
-        let result = Travel.addAndSave(with: travel)
-        switch result {
-        case .success:
-            completion()
-        case .failure(let error):
-            print(error.localizedDescription)
-            
+    func addTravel(name: String?, startDateString: String?, endDateString: String?) -> Result<Travel, Error> {
+        guard let name,
+              let startDateString,
+              let startDate = Date.yearMonthDayDateFormatter.date(from: startDateString),
+              let endDateString,
+              let endDate = Date.yearMonthDayDateFormatter.date(from: endDateString) else {
+            return .failure(CoreDataError.saveFailure(.travel))
         }
+        
+        let travelDTO = TravelDTO(name: name, startDate: startDate, endDate: endDate)
+        return repository.addTravel(travelDTO)
     }
 }

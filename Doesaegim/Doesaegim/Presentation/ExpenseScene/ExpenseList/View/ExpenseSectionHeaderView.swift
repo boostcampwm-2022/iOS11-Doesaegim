@@ -9,7 +9,7 @@ import UIKit
 
 final class ExpenseSectionHeaderView: UICollectionReusableView {
     
-    static let identifier: String = String(describing: ExpenseSectionHeaderView.self)
+    static let reusableID: String = String(describing: ExpenseSectionHeaderView.self)
     
     let dateLabel: UILabel = {
         let label = UILabel()

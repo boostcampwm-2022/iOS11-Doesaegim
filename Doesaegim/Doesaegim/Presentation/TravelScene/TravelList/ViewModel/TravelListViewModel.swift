@@ -28,19 +28,12 @@ final class TravelListViewModel: TravelListViewModelProtocol {
         let result = PersistentRepository.shared.fetchTravel(offset: travelInfos.count, limit: 10)
         switch result {
         case .success(let travels):
-            var newTravelInfos: [TravelInfoViewModel] = []
-            
-            // TODO: - Travel 익스텐션으로
-            for travel in travels {
-                guard let travelInfo = Travel.convertToViewModel(with: travel) else { continue }
-                newTravelInfos.append(travelInfo)
-            }
-            
+            let newTravelInfos = travels.compactMap{ Travel.convertToViewModel(with: $0) }
             travelInfos.append(contentsOf: newTravelInfos)
             
         case .failure(let error):
             print(error.localizedDescription)
-            // TODO: - 사용자 에러처리, 알림 등 delegate 메서드 실행
+            delegate?.travelListFetchDidFail()
         }
         
     }
@@ -57,12 +50,13 @@ final class TravelListViewModel: TravelListViewModelProtocol {
                 case .success(let isDeleteComplete):
                     if isDeleteComplete { reloadTravelInfo() }
                 case .failure(let error):
+                    delegate?.travelListDeleteDataDidFail()
                     print(error.localizedDescription)
                 }
             }
         case .failure(let error):
             print(error.localizedDescription)
-            // TODO: - 사용자 에러처리, 알림 등 delegate 메서드 실행
+            delegate?.travelListDeleteDataDidFail()
         }
         
     }
@@ -74,16 +68,11 @@ final class TravelListViewModel: TravelListViewModelProtocol {
         let result = PersistentManager.shared.fetch(request: Travel.fetchRequest(), offset: 0, limit: number)
         switch result {
         case .success(let travels):
-            var newTravelInfos: [TravelInfoViewModel] = []
-            for travel in travels {
-                guard let travelInfo = Travel.convertToViewModel(with: travel) else { continue }
-                newTravelInfos.append(travelInfo)
-            }
-
+            let newTravelInfos = travels.compactMap{ Travel.convertToViewModel(with: $0) }
             travelInfos = newTravelInfos
         case .failure(let error):
             print(error.localizedDescription)
-            // TODO: - 데이터를 불러오지 못했다는 에러처리
+            delegate?.travelListFetchDidFail()
         }
 
     }

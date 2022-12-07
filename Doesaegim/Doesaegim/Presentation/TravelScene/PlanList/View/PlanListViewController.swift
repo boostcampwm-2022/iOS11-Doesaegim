@@ -66,7 +66,11 @@ final class PlanListViewController: UIViewController {
     private func configureNavigationBar() {
         navigationItem.title = viewModel.navigationTitle
         setRightBarAddButton { [weak self] in
-            PlanAddViewController(travel: self?.viewModel.travel)
+            if let travel = self?.viewModel.travel {
+                return PlanAddViewController(travel: travel)
+            } else {
+                return UIViewController()
+            }
         }
     }
 
@@ -81,10 +85,10 @@ final class PlanListViewController: UIViewController {
                 style: .destructive,
                 title: StringLiteral.deleteActionTitle
             ) { _, _, _ in
-                guard let id = self.dataSource.itemIdentifier(for: indexPath)
+                guard let id = self.dataSource.itemIdentifier(for: indexPath),
+                      let section = self.sectionIdentifiers[safeIndex: indexPath.section]
                 else { return }
 
-                let section = self.sectionIdentifiers[indexPath.section]
                 self.viewModel.deletePlan(in: section, id: id)
             }
 
@@ -98,7 +102,11 @@ final class PlanListViewController: UIViewController {
 
         let cellRegistration = UICollectionView
             .CellRegistration<PlanCollectionViewCell, ItemID> { cell, indexPath, identifier in
-                let section = self.sectionIdentifiers[indexPath.section]
+                guard let section = self.sectionIdentifiers[safeIndex: indexPath.section]
+                else {
+                    return
+                }
+
                 let viewModel = self.viewModel.item(in: section, id: identifier)
                 viewModel?.checkBoxToggleHandler = { [weak self, cell] result in
                     switch result {
