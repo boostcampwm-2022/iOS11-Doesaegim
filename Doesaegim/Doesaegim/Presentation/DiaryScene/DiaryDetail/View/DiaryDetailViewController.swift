@@ -111,7 +111,7 @@ final class DiaryDetailViewController: UIViewController {
         }
         
         imageSliderDataSource = DataSource(
-            collectionView: rootView.imageSlider
+            collectionView: rootView.imageSlider.slider
         ) { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueConfiguredReusableCell(
                 using: cellRegistration,

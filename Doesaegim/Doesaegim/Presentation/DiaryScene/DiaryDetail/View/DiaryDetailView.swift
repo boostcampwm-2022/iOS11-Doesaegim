@@ -22,36 +22,7 @@ final class DiaryDetailView: UIView {
     }()
     
     /// 이미지 슬라이더 뷰.
-    lazy var imageSlider: UICollectionView = {
-        let layout = configureCompositionalLayout()
-        
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .white
-        collectionView.isPagingEnabled = true
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.showsVerticalScrollIndicator = false
-        
-        return collectionView
-    }()
-    
-    /// 페이지 컨트롤
-    private let pageControl: UIPageControl = {
-        let pageControl = UIPageControl()
-        pageControl.pageIndicatorTintColor = .grey2
-        pageControl.currentPageIndicatorTintColor = .grey4
-        pageControl.isUserInteractionEnabled = false
-        pageControl.hidesForSinglePage = true
-        
-        return pageControl
-    }()
-    
-    /// 이미지 슬라이더, 페이지 컨트롤을 포함하는 스택 뷰
-    private let imageStack: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        
-        return stackView
-    }()
+    lazy var imageSlider = DetailImageSliderView()
     
     /// 내용 레이블
     private let contentLabel: UILabel = {
@@ -132,11 +103,11 @@ final class DiaryDetailView: UIView {
     }
     
     func setupNumberOfPages(_ count: Int) {
-        pageControl.numberOfPages = count
+        imageSlider.setupNumberOfPages(count)
     }
     
     func setupCurrentPage(_ pageIndex: Int) {
-        pageControl.currentPage = pageIndex
+        imageSlider.setupCurrentPage(pageIndex)
     }
     
     func setupImageSliderShowing(with isHidden: Bool) {
@@ -151,10 +122,8 @@ final class DiaryDetailView: UIView {
     }
     
     private func configureSubviews() {
-        imageStack.addArrangedSubviews(imageSlider, pageControl)
         infoStack.addArrangedSubviews(locationLabel, dateLabel)
-        
-        contentStack.addArrangedSubviews(imageStack, contentLabel, infoStack)
+        contentStack.addArrangedSubviews(imageSlider, contentLabel, infoStack)
         
         scrollView.addSubview(contentStack)
         addSubviews(scrollView, activityIndicatorView)
@@ -168,45 +137,10 @@ final class DiaryDetailView: UIView {
             }
         }
         
-        imageStack.snp.makeConstraints { $0.horizontalEdges.equalToSuperview() }
+        imageSlider.snp.makeConstraints { $0.horizontalEdges.equalToSuperview() }
         contentStack.snp.makeConstraints { $0.edges.width.equalToSuperview() }
         scrollView.snp.makeConstraints { $0.edges.equalToSuperview() }
         activityIndicatorView.snp.makeConstraints { $0.edges.equalToSuperview() }
-    }
-    
-    // MARK: - Collection View
-    
-    /// 이미지 슬라이더의 레이아웃을 생성한다.
-    private func configureCompositionalLayout() -> UICollectionViewCompositionalLayout {
-        let layoutSize = configureImageSliderLayoutSize()
-        let subitem = NSCollectionLayoutItem(layoutSize: layoutSize)
-        
-        let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: layoutSize,
-            subitems: [subitem]
-        )
-        
-        let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .paging
-        section.visibleItemsInvalidationHandler = { [weak self] _, offset, _ in
-            guard let self = self else { return }
-            let collectionViewWidth = self.imageSlider.bounds.width
-            let currentPage = Int(offset.x / collectionViewWidth)
-            self.pageControl.currentPage = currentPage
-        }
-        
-        let layout = UICollectionViewCompositionalLayout(section: section)
-
-        return layout
-    }
-    
-    /// 이미지 슬라이더 레이아웃의 크기를 지정한다.
-    private func configureImageSliderLayoutSize() -> NSCollectionLayoutSize {
-        let layoutSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1),
-            heightDimension: .fractionalWidth(1)
-        )
-        return layoutSize
     }
     
 }
