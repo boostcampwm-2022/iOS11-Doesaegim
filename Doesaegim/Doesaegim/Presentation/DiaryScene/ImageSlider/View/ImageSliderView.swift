@@ -1,5 +1,5 @@
 //
-//  DetailImageSliderView.swift
+//  ImageSliderView.swift
 //  Doesaegim
 //
 //  Created by 서보경 on 2022/12/07.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class DetailImageSliderView: UIView {
+final class ImageSliderView: UIView {
     
     // MARK: - UI Properties
     
@@ -130,7 +130,7 @@ final class DetailImageSliderView: UIView {
     }
 }
 
-extension DetailImageSliderView {
+extension ImageSliderView {
     enum Metric {
         static let one: CGFloat = 1
     }

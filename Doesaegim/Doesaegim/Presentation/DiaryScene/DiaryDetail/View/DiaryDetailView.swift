@@ -22,7 +22,7 @@ final class DiaryDetailView: UIView {
     }()
     
     /// 이미지 슬라이더 뷰.
-    lazy var imageSlider = DetailImageSliderView()
+    lazy var imageSlider = ImageSliderView()
     
     /// 내용 레이블
     private let contentLabel: UILabel = {
