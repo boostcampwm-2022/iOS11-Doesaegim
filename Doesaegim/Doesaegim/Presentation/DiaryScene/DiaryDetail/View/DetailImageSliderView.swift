@@ -20,6 +20,7 @@ final class DetailImageSliderView: UIView {
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.allowsSelection = false
         
         return collectionView
     }()
@@ -96,11 +97,8 @@ final class DetailImageSliderView: UIView {
         
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .paging
-        section.visibleItemsInvalidationHandler = { [weak self] _, offset, _ in
-            guard let self = self else { return }
-            let collectionViewWidth = self.slider.bounds.width
-            let currentPage = Int(offset.x / collectionViewWidth)
-            self.pageControl.currentPage = currentPage
+        section.visibleItemsInvalidationHandler = { [weak self] visibleItems, _, _ in
+            self?.setupCurrentPage(visibleItems.last?.indexPath.row ?? .zero)
         }
         
         let layout = UICollectionViewCompositionalLayout(section: section)
