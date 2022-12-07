@@ -56,7 +56,7 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
     
     // MARK: - Properties
     
-    private var exchangeInfo: [ExchangeResponse] = []
+    private var exchangeInfo: [ExchangeData] = ExchangeData.list
     private let exchangeDiskCache = ExchangeDiskCache.shared
     private let exchangeMemoryCache = ExchangeMemoryCache.shared
     
@@ -180,28 +180,25 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
             if response.isEmpty {
                 try await fetchExchangeInfo(day: yesterDayDateConvertToString())
             } else {
-                exchangeInfo = response
+                exchangeInfo = response.map { ExchangeData(
+                    currencyCode: $0.currencyCode,
+                    tradingStandardRate: $0.tradingStandardRate,
+                    currencyName: $0.currencyName
+                )}
                 pickerView.reloadAllComponents()
                 UserDefaults.standard.set(day, forKey: Constants.fetchExchangeInfoDate)
                 exchangeDiskCache.saveExchangeRateInfo(exchangeInfo: response)
             }
         case .failure(let error):
-            print(error)
+            if let info = exchangeDiskCache.fetchExchangeRateInfo() {
+                exchangeInfo = info.map { ExchangeData(
+                    currencyCode: $0.currencyCode,
+                    tradingStandardRate: $0.tradingStandardRate,
+                    currencyName: $0.currencyName
+                )}
+            }
+            print(error.localizedDescription)
         }
-        
-//        network.loadArray(resource) { [weak self] result in
-//            // 오늘 날짜를 조회했을 때, 빈 배열이 온다면 어제 날짜를 조회
-//            if result.isEmpty, let yesterday = self?.yesterDayDateConvertToString() {
-//                self?.fetchExchangeInfo(day: yesterday)
-//            } else {
-//                self?.exchangeInfo = result
-//                DispatchQueue.main.async {
-//                    self?.pickerView.reloadAllComponents()
-//                }
-//                UserDefaults.standard.set(day, forKey: Constants.fetchExchangeInfoDate)
-//                self?.exchangeDiskCache.saveExchangeRateInfo(exchangeInfo: result)
-//            }
-//        }
     }
     
     // MARK: Date Functions
@@ -228,7 +225,13 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
             let cacheKey = NSString(string: fetchExchangeInfoDate)
             if let cachedExchangeRateInfo = exchangeMemoryCache.object(forKey: cacheKey)
                 as? [ExchangeResponse] {
-                exchangeInfo = cachedExchangeRateInfo
+                exchangeInfo = cachedExchangeRateInfo.map {
+                    ExchangeData(
+                        currencyCode: $0.currencyCode,
+                        tradingStandardRate: $0.tradingStandardRate,
+                        currencyName: $0.currencyName
+                    )
+                }
                 pickerView.reloadAllComponents()
                 print("[MemoryCache] Hit")
                 return
@@ -238,8 +241,14 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
             // 디스크 캐시에서 불러옴
             // 메모리 캐시에 저장
             if fetchExchangeInfoDate == todayDateConvertToString(),
-                let info = exchangeDiskCache.fetchExchangeRateInfo() {
-                exchangeInfo = info
+               let info = exchangeDiskCache.fetchExchangeRateInfo() {
+                exchangeInfo = info.map {
+                    ExchangeData(
+                        currencyCode: $0.currencyCode,
+                        tradingStandardRate: $0.tradingStandardRate,
+                        currencyName: $0.currencyName
+                    )
+                }
                 print("[DiskCache] Hit")
                 pickerView.reloadAllComponents()
                 

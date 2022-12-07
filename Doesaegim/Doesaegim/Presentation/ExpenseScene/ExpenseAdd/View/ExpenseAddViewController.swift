@@ -18,7 +18,7 @@ final class ExpenseAddViewController: UIViewController {
     // MARK: - Properties
     
     private let viewModel: ExpenseAddViewModel
-    private var exchangeInfo: ExchangeResponse?
+    private var exchangeInfo: ExchangeData?
     private let travel: Travel?
     
     // MARK: - Lifecycles
@@ -182,7 +182,7 @@ extension ExpenseAddViewController: CalendarViewDelegate {
 // MARK: - PickerDelegate
 
 extension ExpenseAddViewController: ExpenseAddPickerViewDelegate {
-    func selectedExchangeInfo(item: ExchangeResponse) {
+    func selectedExchangeInfo(item: ExchangeData) {
         guard let exchangeRateType = ExchangeRateType(currencyCode: item.currencyCode) else { return }
         exchangeInfo = item
         let title = "\(exchangeRateType.icon) \(item.currencyName)"

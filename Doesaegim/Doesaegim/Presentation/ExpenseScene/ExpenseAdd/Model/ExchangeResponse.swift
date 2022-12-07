@@ -17,14 +17,4 @@ class ExchangeResponse: Codable {
         case tradingStandardRate = "deal_bas_r"
         case currencyName = "cur_nm"
     }
-//
-//    "ttb": "942.44",
-//    "tts": "961.47",
-//    "deal_bas_r": "951.96",
-//    "bkpr": "951",
-//    "yy_efee_r": "0",
-//    "ten_dd_efee_r": "0",
-//
-//    "kftc_deal_bas_r": "951.96",
-    
 }

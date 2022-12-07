@@ -169,6 +169,7 @@
 		EE97A8B62940638800BB8390 /* PlanAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97A8B52940638800BB8390 /* PlanAddView.swift */; };
 		EE97A8B82940647A00BB8390 /* AddViewInputButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97A8B72940647A00BB8390 /* AddViewInputButton.swift */; };
 		EE97A8BA2940661600BB8390 /* AddViewCompleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97A8B92940661600BB8390 /* AddViewCompleteButton.swift */; };
+		EE97A8BC2940806100BB8390 /* ExchangeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97A8BB2940806100BB8390 /* ExchangeData.swift */; };
 		EEA1C824292F395100B80901 /* ExchangeDiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA1C823292F395100B80901 /* ExchangeDiskCache.swift */; };
 		EEA1C826292F4E6000B80901 /* ExchangeMemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA1C825292F4E6000B80901 /* ExchangeMemoryCache.swift */; };
 		EEB6C4F8292CA8DB0060A459 /* ExpenseAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4F7292CA8DB0060A459 /* ExpenseAddViewModel.swift */; };
@@ -366,6 +367,7 @@
 		EE97A8B52940638800BB8390 /* PlanAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanAddView.swift; sourceTree = "<group>"; };
 		EE97A8B72940647A00BB8390 /* AddViewInputButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewInputButton.swift; sourceTree = "<group>"; };
 		EE97A8B92940661600BB8390 /* AddViewCompleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewCompleteButton.swift; sourceTree = "<group>"; };
+		EE97A8BB2940806100BB8390 /* ExchangeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeData.swift; sourceTree = "<group>"; };
 		EEA1C823292F395100B80901 /* ExchangeDiskCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeDiskCache.swift; sourceTree = "<group>"; };
 		EEA1C825292F4E6000B80901 /* ExchangeMemoryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeMemoryCache.swift; sourceTree = "<group>"; };
 		EEB6C4F3292C8CC50060A459 /* ExpenseAddPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddPickerViewController.swift; sourceTree = "<group>"; };
@@ -1260,6 +1262,7 @@
 			isa = PBXGroup;
 			children = (
 				EEB6C502292CC88B0060A459 /* ExchangeResponse.swift */,
+				EE97A8BB2940806100BB8390 /* ExchangeData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1550,6 +1553,7 @@
 				BBFAC08B291CBDD700D7FD57 /* MainTabBarController.swift in Sources */,
 				A4EB25C2292BB518002D129A /* DiaryAddLocalRepository.swift in Sources */,
 				B5C096C629238A0B007426B1 /* SearchingLocationViewModelDelegate.swift in Sources */,
+				EE97A8BC2940806100BB8390 /* ExchangeData.swift in Sources */,
 				B53763D5292B61A40073BF46 /* CustomChartItem.swift in Sources */,
 				EE97A8B82940647A00BB8390 /* AddViewInputButton.swift in Sources */,
 				A49FD4662934DF7D00A92427 /* TranslucentActivityIndicatorView.swift in Sources */,
