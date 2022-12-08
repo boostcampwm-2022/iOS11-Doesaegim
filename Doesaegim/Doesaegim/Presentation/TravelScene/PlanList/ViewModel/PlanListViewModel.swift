@@ -33,13 +33,6 @@ final class PlanListViewModel {
     /// 아직 뷰모델로 변환되지 않은 Plan의 시작 인덱스
     private var planOffset = Int.zero
 
-    /// 22.11.16(수) 형태의 날짜를 리턴하는 DateFormatter
-    private let sectionDateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = StringLiteral.dateFormat
-        return formatter
-    }()
-
     
     // MARK: - Init(s)
 
@@ -103,9 +96,9 @@ final class PlanListViewModel {
             else {
                 return nil
             }
-            let section = sectionDateFormatter.string(from: date)
+            
+            let section = date.shortYearMonthDateString
             let viewModel = PlanViewModel(plan: $0, repository: repository)
-
             planViewModels[section, default: []].append(viewModel)
 
             return PlanListSnapshotData(section: section, itemID: viewModel.id)
@@ -172,7 +165,7 @@ final class PlanListViewModel {
             return
         }
         /// 당장 화면에 나타내야 하는 경우 바로 뷰모델로 변환해서 스냅샷에 반영
-        let section = sectionDateFormatter.string(from: newPlanDate)
+        let section = newPlanDate.shortYearMonthDateString
         let viewModel = PlanViewModel(plan: newPlan, repository: repository)
         let viewModelsInSection = planViewModels[section, default: []]
         let row = viewModelsInSection.firstIndex {
@@ -216,9 +209,5 @@ fileprivate extension PlanListViewModel {
 
     enum Metric {
         static let batchSize = 20
-    }
-
-    enum StringLiteral {
-        static let dateFormat = "yy.MM.dd(E)"
     }
 }

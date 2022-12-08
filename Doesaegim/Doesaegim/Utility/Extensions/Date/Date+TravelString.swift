@@ -8,6 +8,8 @@
 import Foundation
 
 extension Date {
+
+    // MARK: - Properties
     
     static let yearMonthDayDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -65,6 +67,17 @@ extension Date {
         formatter.dateFormat = "d"
         return formatter
     }()
+
+    /// 날짜를 22.11.16(수) 형태로 표현한 문자열
+    var shortYearMonthDateString: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yy.MM.dd(E)"
+
+        return formatter.string(from: self)
+    }
+
+
+    // MARK: - Functions
     
     /// 시작일 Date인스턴스와 종료일 Date 인스턴스를 받아 여행 목록시 부제목으로 사용되는 문자열을 반환한다.
     /// - Parameters:
