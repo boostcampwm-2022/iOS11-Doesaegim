@@ -19,11 +19,15 @@ final class SettingViewController: UIViewController {
         return table
     }()
     
-    private let viewModel: SettingViewModelProtocol = SettingViewModel()
+    private var viewModel: SettingViewModelProtocol = SettingViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.delegate = self
     }
 
 }
@@ -121,4 +125,13 @@ extension SettingViewController: UITableViewDataSource {
         guard let settingInfos = viewModel.settingInfos[safeIndex: section] else { return nil }
         return settingInfos.title
     }
+}
+
+extension SettingViewController: SettingViewModelDelegate {
+    
+    func settingViewCellDidTapped(moveTo controller: UIViewController) {
+        print(#function)
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
 }

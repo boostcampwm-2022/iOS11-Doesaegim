@@ -99,6 +99,9 @@
 		BB22445E2941BEFD00546E19 /* SettingSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB22445D2941BEFD00546E19 /* SettingSwitchCell.swift */; };
 		BB2244632941C8D400546E19 /* CalendarSettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2244622941C8D400546E19 /* CalendarSettingController.swift */; };
 		BB2244652941C8DF00546E19 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2244642941C8DF00546E19 /* LicenseViewController.swift */; };
+		BB22446C2941CE4900546E19 /* CalendarSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB22446B2941CE4900546E19 /* CalendarSettingViewModel.swift */; };
+		BB22446F2941CE9A00546E19 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB22446E2941CE9A00546E19 /* CalendarViewModel.swift */; };
+		BB2244712941D15C00546E19 /* CalendarSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2244702941D15C00546E19 /* CalendarSettingCell.swift */; };
 		BB288FC8292E167900065D04 /* DiaryCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB288FC7292E167900065D04 /* DiaryCalloutView.swift */; };
 		BB288FCB292E1A2B00065D04 /* FileProcessManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB288FCA292E1A2B00065D04 /* FileProcessManager.swift */; };
 		BB288FD0292E21E100065D04 /* FileManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB288FCF292E21E100065D04 /* FileManagerError.swift */; };
@@ -314,6 +317,9 @@
 		BB22445D2941BEFD00546E19 /* SettingSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSwitchCell.swift; sourceTree = "<group>"; };
 		BB2244622941C8D400546E19 /* CalendarSettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSettingController.swift; sourceTree = "<group>"; };
 		BB2244642941C8DF00546E19 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
+		BB22446B2941CE4900546E19 /* CalendarSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSettingViewModel.swift; sourceTree = "<group>"; };
+		BB22446E2941CE9A00546E19 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
+		BB2244702941D15C00546E19 /* CalendarSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSettingCell.swift; sourceTree = "<group>"; };
 		BB288FC7292E167900065D04 /* DiaryCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCalloutView.swift; sourceTree = "<group>"; };
 		BB288FCA292E1A2B00065D04 /* FileProcessManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProcessManager.swift; sourceTree = "<group>"; };
 		BB288FCF292E21E100065D04 /* FileManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerError.swift; sourceTree = "<group>"; };
@@ -845,6 +851,7 @@
 		BB2244672941CC3900546E19 /* CalendarSetting */ = {
 			isa = PBXGroup;
 			children = (
+				BB22446A2941CE3D00546E19 /* ViewModel */,
 				BB2244682941CC6100546E19 /* View */,
 			);
 			path = CalendarSetting;
@@ -854,6 +861,7 @@
 			isa = PBXGroup;
 			children = (
 				BB2244622941C8D400546E19 /* CalendarSettingController.swift */,
+				BB2244702941D15C00546E19 /* CalendarSettingCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -864,6 +872,23 @@
 				BB2244642941C8DF00546E19 /* LicenseViewController.swift */,
 			);
 			path = License;
+			sourceTree = "<group>";
+		};
+		BB22446A2941CE3D00546E19 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				BB22446B2941CE4900546E19 /* CalendarSettingViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		BB22446D2941CE8B00546E19 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				BB305CB829408410006C3480 /* SettingOptionViewModel.swift */,
+				BB22446E2941CE9A00546E19 /* CalendarViewModel.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 		BB288FCE292E1D9200065D04 /* Errors */ = {
@@ -976,6 +1001,7 @@
 				BBD97AC92936110500D1AF44 /* DetectInfoViewModel.swift */,
 				BB305CB829408410006C3480 /* SettingOptionViewModel.swift */,
 				BB22445B29419EB200546E19 /* TravelDiaryViewModel.swift */,
+				BB22446D2941CE8B00546E19 /* Setting */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1665,6 +1691,7 @@
 				EE3FB85929375C960024AEE1 /* SharePopoverViewController.swift in Sources */,
 				B5716134293CE56E002FDC35 /* CustomChartType.swift in Sources */,
 				B5C421A4292F204900963B17 /* ExpenseAddPickerViewController.swift in Sources */,
+				BB22446C2941CE4900546E19 /* CalendarSettingViewModel.swift in Sources */,
 				B5C421A3292F201700963B17 /* ExpenseAddPickerViewProtocol.swift in Sources */,
 				EEA1C826292F4E6000B80901 /* ExchangeMemoryCache.swift in Sources */,
 				B57D9630292231FC00B510B8 /* DiaryDTO.swift in Sources */,
@@ -1763,6 +1790,7 @@
 				BBFE4BA62924B25D003F5CCE /* Date+TravelString.swift in Sources */,
 				B5C096BC29235B08007426B1 /* SearchResultCell.swift in Sources */,
 				B5DE4D4029271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift in Sources */,
+				BB22446F2941CE9A00546E19 /* CalendarViewModel.swift in Sources */,
 				BBE695DA29228C570015FAD4 /* TravelListViewModelProtocol.swift in Sources */,
 				B5B497CD29374C58009AE4AC /* BarShapeLayer.swift in Sources */,
 				A4B38C342940D3D400E52150 /* PlanListSnapshotData.swift in Sources */,
@@ -1823,6 +1851,7 @@
 				EE3FB85E2938738A0024AEE1 /* TravelAddView.swift in Sources */,
 				A48E9946292512BC0029D57D /* CoreDataError.swift in Sources */,
 				BB305CC129408639006C3480 /* SettingStaticCell.swift in Sources */,
+				BB2244712941D15C00546E19 /* CalendarSettingCell.swift in Sources */,
 				BB9DB8102928D09200102EC8 /* PersistentRepository.swift in Sources */,
 				BBB31A3E2926007D00C9E3A9 /* ExpenseListViewController.swift in Sources */,
 				BB6079B3292F546900BF30C8 /* DiaryListHeaderView.swift in Sources */,
