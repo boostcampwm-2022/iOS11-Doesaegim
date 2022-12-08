@@ -15,7 +15,7 @@ protocol ExpenseAddPickerViewModelProtocol: AnyObject {
     func fetchExchangeData(day: String) async throws
     func setExchangeValue() async throws
     func numberOfRowsInComponents() -> Int
-    func pickerView(titleForRow row: Int) -> String
+    func pickerView(titleForRow row: Int) -> String?
     func pickerView(didSelectRow row: Int)
     func addButtonTapped()
 }

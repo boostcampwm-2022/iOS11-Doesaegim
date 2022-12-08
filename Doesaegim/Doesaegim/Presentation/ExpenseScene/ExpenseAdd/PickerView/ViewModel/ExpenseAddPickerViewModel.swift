@@ -113,16 +113,16 @@ final class ExpenseAddPickerViewModel: ExpenseAddPickerViewModelProtocol {
         return type == .moneyUnit ? exchangeInfos.count : categories.count
     }
     
-    func pickerView(titleForRow row: Int) -> String {
+    func pickerView(titleForRow row: Int) -> String? {
         if type == .moneyUnit {
             let value = exchangeInfos.map {
                 let exchangeRateType = ExchangeRateType(currencyCode: $0.currencyCode) ?? .AED
                 let icon = exchangeRateType.icon
                 return "\(icon) \($0.currencyName)"
             }
-            return value[row]
+            return value[safeIndex: row]
         } else {
-            return categories[row].rawValue
+            return categories[safeIndex: row]?.rawValue
         }
     }
     

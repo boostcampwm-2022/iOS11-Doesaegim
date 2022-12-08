@@ -125,13 +125,19 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
         exchangeCalculataion = Int(rationalAmount * rationalUnit)
     }
     
-    func addExpense(name: String?, category: String?, content: String?, cost: String?, date: String?, exchangeInfo: ExchangeData?) -> Result<Expense, Error> {
+    func addExpense(
+        name: String?,
+        category: String?,
+        content: String?,
+        cost: String?, date:
+        String?,
+        exchangeInfo: ExchangeData?
+    ) -> Result<Expense, Error> {
         guard let name,
               let category,
               let exchangeInfo,
               let costString = cost,
               let cost = Double(costString),
-              let tradingStandardRate = Double(exchangeInfo.tradingStandardRate.convertRemoveComma()),
               let tradingStandardRate = Double(exchangeInfo.tradingStandardRate.convertRemoveComma()),
               let dateString = date,
               let date = Date.yearMonthDayDateFormatter.date(from: dateString)
