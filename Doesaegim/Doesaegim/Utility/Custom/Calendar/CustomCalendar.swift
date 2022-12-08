@@ -20,6 +20,7 @@ final class CustomCalendar: UICollectionView {
         let date: Date?
         var isSelected: Bool = false
         var isSelectable: Bool = true
+        var isPeriodDate: Bool = false
     }
     
     // MARK: - typealias
@@ -239,10 +240,16 @@ extension CustomCalendar {
                     guard let date = Date.yearMonthDayDateFormatter.date(from: stringDate) else {
                         return
                     }
-                    if let selectedDate = selectedDates.first {
-                        let isSelectable = selectedDate <= date
+                    if let startDate = selectedDates.first, let endDate = selectedDates.last {
+                        let isPeriodDate = startDate...endDate ~= date
                         days.append(Item(date: date,
-                                         isSelected: selectedDate == date,
+                                         isSelected: selectedDates.contains(date),
+                                         isSelectable: true,
+                                         isPeriodDate: isPeriodDate))
+                    } else if let startDate = selectedDates.first {
+                        let isSelectable = startDate <= date
+                        days.append(Item(date: date,
+                                         isSelected: startDate == date,
                                          isSelectable: isSelectable))
                     } else {
                         days.append(Item(date: date,
@@ -274,6 +281,11 @@ extension CustomCalendar: UICollectionViewDelegate {
         days[indexPath.row].isSelected.toggle()
         selectedCount += 1
         
+        if selectedCount > 2 {
+            selectedCount = 1
+            selectedDates.removeAll()
+        }
+        
         guard let date = Date.yearMonthDayDateFormatter.date(from: stringDate) else { return }
         selectedDates.append(date)
         
@@ -290,14 +302,25 @@ extension CustomCalendar: UICollectionViewDelegate {
                     days = days.map {
                         $0.date == nil ? Item(date: nil, isSelectable: false)
                         : Item(date: $0.date ?? Date(), isSelected: selectedDate == ($0.date ?? Date()),
-                               isSelectable: selectedDate <= ($0.date ?? Date()))
+                               isSelectable: selectedDate <= ($0.date ?? Date()), isPeriodDate: false)
                     }
                 }
             } else if selectedCount == 2 {
+                guard let startDate = selectedDates.first, let endDate = selectedDates.last else {
+                    return
+                }
                 completionHandler?(selectedDates)
-                selectedDates.removeAll()
-                selectedCount = 0
-                days = days.map { Item(date: $0.date, isSelected: false, isSelectable: true)}
+                days = days.map {
+                    let periodDate = $0.date == nil ? false : startDate...endDate ~= ($0.date ?? Date())
+                    return Item(
+                        date: $0.date,
+                        isSelected: selectedDates.compactMap { $0 }.contains($0.date),
+                        isSelectable: true,
+                        isPeriodDate: periodDate
+                    )
+                    
+                }
+                print("isSelected", selectedDates)
             }
             configureSnapshot()
         }
