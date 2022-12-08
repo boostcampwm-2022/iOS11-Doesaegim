@@ -136,13 +136,7 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
     }
     
     @objc func addButtonTouchUpInside() {
-        if type == .moneyUnit {
-            guard viewModel.selectedIndex < viewModel.exchangeInfos.count else { return }
-            delegate?.selectedExchangeInfo(item: viewModel.exchangeInfos[viewModel.selectedIndex])
-        } else {
-            delegate?.selectedCategory(item: viewModel.categories[viewModel.selectedIndex])
-        }
-        dismiss(animated: true)
+        viewModel.addButtonTapped()
     }
     
     // MARK: - AddTarget
@@ -191,13 +185,18 @@ extension ExpenseAddPickerViewController: UIPickerViewDelegate {
 extension ExpenseAddPickerViewController: ExpenseAddPickerViewModelDelegate {
     func didChangeExchangeInfo() {
         DispatchQueue.main.async {
-            self.viewModel.exchangeInfos.forEach { print("$$", $0.tradingStandardRate) }
             self.pickerView.reloadAllComponents()
         }
     }
     
-    func didSelectedRow() {
-        print("\(#function)")
+    func exchangeInfoConveyToViewController(item: ExchangeData) {
+        delegate?.selectedExchangeInfo(item: item)
+        dismiss(animated: true)
+    }
+    
+    func expenseTypeConveyToViewController(item: ExpenseType) {
+        delegate?.selectedCategory(item: item)
+        dismiss(animated: true)
     }
 }
 

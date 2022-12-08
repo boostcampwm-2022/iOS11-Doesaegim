@@ -27,11 +27,7 @@ final class ExpenseAddPickerViewModel: ExpenseAddPickerViewModelProtocol {
     var categories: [ExpenseType] = ExpenseType.allCases
     
     var numberOfComponents: Int = 1
-    var selectedIndex: Int = 0 {
-        didSet {
-            delegate?.didSelectedRow()
-        }
-    }
+    var selectedIndex: Int = 0
     
     // MARK: - Lifecycles
     init(type: ExpenseAddPickerViewController.PickerType) {
@@ -132,5 +128,15 @@ final class ExpenseAddPickerViewModel: ExpenseAddPickerViewModelProtocol {
     
     func pickerView(didSelectRow row: Int) {
         selectedIndex = row
+    }
+    
+    func addButtonTapped() {
+        if type == .moneyUnit {
+            guard let item = exchangeInfos[safeIndex: selectedIndex] else { return }
+            delegate?.exchangeInfoConveyToViewController(item: item)
+        } else {
+            guard let item = categories[safeIndex: selectedIndex] else { return }
+            delegate?.expenseTypeConveyToViewController(item: item)
+        }
     }
 }

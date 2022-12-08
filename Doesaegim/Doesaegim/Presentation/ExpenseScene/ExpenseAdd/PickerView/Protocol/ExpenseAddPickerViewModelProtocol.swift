@@ -17,9 +17,11 @@ protocol ExpenseAddPickerViewModelProtocol: AnyObject {
     func numberOfRowsInComponents() -> Int
     func pickerView(titleForRow row: Int) -> String
     func pickerView(didSelectRow row: Int)
+    func addButtonTapped()
 }
 
 protocol ExpenseAddPickerViewModelDelegate: AnyObject {
     func didChangeExchangeInfo()
-    func didSelectedRow()
+    func exchangeInfoConveyToViewController(item: ExchangeData)
+    func expenseTypeConveyToViewController(item: ExpenseType)
 }
