@@ -51,7 +51,8 @@ extension DiaryListViewModel {
                 guard let id = travel.id,
                       let diaries = travel.diary?.allObjects as? [Diary],
                       let travelName = travel.name,
-                      let startDate = travel.startDate else { return }
+                      let startDate = travel.startDate,
+                      !diaries.isEmpty else { return }
             
                 // Diary를 DiaryInfoViewModel로 변환
                 let diaryInfos = diaries.compactMap({
