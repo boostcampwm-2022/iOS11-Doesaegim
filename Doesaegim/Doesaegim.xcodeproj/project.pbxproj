@@ -55,6 +55,8 @@
 		B53763D5292B61A40073BF46 /* CustomChartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763D4292B61A40073BF46 /* CustomChartItem.swift */; };
 		B53763E3292B99B80073BF46 /* PieceShapeLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763E2292B99B80073BF46 /* PieceShapeLayer.swift */; };
 		B53763E8292BA0760073BF46 /* PieceTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53763E7292BA0760073BF46 /* PieceTextLayer.swift */; };
+		B5683DF5294188DB00FF3E38 /* SearchingLocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5683DF4294188DB00FF3E38 /* SearchingLocationRepository.swift */; };
+		B5683DF929418A2200FF3E38 /* SearchingLocationRemoteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5683DF829418A2200FF3E38 /* SearchingLocationRemoteRepository.swift */; };
 		B5716134293CE56E002FDC35 /* CustomChartType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5716133293CE56E002FDC35 /* CustomChartType.swift */; };
 		B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D96252922301E00B510B8 /* TravelDTO.swift */; };
 		B57D9628292230CA00B510B8 /* PlanDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D9627292230CA00B510B8 /* PlanDTO.swift */; };
@@ -259,6 +261,8 @@
 		B53763D4292B61A40073BF46 /* CustomChartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChartItem.swift; sourceTree = "<group>"; };
 		B53763E2292B99B80073BF46 /* PieceShapeLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceShapeLayer.swift; sourceTree = "<group>"; };
 		B53763E7292BA0760073BF46 /* PieceTextLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceTextLayer.swift; sourceTree = "<group>"; };
+		B5683DF4294188DB00FF3E38 /* SearchingLocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationRepository.swift; sourceTree = "<group>"; };
+		B5683DF829418A2200FF3E38 /* SearchingLocationRemoteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationRemoteRepository.swift; sourceTree = "<group>"; };
 		B5716133293CE56E002FDC35 /* CustomChartType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomChartType.swift; sourceTree = "<group>"; };
 		B57D96252922301E00B510B8 /* TravelDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDTO.swift; sourceTree = "<group>"; };
 		B57D9627292230CA00B510B8 /* PlanDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDTO.swift; sourceTree = "<group>"; };
@@ -563,6 +567,7 @@
 		A4CC04DB292351E700BB678B /* TravelScene */ = {
 			isa = PBXGroup;
 			children = (
+				B5683DF3294188C700FF3E38 /* SearchingLocation */,
 				EE97A8B0294053C000BB8390 /* PlanAdd */,
 				EE5D50F1293DD402006ECE87 /* TravelAdd */,
 				A4CC04DC292351F800BB678B /* PlanList */,
@@ -617,6 +622,15 @@
 				B53763E7292BA0760073BF46 /* PieceTextLayer.swift */,
 			);
 			path = PieChart;
+			sourceTree = "<group>";
+		};
+		B5683DF3294188C700FF3E38 /* SearchingLocation */ = {
+			isa = PBXGroup;
+			children = (
+				B5683DF4294188DB00FF3E38 /* SearchingLocationRepository.swift */,
+				B5683DF829418A2200FF3E38 /* SearchingLocationRemoteRepository.swift */,
+			);
+			path = SearchingLocation;
 			sourceTree = "<group>";
 		};
 		B57D962229222FC500B510B8 /* Data */ = {
@@ -1595,6 +1609,7 @@
 				BB288FC8292E167900065D04 /* DiaryCalloutView.swift in Sources */,
 				BBDB2E9429262BB300752924 /* ExpenseCollectionHeaderView.swift in Sources */,
 				B5D64E61292DF06400E1CC81 /* PlaceSearchButton.swift in Sources */,
+				B5683DF5294188DB00FF3E38 /* SearchingLocationRepository.swift in Sources */,
 				EE3FB85C29386B850024AEE1 /* AddViewSubtitleLabel.swift in Sources */,
 				BBB31A372925F5E400C9E3A9 /* TravelListCell.swift in Sources */,
 				B5D64E69292DFEF000E1CC81 /* DiaryDetailView.swift in Sources */,
@@ -1702,6 +1717,7 @@
 				EEDB752F2925E8DD0069A7F5 /* CalendarViewController.swift in Sources */,
 				A4B82DD4293D7F2100347B71 /* Array+SafeIndex.swift in Sources */,
 				B5D64E67292DFED500E1CC81 /* DiaryDetailViewController.swift in Sources */,
+				B5683DF929418A2200FF3E38 /* SearchingLocationRemoteRepository.swift in Sources */,
 				EE3FB860293894810024AEE1 /* AddViewTextField.swift in Sources */,
 				B5D64E6C292E22A400E1CC81 /* DiaryDetailViewModel.swift in Sources */,
 				B5B497DC29379FC3009AE4AC /* BarTextLayer.swift in Sources */,
