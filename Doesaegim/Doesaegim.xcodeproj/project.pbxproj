@@ -97,6 +97,8 @@
 		BB0A8287293F29FA0014056C /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0A8286293F29FA0014056C /* ImageCacheManager.swift */; };
 		BB22445C29419EB200546E19 /* TravelDiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB22445B29419EB200546E19 /* TravelDiaryViewModel.swift */; };
 		BB22445E2941BEFD00546E19 /* SettingSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB22445D2941BEFD00546E19 /* SettingSwitchCell.swift */; };
+		BB2244632941C8D400546E19 /* CalendarSettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2244622941C8D400546E19 /* CalendarSettingController.swift */; };
+		BB2244652941C8DF00546E19 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2244642941C8DF00546E19 /* LicenseViewController.swift */; };
 		BB288FC8292E167900065D04 /* DiaryCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB288FC7292E167900065D04 /* DiaryCalloutView.swift */; };
 		BB288FCB292E1A2B00065D04 /* FileProcessManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB288FCA292E1A2B00065D04 /* FileProcessManager.swift */; };
 		BB288FD0292E21E100065D04 /* FileManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB288FCF292E21E100065D04 /* FileManagerError.swift */; };
@@ -310,6 +312,8 @@
 		BB0A8286293F29FA0014056C /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		BB22445B29419EB200546E19 /* TravelDiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDiaryViewModel.swift; sourceTree = "<group>"; };
 		BB22445D2941BEFD00546E19 /* SettingSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSwitchCell.swift; sourceTree = "<group>"; };
+		BB2244622941C8D400546E19 /* CalendarSettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSettingController.swift; sourceTree = "<group>"; };
+		BB2244642941C8DF00546E19 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
 		BB288FC7292E167900065D04 /* DiaryCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCalloutView.swift; sourceTree = "<group>"; };
 		BB288FCA292E1A2B00065D04 /* FileProcessManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProcessManager.swift; sourceTree = "<group>"; };
 		BB288FCF292E21E100065D04 /* FileManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerError.swift; sourceTree = "<group>"; };
@@ -518,8 +522,9 @@
 		A4CC04B1292261E800BB678B /* SettingScene */ = {
 			isa = PBXGroup;
 			children = (
-				BB305CBB2940844A006C3480 /* ViewModel */,
-				BB305CBA2940843E006C3480 /* View */,
+				BB2244662941CC2400546E19 /* SettingMain */,
+				BB2244672941CC3900546E19 /* CalendarSetting */,
+				BB2244692941CC6900546E19 /* License */,
 			);
 			path = SettingScene;
 			sourceTree = "<group>";
@@ -828,11 +833,37 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		BB22445F2941C88500546E19 /* SettingOptionControllers */ = {
+		BB2244662941CC2400546E19 /* SettingMain */ = {
 			isa = PBXGroup;
 			children = (
+				BB305CBB2940844A006C3480 /* ViewModel */,
+				BB305CBA2940843E006C3480 /* View */,
 			);
-			path = SettingOptionControllers;
+			path = SettingMain;
+			sourceTree = "<group>";
+		};
+		BB2244672941CC3900546E19 /* CalendarSetting */ = {
+			isa = PBXGroup;
+			children = (
+				BB2244682941CC6100546E19 /* View */,
+			);
+			path = CalendarSetting;
+			sourceTree = "<group>";
+		};
+		BB2244682941CC6100546E19 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BB2244622941C8D400546E19 /* CalendarSettingController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BB2244692941CC6900546E19 /* License */ = {
+			isa = PBXGroup;
+			children = (
+				BB2244642941C8DF00546E19 /* LicenseViewController.swift */,
+			);
+			path = License;
 			sourceTree = "<group>";
 		};
 		BB288FCE292E1D9200065D04 /* Errors */ = {
@@ -850,7 +881,6 @@
 				BBD0D062291DE991007D0D82 /* SettingViewController.swift */,
 				BB305CC029408639006C3480 /* SettingStaticCell.swift */,
 				BB22445D2941BEFD00546E19 /* SettingSwitchCell.swift */,
-				BB22445F2941C88500546E19 /* SettingOptionControllers */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1648,6 +1678,7 @@
 				BBD0D05B291DE956007D0D82 /* TravelListViewController.swift in Sources */,
 				A4B38C322940C73C00E52150 /* PlanListViewModelDelegate.swift in Sources */,
 				BBE695D829228B560015FAD4 /* TravelListViewModel.swift in Sources */,
+				BB2244652941C8DF00546E19 /* LicenseViewController.swift in Sources */,
 				BB9DB80E2928CA6A00102EC8 /* ExpenseListViewModelProtocol.swift in Sources */,
 				EE3FB856293751A00024AEE1 /* DiaryPhotoDetailViewController.swift in Sources */,
 				EE5D50F3293DD413006ECE87 /* TravelAddRepository.swift in Sources */,
@@ -1739,6 +1770,7 @@
 				A48E9948292515020029D57D /* UIViewController+PresentAlert.swift in Sources */,
 				EE26BE412941A12600A746F2 /* ExchangeRepository.swift in Sources */,
 				BB6BE55B2936020300857D25 /* FaceDetectController+CollectionView.swift in Sources */,
+				BB2244632941C8D400546E19 /* CalendarSettingController.swift in Sources */,
 				BB22445E2941BEFD00546E19 /* SettingSwitchCell.swift in Sources */,
 				BB6BE5572935E68E00857D25 /* FaceDetectViewModel.swift in Sources */,
 				B5DEDE3829409CD400AD2515 /* ImageSliderView.swift in Sources */,
