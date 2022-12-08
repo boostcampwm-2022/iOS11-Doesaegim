@@ -24,12 +24,14 @@ final class TravelListViewModel: TravelListViewModelProtocol {
     }
     
     func fetchTravelInfo() {
-        
         let result = PersistentRepository.shared.fetchTravel(offset: travelInfos.count, limit: 10)
         switch result {
         case .success(let travels):
             let newTravelInfos = travels.compactMap{ Travel.convertToViewModel(with: $0) }
-            travelInfos.append(contentsOf: newTravelInfos)
+            var tempTravelInfos = travelInfos
+            tempTravelInfos.append(contentsOf: newTravelInfos)
+            travelInfos.removeAll()
+            travelInfos = tempTravelInfos
             
         case .failure(let error):
             print(error.localizedDescription)
