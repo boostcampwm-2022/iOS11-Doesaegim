@@ -27,6 +27,7 @@ final class CalendarSettingController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
+        viewModel?.delegate = self
         viewModel?.configureCalendarSettingInfos()
     }
 
@@ -45,15 +46,6 @@ extension CalendarSettingController {
     
     private func configureNavigationBar() {
         navigationItem.title = "날짜/시간표시"
-        
-        let completeButton = UIBarButtonItem(
-            title: "완료",
-            style: .plain,
-            target: self,
-            action: #selector(didCompleteButtonTap)
-        )
-        navigationItem.rightBarButtonItem = completeButton
-        navigationController?.navigationBar.tintColor = .primaryOrange
     }
     
     private func configureSubviews() {
@@ -66,9 +58,6 @@ extension CalendarSettingController {
         tableView.frame = view.bounds
     }
     
-    @objc func didCompleteButtonTap() {
-        print("완료버튼이 눌렸습니다~")
-    }
     
 }
 
@@ -76,10 +65,10 @@ extension CalendarSettingController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        print("\(indexPath) 셀 선택!")
         
         // 다른 것의 같은 섹션의 다른 표현을 false로 하고, 선택한 현재 열을 true로 한다.
         guard let viewModel = viewModel else { return }
+        viewModel.changeSelectedState(with: indexPath)
         
     }
     
@@ -125,6 +114,8 @@ extension CalendarSettingController: UITableViewDataSource {
 extension CalendarSettingController: CalendarSettingViewModelDelegate {
     
     func calendarSettingDidChange() {
+        print(#function)
+        
         tableView.reloadData()
     }
     

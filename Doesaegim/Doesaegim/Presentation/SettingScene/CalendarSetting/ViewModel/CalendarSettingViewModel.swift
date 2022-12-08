@@ -63,6 +63,24 @@ extension CalendarSettingViewModel {
         
     }
     
+    func changeSelectedState(with indexPath: IndexPath) {
+        let section = indexPath.section
+        let row = indexPath.row
+        
+        var newInfos = calendarSettingInfos
+        newInfos[section].selectedOption = row
+        calendarSettingInfos = newInfos
+        
+        // 선택된 정보를 UserDefaults에 등록
+        switch section {
+        case 0:
+            UserDefaults.standard.set(row, forKey: CalendarInfoKey.yearMonthDateFormat.rawValue)
+        case 1:
+            UserDefaults.standard.set(row, forKey: CalendarInfoKey.timeFormat.rawValue)
+        default:
+            print("잘못된 접근입니다.")
+        }
+    }
 }
 
 struct CalendarSection {

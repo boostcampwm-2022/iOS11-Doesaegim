@@ -14,6 +14,7 @@ protocol CalendarSettingViewModelProtocol: AnyObject {
     var calendarSettingInfos: [CalendarSection] { get set }
     
     func configureCalendarSettingInfos()
+    func changeSelectedState(with indexPath: IndexPath)
     
 }
 
