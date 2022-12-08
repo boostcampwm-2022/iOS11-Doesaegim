@@ -62,7 +62,7 @@ extension Date {
         return formatter
     }()
     
-    static let onlyDayDateFormaater: DateFormatter = {
+    static let onlyDayDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "d"
         return formatter
