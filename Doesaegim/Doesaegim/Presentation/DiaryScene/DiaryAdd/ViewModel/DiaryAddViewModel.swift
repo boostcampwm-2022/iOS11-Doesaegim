@@ -146,7 +146,9 @@ final class DiaryAddViewModel {
             let savingWorkItem = DispatchWorkItem { [weak self] in
                 guard let image = self?.imageManager.images[imageID],
                       let diaryID = self?.temporaryDiary.id,
-                      FileProcessManager.shared.saveImage(image, imageID: imageID, diaryID: diaryID) == true
+                      FileProcessManager.shared.saveImage(image, imageID: imageID, diaryID: diaryID) == true,
+                      let range = self?.temporaryDiary.imagePaths.indices,
+                      range ~= index
                 else {
                     self?.temporaryDiary.imagePaths[index] = .empty
                     imageSavingGroup.leave()
