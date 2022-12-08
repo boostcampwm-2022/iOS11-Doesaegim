@@ -84,6 +84,7 @@
 		B5D64E78292E4B9A00E1CC81 /* DetailImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E77292E4B9A00E1CC81 /* DetailImageCell.swift */; };
 		B5D64E7A292E684000E1CC81 /* DetailImageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D64E79292E684000E1CC81 /* DetailImageCellViewModel.swift */; };
 		B5DE4D4029271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DE4D3F29271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift */; };
+		B5DEDE3829409CD400AD2515 /* ImageSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DEDE3729409CD400AD2515 /* ImageSliderView.swift */; };
 		BB02B090292F294C00FE11DA /* DiaryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB02B08F292F294C00FE11DA /* DiaryListViewController.swift */; };
 		BB02B092292F295800FE11DA /* DiaryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB02B091292F295800FE11DA /* DiaryListViewModel.swift */; };
 		BB02B094292F29E000FE11DA /* DiaryListViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB02B093292F29E000FE11DA /* DiaryListViewModelProtocol.swift */; };
@@ -282,6 +283,7 @@
 		B5D64E77292E4B9A00E1CC81 /* DetailImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageCell.swift; sourceTree = "<group>"; };
 		B5D64E79292E684000E1CC81 /* DetailImageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageCellViewModel.swift; sourceTree = "<group>"; };
 		B5DE4D3F29271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingLocationViewControllerDelegate.swift; sourceTree = "<group>"; };
+		B5DEDE3729409CD400AD2515 /* ImageSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSliderView.swift; sourceTree = "<group>"; };
 		BB02B08F292F294C00FE11DA /* DiaryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewController.swift; sourceTree = "<group>"; };
 		BB02B091292F295800FE11DA /* DiaryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewModel.swift; sourceTree = "<group>"; };
 		BB02B093292F29E000FE11DA /* DiaryListViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryListViewModelProtocol.swift; sourceTree = "<group>"; };
@@ -475,6 +477,7 @@
 		A4CC04B0292261E000BB678B /* DiaryScene */ = {
 			isa = PBXGroup;
 			children = (
+				B5DEDE402940D6BB00AD2515 /* ImageSlider */,
 				EE3FB854293751850024AEE1 /* DiaryPhotoDetail */,
 				BB02B08C292F292900FE11DA /* DiaryList */,
 				B5D64E64292DFC9900E1CC81 /* DiaryDetail */,
@@ -738,6 +741,22 @@
 				B5D64E75292E3B6C00E1CC81 /* DiaryDetailLocalRepository.swift */,
 			);
 			path = DiaryDetail;
+			sourceTree = "<group>";
+		};
+		B5DEDE402940D6BB00AD2515 /* ImageSlider */ = {
+			isa = PBXGroup;
+			children = (
+				B5DEDE412940D6CA00AD2515 /* View */,
+			);
+			path = ImageSlider;
+			sourceTree = "<group>";
+		};
+		B5DEDE412940D6CA00AD2515 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B5DEDE3729409CD400AD2515 /* ImageSliderView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		BB02B08C292F292900FE11DA /* DiaryList */ = {
@@ -1608,6 +1627,7 @@
 				A48E9948292515020029D57D /* UIViewController+PresentAlert.swift in Sources */,
 				BB6BE55B2936020300857D25 /* FaceDetectController+CollectionView.swift in Sources */,
 				BB6BE5572935E68E00857D25 /* FaceDetectViewModel.swift in Sources */,
+				B5DEDE3829409CD400AD2515 /* ImageSliderView.swift in Sources */,
 				EEDB753629260E360069A7F5 /* PlanAddViewProtocol.swift in Sources */,
 				B5D64E63292DF06400E1CC81 /* DiaryAddView.swift in Sources */,
 				A4CC04E02923738500BB678B /* PlanLocalRepository.swift in Sources */,
