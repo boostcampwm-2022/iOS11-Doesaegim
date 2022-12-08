@@ -12,5 +12,5 @@ protocol CalendarProtocol: AnyObject {
 }
 
 protocol CalendarViewDelegate: AnyObject {
-    func fetchDate(dateString: String)
+    func fetchDate(date: Date)
 }

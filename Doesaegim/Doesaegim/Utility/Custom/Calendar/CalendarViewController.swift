@@ -155,8 +155,15 @@ extension CalendarViewController {
         if type == .dateAndTime {
             let time = dateFormatter.string(from: timeDatepicker.date)
             let dateString = "\(Date.yearMonthDayDateFormatter.string(from: date)) \(time)"
-            delegate?.fetchDate(dateString: dateString)
-        } else { delegate?.fetchDate(dateString: Date.yearMonthDayDateFormatter.string(from: date)) }
+            if let date = Date.yearMonthDayTimeDateFormatter.date(from: dateString) {
+                delegate?.fetchDate(date: date)
+            } else {
+                presentErrorAlert(title: "날짜를 다시 입력해 주세요.")
+            }
+            
+        } else {
+            delegate?.fetchDate(date: date)
+        }
         dismiss(animated: true)
             
     }

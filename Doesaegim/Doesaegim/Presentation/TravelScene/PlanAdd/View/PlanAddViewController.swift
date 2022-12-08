@@ -256,7 +256,8 @@ extension PlanAddViewController: SearchingLocationViewControllerDelegate {
 // MARK: - Calendar Delegate
 
 extension PlanAddViewController: CalendarViewDelegate {
-    func fetchDate(dateString: String) {
+    func fetchDate(date: Date) {
+        let dateString = Date.yearMonthDayTimeDateFormatter.string(from: date)
         rootView.dateInputButton.setTitle(dateString, for: .normal)
         viewModel.isValidDate(dateString: dateString)
     }
