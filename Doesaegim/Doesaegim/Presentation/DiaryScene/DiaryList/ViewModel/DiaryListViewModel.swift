@@ -10,7 +10,7 @@ import Foundation
 final class DiaryListViewModel: DiaryListViewModelProtocol {
     
     var delegate: DiaryListViewModelDelegate?
-    var travelDiaryInfos: [(startDate: Date, travelName: String, diaryInfos: [DiaryInfoViewModel])] {
+    var travelDiaryInfos: [TravelDiaryViewModel] {
         didSet {
             delegate?.diaryInfoDidChage()
         }
@@ -45,7 +45,7 @@ extension DiaryListViewModel {
         case .success(let travels):
             
             // TODO: - let으로 바꾸기 위해 고차함수를 사용할 수 있나?
-            var newInfos: [(startDate: Date, travelName: String, diaryInfos: [DiaryInfoViewModel])] = []
+            var newInfos: [TravelDiaryViewModel] = []
             travels.forEach { travel in
                 // travel안의 diary데이터를 받아온다.
                 guard let id = travel.id,
@@ -56,9 +56,9 @@ extension DiaryListViewModel {
                 // Diary를 DiaryInfoViewModel로 변환
                 let diaryInfos = diaries.compactMap({
                     Diary.convertToViewModel(with: $0, id: id, name: travelName, startAt: startDate)
-                })
+                }).sorted(by: sortDiaryByDate)
                 
-                newInfos.append((startDate: startDate,travelName: travelName, diaryInfos: diaryInfos))
+                newInfos.append(TravelDiaryViewModel(startDate: startDate, name: travelName, info: diaryInfos))
             
                 // TODO: - 추후삭제
                 if currentTravel == nil {
@@ -97,17 +97,17 @@ extension DiaryListViewModel {
         }
     }
     
-//    private func sortByDate(_ lhs: DiaryInfoViewModel, _ rhs: DiaryInfoViewModel) -> Bool {
-//        let formatter = Date.yearTominuteFormatterWithoutSeparator
-//        let date1 = formatter.string(from: lhs.date)
-//        let date2 = formatter.string(from: rhs.date)
-//
-//        return date1 > date2
-//    }
+    private func sortDiaryByDate(_ lhs: DiaryInfoViewModel, _ rhs: DiaryInfoViewModel) -> Bool {
+        let formatter = Date.yearTominuteFormatterWithoutSeparator
+        let date1 = formatter.string(from: lhs.date)
+        let date2 = formatter.string(from: rhs.date)
+
+        return date1 > date2
+    }
     
     private func sortByDate(
-        _ lhs: (startDate: Date, travelName: String, diaryInfos: [DiaryInfoViewModel]),
-        _ rhs: (startDate: Date, travelName: String, diaryInfos: [DiaryInfoViewModel])
+        _ lhs: TravelDiaryViewModel,
+        _ rhs: TravelDiaryViewModel
     ) -> Bool {
         return lhs.startDate > rhs.startDate
     }

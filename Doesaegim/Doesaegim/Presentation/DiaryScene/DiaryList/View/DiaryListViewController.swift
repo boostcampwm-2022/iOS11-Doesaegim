@@ -182,7 +182,7 @@ extension DiaryListViewController {
                   let travelDiaryInfo = viewModel.travelDiaryInfos[safeIndex: indexPath.section] else {
                 return UICollectionReusableView()
             }
-            let travelName = travelDiaryInfo.travelName
+            let travelName = travelDiaryInfo.name
             sectionHeader.configureData(with: travelName)
             
             return sectionHeader
@@ -196,13 +196,11 @@ extension DiaryListViewController: UICollectionViewDelegate {
         // TODO: - 다이어리 선택 뷰, safe index 설정
         guard let viewModel = viewModel,
               let travelDiaryInfo = viewModel.travelDiaryInfos[safeIndex: indexPath.section],
-              let diary = travelDiaryInfo.diaryInfos[safeIndex: indexPath.row] else { return }
+              let diary = travelDiaryInfo.info[safeIndex: indexPath.row] else { return }
         // sectionDictionary는 Array가 아니라 Dictionary이기 때문에 safeIndex가 적용되지 않는다.
         // 어차피 없는 Key값이라면 nil이 반환되기 때문에 indexPath.section이 올바른 범위에 있는지도 확인할 필요가 없다.
         
         // uuid를 생성자에 넘기고 다이어리 디테일 뷰 푸시
-        let section = indexPath.section
-        let row = indexPath.row
         let uuid = diary.id
         
         let controller = DiaryDetailViewController(id: uuid)
@@ -218,14 +216,14 @@ extension DiaryListViewController: DiaryListViewModelDelegate {
         guard let viewModel = viewModel else { return }
         
         let travelDiaryInfos = viewModel.travelDiaryInfos
-        placeholdLabel.isHidden = travelDiaryInfos.isEmpty ? false : true
+        placeholdLabel.isHidden = !travelDiaryInfos.isEmpty
         
         var snapshot = SnapShot()
         
-        travelDiaryInfos.forEach { (startDate: Date, travelName: String, diaryInfos: [DiaryInfoViewModel]) in
+        travelDiaryInfos.forEach { travelDiary in
             // 여행종류마다 튜플로 구분되어 있으므로, 해당 섹션이 이미 존재하는지 확인할 필요가 없다. 없음이 명확하다.
-            snapshot.appendSections([travelName])
-            snapshot.appendItems(diaryInfos, toSection: travelName)
+            snapshot.appendSections([travelDiary.name])
+            snapshot.appendItems(travelDiary.info, toSection: travelDiary.name)
         }
         
         diaryDataSource?.apply(snapshot, animatingDifferences: true)
