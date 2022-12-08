@@ -34,18 +34,15 @@ final class SearchingLocationViewModel {
     /// - Parameter keyword: 입력된 키워드
     func fetchSearchResults(with keyword: String) {
         delegate?.searchLocationWillStart()
-        Task {
-            let result = await repository.search(with: keyword)
-            
-            DispatchQueue.main.async { [weak self] in
-                switch result {
-                case .success(let cellViewModels):
-                    self?.searchResultCellViewModels = cellViewModels
-                case .failure(let error):
-                    self?.searchResultCellViewModels = []
-                    self?.delegate?.searchLocationErrorOccurred()
-                    print(error.localizedDescription)
-                }
+
+        repository.search(with: keyword) { [weak self] result in
+            switch result {
+            case .success(let cellViewModels):
+                self?.searchResultCellViewModels = cellViewModels
+            case .failure(let error):
+                self?.searchResultCellViewModels = []
+                self?.delegate?.searchLocationErrorOccurred()
+                print(error.localizedDescription)
             }
         }
     }

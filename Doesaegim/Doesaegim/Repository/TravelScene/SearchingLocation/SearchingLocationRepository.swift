@@ -8,5 +8,8 @@
 import Foundation
 
 protocol SearchingLocationRepository {
-    func search(with keyworkd: String) async -> Result<[SearchResultCellViewModel], NetworkError>
+    func search(
+        with keyword: String,
+        completion: @escaping ((Result<[SearchResultCellViewModel], NetworkError>) -> Void)
+    )
 }
