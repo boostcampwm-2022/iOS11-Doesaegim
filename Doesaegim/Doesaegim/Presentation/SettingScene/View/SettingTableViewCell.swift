@@ -11,8 +11,6 @@ import UIKit
 import SnapKit
 
 final class SettingTableViewCell: UITableViewCell {
-
-    static let identifier = String(describing: SettingTableViewCell.self)
     
     // 네모뷰 안에 감싸보자!
     private let iconContainerView: UIView = {

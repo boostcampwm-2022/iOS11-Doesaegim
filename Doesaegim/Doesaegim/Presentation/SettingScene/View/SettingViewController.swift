@@ -13,7 +13,7 @@ final class SettingViewController: UIViewController {
     
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
-        table.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.identifier)
+        table.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.name)
         
         return table
     }()
@@ -93,7 +93,7 @@ extension SettingViewController: UITableViewDataSource {
         switch info {
         case .staticCell(let model):
             guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: SettingTableViewCell.identifier,
+                withIdentifier: SettingTableViewCell.name,
                 for: indexPath
             ) as? SettingTableViewCell else {
                 return UITableViewCell()
