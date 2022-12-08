@@ -15,7 +15,6 @@ final class DiaryDetailView: UIView {
     /// 다이어리 조회 중 나타나는 액티비티 인디케이터 뷰
     private let activityIndicatorView: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
-        indicator.hidesWhenStopped = true
         indicator.startAnimating()
         
         return indicator
