@@ -13,14 +13,8 @@ extension Date {
     
     static let yearMonthDayDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy년 MM월 dd일"
         
-        return formatter
-    }()
-    
-    static let yearTominuteFormatterWithoutSeparator: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyyMMddHHmm"
+        formatter.dateFormat = "yyyy년 MM월 dd일"
         
         return formatter
     }()
@@ -55,6 +49,14 @@ extension Date {
         return formatter
     }()
     
+    static let yearTominuteFormatterWithoutSeparator: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMddHHmmSS"
+        
+        return formatter
+        
+    }()
+    
     static let yearMonthDaySplitDashDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
@@ -85,14 +87,71 @@ extension Date {
     ///   - end: 종료일 `Date`인스턴스
     /// - Returns: OOOO년 OO월 OO일 ~ OO월 OO일 형식의 문자열
     static func convertTravelString(start: Date, end: Date) -> String {
-        let startDateFormatter = Date.yearMonthDayDateFormatter
-        let endDateFormatter = Date.monthDayDateFormatter
+        let startDateFormatter = Date.convertYearToDayFormatter(with: start)
+        let endDateFormatter = Date.convertMonthToDayFormatter(with: end)
         
         let startDateString = startDateFormatter.string(from: start)
         let endDateString = endDateFormatter.string(from: end)
         let periodString = startDateString + " ~ " + endDateString
 
         return periodString
+    }
+    
+    static func convertYearToDayFormatter(with date: Date) -> DateFormatter {
+        
+        let formatter = DateFormatter()
+        let formatterState = UserDefaults.standard.object(forKey: CalendarInfoKey.yearMonthDateFormat.rawValue) as? Int
+        
+        switch formatterState {
+        case 0:
+            formatter.dateFormat = "yyyy년 MM월 dd일"
+        case 1:
+            formatter.dateFormat = "yyyy/MM/dd"
+        case 2:
+            formatter.dateFormat = "MM/dd/yyyy"
+        default:
+            print("잘못된 형식입니다.")
+        }
+        
+        return formatter
+        
+    }
+    
+    static func convertMonthToDayFormatter(with date: Date) -> DateFormatter {
+        
+        let formatter = DateFormatter()
+        let formatterState = UserDefaults.standard.object(forKey: CalendarInfoKey.yearMonthDateFormat.rawValue) as? Int
+        
+        switch formatterState {
+        case 0:
+            formatter.dateFormat = "MM월 dd일"
+        case 1, 2:
+            formatter.dateFormat = "MM/dd"
+        default:
+            print("잘못된 형식입니다.")
+        }
+        
+        return formatter
+        
+    }
+    
+    static func convertHourToMinuteFormatter(with date: Date) -> DateFormatter {
+        
+        let formatter = DateFormatter()
+        let formatterState = UserDefaults.standard.object(forKey: CalendarInfoKey.timeFormat.rawValue) as? Int
+        
+        switch formatterState {
+        case 0:
+            formatter.dateFormat = "a HH:mm"
+            formatter.amSymbol = "AM"
+            formatter.pmSymbol = "PM"
+        case 1:
+            formatter.dateFormat = "HH:mm"
+        default:
+            print("잘못된 형식입니다.")
+        }
+        
+        return formatter
     }
     
     static func convertDateStringToDate(dateString: String, formatter: DateFormatter) -> Date? {
