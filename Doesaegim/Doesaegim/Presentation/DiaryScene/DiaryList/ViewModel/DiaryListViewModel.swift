@@ -10,19 +10,15 @@ import Foundation
 final class DiaryListViewModel: DiaryListViewModelProtocol {
     
     var delegate: DiaryListViewModelDelegate?
-    var travelSections: [String]
-    var diaryInfos: [DiaryInfoViewModel] { // 여행UUID: 다이어리 목록
+    var travelDiaryInfos: [(startDate: Date, travelName: String, diaryInfos: [DiaryInfoViewModel])] {
         didSet {
             delegate?.diaryInfoDidChage()
         }
     }
-    var sectionDiaryDictionary: [Int: [DiaryInfoViewModel]]
     var currentTravel: Travel? // 추후 삭제될 코드
     
     init() {
-        self.diaryInfos = []
-        self.travelSections = []
-        self.sectionDiaryDictionary = [:]
+        self.travelDiaryInfos = []
     }
     
 }
@@ -30,9 +26,7 @@ final class DiaryListViewModel: DiaryListViewModelProtocol {
 extension DiaryListViewModel {
     
     private func initializeInfo() {
-        diaryInfos = []
-        travelSections = []
-        sectionDiaryDictionary = [:]
+        travelDiaryInfos.removeAll()
     }
     
     func fetchDiary() {
@@ -49,32 +43,29 @@ extension DiaryListViewModel {
         let travelFetchResult = PersistentRepository.shared.fetchTravel()
         switch travelFetchResult {
         case .success(let travels):
-            var newDiaries: [DiaryInfoViewModel] = []
+            
+            // TODO: - let으로 바꾸기 위해 고차함수를 사용할 수 있나?
+            var newInfos: [(startDate: Date, travelName: String, diaryInfos: [DiaryInfoViewModel])] = []
             travels.forEach { travel in
                 // travel안의 diary데이터를 받아온다.
-                guard let diaries = travel.diary?.allObjects as? [Diary] else { return }
-                diaries.forEach { diary in
-                    guard var diaryInfo = Diary.convertToViewModel(with: diary) else { return }
-                    guard let travelID = travel.id,
-                          let name = travel.name else { return }
-                    diaryInfo.travelID = travelID
-                    diaryInfo.travelName = name
-                    newDiaries.append(diaryInfo)
-                    
-                    if !travelSections.contains(name) {
-                        travelSections.append(name)
-                    }
-                    
-                    guard let section = travelSections.firstIndex(of: name) else { return }
-                    sectionDiaryDictionary[section, default: []].append(diaryInfo)
-                }
+                guard let id = travel.id,
+                      let diaries = travel.diary?.allObjects as? [Diary],
+                      let travelName = travel.name,
+                      let startDate = travel.startDate else { return }
+            
+                // Diary를 DiaryInfoViewModel로 변환
+                let diaryInfos = diaries.compactMap({
+                    Diary.convertToViewModel(with: $0, id: id, name: travelName, startAt: startDate)
+                })
+                
+                newInfos.append((startDate: startDate,travelName: travelName, diaryInfos: diaryInfos))
+            
                 // TODO: - 추후삭제
                 if currentTravel == nil {
                     currentTravel = travel
                 }
             }
-            newDiaries = newDiaries.sorted(by: sortByDate)
-            diaryInfos = newDiaries
+            travelDiaryInfos = newInfos.sorted(by: sortByDate)
             
         case .failure(let error):
             print(error.localizedDescription)
@@ -106,12 +97,19 @@ extension DiaryListViewModel {
         }
     }
     
-    private func sortByDate(_ lhs: DiaryInfoViewModel, _ rhs: DiaryInfoViewModel) -> Bool {
-        let formatter = Date.yearTominuteFormatterWithoutSeparator
-        let date1 = formatter.string(from: lhs.date)
-        let date2 = formatter.string(from: rhs.date)
-        
-        return date1 > date2
+//    private func sortByDate(_ lhs: DiaryInfoViewModel, _ rhs: DiaryInfoViewModel) -> Bool {
+//        let formatter = Date.yearTominuteFormatterWithoutSeparator
+//        let date1 = formatter.string(from: lhs.date)
+//        let date2 = formatter.string(from: rhs.date)
+//
+//        return date1 > date2
+//    }
+    
+    private func sortByDate(
+        _ lhs: (startDate: Date, travelName: String, diaryInfos: [DiaryInfoViewModel]),
+        _ rhs: (startDate: Date, travelName: String, diaryInfos: [DiaryInfoViewModel])
+    ) -> Bool {
+        return lhs.startDate > rhs.startDate
     }
     
 }

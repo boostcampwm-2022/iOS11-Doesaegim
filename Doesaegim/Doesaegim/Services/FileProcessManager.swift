@@ -56,13 +56,26 @@ extension FileProcessManager {
     func fetchImages(with imagePaths: [String], diaryID: UUID) -> [Data] {
         var imageDatas: [Data] = []
         imagePaths.forEach { imagePath in
-            let result = fetchImage(with: imagePath, diaryID: diaryID)
-            switch result {
+            let cacheResult = ImageCacheManager.loadImage(with: imagePath)
+            
+            switch cacheResult {
             case .success(let data):
                 imageDatas.append(data)
+                
             case .failure(let error):
                 print(error.localizedDescription)
-                // TODO: - 에러처리
+                
+                let result = fetchImage(with: imagePath, diaryID: diaryID)
+                
+                switch result {
+                case .success(let data):
+                    imageDatas.append(data)
+                    ImageCacheManager.addImage(with: imagePath, data: data)
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    // TODO: - 에러처리
+                }
+                
             }
         }
         return imageDatas
