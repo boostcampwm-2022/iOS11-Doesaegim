@@ -129,8 +129,8 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
         name: String?,
         category: String?,
         content: String?,
-        cost: String?, date:
-        String?,
+        cost: String?,
+        date: String?,
         exchangeInfo: ExchangeData?
     ) -> Result<Expense, Error> {
         guard let name,
@@ -144,10 +144,11 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
                else {
             return .failure(CoreDataError.saveFailure(.expense))
         }
+        let newContent = content == StringLiteral.descriptionTextViewPlaceholder ? "" : (content ?? "")
         let expenseDTO = ExpenseDTO(
             name: name,
             category: category,
-            content: content ?? "",
+            content: newContent,
             cost: Int64(cost * tradingStandardRate) ,
             currency: exchangeInfo.currencyName,
             date: date,
