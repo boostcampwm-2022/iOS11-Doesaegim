@@ -14,6 +14,17 @@ final class DiaryAddViewModel {
 
     weak var delegate: DiaryAddViewModelDelegate?
 
+    var dateInterval: DateInterval? {
+        guard let travel = temporaryDiary.travel,
+              let startDate = travel.startDate,
+              let endDate = travel.endDate
+        else {
+            return nil
+        }
+
+        return DateInterval(start: startDate, end: endDate)
+    }
+
     lazy var travelPickerDataSource: PickerDataSource<Travel> = {
         let result = repository.fetchAllTravels()
 
@@ -45,22 +56,31 @@ final class DiaryAddViewModel {
 
     func travelDidSelect(_ travel: Travel) {
         temporaryDiary.travel = travel
-        delegate?.diaryAddViewModlelValuesDidChange(temporaryDiary)
+        delegate?.diaryAddViewModelValuesDidChange(temporaryDiary)
     }
 
     func locationDidSelect(_ location: LocationDTO) {
         temporaryDiary.location = location
-        delegate?.diaryAddViewModlelValuesDidChange(temporaryDiary)
+        delegate?.diaryAddViewModelValuesDidChange(temporaryDiary)
+    }
+
+    func dateDidSelect(_ dateString: String) {
+        let date =  Date.convertDateStringToDate(
+            dateString: dateString,
+            formatter: Date.yearMonthDayTimeDateFormatter
+        )
+        temporaryDiary.date = date
+        delegate?.diaryAddViewModelValuesDidChange(temporaryDiary)
     }
 
     func titleDidChange(to title: String?) {
         temporaryDiary.title = title
-        delegate?.diaryAddViewModlelValuesDidChange(temporaryDiary)
+        delegate?.diaryAddViewModelValuesDidChange(temporaryDiary)
     }
 
     func contentDidChange(to content: String?) {
         temporaryDiary.content = content
-        delegate?.diaryAddViewModlelValuesDidChange(temporaryDiary)
+        delegate?.diaryAddViewModelValuesDidChange(temporaryDiary)
     }
 
     func image(withID id: ImageID) -> ImageStatus {
@@ -168,7 +188,8 @@ final class DiaryAddViewModel {
         guard let title = temporaryDiary.title,
               let content = temporaryDiary.content,
               let location = temporaryDiary.location,
-              let travel = temporaryDiary.travel
+              let travel = temporaryDiary.travel,
+              let date = temporaryDiary.date
         else {
             return .failure(CoreDataError.saveFailure(.diary))
         }
@@ -176,7 +197,7 @@ final class DiaryAddViewModel {
         let diaryDTO = DiaryDTO(
             id: temporaryDiary.id,
             content: content,
-            date: temporaryDiary.date,
+            date: date,
             images: temporaryDiary.imagePaths,
             title: title,
             location: location,

@@ -47,6 +47,7 @@ final class DiaryAddViewController: UIViewController {
         bindToViewModel()
         observeKeyBoardAppearance()
         configureTravelPicker()
+        configureDateButton()
         configurePlaceSearchButton()
         configureImageSlider()
         configureNameTextField()
@@ -104,6 +105,25 @@ final class DiaryAddViewController: UIViewController {
             self?.show(controller, sender: self)
         }
         rootView.placeSearchButton.addAction(showLocationViewController, for: .touchUpInside)
+    }
+
+    private func configureDateButton() {
+        let presentCalendar = UIAction { [weak self] _ in
+            guard let dateInterval = self?.viewModel.dateInterval
+            else {
+                return 
+            }
+            let calendarViewController = CalendarViewController(
+                touchOption: .single,
+                type: .dateAndTime,
+                startDate: dateInterval.start,
+                endDate: dateInterval.end
+            )
+            calendarViewController.delegate = self
+            self?.rootView.endEditing(true)
+            self?.present(calendarViewController, animated: true)
+        }
+        rootView.dateInputButton.addAction(presentCalendar, for: .touchUpInside)
     }
 
     /// 이미지 슬라이더, 이미지 추가 버튼 관련 설정
@@ -230,10 +250,11 @@ extension DiaryAddViewController: UIPickerViewDelegate {
 // MARK: - DiaryAddViewModelDelegate
 extension DiaryAddViewController: DiaryAddViewModelDelegate {
 
-    func diaryAddViewModlelValuesDidChange(_ diary: TemporaryDiary) {
+    func diaryAddViewModelValuesDidChange(_ diary: TemporaryDiary) {
         navigationItem.rightBarButtonItem?.isEnabled = diary.hasAllRequiredProperties
         rootView.travelTextField.text = diary.travel?.name
         rootView.placeSearchButton.setTitle(diary.location?.name, for: .normal)
+        rootView.dateInputButton.setTitle(diary.dateString, for: .normal)
     }
 
     func diaryAddViewModelDidUpdateSelectedImageIDs(_ identifiers: [ImageID]) {
@@ -249,7 +270,7 @@ extension DiaryAddViewController: DiaryAddViewModelDelegate {
         rootView.isSaving = false
 
         switch result {
-        case .success(let diary):
+        case .success:
             navigationController?.popViewController(animated: true)
         case .failure(let error):
             presentErrorAlert(
@@ -312,5 +333,13 @@ fileprivate extension DiaryAddViewController {
         static let navigationTitle = "작성 화면"
 
         static let saveButtonImageName = "checkmark"
+    }
+}
+
+
+// MARK: - CalendarViewDelegate
+extension DiaryAddViewController: CalendarViewDelegate {
+    func fetchDate(dateString: String) {
+        viewModel.dateDidSelect(dateString)
     }
 }
