@@ -55,17 +55,8 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
     }()
     
     // MARK: - Properties
-    
-    private var exchangeInfo: [ExchangeData] = ExchangeData.list
-    private let exchangeDiskCache = ExchangeDiskCache.shared
-    private let exchangeMemoryCache = ExchangeMemoryCache.shared
-    
-    // TODO: - category 항목이 정해지면 수정 Enum으로?
-    
-    private var category: [ExpenseType] = ExpenseType.allCases
-    
+    private let viewModel: ExpenseAddPickerViewModel
     private let type: PickerType
-    private var selectedIndex: Int = 0
     
     var delegate: ExpenseAddPickerViewDelegate?
     
@@ -73,6 +64,7 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
     
     init(type: PickerType) {
         self.type = type
+        viewModel = ExpenseAddPickerViewModel(type: type)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -91,6 +83,8 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
                 try await setExchangeValue()
             }
         }
+        viewModel.delegate = self
+        UserDefaults.standard.removeObject(forKey: Constants.fetchExchangeInfoDate)
     }
     
     // MARK: - Configure Functions
@@ -143,10 +137,10 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
     
     @objc func addButtonTouchUpInside() {
         if type == .moneyUnit {
-            guard selectedIndex < exchangeInfo.count else { return }
-            delegate?.selectedExchangeInfo(item: exchangeInfo[selectedIndex])
+            guard viewModel.selectedIndex < viewModel.exchangeInfos.count else { return }
+            delegate?.selectedExchangeInfo(item: viewModel.exchangeInfos[viewModel.selectedIndex])
         } else {
-            delegate?.selectedCategory(item: category[selectedIndex])
+            delegate?.selectedCategory(item: viewModel.categories[viewModel.selectedIndex])
         }
         dismiss(animated: true)
     }
@@ -163,107 +157,18 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
             ))
     }
     
-    
-    // MARK: - Network
-    
-    func fetchExchangeInfo(day: String) async throws {
-        let network = NetworkManager(configuration: .default)
-        var paramaters: [String: String] = [:]
-        paramaters["authkey"] = ExchangeAPI.authkey
-        paramaters["data"] = ExchangeAPI.dataCode
-        paramaters["searchdate"] = day
-        
-        let resource = Resource<ExchangeResponse>(
-            base: ExchangeAPI.exchangeURL,
-            paramaters: paramaters,
-            header: [:])
-        
-        let result = try await network.loadArray(resource)
-        
-        switch result {
-        case .success(let response):
-            if response.isEmpty {
-                try await fetchExchangeInfo(day: Date.yesterDayDateConvertToString())
-            } else {
-                exchangeInfo = response.map { ExchangeData(
-                    currencyCode: $0.currencyCode,
-                    tradingStandardRate: $0.tradingStandardRate,
-                    currencyName: $0.currencyName
-                )}
-                pickerView.reloadAllComponents()
-                UserDefaults.standard.set(day, forKey: Constants.fetchExchangeInfoDate)
-                exchangeDiskCache.saveExchangeRateInfo(exchangeInfo: response)
-            }
-        case .failure(let error):
-            if let info = exchangeDiskCache.fetchExchangeRateInfo() {
-                exchangeInfo = info.map { ExchangeData(
-                    currencyCode: $0.currencyCode,
-                    tradingStandardRate: $0.tradingStandardRate,
-                    currencyName: $0.currencyName
-                )}
-            }
-            print(error.localizedDescription)
-        }
-    }
-    
-    // MARK: UserDefaults
-    
     private func setExchangeValue() async throws {
-        // UserDefault 확인
-        if let fetchExchangeInfoDate = UserDefaults.standard.string(forKey: Constants.fetchExchangeInfoDate) {
-            
-            // 메모리 캐시에 값 있는지 확인
-            let cacheKey = NSString(string: fetchExchangeInfoDate)
-            if let cachedExchangeRateInfo = exchangeMemoryCache.object(forKey: cacheKey)
-                as? [ExchangeResponse] {
-                exchangeInfo = cachedExchangeRateInfo.map {
-                    ExchangeData(
-                        currencyCode: $0.currencyCode,
-                        tradingStandardRate: $0.tradingStandardRate,
-                        currencyName: $0.currencyName
-                    )
-                }
-                pickerView.reloadAllComponents()
-                print("[MemoryCache] Hit")
-                return
-            }
-            
-            // UserDefault의 저장된 날짜가 오늘 날짜와 같고, 디스크 캐시에 저장되어 있다면
-            // 디스크 캐시에서 불러옴
-            // 메모리 캐시에 저장
-            if fetchExchangeInfoDate == Date.todayDateConvertToString(),
-               let info = exchangeDiskCache.fetchExchangeRateInfo() {
-                exchangeInfo = info.map {
-                    ExchangeData(
-                        currencyCode: $0.currencyCode,
-                        tradingStandardRate: $0.tradingStandardRate,
-                        currencyName: $0.currencyName
-                    )
-                }
-                print("[DiskCache] Hit")
-                pickerView.reloadAllComponents()
-                
-                let cacheKey = NSString(string: fetchExchangeInfoDate)
-                exchangeMemoryCache.setObject(info as NSArray, forKey: cacheKey)
-            } else {
-                // 날짜가 다르면 오늘 날짜로 api 요청
-                try await fetchExchangeInfo(day: Date.todayDateConvertToString())
-            }
-            
-        } else {
-            // 없으면 api 요청
-            try await fetchExchangeInfo(day: Date.todayDateConvertToString())
-        }
+        try await viewModel.setExchangeValue()
     }
 }
 
 extension ExpenseAddPickerViewController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        return viewModel.numberOfComponents
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return type == .moneyUnit ? exchangeInfo.count : category.count
+        return viewModel.numberOfRowsInComponents()
     }
 }
 
@@ -273,20 +178,26 @@ extension ExpenseAddPickerViewController: UIPickerViewDelegate {
         titleForRow row: Int,
         forComponent component: Int
     ) -> String? {
-        if type == .moneyUnit {
-            let value = exchangeInfo.map {
-                let exchangeRateType = ExchangeRateType(currencyCode: $0.currencyCode) ?? .AED
-                let icon = exchangeRateType.icon
-                return "\(icon) \($0.currencyName)"
-            }
-            return value[row]
-        } else {
-            return category[row].rawValue
-        }
+        return viewModel.pickerView(titleForRow: row)
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedIndex = row
+        viewModel.pickerView(didSelectRow: row)
+    }
+}
+
+// MARK: ViewModel Delegate Functions
+
+extension ExpenseAddPickerViewController: ExpenseAddPickerViewModelDelegate {
+    func didChangeExchangeInfo() {
+        DispatchQueue.main.async {
+            self.viewModel.exchangeInfos.forEach { print("$$", $0.tradingStandardRate) }
+            self.pickerView.reloadAllComponents()
+        }
+    }
+    
+    func didSelectedRow() {
+        print("\(#function)")
     }
 }
 

@@ -153,6 +153,8 @@
 		EE12EA252935B62D00D41DFE /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = EE12EA242935B62D00D41DFE /* FirebaseCrashlytics */; };
 		EE26BE382941852600A746F2 /* ExpenseAddPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE26BE372941852600A746F2 /* ExpenseAddPickerViewModel.swift */; };
 		EE26BE3C2941858F00A746F2 /* ExpenseAddPickerViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE26BE3B2941858F00A746F2 /* ExpenseAddPickerViewModelProtocol.swift */; };
+		EE26BE412941A12600A746F2 /* ExchangeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE26BE402941A12600A746F2 /* ExchangeRepository.swift */; };
+		EE26BE432941A16900A746F2 /* ExchangeRemoteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE26BE422941A16900A746F2 /* ExchangeRemoteRepository.swift */; };
 		EE2C553D291CC08B0018B109 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EE2C553C291CC08B0018B109 /* SnapKit */; };
 		EE3E29A829235F6B007C7FC7 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E29A729235F6B007C7FC7 /* UITextField+.swift */; };
 		EE3E29BC2923C870007C7FC7 /* TravelAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E29BB2923C870007C7FC7 /* TravelAddViewController.swift */; };
@@ -353,6 +355,8 @@
 		EE12EA152935A4C800D41DFE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EE26BE372941852600A746F2 /* ExpenseAddPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddPickerViewModel.swift; sourceTree = "<group>"; };
 		EE26BE3B2941858F00A746F2 /* ExpenseAddPickerViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddPickerViewModelProtocol.swift; sourceTree = "<group>"; };
+		EE26BE402941A12600A746F2 /* ExchangeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRepository.swift; sourceTree = "<group>"; };
+		EE26BE422941A16900A746F2 /* ExchangeRemoteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRemoteRepository.swift; sourceTree = "<group>"; };
 		EE3E29A729235F6B007C7FC7 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		EE3E29AB292361B5007C7FC7 /* CustomCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendar.swift; sourceTree = "<group>"; };
 		EE3E29AD292365C7007C7FC7 /* CustomCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarCell.swift; sourceTree = "<group>"; };
@@ -1169,6 +1173,15 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		EE26BE3F2941A10900A746F2 /* Exchange */ = {
+			isa = PBXGroup;
+			children = (
+				EE26BE402941A12600A746F2 /* ExchangeRepository.swift */,
+				EE26BE422941A16900A746F2 /* ExchangeRemoteRepository.swift */,
+			);
+			path = Exchange;
+			sourceTree = "<group>";
+		};
 		EE3E29B92923C85B007C7FC7 /* TravelAdd */ = {
 			isa = PBXGroup;
 			children = (
@@ -1246,6 +1259,7 @@
 		EE97A8BD29408BF900BB8390 /* ExpenseScene */ = {
 			isa = PBXGroup;
 			children = (
+				EE26BE3F2941A10900A746F2 /* Exchange */,
 				EE97A8BE29408C0900BB8390 /* ExpenseAdd */,
 			);
 			path = ExpenseScene;
@@ -1563,6 +1577,7 @@
 				BBDB2E96292635FD00752924 /* ExpenseSectionHeaderView.swift in Sources */,
 				B5D64E6E292E254A00E1CC81 /* DiaryDetailViewModelDelegate.swift in Sources */,
 				EE97A8C029408CB200BB8390 /* ExpenseAddRepository.swift in Sources */,
+				EE26BE432941A16900A746F2 /* ExchangeRemoteRepository.swift in Sources */,
 				B53763CC292B56600073BF46 /* CustomPieChart.swift in Sources */,
 				EE5D50F5293DD495006ECE87 /* TravelAddLocalRepository.swift in Sources */,
 				B53763E3292B99B80073BF46 /* PieceShapeLayer.swift in Sources */,
@@ -1630,6 +1645,7 @@
 				B5B497CD29374C58009AE4AC /* BarShapeLayer.swift in Sources */,
 				B5C096C029236BC0007426B1 /* SearchResultCellViewModel.swift in Sources */,
 				A48E9948292515020029D57D /* UIViewController+PresentAlert.swift in Sources */,
+				EE26BE412941A12600A746F2 /* ExchangeRepository.swift in Sources */,
 				BB6BE55B2936020300857D25 /* FaceDetectController+CollectionView.swift in Sources */,
 				BB6BE5572935E68E00857D25 /* FaceDetectViewModel.swift in Sources */,
 				EEDB753629260E360069A7F5 /* PlanAddViewProtocol.swift in Sources */,
