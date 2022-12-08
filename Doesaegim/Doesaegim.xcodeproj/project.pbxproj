@@ -158,7 +158,7 @@
 		BBFAC0AB291CBDD800D7FD57 /* DoesaegimUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC0AA291CBDD800D7FD57 /* DoesaegimUITests.swift */; };
 		BBFAC0AD291CBDD800D7FD57 /* DoesaegimUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFAC0AC291CBDD800D7FD57 /* DoesaegimUITestsLaunchTests.swift */; };
 		BBFD8A632931C249004C39FF /* String+Truncate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFD8A622931C249004C39FF /* String+Truncate.swift */; };
-		BBFE4BA62924B25D003F5CCE /* Date+TravelString.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFE4BA52924B25D003F5CCE /* Date+TravelString.swift */; };
+		BBFE4BA62924B25D003F5CCE /* Date+Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFE4BA52924B25D003F5CCE /* Date+Formatter.swift */; };
 		EE116C582924AA0D0017B519 /* CustomCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE116C552924AA0D0017B519 /* CustomCalendarCell.swift */; };
 		EE116C592924AA0D0017B519 /* CustomCalendarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE116C562924AA0D0017B519 /* CustomCalendarHeaderView.swift */; };
 		EE116C5A2924AA0D0017B519 /* CustomCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE116C572924AA0D0017B519 /* CustomCalendar.swift */; };
@@ -381,7 +381,7 @@
 		BBFAC0AA291CBDD800D7FD57 /* DoesaegimUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoesaegimUITests.swift; sourceTree = "<group>"; };
 		BBFAC0AC291CBDD800D7FD57 /* DoesaegimUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoesaegimUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BBFD8A622931C249004C39FF /* String+Truncate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Truncate.swift"; sourceTree = "<group>"; };
-		BBFE4BA52924B25D003F5CCE /* Date+TravelString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TravelString.swift"; sourceTree = "<group>"; };
+		BBFE4BA52924B25D003F5CCE /* Date+Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Formatter.swift"; sourceTree = "<group>"; };
 		EE116C552924AA0D0017B519 /* CustomCalendarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalendarCell.swift; sourceTree = "<group>"; };
 		EE116C562924AA0D0017B519 /* CustomCalendarHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalendarHeaderView.swift; sourceTree = "<group>"; };
 		EE116C572924AA0D0017B519 /* CustomCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCalendar.swift; sourceTree = "<group>"; };
@@ -1232,7 +1232,7 @@
 		BBFE4BA42924B252003F5CCE /* Date */ = {
 			isa = PBXGroup;
 			children = (
-				BBFE4BA52924B25D003F5CCE /* Date+TravelString.swift */,
+				BBFE4BA52924B25D003F5CCE /* Date+Formatter.swift */,
 			);
 			path = Date;
 			sourceTree = "<group>";
@@ -1790,7 +1790,7 @@
 				EEDB753329260DFB0069A7F5 /* PlanAddViewModel.swift in Sources */,
 				BBD0D05F291DE97F007D0D82 /* MapViewController.swift in Sources */,
 				A4C3BB6F292F05C1001C0514 /* ProgressiveImageView.swift in Sources */,
-				BBFE4BA62924B25D003F5CCE /* Date+TravelString.swift in Sources */,
+				BBFE4BA62924B25D003F5CCE /* Date+Formatter.swift in Sources */,
 				B5C096BC29235B08007426B1 /* SearchResultCell.swift in Sources */,
 				B5DE4D4029271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift in Sources */,
 				BB22446F2941CE9A00546E19 /* CalendarViewModel.swift in Sources */,
