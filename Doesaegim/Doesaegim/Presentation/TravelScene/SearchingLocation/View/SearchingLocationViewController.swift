@@ -109,15 +109,6 @@ final class SearchingLocationViewController: UIViewController {
     }
 }
 
-// MARK: - Namespaces
-
-extension SearchingLocationViewController {
-    enum StringLiteral {
-        static let title = "장소 검색"
-        static let searchBarPlaceholder = "장소명을 입력해주세요."
-    }
-}
-
 // MARK: - SearchingLocationViewController.Section
 
 extension SearchingLocationViewController {
@@ -160,11 +151,33 @@ extension SearchingLocationViewController: UICollectionViewDelegate {
 // MARK: - SearchingLocationViewModelDelegate
 
 extension SearchingLocationViewController: SearchingLocationViewModelDelegate {
+    
+    func searchLocationWillStart() {
+        rootView.startAnimating()
+    }
+    
     func searchLocaitonResultDidChange() {
         rootView.searchResultCollectionView.isEmpty = viewModel.searchResultCellViewModels.isEmpty
+        rootView.stopAnimating()
     }
     
     func searchLocationSnapshotDidRefresh() {
         configureSnapshot()
+    }
+    
+    func searchLocationErrorOccurred() {
+        presentErrorAlert(title: StringLiteral.responseErrorTitle)
+    }
+}
+
+
+// MARK: - Namespaces
+
+extension SearchingLocationViewController {
+    enum StringLiteral {
+        static let title = "장소 검색"
+        static let searchBarPlaceholder = "장소명을 입력해주세요."
+        
+        static let responseErrorTitle = "검색 결과 요청에 실패했습니다."
     }
 }
