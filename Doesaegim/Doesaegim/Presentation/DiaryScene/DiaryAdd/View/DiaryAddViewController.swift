@@ -84,28 +84,38 @@ final class DiaryAddViewController: UIViewController {
     private func configureTravelPicker() {
         rootView.travelPicker.delegate = self
         rootView.travelPicker.dataSource = viewModel.travelPickerDataSource
+
+        let configureInitialSelection = UIAction { [weak self] _ in
+            guard self?.rootView.travelTextField.hasText != true,
+                  let travel = self?.viewModel.travelPickerDataSource.itemForRow(.zero)
+            else {
+                return
+            }
+            self?.viewModel.travelDidSelect(travel)
+        }
+        rootView.travelTextField.addAction(configureInitialSelection, for: .editingDidBegin)
     }
 
     private func configurePlaceSearchButton() {
-        let action = UIAction { _ in
-            self.rootView.endEditing(true)
+        let showLocationViewController = UIAction { [weak self] _ in
+            self?.rootView.endEditing(true)
             let controller = SearchingLocationViewController()
             controller.delegate = self
-            self.show(controller, sender: self)
+            self?.show(controller, sender: self)
         }
-        rootView.placeSearchButton.addAction(action, for: .touchUpInside)
+        rootView.placeSearchButton.addAction(showLocationViewController, for: .touchUpInside)
     }
 
     /// 이미지 슬라이더, 이미지 추가 버튼 관련 설정
     private func configureImageSlider() {
-        let presentPhotoPicker = UIAction { _ in
+        let presentPhotoPicker = UIAction { [weak self] _ in
             var configuration = PHPickerConfiguration(photoLibrary: .shared())
             configuration.filter = .images
             configuration.selectionLimit = Metric.numberOfMaximumPhotos
 
             let picker = PHPickerViewController(configuration: configuration)
             picker.delegate = self
-            self.present(picker, animated: true)
+            self?.present(picker, animated: true)
 
         }
         rootView.addPhotoButton.addAction(presentPhotoPicker, for: .touchUpInside)
@@ -139,7 +149,7 @@ final class DiaryAddViewController: UIViewController {
 
     private func configureNameTextField() {
         let textField = rootView.titleTextField
-        let action = UIAction { _ in self.viewModel.titleDidChange(to: textField.text) }
+        let action = UIAction { [weak self] _ in self?.viewModel.titleDidChange(to: textField.text) }
         textField.addAction(action, for: .editingChanged)
     }
 
@@ -240,9 +250,7 @@ extension DiaryAddViewController: DiaryAddViewModelDelegate {
 
         switch result {
         case .success(let diary):
-            print(diary.title!, "이 저장되었습니다!")
             navigationController?.popViewController(animated: true)
-            // TODO: 전달?
         case .failure(let error):
             presentErrorAlert(
                 title: CoreDataError.saveFailure(.diary).localizedDescription,
