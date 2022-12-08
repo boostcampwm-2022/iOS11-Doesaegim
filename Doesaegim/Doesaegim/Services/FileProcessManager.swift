@@ -35,7 +35,7 @@ extension FileProcessManager {
     ///   - diaryID: 이미지가 속한 다이어리의 아이디
     /// - Returns: 성공 시 true, 실패 시 false
     func saveImage(_ image: UIImage, imageID: String, diaryID: UUID) -> Bool {
-        guard let data = image.jpegData(compressionQuality: Metric.compressionQuality),
+        guard let data = compressedJpegData(from: image),
               let url = url(usingImageID: imageID, diaryID: diaryID)
         else {
             return false
@@ -48,6 +48,22 @@ extension FileProcessManager {
         }
 
         return true
+    }
+
+    /// 이미지 용량이 Metric.maximumImageSizeInBytes 이하일 때까지 압축을 반복 
+    private func compressedJpegData(from image: UIImage) -> Data? {
+        var compressionQuality = Metric.compressionQuality
+        var data = image.jpegData(compressionQuality: compressionQuality)
+
+        let isValidDataSize: (Data?) -> Bool = { ($0?.count ?? .zero) < Metric.maximumImageSizeInbytes }
+        let isValidCompressionQuality: (CGFloat) -> Bool = { $0 > .zero }
+
+        while !isValidDataSize(data), isValidCompressionQuality(compressionQuality) {
+            compressionQuality -= Metric.compressionQualityReducer
+            data = image.jpegData(compressionQuality: compressionQuality)
+        }
+
+        return data
     }
 
 
@@ -137,7 +153,13 @@ extension FileProcessManager {
 // MARK: - Constants
 fileprivate extension FileProcessManager {
     enum Metric {
+
         /// jpeg로 압축 시 압축 품질
         static let compressionQuality: CGFloat = 0.85
+
+        static let compressionQualityReducer: CGFloat = 0.05
+
+        /// 5mb
+        static let maximumImageSizeInbytes: Int = 5_000_000
     }
 }
