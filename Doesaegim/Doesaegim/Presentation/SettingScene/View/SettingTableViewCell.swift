@@ -36,7 +36,6 @@ final class SettingTableViewCell: UITableViewCell {
         let label = UILabel()
         
         label.numberOfLines = 1
-        label.lineBreakMode = .byTruncatingTail
         
         return label
     }()
