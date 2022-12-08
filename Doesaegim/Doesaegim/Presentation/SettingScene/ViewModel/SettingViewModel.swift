@@ -35,9 +35,9 @@ extension SettingViewModel {
                         )
                     ),
                     
-                    .staticCell(
+                    .switchCell(
                         model: SettingOptionViewModel(
-                            title: "알림설정",
+                            title: "알림받기",
                             icon: UIImage(systemName: "bell"),
                             iconTintColor: .primaryOrange,
                             handler: {

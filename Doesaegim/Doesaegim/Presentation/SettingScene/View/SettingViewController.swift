@@ -13,7 +13,8 @@ final class SettingViewController: UIViewController {
     
     private let tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
-        table.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.name)
+        table.register(SettingStaticCell.self, forCellReuseIdentifier: SettingStaticCell.name)
+        table.register(SettingSwitchCell.self, forCellReuseIdentifier: SettingSwitchCell.name)
         
         return table
     }()
@@ -93,9 +94,9 @@ extension SettingViewController: UITableViewDataSource {
         switch info {
         case .staticCell(let model):
             guard let cell = tableView.dequeueReusableCell(
-                withIdentifier: SettingTableViewCell.name,
+                withIdentifier: SettingStaticCell.name,
                 for: indexPath
-            ) as? SettingTableViewCell else {
+            ) as? SettingStaticCell else {
                 return UITableViewCell()
             }
             cell.configure(with: model)
@@ -103,7 +104,14 @@ extension SettingViewController: UITableViewDataSource {
             
         case .switchCell(let model):
             // TODO: - SwitchCell 설정 알림설정 등
-            return UITableViewCell()
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: SettingSwitchCell.name,
+                for: indexPath
+            ) as? SettingSwitchCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: model)
+            return cell
         }
         
         return UITableViewCell()

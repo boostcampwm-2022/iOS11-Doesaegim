@@ -96,13 +96,14 @@
 		BB02B096292F2A4900FE11DA /* DiaryInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB02B095292F2A4900FE11DA /* DiaryInfoViewModel.swift */; };
 		BB0A8287293F29FA0014056C /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0A8286293F29FA0014056C /* ImageCacheManager.swift */; };
 		BB22445C29419EB200546E19 /* TravelDiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB22445B29419EB200546E19 /* TravelDiaryViewModel.swift */; };
+		BB22445E2941BEFD00546E19 /* SettingSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB22445D2941BEFD00546E19 /* SettingSwitchCell.swift */; };
 		BB288FC8292E167900065D04 /* DiaryCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB288FC7292E167900065D04 /* DiaryCalloutView.swift */; };
 		BB288FCB292E1A2B00065D04 /* FileProcessManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB288FCA292E1A2B00065D04 /* FileProcessManager.swift */; };
 		BB288FD0292E21E100065D04 /* FileManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB288FCF292E21E100065D04 /* FileManagerError.swift */; };
 		BB305CB929408410006C3480 /* SettingOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB305CB829408410006C3480 /* SettingOptionViewModel.swift */; };
 		BB305CBD29408457006C3480 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB305CBC29408457006C3480 /* SettingViewModel.swift */; };
 		BB305CBF294084BC006C3480 /* SettingViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB305CBE294084BC006C3480 /* SettingViewModelProtocol.swift */; };
-		BB305CC129408639006C3480 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB305CC029408639006C3480 /* SettingTableViewCell.swift */; };
+		BB305CC129408639006C3480 /* SettingStaticCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB305CC029408639006C3480 /* SettingStaticCell.swift */; };
 		BB3DB919292C649600C70D62 /* UIView+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3DB918292C649600C70D62 /* UIView+Frame.swift */; };
 		BB3DB91E292C83C400C70D62 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3DB91D292C83C400C70D62 /* MapViewModel.swift */; };
 		BB3DB920292CA76800C70D62 /* MapViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3DB91F292CA76800C70D62 /* MapViewModelProtocol.swift */; };
@@ -308,13 +309,14 @@
 		BB02B095292F2A4900FE11DA /* DiaryInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInfoViewModel.swift; sourceTree = "<group>"; };
 		BB0A8286293F29FA0014056C /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		BB22445B29419EB200546E19 /* TravelDiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDiaryViewModel.swift; sourceTree = "<group>"; };
+		BB22445D2941BEFD00546E19 /* SettingSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSwitchCell.swift; sourceTree = "<group>"; };
 		BB288FC7292E167900065D04 /* DiaryCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCalloutView.swift; sourceTree = "<group>"; };
 		BB288FCA292E1A2B00065D04 /* FileProcessManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProcessManager.swift; sourceTree = "<group>"; };
 		BB288FCF292E21E100065D04 /* FileManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerError.swift; sourceTree = "<group>"; };
 		BB305CB829408410006C3480 /* SettingOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingOptionViewModel.swift; sourceTree = "<group>"; };
 		BB305CBC29408457006C3480 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		BB305CBE294084BC006C3480 /* SettingViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModelProtocol.swift; sourceTree = "<group>"; };
-		BB305CC029408639006C3480 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
+		BB305CC029408639006C3480 /* SettingStaticCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingStaticCell.swift; sourceTree = "<group>"; };
 		BB3DB918292C649600C70D62 /* UIView+Frame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Frame.swift"; sourceTree = "<group>"; };
 		BB3DB91D292C83C400C70D62 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		BB3DB91F292CA76800C70D62 /* MapViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelProtocol.swift; sourceTree = "<group>"; };
@@ -826,6 +828,13 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		BB22445F2941C88500546E19 /* SettingOptionControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SettingOptionControllers;
+			sourceTree = "<group>";
+		};
 		BB288FCE292E1D9200065D04 /* Errors */ = {
 			isa = PBXGroup;
 			children = (
@@ -839,7 +848,9 @@
 			isa = PBXGroup;
 			children = (
 				BBD0D062291DE991007D0D82 /* SettingViewController.swift */,
-				BB305CC029408639006C3480 /* SettingTableViewCell.swift */,
+				BB305CC029408639006C3480 /* SettingStaticCell.swift */,
+				BB22445D2941BEFD00546E19 /* SettingSwitchCell.swift */,
+				BB22445F2941C88500546E19 /* SettingOptionControllers */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1728,6 +1739,7 @@
 				A48E9948292515020029D57D /* UIViewController+PresentAlert.swift in Sources */,
 				EE26BE412941A12600A746F2 /* ExchangeRepository.swift in Sources */,
 				BB6BE55B2936020300857D25 /* FaceDetectController+CollectionView.swift in Sources */,
+				BB22445E2941BEFD00546E19 /* SettingSwitchCell.swift in Sources */,
 				BB6BE5572935E68E00857D25 /* FaceDetectViewModel.swift in Sources */,
 				B5DEDE3829409CD400AD2515 /* ImageSliderView.swift in Sources */,
 				EEDB753629260E360069A7F5 /* PlanAddViewProtocol.swift in Sources */,
@@ -1778,7 +1790,7 @@
 				A4CC04D72923347E00BB678B /* PlanListViewController.swift in Sources */,
 				EE3FB85E2938738A0024AEE1 /* TravelAddView.swift in Sources */,
 				A48E9946292512BC0029D57D /* CoreDataError.swift in Sources */,
-				BB305CC129408639006C3480 /* SettingTableViewCell.swift in Sources */,
+				BB305CC129408639006C3480 /* SettingStaticCell.swift in Sources */,
 				BB9DB8102928D09200102EC8 /* PersistentRepository.swift in Sources */,
 				BBB31A3E2926007D00C9E3A9 /* ExpenseListViewController.swift in Sources */,
 				BB6079B3292F546900BF30C8 /* DiaryListHeaderView.swift in Sources */,

@@ -10,7 +10,7 @@ import UIKit
 
 import SnapKit
 
-final class SettingTableViewCell: UITableViewCell {
+final class SettingStaticCell: UITableViewCell {
     
     // 네모뷰 안에 감싸보자!
     private let iconContainerView: UIView = {
@@ -67,7 +67,7 @@ final class SettingTableViewCell: UITableViewCell {
 
 }
 
-extension SettingTableViewCell {
+extension SettingStaticCell {
     
     func configure(with info: SettingOptionViewModel) {
         label.text = info.title
