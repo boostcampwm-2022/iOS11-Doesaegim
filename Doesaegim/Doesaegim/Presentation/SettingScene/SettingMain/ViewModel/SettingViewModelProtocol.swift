@@ -8,7 +8,7 @@
 import UIKit
 
 
-protocol SettingViewModelProtocol {
+protocol SettingViewModelProtocol: AnyObject{
     
     var delegate: SettingViewModelDelegate? { get set }
     var settingInfos: [SettingSection] { get set }
@@ -17,7 +17,7 @@ protocol SettingViewModelProtocol {
     
 }
 
-protocol SettingViewModelDelegate {
+protocol SettingViewModelDelegate: AnyObject{
     
     func settingViewCellDidTapped(moveTo controller: UIViewController)
         

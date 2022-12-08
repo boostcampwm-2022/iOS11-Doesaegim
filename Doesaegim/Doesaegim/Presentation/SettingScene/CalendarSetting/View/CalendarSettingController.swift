@@ -20,13 +20,14 @@ final class CalendarSettingController: UIViewController {
         return table
     }()
     
-    private let viewModel: CalendarSettingViewModel? = CalendarSettingViewModel()
+    private let viewModel: CalendarSettingViewModelProtocol? = CalendarSettingViewModel()
     
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
+        viewModel?.configureCalendarSettingInfos()
     }
 
 }
@@ -37,8 +38,9 @@ extension CalendarSettingController {
     
     private func configure() {
         configureNavigationBar()
-        configureSubview()
         configureTableView()
+        configureSubviews()
+        
     }
     
     private func configureNavigationBar() {
@@ -54,15 +56,14 @@ extension CalendarSettingController {
         navigationController?.navigationBar.tintColor = .primaryOrange
     }
     
-    private func configureSubview() {
+    private func configureSubviews() {
         view.addSubview(tableView)
-        tableView.frame = view.bounds
-        
     }
     
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.frame = view.bounds
     }
     
     @objc func didCompleteButtonTap() {
@@ -74,14 +75,27 @@ extension CalendarSettingController {
 extension CalendarSettingController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         print("\(indexPath) 셀 선택!")
+        
+        // 다른 것의 같은 섹션의 다른 표현을 false로 하고, 선택한 현재 열을 true로 한다.
+        guard let viewModel = viewModel else { return }
+        
     }
     
 }
 
 extension CalendarSettingController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        guard let viewModel = viewModel else { return 0 }
+        return viewModel.calendarSettingInfos.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        guard let viewModel = viewModel,
+              let infos = viewModel.calendarSettingInfos[safeIndex: section] else { return 0 }
+        return infos.options.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -95,7 +109,8 @@ extension CalendarSettingController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        cell.configureData(with: info)
+        let isSelected = (infos.selectedOption == indexPath.row)
+        cell.configureData(with: info, isSelected: isSelected)
                 
         return cell
     }
@@ -105,4 +120,12 @@ extension CalendarSettingController: UITableViewDataSource {
               let infos = viewModel.calendarSettingInfos[safeIndex: section] else { return nil }
         return infos.title
     }
+}
+
+extension CalendarSettingController: CalendarSettingViewModelDelegate {
+    
+    func calendarSettingDidChange() {
+        tableView.reloadData()
+    }
+    
 }

@@ -8,9 +8,14 @@
 import Foundation
 
 
-final class CalendarSettingViewModel {
+final class CalendarSettingViewModel: CalendarSettingViewModelProtocol {
     
-    var calendarSettingInfos: [CalendarSection]
+    var delegate: CalendarSettingViewModelDelegate?
+    var calendarSettingInfos: [CalendarSection] {
+        didSet {
+            delegate?.calendarSettingDidChange()
+        }
+    }
     
     init() {
         self.calendarSettingInfos = []
@@ -25,6 +30,9 @@ extension CalendarSettingViewModel {
         calendarSettingInfos = [
             CalendarSection(
                 title: "날짜 표시",
+                selectedOption: UserDefaults.standard.object(
+                    forKey: CalendarInfoKey.yearMonthDateFormat.rawValue
+                ) as? Int ?? 0,
                 options: [
                     CalendarViewModel(title: "yyyy년 mm월 dd일", handler: {
                         print("yyyy년 mm월 dd일")
@@ -39,6 +47,9 @@ extension CalendarSettingViewModel {
             ),
             CalendarSection(
                 title: "시간 표시",
+                selectedOption: UserDefaults.standard.object(
+                    forKey: CalendarInfoKey.timeFormat.rawValue
+                ) as? Int ?? 0,
                 options: [
                     CalendarViewModel(title: "AM/PM", handler: {
                         print("AM/PM표기법")
@@ -56,5 +67,11 @@ extension CalendarSettingViewModel {
 
 struct CalendarSection {
     let title: String
-    let options: [CalendarViewModel]
+    var selectedOption: Int
+    var options: [CalendarViewModel]
+}
+
+enum CalendarInfoKey: String {
+    case yearMonthDateFormat
+    case timeFormat
 }
