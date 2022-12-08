@@ -108,7 +108,7 @@ final class PlanAddView: UIView {
         textView.textColor = .grey3
         textView.font = .systemFont(ofSize: Metric.textViewFontSize, weight: .regular)
         textView.backgroundColor = .grey1
-        textView.contentInset = textViewInset
+//        textView.contentInset = textViewInset 에러발생으로 주석처리
         return textView
     }()
     
