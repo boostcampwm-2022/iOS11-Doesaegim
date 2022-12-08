@@ -156,7 +156,11 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
     private func setAddTargets() {
         exitButton.addTarget(self, action: #selector(exitButtonTouchUpInside), for: .touchUpInside)
         addButton.addTarget(self, action: #selector(addButtonTouchUpInside), for: .touchUpInside)
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(exitButtonTouchUpInside)))
+        view.addGestureRecognizer(
+            UITapGestureRecognizer(
+                target: self,
+                action: #selector(exitButtonTouchUpInside)
+            ))
     }
     
     
@@ -179,7 +183,7 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
         switch result {
         case .success(let response):
             if response.isEmpty {
-                try await fetchExchangeInfo(day: yesterDayDateConvertToString())
+                try await fetchExchangeInfo(day: Date.yesterDayDateConvertToString())
             } else {
                 exchangeInfo = response.map { ExchangeData(
                     currencyCode: $0.currencyCode,
@@ -200,20 +204,6 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
             }
             print(error.localizedDescription)
         }
-    }
-    
-    // MARK: Date Functions
-    
-    private func todayDateConvertToString() -> String {
-        let day = Date()
-        let formatter = Date.yearMonthDaySplitDashDateFormatter
-        return formatter.string(from: day)
-    }
-    
-    private func yesterDayDateConvertToString() -> String {
-        let yesterday = Date(timeIntervalSinceNow: 60 * 60 * 24 * -1)
-        let formatter = Date.yearMonthDaySplitDashDateFormatter
-        return formatter.string(from: yesterday)
     }
     
     // MARK: UserDefaults
@@ -241,7 +231,7 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
             // UserDefault의 저장된 날짜가 오늘 날짜와 같고, 디스크 캐시에 저장되어 있다면
             // 디스크 캐시에서 불러옴
             // 메모리 캐시에 저장
-            if fetchExchangeInfoDate == todayDateConvertToString(),
+            if fetchExchangeInfoDate == Date.todayDateConvertToString(),
                let info = exchangeDiskCache.fetchExchangeRateInfo() {
                 exchangeInfo = info.map {
                     ExchangeData(
@@ -257,12 +247,12 @@ final class ExpenseAddPickerViewController: UIViewController, ExpenseAddPickerVi
                 exchangeMemoryCache.setObject(info as NSArray, forKey: cacheKey)
             } else {
                 // 날짜가 다르면 오늘 날짜로 api 요청
-                try await fetchExchangeInfo(day: todayDateConvertToString())
+                try await fetchExchangeInfo(day: Date.todayDateConvertToString())
             }
             
         } else {
             // 없으면 api 요청
-            try await fetchExchangeInfo(day: todayDateConvertToString())
+            try await fetchExchangeInfo(day: Date.todayDateConvertToString())
         }
     }
 }

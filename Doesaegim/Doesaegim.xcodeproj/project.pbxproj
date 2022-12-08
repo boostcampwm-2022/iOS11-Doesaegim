@@ -151,6 +151,8 @@
 		EE12EA162935A4C800D41DFE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE12EA152935A4C800D41DFE /* GoogleService-Info.plist */; };
 		EE12EA232935B62D00D41DFE /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = EE12EA222935B62D00D41DFE /* FirebaseAnalytics */; };
 		EE12EA252935B62D00D41DFE /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = EE12EA242935B62D00D41DFE /* FirebaseCrashlytics */; };
+		EE26BE382941852600A746F2 /* ExpenseAddPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE26BE372941852600A746F2 /* ExpenseAddPickerViewModel.swift */; };
+		EE26BE3C2941858F00A746F2 /* ExpenseAddPickerViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE26BE3B2941858F00A746F2 /* ExpenseAddPickerViewModelProtocol.swift */; };
 		EE2C553D291CC08B0018B109 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EE2C553C291CC08B0018B109 /* SnapKit */; };
 		EE3E29A829235F6B007C7FC7 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E29A729235F6B007C7FC7 /* UITextField+.swift */; };
 		EE3E29BC2923C870007C7FC7 /* TravelAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E29BB2923C870007C7FC7 /* TravelAddViewController.swift */; };
@@ -349,6 +351,8 @@
 		EE12EA102934AEFA00D41DFE /* CustomCalendarCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarCellViewModel.swift; sourceTree = "<group>"; };
 		EE12EA122934AF2900D41DFE /* CustomCalendarCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarCellProtocol.swift; sourceTree = "<group>"; };
 		EE12EA152935A4C800D41DFE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EE26BE372941852600A746F2 /* ExpenseAddPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddPickerViewModel.swift; sourceTree = "<group>"; };
+		EE26BE3B2941858F00A746F2 /* ExpenseAddPickerViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddPickerViewModelProtocol.swift; sourceTree = "<group>"; };
 		EE3E29A729235F6B007C7FC7 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		EE3E29AB292361B5007C7FC7 /* CustomCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendar.swift; sourceTree = "<group>"; };
 		EE3E29AD292365C7007C7FC7 /* CustomCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarCell.swift; sourceTree = "<group>"; };
@@ -1140,6 +1144,31 @@
 			path = AddViewComponents;
 			sourceTree = "<group>";
 		};
+		EE26BE392941852900A746F2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EE26BE372941852600A746F2 /* ExpenseAddPickerViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EE26BE3A2941854000A746F2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EEB6C4F3292C8CC50060A459 /* ExpenseAddPickerViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EE26BE3D2941859300A746F2 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				EEB6C4F5292CA3990060A459 /* ExpenseAddPickerViewProtocol.swift */,
+				EE26BE3B2941858F00A746F2 /* ExpenseAddPickerViewModelProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		EE3E29B92923C85B007C7FC7 /* TravelAdd */ = {
 			isa = PBXGroup;
 			children = (
@@ -1257,8 +1286,9 @@
 		EEB6C4F2292C8CAC0060A459 /* PickerView */ = {
 			isa = PBXGroup;
 			children = (
-				EEB6C4F3292C8CC50060A459 /* ExpenseAddPickerViewController.swift */,
-				EEB6C4F5292CA3990060A459 /* ExpenseAddPickerViewProtocol.swift */,
+				EE26BE3D2941859300A746F2 /* Protocol */,
+				EE26BE3A2941854000A746F2 /* View */,
+				EE26BE392941852900A746F2 /* ViewModel */,
 			);
 			path = PickerView;
 			sourceTree = "<group>";
@@ -1605,6 +1635,7 @@
 				EEDB753629260E360069A7F5 /* PlanAddViewProtocol.swift in Sources */,
 				B5D64E63292DF06400E1CC81 /* DiaryAddView.swift in Sources */,
 				A4CC04E02923738500BB678B /* PlanLocalRepository.swift in Sources */,
+				EE26BE382941852600A746F2 /* ExpenseAddPickerViewModel.swift in Sources */,
 				B5D64E78292E4B9A00E1CC81 /* DetailImageCell.swift in Sources */,
 				B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */,
 				BB288FCB292E1A2B00065D04 /* FileProcessManager.swift in Sources */,
@@ -1651,6 +1682,7 @@
 				BBB31A3E2926007D00C9E3A9 /* ExpenseListViewController.swift in Sources */,
 				BB6079B3292F546900BF30C8 /* DiaryListHeaderView.swift in Sources */,
 				B53763E8292BA0760073BF46 /* PieceTextLayer.swift in Sources */,
+				EE26BE3C2941858F00A746F2 /* ExpenseAddPickerViewModelProtocol.swift in Sources */,
 				BBD0D066291DED6A007D0D82 /* UIColor+.swift in Sources */,
 				BBD97ACA2936110500D1AF44 /* DetectInfoViewModel.swift in Sources */,
 				BBB31A402926008D00C9E3A9 /* ExpenseListViewModel.swift in Sources */,
