@@ -57,7 +57,6 @@ final class PlanListViewController: UIViewController {
 
         configureNavigationBar()
         configureCollectionView()
-        bindToViewModel()
         viewModel.fetchPlans()
     }
 
@@ -67,7 +66,9 @@ final class PlanListViewController: UIViewController {
         navigationItem.title = viewModel.navigationTitle
         setRightBarAddButton { [weak self] in
             if let travel = self?.viewModel.travel {
-                return PlanAddViewController(travel: travel)
+                let planAddViewController = PlanAddViewController(travel: travel)
+                planAddViewController.delegate = self
+                return planAddViewController
             } else {
                 return UIViewController()
             }
@@ -151,62 +152,8 @@ final class PlanListViewController: UIViewController {
         return dataSource
     }
 
-    /// 새롭게 추가된 데이터만을 반영해서 스냅샷을 갱신
-    private func applySnapshot(usingData data: [(Section, ItemID)]) {
-        var snapshot = self.dataSource.snapshot()
-
-        data.forEach { section, itemID in
-            if !snapshot.sectionIdentifiers.contains(section) {
-                snapshot.appendSections([section])
-            }
-
-            snapshot.appendItems([itemID], toSection: section)
-        }
-        dataSource.apply(snapshot, animatingDifferences: false)
-    }
-
     private func configureCollectionView() {
         collectionView.delegate = self
-    }
-
-
-    // MARK: - ViewModel Configuration Functions
-
-    private func bindToViewModel() {
-        viewModel.planFetchHandler = { [weak self] result in
-            switch result {
-            case .success(let data):
-                self?.applySnapshot(usingData: data)
-                self?.collectionView.isEmpty = self?.viewModel.planViewModels.isEmpty == true
-            case .failure(let error):
-                self?.presentErrorAlert(
-                    title: CoreDataError.fetchFailure(.plan).localizedDescription,
-                    message: error.localizedDescription
-                )
-            }
-        }
-
-        viewModel.planDeleteHandler = { [weak self] result in
-            guard var snapshot = self?.dataSource.snapshot()
-            else { return }
-
-            switch result {
-            case .success(let id):
-                /// 섹션이 빈 경우 섹션도 삭제
-                if let section = snapshot.sectionIdentifier(containingItem: id),
-                   self?.viewModel.planViewModels[section] == nil {
-                    snapshot.deleteSections([section])
-                }
-                snapshot.deleteItems([id])
-                self?.dataSource.apply(snapshot, animatingDifferences: true)
-                self?.collectionView.isEmpty = self?.viewModel.planViewModels.isEmpty == true
-            case .failure(let error):
-                self?.presentErrorAlert(
-                    title: CoreDataError.deleteFailure(.plan).localizedDescription,
-                    message: error.localizedDescription
-                )
-            }
-        }
     }
 }
 
@@ -233,5 +180,109 @@ extension PlanListViewController: UICollectionViewDelegate {
         else { return }
 
         viewModel.userDidScrollToEnd()
+    }
+}
+
+
+// MARK: - PlanAddViewControllerDelegate
+extension PlanListViewController: PlanAddViewControllerDelegate {
+    func planAddViewControllerDidAddPlan(_ plan: Plan) {
+        viewModel.addNewPlan(plan)
+    }
+}
+
+
+// MARK: - PlanListViewModelDelegate
+extension PlanListViewController: PlanListViewModelDelegate {
+
+    func planListViewModelDidFetchPlans(_ result: Result<[PlanListSnapshotData], Error>) {
+        switch result {
+        case .success(let data):
+            applySnapshot(usingData: data)
+            collectionView.isEmpty = viewModel.planViewModels.isEmpty
+        case .failure(let error):
+            presentErrorAlert(
+                title: CoreDataError.fetchFailure(.plan).localizedDescription,
+                message: error.localizedDescription
+            )
+        }
+    }
+
+    func planListViewModelDidDeletePlan(_ result: Result<UUID, Error>) {
+        var snapshot = self.dataSource.snapshot()
+
+        switch result {
+        case .success(let id):
+            /// 섹션이 빈 경우 섹션도 삭제
+            if let section = snapshot.sectionIdentifier(containingItem: id),
+               viewModel.planViewModels[section] == nil {
+                snapshot.deleteSections([section])
+            }
+            snapshot.deleteItems([id])
+            dataSource.apply(snapshot, animatingDifferences: true)
+            collectionView.isEmpty = viewModel.planViewModels.isEmpty == true
+        case .failure(let error):
+            presentErrorAlert(
+                title: CoreDataError.deleteFailure(.plan).localizedDescription,
+                message: error.localizedDescription
+            )
+        }
+    }
+
+    func planListViewModelDidAddPlan(_ result: Result<PlanListSnapshotData, Error>) {
+        switch result {
+        case .success(let data):
+            updateSnapshot(byInsertingData: data)
+            collectionView.isEmpty = viewModel.planViewModels.isEmpty
+        case .failure(let error):
+            presentErrorAlert(
+                title: CoreDataError.fetchFailure(.plan).localizedDescription,
+                message: error.localizedDescription
+            )
+        }
+    }
+
+    /// 새롭게 불러온 데이터만을 반영해서 스냅샷을 갱신
+    private func applySnapshot(usingData data: [PlanListSnapshotData]) {
+        var snapshot = self.dataSource.snapshot()
+
+        data.forEach {
+            if !snapshot.sectionIdentifiers.contains($0.section) {
+                snapshot.appendSections([$0.section])
+            }
+            snapshot.appendItems([$0.itemID], toSection: $0.section)
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.dataSource.apply(snapshot, animatingDifferences: false)
+        }
+    }
+
+    /// 유저가 새로 추가한 일정 데이터만을 반영해서 스냅샷을 갱신
+    private func updateSnapshot(byInsertingData data: PlanListSnapshotData) {
+        guard let row = data.row
+        else {
+            return
+        }
+
+        var snapshot = self.dataSource.snapshot()
+
+        if !snapshot.sectionIdentifiers.contains(data.section) {
+            if let index = snapshot.sectionIdentifiers.firstIndex(where: { data.section > $0 }) {
+                snapshot.insertSections([data.section], beforeSection: snapshot.sectionIdentifiers[index])
+            } else {
+                snapshot.appendSections([data.section])
+            }
+        }
+
+        guard let previousItem = snapshot.itemIdentifiers(inSection: data.section)[safeIndex: row]
+        else {
+            /// 맨 뒤에 추가하는 경우
+            snapshot.appendItems([data.itemID], toSection: data.section)
+            dataSource.apply(snapshot, animatingDifferences: false)
+            return
+        }
+
+        snapshot.insertItems([data.itemID], beforeItem: previousItem)
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
 }

@@ -16,21 +16,19 @@ final class PlanListViewModel {
 
     let navigationTitle: String?
 
-    /// 새로운 일정 데이터가 추가되었을 때 호출하는 클로저
-    ///
-    /// 새로 추가된 일정의 ID와 섹션ID를 인자로 받음
-    var planFetchHandler: ((Result<[SectionAndPlanID], Error>) -> Void)?
-
-    /// 일정을 성공적으로 삭제했을 때 호출하는 클로저
-    ///
-    /// 삭제한 일정의 ID를 인자로 받음
-    var planDeleteHandler: ((Result<UUID, Error>) -> Void)?
+    weak var delegate: PlanListViewModelDelegate?
 
     private(set) var planViewModels = [String: [PlanViewModel]]()
     
     private let repository: PlanRepository
-    
+
+    /// 데이터베이스에서 가져온 일정
     private var plans = [Plan]()
+
+    /// 유저가 실시간으로 추가한 일정
+    ///
+    /// 위치를 찾는 과정에서의 불필요한 fault firing을 방지하기 위해 별도로 관리
+    private var realTimeAddedPlans = [Plan]()
 
     /// 아직 뷰모델로 변환되지 않은 Plan의 시작 인덱스
     private var planOffset = Int.zero
@@ -64,42 +62,58 @@ final class PlanListViewModel {
     func fetchPlans() {
         // TODO: 디바이스 별로 batchSize 계산하면 더 좋을듯?
         guard let travelID = travel.id else {
-            planFetchHandler?(.failure(CoreDataError.fetchFailure(.travel)))
+            delegate?.planListViewModelDidFetchPlans(.failure(CoreDataError.fetchFailure(.travel)))
             return
         }
         let result = repository.fetchPlans(ofTravelID: travelID, batchSize: Metric.batchSize)
         switch result {
         case .success(let plans):
             self.plans = plans
-            let newSectionAndPlanID = convertPlansToPlanViewModelsAndAppend()
-            planFetchHandler?(.success(newSectionAndPlanID))
+            let snapshotData = convertPlansToPlanViewModelsAndAppend()
+            guard !snapshotData.isEmpty
+            else {
+                return
+            }
+            delegate?.planListViewModelDidFetchPlans(.success(snapshotData))
         case .failure(let error):
-            planFetchHandler?(.failure(error))
+            delegate?.planListViewModelDidFetchPlans(.failure(error))
         }
     }
 
     /// 딕셔너리의 해당 Section키의 배열에 Plan을 PlanViewModel로 변환해서 추가한 후,
     /// 추가한 PlanViewModel들을 섹션 정보와 함께 리턴
-    private func convertPlansToPlanViewModelsAndAppend() -> [SectionAndPlanID] {
-        var newSectionAndPlanID = [SectionAndPlanID]()
+    private func convertPlansToPlanViewModelsAndAppend() -> [PlanListSnapshotData] {
+        let newPlans = (Int.zero..<Metric.batchSize).compactMap { plans[safeIndex: planOffset + $0] }
 
-        (Int.zero..<Metric.batchSize).forEach {
-            let index = planOffset + $0
-            guard plans.indices ~= index,
-                  let date = plans[index].date
+        guard !newPlans.isEmpty || !realTimeAddedPlans.isEmpty
+        else {
+            return []
+        }
+
+        let renderedRealTimeAddedPlans = realTimeAddedPlans.filter {
+            planShouldBeRendered($0, renderedPlans: newPlans)
+        }
+        renderedRealTimeAddedPlans.forEach { plan in realTimeAddedPlans.removeAll { $0 == plan } }
+
+        let concatenatedPlans = (newPlans + renderedRealTimeAddedPlans).sorted {
+            isLastestPlan(lhs: $0, rhs: $1)
+        }
+        let snapshotData: [PlanListSnapshotData] = concatenatedPlans.compactMap {
+            guard let date = $0.date
             else {
-                return
+                return nil
             }
-
             let section = sectionDateFormatter.string(from: date)
-            let viewModel = PlanViewModel(plan: plans[index], repository: repository)
+            let viewModel = PlanViewModel(plan: $0, repository: repository)
 
             planViewModels[section, default: []].append(viewModel)
-            newSectionAndPlanID.append((section, viewModel.id))
+
+            return PlanListSnapshotData(section: section, itemID: viewModel.id)
         }
+
         planOffset += Metric.batchSize
 
-        return newSectionAndPlanID
+        return snapshotData
     }
 
 
@@ -120,18 +134,79 @@ final class PlanListViewModel {
             if planViewModels[section]?.isEmpty == true {
                 planViewModels[section] = nil
             }
-            planDeleteHandler?(.success(planViewModel.id))
+            delegate?.planListViewModelDidDeletePlan(.success(planViewModel.id))
         case .failure(let error):
-            planDeleteHandler?(.failure(error))
+            delegate?.planListViewModelDidDeletePlan(.failure(error))
         }
     }
 
 
-    // MARK: - Scroll Detecting Fucntions
+    // MARK: - Scroll Detecting Functions
 
     func userDidScrollToEnd() {
-        let newSectionAndPlanID = convertPlansToPlanViewModelsAndAppend()
-        planFetchHandler?(.success(newSectionAndPlanID))
+        let snapshotData = convertPlansToPlanViewModelsAndAppend()
+        guard !snapshotData.isEmpty
+        else {
+            return
+        }
+
+        delegate?.planListViewModelDidFetchPlans(.success(snapshotData))
+    }
+
+
+    // MARK: - Plan Adding Functions
+
+    func addNewPlan(_ newPlan: Plan) {
+        // TODO: Binary Search
+        guard let newPlanDate = newPlan.date
+        else {
+            delegate?.planListViewModelDidAddPlan(.failure(CoreDataError.fetchFailure(.plan)))
+            return
+        }
+
+        guard planShouldBeRendered(newPlan, renderedPlans: plans.prefix(planOffset))
+        else {
+            /// 당장 화면에 나타낼 필요 없는 경우
+
+            realTimeAddedPlans.append(newPlan)
+            return
+        }
+        /// 당장 화면에 나타내야 하는 경우 바로 뷰모델로 변환해서 스냅샷에 반영
+        let section = sectionDateFormatter.string(from: newPlanDate)
+        let viewModel = PlanViewModel(plan: newPlan, repository: repository)
+        let viewModelsInSection = planViewModels[section, default: []]
+        let row = viewModelsInSection.firstIndex {
+            isLastestPlan(lhs: newPlan, rhs: $0.plan)
+        } ?? viewModelsInSection.count
+        planViewModels[section, default: []].insert(viewModel, at: row)
+        let snapshotData = PlanListSnapshotData(section: section, itemID: viewModel.id, row: row)
+        delegate?.planListViewModelDidAddPlan(.success(snapshotData))
+    }
+
+
+    // MARK: - Utility Functions
+
+    private func isLastestPlan(lhs: Plan, rhs: Plan) -> Bool {
+        guard let lhsDate = lhs.date,
+              let rhsDate = rhs.date
+        else {
+            return false
+        }
+
+        return lhsDate > rhsDate
+    }
+
+    private func planShouldBeRendered(
+        _ targetPlan: Plan,
+        renderedPlans: any RandomAccessCollection<Plan>
+    ) -> Bool {
+        let isLastPlanRendered = !(plans.indices ~= planOffset)
+        guard !plans.isEmpty, !isLastPlanRendered
+        else {
+            return true
+        }
+
+        return renderedPlans.firstIndex { isLastestPlan(lhs: targetPlan, rhs: $0) } != nil
     }
 }
 

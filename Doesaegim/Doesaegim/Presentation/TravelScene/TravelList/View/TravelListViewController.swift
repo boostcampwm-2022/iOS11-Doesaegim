@@ -210,11 +210,12 @@ extension TravelListViewController: UICollectionViewDelegate {
                 travel: travel,
                 repository: PlanLocalRepository()
             )
-            show(PlanListViewController(viewModel: planListViewModel), sender: nil)
+            let planListViewController = PlanListViewController(viewModel: planListViewModel)
+            planListViewModel.delegate = planListViewController
+            show(planListViewController, sender: nil)
         case .failure(let error):
             print(error.localizedDescription)
         }
-
     }
 }
 
