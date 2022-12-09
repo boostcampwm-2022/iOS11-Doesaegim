@@ -18,7 +18,6 @@ final class SearchingLocationViewModel {
     private(set) var searchResultCellViewModels: [SearchResultCellViewModel] = [] {
         didSet {
             delegate?.searchLocaitonResultDidChange()
-            delegate?.searchLocationSnapshotDidRefresh()
         }
     }
     

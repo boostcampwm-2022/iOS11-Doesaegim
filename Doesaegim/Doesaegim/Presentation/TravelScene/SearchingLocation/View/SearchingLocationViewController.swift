@@ -159,9 +159,6 @@ extension SearchingLocationViewController: SearchingLocationViewModelDelegate {
     func searchLocaitonResultDidChange() {
         rootView.searchResultCollectionView.isEmpty = viewModel.searchResultCellViewModels.isEmpty
         rootView.stopAnimating()
-    }
-    
-    func searchLocationSnapshotDidRefresh() {
         configureSnapshot()
     }
     

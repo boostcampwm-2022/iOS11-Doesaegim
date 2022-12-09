@@ -10,6 +10,5 @@ import Foundation
 protocol SearchingLocationViewModelDelegate: AnyObject {
     func searchLocationWillStart()
     func searchLocaitonResultDidChange()
-    func searchLocationSnapshotDidRefresh()
     func searchLocationErrorOccurred()
 }
