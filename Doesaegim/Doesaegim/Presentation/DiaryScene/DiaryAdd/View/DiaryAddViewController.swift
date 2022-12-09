@@ -122,7 +122,7 @@ final class DiaryAddViewController: UIViewController {
                     cell.image = image
                 }
         }
-        let collectionView = self.rootView.imageSlider
+        let collectionView = self.rootView.imageSlider.slider
 
         let dataSource = DataSource(
             collectionView: collectionView
@@ -227,7 +227,7 @@ extension DiaryAddViewController: DiaryAddViewModelDelegate {
     }
 
     func diaryAddViewModelDidUpdateSelectedImageIDs(_ identifiers: [ImageID]) {
-        rootView.pageControl.numberOfPages = identifiers.count
+        rootView.imageSlider.setupNumberOfPages(identifiers.count)
         applySnapshot(usingIDs: identifiers)
     }
 

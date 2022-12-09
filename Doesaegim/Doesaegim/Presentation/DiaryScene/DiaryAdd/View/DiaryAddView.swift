@@ -61,42 +61,7 @@ final class DiaryAddView: UIView {
         return button
     }()
 
-    let pageControl: UIPageControl = {
-        let control = UIPageControl()
-        control.pageIndicatorTintColor = .grey1
-        control.currentPageIndicatorTintColor = .primaryOrange
-
-        return control
-    }()
-
-    private(set) lazy var imageSlider: UICollectionView = {
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(Metric.one),
-            heightDimension: .fractionalHeight(Metric.one)
-        )
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(Metric.one),
-            heightDimension: .fractionalHeight(Metric.one)
-        )
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-
-        let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .paging
-        section.visibleItemsInvalidationHandler = { [weak self] visibleItems, _, _ in
-            self?.pageControl.currentPage = visibleItems.last?.indexPath.row ?? .zero
-        }
-
-        let layout = UICollectionViewCompositionalLayout(section: section)
-
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.allowsSelection = false
-
-        return collectionView
-    }()
+    private(set) lazy var imageSlider = ImageSliderView()
 
     private let divider: UIView = {
         let view = UIView()
@@ -163,7 +128,7 @@ final class DiaryAddView: UIView {
         scrollView.addSubview(contentStack)
         let contentStackSubviews = [
             travelTextField, placeSearchButton,
-            imageSlider, pageControl,
+            imageSlider,
             titleTextField, divider, contentTextView
         ]
         contentStack.addArrangedSubviews(contentStackSubviews)

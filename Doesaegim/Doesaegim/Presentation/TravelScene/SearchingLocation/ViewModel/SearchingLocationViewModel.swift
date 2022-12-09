@@ -6,19 +6,25 @@
 //
 
 import Foundation
-import MapKit
 
 final class SearchingLocationViewModel {
     
     // MARK: - Properties
+    
+    private let repository: SearchingLocationRepository
     
     weak var delegate: SearchingLocationViewModelDelegate?
     
     private(set) var searchResultCellViewModels: [SearchResultCellViewModel] = [] {
         didSet {
             delegate?.searchLocaitonResultDidChange()
-            delegate?.searchLocationSnapshotDidRefresh()
         }
+    }
+    
+    // MARK: - Init
+    
+    init() {
+        repository = SearchingLocationRemoteRepository()
     }
     
     // MARK: - Functions
@@ -26,30 +32,17 @@ final class SearchingLocationViewModel {
     /// 키워드를 통해 장소를 검색하고, 검색 결과값을 `searchResultCellViewModels`에 저장한다.
     /// - Parameter keyword: 입력된 키워드
     func fetchSearchResults(with keyword: String) {
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = keyword
-        request.region = MKCoordinateRegion(MKMapRect.world)
-        
-        let search = MKLocalSearch(request: request)
-        search.start { response, error in
-            guard let response = response, error == nil
-            else {
-                // TODO: 에러 처리 필요
-                self.searchResultCellViewModels = []
-                return
+        delegate?.searchLocationWillStart()
+
+        repository.search(with: keyword) { [weak self] result in
+            switch result {
+            case .success(let cellViewModels):
+                self?.searchResultCellViewModels = cellViewModels
+            case .failure(let error):
+                self?.searchResultCellViewModels = []
+                self?.delegate?.searchLocationErrorOccurred()
+                print(error.localizedDescription)
             }
-            
-            let cellViewModels = response.mapItems.map({
-                let placemark = $0.placemark
-                return SearchResultCellViewModel(
-                    name: placemark.name ?? "",
-                    address: (placemark.locality ?? "") + " " + (placemark.thoroughfare ?? ""),
-                    latitude: placemark.coordinate.latitude,
-                    longitude: placemark.coordinate.longitude
-                )
-            })
-            
-            self.searchResultCellViewModels = cellViewModels
         }
     }
 }

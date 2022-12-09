@@ -27,7 +27,7 @@ final class PlanCollectionViewCell: UICollectionViewCell {
     private let timeLabel: UILabel = {
         let label = UILabel()
         label.changeFontSize(to: FontSize.caption)
-        label.textColor = .grey2
+        label.textColor = .grey3
         label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 
         return label
@@ -38,7 +38,7 @@ final class PlanCollectionViewCell: UICollectionViewCell {
         label.changeFontSize(to: FontSize.caption)
         label.numberOfLines = .zero
         label.lineBreakMode = .byWordWrapping
-        label.textColor = .grey2
+        label.textColor = .grey3
 
         return label
     }()
@@ -48,7 +48,7 @@ final class PlanCollectionViewCell: UICollectionViewCell {
         label.changeFontSize(to: FontSize.caption)
         label.numberOfLines = .zero
         label.lineBreakMode = .byWordWrapping
-        label.textColor = .grey2
+        label.textColor = .grey3
 
         return label
     }()

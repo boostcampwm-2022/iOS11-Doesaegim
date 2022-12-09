@@ -111,7 +111,7 @@ final class DiaryDetailViewController: UIViewController {
         }
         
         imageSliderDataSource = DataSource(
-            collectionView: rootView.imageSlider
+            collectionView: rootView.imageSlider.slider
         ) { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueConfiguredReusableCell(
                 using: cellRegistration,
@@ -172,7 +172,6 @@ extension DiaryDetailViewController {
 
 extension DiaryDetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: 이미지를 선택했을 때 이미지 상세 화면으로 이동하도록 구현
         guard let imageSliderDataSource,
               let item = imageSliderDataSource.itemIdentifier(for: indexPath) else {
             return

@@ -132,7 +132,7 @@ final class PlanAddViewModel: PlanAddViewProtocol {
         let planDTO = PlanDTO(
             name: name,
             date: date,
-            content: content ?? "",
+            content: content == StringLiteral.descriptionTextViewPlaceHolder ? "" : (content ?? ""),
             travel: travel,
             location: locationDTO
         )
