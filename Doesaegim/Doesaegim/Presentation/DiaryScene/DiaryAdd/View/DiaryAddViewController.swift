@@ -52,9 +52,9 @@ final class DiaryAddViewController: UIViewController {
         configureTravelPicker()
         configureDateButton()
         configurePlaceSearchButton()
-        configureImageSlider()
         configureNameTextField()
         configureContentTextView()
+        applySnapshot(usingIDs: [.empty])
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -74,8 +74,7 @@ final class DiaryAddViewController: UIViewController {
             self?.rootView.endEditing(true)
             self?.viewModel.saveButtonDidTap()
         }
-        let saveButtonImage = UIImage(systemName: StringLiteral.saveButtonImageName)
-        let saveButton = UIBarButtonItem(image: saveButtonImage, primaryAction: saveAction)
+        let saveButton = UIBarButtonItem(image: .basicCheckmark, primaryAction: saveAction)
         saveButton.tintColor = .systemOrange
         saveButton.isEnabled = false
         navigationItem.setRightBarButton(saveButton, animated: true)
@@ -157,30 +156,47 @@ final class DiaryAddViewController: UIViewController {
         rootView.dateInputButton.addAction(presentCalendar, for: .touchUpInside)
     }
 
-    /// 이미지 슬라이더, 이미지 추가 버튼 관련 설정
-    private func configureImageSlider() {
-        let presentPhotoPicker = UIAction { [weak self] _ in
+    /// 사진 피커를 띄우는 액션
+    private func presentPhotoPickerAction() -> UIAction {
+        UIAction { [weak self] _ in
             var configuration = PHPickerConfiguration(photoLibrary: .shared())
             configuration.filter = .images
-            configuration.selectionLimit = Metric.numberOfMaximumPhotos
+
+            let numberOfSelectedPhotos = self?.viewModel.selectedImageIDs.count ?? .zero
+            let selectionLimit = Metric.numberOfMaximumPhotos - numberOfSelectedPhotos
+
+            guard selectionLimit > .zero
+            else {
+                self?.presentErrorAlert(title: StringLiteral.disablePhotoSelection)
+                return
+            }
+            configuration.selectionLimit = selectionLimit
 
             let picker = PHPickerViewController(configuration: configuration)
             picker.delegate = self
             self?.present(picker, animated: true)
-
         }
-        rootView.addPhotoButton.addAction(presentPhotoPicker, for: .touchUpInside)
     }
 
     private func configureImageSliderDataSource() -> DataSource {
         let cellRegistration = UICollectionView
-            .CellRegistration<ProgressiveImageCollectionViewCell, ImageID> { cell, _, id in
-                let imageStatus = self.viewModel.image(withID: id)
+            .CellRegistration<ProgressiveImageCollectionViewCell, ImageID> { [weak self] cell, _, id in
+                guard let imageStatus = self?.viewModel.image(withID: id)
+                else {
+                    return
+                }
+                
+                cell.addPhotoButtonAction = self?.presentPhotoPickerAction()
+                cell.removePhotoButtonAction = UIAction { [weak self] _ in
+                    self?.viewModel.removeImage(withID: id)
+                }
                 switch imageStatus {
                 case .inProgress(let progress):
                     cell.progress = progress
                 case .complete(let image), .error(let image) :
                     cell.image = image
+                case .dummy:
+                    break
                 }
         }
         let collectionView = self.rootView.imageSlider.slider
@@ -206,6 +222,13 @@ final class DiaryAddViewController: UIViewController {
 
     private func configureContentTextView() {
         rootView.contentTextView.delegate = self
+    }
+
+    private func applySnapshot(usingIDs identifiers: [ImageID]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, ImageID>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(identifiers)
+        imageSliderDataSource.apply(snapshot, animatingDifferences: true)
     }
 
 
@@ -284,8 +307,10 @@ extension DiaryAddViewController: DiaryAddViewModelDelegate {
         applySnapshot(usingIDs: identifiers)
     }
 
-    func diaryAddViewModelDidLoadImage(withId id: ImageID) {
-        reloadItem(withID: id)
+    func diaryAddViewModelDidLoadImage(withID id: ImageID) {
+        var snapshot = imageSliderDataSource.snapshot()
+        snapshot.reloadItems([id])
+        imageSliderDataSource.apply(snapshot, animatingDifferences: true)
     }
 
     func diaryAddViewModelDidAddDiary(_ result: Result<Diary, Error>) {
@@ -302,16 +327,14 @@ extension DiaryAddViewController: DiaryAddViewModelDelegate {
         }
     }
 
-    private func applySnapshot(usingIDs identifiers: [ImageID]) {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, ImageID>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(identifiers)
-        imageSliderDataSource.apply(snapshot, animatingDifferences: true)
-    }
-
-    private func reloadItem(withID id: ImageID) {
+    func diaryAddViewModelDidRemoveImage(withID id: ImageID) {
         var snapshot = imageSliderDataSource.snapshot()
-        snapshot.reloadItems([id])
+        snapshot.deleteItems([id])
+        if !snapshot.itemIdentifiers.contains(.empty) {
+            snapshot.appendItems([.empty])
+        }
+        let slider = rootView.imageSlider
+        slider.setupNumberOfPages(snapshot.itemIdentifiers.count)
         imageSliderDataSource.apply(snapshot, animatingDifferences: true)
     }
 }
@@ -341,7 +364,6 @@ extension DiaryAddViewController: UITextViewDelegate {
     }
 }
 
-
 // MARK: - Constants
 fileprivate extension DiaryAddViewController {
 
@@ -354,7 +376,7 @@ fileprivate extension DiaryAddViewController {
     enum StringLiteral {
         static let navigationTitle = "작성 화면"
 
-        static let saveButtonImageName = "checkmark"
+        static let disablePhotoSelection = "사진은 5개만 추가 가능해요"
     }
 }
 

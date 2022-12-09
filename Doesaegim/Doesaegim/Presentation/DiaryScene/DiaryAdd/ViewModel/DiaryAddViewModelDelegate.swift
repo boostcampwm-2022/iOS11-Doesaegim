@@ -14,7 +14,9 @@ protocol DiaryAddViewModelDelegate: AnyObject {
 
     func diaryAddViewModelDidUpdateSelectedImageIDs(_ identifiers: [ImageID])
 
-    func diaryAddViewModelDidLoadImage(withId id: ImageID)
+    func diaryAddViewModelDidLoadImage(withID id: ImageID)
 
     func diaryAddViewModelDidAddDiary(_ result: Result<Diary, Error>)
+
+    func diaryAddViewModelDidRemoveImage(withID id: ImageID)
 }

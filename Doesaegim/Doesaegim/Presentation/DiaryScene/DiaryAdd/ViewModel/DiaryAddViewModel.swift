@@ -25,6 +25,10 @@ final class DiaryAddViewModel {
         return DateInterval(start: startDate, end: endDate)
     }
 
+    var selectedImageIDs: [ImageID] {
+        imageManager.selectedIDs
+    }
+
     lazy var travelPickerDataSource: PickerDataSource<Travel> = {
         let result = repository.fetchAllTravels()
 
@@ -84,9 +88,14 @@ final class DiaryAddViewModel {
     }
 
     func image(withID id: ImageID) -> ImageStatus {
+        guard id != .empty
+        else {
+            return .dummy
+        }
+
         let status = imageManager.image(withID: id) { [weak self] id in
             DispatchQueue.main.async {
-                self?.delegate?.diaryAddViewModelDidLoadImage(withId: id)
+                self?.delegate?.diaryAddViewModelDidLoadImage(withID: id)
             }
         }
 
@@ -99,15 +108,23 @@ final class DiaryAddViewModel {
     }
 
     func imageDidSelect(_ results: [(id: ImageID, itemProvider: NSItemProvider)]) {
-        imageManager.selectedIDs.removeAll()
-        imageManager.itemProviders.removeAll()
-
         results.forEach {
+            guard !imageManager.selectedIDs.contains($0.id)
+            else {
+                return
+            }
             imageManager.selectedIDs.append($0.id)
             imageManager.itemProviders[$0.id] = $0.itemProvider
         }
+        let selectedIDs = imageManager.selectedIDs
+        let snapshotIDs = selectedIDs + (selectedIDs.count == Metric.numberOfMaximumPhotos ? [] : [.empty] )
+        delegate?.diaryAddViewModelDidUpdateSelectedImageIDs(snapshotIDs)
+    }
 
-        delegate?.diaryAddViewModelDidUpdateSelectedImageIDs(imageManager.selectedIDs)
+    func removeImage(withID id: ImageID) {
+        imageManager.selectedIDs.removeAll { $0 == id }
+        imageManager.itemProviders[id] = nil
+        delegate?.diaryAddViewModelDidRemoveImage(withID: id)
     }
 
     func saveButtonDidTap() {
@@ -233,5 +250,9 @@ fileprivate extension DiaryAddViewModel {
 
     enum StringLiteral {
         static let errorImageName = "exclamationmark.circle"
+    }
+
+    enum Metric {
+        static let numberOfMaximumPhotos = 5
     }
 }
