@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A44B8749294361FA00C55B3A /* UIImage+SystemImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44B8748294361F900C55B3A /* UIImage+SystemImages.swift */; };
 		A48E9946292512BC0029D57D /* CoreDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48E9945292512BC0029D57D /* CoreDataError.swift */; };
 		A48E9948292515020029D57D /* UIViewController+PresentAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48E9947292515020029D57D /* UIViewController+PresentAlert.swift */; };
 		A48E994A292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48E9949292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift */; };
@@ -229,6 +230,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A44B8748294361F900C55B3A /* UIImage+SystemImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+SystemImages.swift"; sourceTree = "<group>"; };
 		A48E9945292512BC0029D57D /* CoreDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataError.swift; sourceTree = "<group>"; };
 		A48E9947292515020029D57D /* UIViewController+PresentAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+PresentAlert.swift"; sourceTree = "<group>"; };
 		A48E9949292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+SetRightBarPlusButton.swift"; sourceTree = "<group>"; };
@@ -1149,6 +1151,7 @@
 			isa = PBXGroup;
 			children = (
 				BBEEFA8929376BC8005DEF38 /* UIImage+.swift */,
+				A44B8748294361F900C55B3A /* UIImage+SystemImages.swift */,
 			);
 			path = UIImage;
 			sourceTree = "<group>";
@@ -1699,6 +1702,7 @@
 				BB22446C2941CE4900546E19 /* CalendarSettingViewModel.swift in Sources */,
 				B5C421A3292F201700963B17 /* ExpenseAddPickerViewProtocol.swift in Sources */,
 				EEA1C826292F4E6000B80901 /* ExchangeMemoryCache.swift in Sources */,
+				A44B8749294361FA00C55B3A /* UIImage+SystemImages.swift in Sources */,
 				B57D9630292231FC00B510B8 /* DiaryDTO.swift in Sources */,
 				BB3DB920292CA76800C70D62 /* MapViewModelProtocol.swift in Sources */,
 				EE116C5C2924C9390017B519 /* TravelAddViewModel.swift in Sources */,

@@ -32,6 +32,8 @@ final class DiaryAddViewController: UIViewController {
 
     private lazy var imageSliderDataSource = configureImageSliderDataSource()
 
+    private var selectedTravelPickerIndex = Int.zero
+
 
     // MARK: - Life Cycle
 
@@ -46,6 +48,7 @@ final class DiaryAddViewController: UIViewController {
         configureNavigationBar()
         bindToViewModel()
         observeKeyBoardAppearance()
+        configureTravelPickerToolbar()
         configureTravelPicker()
         configureDateButton()
         configurePlaceSearchButton()
@@ -82,11 +85,39 @@ final class DiaryAddViewController: UIViewController {
         viewModel.delegate = self
     }
 
+    private func configureTravelPickerToolbar() {
+        let cancelButton = UIBarButtonItem(
+            image: .xmark,
+            primaryAction: UIAction { [weak self] _ in self?.rootView.endEditing(true) }
+        )
+        let spaceButton = UIBarButtonItem(systemItem: .flexibleSpace)
+        let doneButton  = UIBarButtonItem(
+            image: .basicCheckmark,
+            primaryAction: UIAction { [weak self] _ in
+                guard let selectedRow = self?.rootView.travelPicker.selectedRow(inComponent: .zero),
+                      let travel = self?.viewModel.travelPickerDataSource.itemForRow(selectedRow)
+                else {
+                    return
+                }
+
+                self?.selectedTravelPickerIndex = selectedRow
+                self?.viewModel.travelDidSelect(travel)
+                self?.rootView.endEditing(true)
+            }
+        )
+        rootView.travelPickerToolbar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+    }
+
     private func configureTravelPicker() {
         rootView.travelPicker.delegate = self
         rootView.travelPicker.dataSource = viewModel.travelPickerDataSource
 
         let configureInitialSelection = UIAction { [weak self] _ in
+            if let index = self?.selectedTravelPickerIndex,
+               index != self?.rootView.travelPicker.selectedRow(inComponent: .zero) {
+                self?.rootView.travelPicker.selectRow(index, inComponent: .zero, animated: false)
+            }
+
             guard self?.rootView.travelTextField.hasText != true,
                   let travel = self?.viewModel.travelPickerDataSource.itemForRow(.zero)
             else {
@@ -234,15 +265,6 @@ extension DiaryAddViewController: UIPickerViewDelegate {
         forComponent component: Int
     ) -> String? {
         viewModel.travelPickerDataSource.itemForRow(row)?.name
-    }
-
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        guard let travel = viewModel.travelPickerDataSource.itemForRow(row)
-        else {
-            return
-        }
-
-        viewModel.travelDidSelect(travel)
     }
 }
 

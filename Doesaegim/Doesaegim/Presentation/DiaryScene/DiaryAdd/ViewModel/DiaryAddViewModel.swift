@@ -36,12 +36,12 @@ final class DiaryAddViewModel {
         }
     }()
 
+    /// 유저의 입력값을 관리하기 위한 객체
+    private(set) var temporaryDiary = TemporaryDiary()
+
     private let repository: DiaryAddRepository
 
     private let imageManager: ImageManager
-
-    /// 유저의 입력값을 관리하기 위한 객체
-    private var temporaryDiary = TemporaryDiary()
 
 
     // MARK: - Init(s)

@@ -22,6 +22,15 @@ final class DiaryAddView: UIView {
         return scrollView
     }()
 
+    let travelPickerToolbar: UIToolbar = {
+        let toolbar = UIToolbar()
+        toolbar.barStyle = UIBarStyle.default
+        toolbar.tintColor = .primaryOrange
+        toolbar.sizeToFit()
+
+        return toolbar
+    }()
+
     let travelPicker = UIPickerView()
 
     let travelTextField: UITextField = {
@@ -142,6 +151,7 @@ final class DiaryAddView: UIView {
         contentStack.addArrangedSubviews(contentStackSubviews)
         contentStack.addSubview(addPhotoButton)
         travelTextField.inputView = travelPicker
+        travelTextField.inputAccessoryView = travelPickerToolbar
         scrollView.addGestureRecognizer(UITapGestureRecognizer(
             target: self, action: #selector(backgroundDidTap)
         ))
