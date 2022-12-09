@@ -80,6 +80,7 @@ final class PlanListViewController: UIViewController {
 
     private func createLayout() -> UICollectionViewLayout {
         var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+        configuration.backgroundColor = .white
         configuration.headerMode = .supplementary
         configuration.trailingSwipeActionsConfigurationProvider = { indexPath in
             let deleteAction = UIContextualAction(

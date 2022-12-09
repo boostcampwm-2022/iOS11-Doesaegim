@@ -23,6 +23,10 @@ public class Plan: NSManagedObject {
         plan.content = object.content
         plan.date = object.date
         plan.isComplete = object.isComplete
+
+        let location = Location.add(with: object.location)
+        plan.location = location
+
         object.travel.addToPlan(plan)
 
         let result = PersistentManager.shared.saveContext()
