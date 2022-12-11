@@ -27,6 +27,7 @@ final class MapViewController: UIViewController {
         configureSubviews()
         configureAnnotationView()
         viewModel.fetchDiary()
+        configureLocation()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -49,8 +50,39 @@ final class MapViewController: UIViewController {
         mapView = MKMapView()
         mapView?.frame = view.bounds
         mapView?.delegate = self
-        centerMapOnJongRo()
         
+    }
+    
+    private func configureLocation() {
+        let diaryInfos = viewModel.diaryInfos
+        
+        if diaryInfos.isEmpty {
+            centerMapOnJongRo()
+        } else {
+            configureMapCenter()
+        }
+    }
+    
+    private func configureMapCenter() {
+        guard let mapView = mapView,
+              let latestDiary = viewModel.diaryInfos.first else { return }
+        
+        let latitude = latestDiary.latitude
+        let longitude = latestDiary.longitude
+        
+        let centerCoordinate = CLLocationCoordinate2D(
+            latitude: latitude,
+            longitude: longitude
+        )
+        let region = MKCoordinateRegion(
+            center: centerCoordinate,
+            span: MKCoordinateSpan(
+                latitudeDelta: 0.1,
+                longitudeDelta: 0.1
+            )
+        )
+        
+        mapView.setRegion(region, animated: true)
     }
     
     private func centerMapOnJongRo() {

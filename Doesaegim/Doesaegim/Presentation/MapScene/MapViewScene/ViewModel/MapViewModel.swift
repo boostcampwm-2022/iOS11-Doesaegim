@@ -41,11 +41,21 @@ extension MapViewModel {
                 guard let diaryInfo = Diary.convertToMapViewModel(with: diary) else { return }
                 newDiaryInfos.append(diaryInfo)
             }
-            diaryInfos = newDiaryInfos
+            diaryInfos = newDiaryInfos.sorted(by: sortByDate)
             
         case .failure(let error):
             print(error.localizedDescription)
             // TODO: - 에러처리
         }
     }
+}
+
+// MARK: - Sort Function(s)
+
+extension MapViewModel {
+    
+    func sortByDate(_ lhs: DiaryMapInfoViewModel, _ rhs: DiaryMapInfoViewModel) -> Bool {
+        return lhs.date > rhs.date
+    }
+    
 }
