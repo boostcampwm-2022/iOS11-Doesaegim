@@ -23,4 +23,6 @@ extension UIColor {
     static let grey3: UIColor? = UIColor(named: "grey3")
     
     static let grey4: UIColor? = UIColor(named: "grey4")
+    
+    static let calendarOrange: UIColor? = UIColor(named: "calendarOrange")
 }

@@ -81,10 +81,10 @@ final class PlanAddViewModel: PlanAddViewProtocol {
         defer {
             isValidInput = isValidName && isValidPlace && isValidDate
         }
-        guard let date = Date.convertDateStringToDate(
+        guard Date.convertDateStringToDate(
             dateString: dateString,
             formatter: Date.yearMonthDayTimeDateFormatter
-        ) else {
+        ) != nil else {
             isValidDate = false
             return
         }

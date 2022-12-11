@@ -20,6 +20,7 @@ final class CustomCalendar: UICollectionView {
         let date: Date?
         var isSelected: Bool = false
         var isSelectable: Bool = true
+        var isPeriodDate: Bool = false
     }
     
     // MARK: - typealias
@@ -186,7 +187,11 @@ final class CustomCalendar: UICollectionView {
         days.removeAll()
         
         setSelectableDay(firstWeekIndex: firstWeekIndex, totalDays: totalDays)
-        
+    }
+    
+    private func isPeriodDate(start: Date, end: Date, current: Date?) -> Bool {
+        guard let current else { return false }
+        return start...end ~= current
     }
 }
 
@@ -239,10 +244,16 @@ extension CustomCalendar {
                     guard let date = Date.yearMonthDayDateFormatter.date(from: stringDate) else {
                         return
                     }
-                    if let selectedDate = selectedDates.first {
-                        let isSelectable = selectedDate <= date
+                    if let startDate = selectedDates.first, let endDate = selectedDates.last {
+                        let isPeriodDate = isPeriodDate(start: startDate, end: endDate, current: date)
                         days.append(Item(date: date,
-                                         isSelected: selectedDate == date,
+                                         isSelected: selectedDates.contains(date),
+                                         isSelectable: true,
+                                         isPeriodDate: isPeriodDate))
+                    } else if let startDate = selectedDates.first {
+                        let isSelectable = startDate <= date
+                        days.append(Item(date: date,
+                                         isSelected: startDate == date,
                                          isSelectable: isSelectable))
                     } else {
                         days.append(Item(date: date,
@@ -257,7 +268,6 @@ extension CustomCalendar {
 
 // MARK: Calendar Cell Tapped
 
-// TODO: 출발 날짜를 선택했을 때, 이전 날짜를 선택못하도록 막아야하는 것 구현해야됨!
 extension CustomCalendar: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let startDay = calendar.component(.weekday, from: today) - 1
@@ -273,6 +283,11 @@ extension CustomCalendar: UICollectionViewDelegate {
         let stringDate = "\(currentYear)년 \(currentMonth)월 \(currentDay)일"
         days[indexPath.row].isSelected.toggle()
         selectedCount += 1
+        
+        if selectedCount > 2 {
+            selectedCount = 1
+            selectedDates.removeAll()
+        }
         
         guard let date = Date.yearMonthDayDateFormatter.date(from: stringDate) else { return }
         selectedDates.append(date)
@@ -290,14 +305,24 @@ extension CustomCalendar: UICollectionViewDelegate {
                     days = days.map {
                         $0.date == nil ? Item(date: nil, isSelectable: false)
                         : Item(date: $0.date ?? Date(), isSelected: selectedDate == ($0.date ?? Date()),
-                               isSelectable: selectedDate <= ($0.date ?? Date()))
+                               isSelectable: selectedDate <= ($0.date ?? Date()), isPeriodDate: false)
                     }
                 }
             } else if selectedCount == 2 {
+                guard let startDate = selectedDates.first, let endDate = selectedDates.last else {
+                    return
+                }
                 completionHandler?(selectedDates)
-                selectedDates.removeAll()
-                selectedCount = 0
-                days = days.map { Item(date: $0.date, isSelected: false, isSelectable: true)}
+                days = days.map {
+                    let isPeriodDate = isPeriodDate(start: startDate, end: endDate, current: $0.date)
+                    return Item(
+                        date: $0.date,
+                        isSelected: selectedDates.compactMap { $0 }.contains($0.date),
+                        isSelectable: true,
+                        isPeriodDate: isPeriodDate
+                    )
+                    
+                }
             }
             configureSnapshot()
         }

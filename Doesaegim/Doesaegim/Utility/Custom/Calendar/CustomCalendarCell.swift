@@ -21,6 +21,7 @@ final class CustomCalendarCell: UICollectionViewCell {
         label.layer.borderColor = UIColor.primaryOrange?.cgColor
         label.textAlignment = .center
         label.layer.cornerRadius = contentView.frame.size.width / 2
+        label.clipsToBounds = true
         return label
     }()
     
@@ -60,10 +61,12 @@ final class CustomCalendarCell: UICollectionViewCell {
         } else {
             dateLabel.text = ""
         }
-        dateLabel.layer.borderWidth = item.isSelected ? 1 : 0
+        dateLabel.layer.borderWidth = item.isSelected ? 3 : 0
         if !item.isSelectable {
             dateLabel.textColor = .grey1
         }
+        dateLabel.backgroundColor = item.isPeriodDate ? .calendarOrange : .white
+        
     }
     
 }

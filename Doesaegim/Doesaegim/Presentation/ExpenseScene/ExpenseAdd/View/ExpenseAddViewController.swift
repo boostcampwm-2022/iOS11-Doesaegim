@@ -155,7 +155,8 @@ extension ExpenseAddViewController {
 // MARK: - CalendarDelegate
 
 extension ExpenseAddViewController: CalendarViewDelegate {
-    func fetchDate(dateString: String) {
+    func fetchDate(date: Date) {
+        let dateString = Date.yearMonthDayDateFormatter.string(from: date)
         rootView.dateButton.setTitle(dateString, for: .normal)
         viewModel.isValidDate(dateString: dateString)
     }
