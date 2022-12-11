@@ -44,6 +44,6 @@ final class PickerDataSource<T>: NSObject, UIPickerViewDataSource {
 
     /// 해당 위치에 아이템이 있는 경우 아이템, 없으면 nil 리턴
     func itemForRow(_ row: Int) -> T? {
-        items.indices ~= row ? items[row] : nil
+        items[safeIndex: row]
     }
 }

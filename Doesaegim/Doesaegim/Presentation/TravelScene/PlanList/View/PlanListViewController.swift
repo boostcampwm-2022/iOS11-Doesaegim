@@ -140,7 +140,7 @@ final class PlanListViewController: UIViewController {
         let headerRegistration = UICollectionView.SupplementaryRegistration<DateCollectionHeaderView>(
             elementKind: StringLiteral.sectionHeaderElementKind
         ) { supplementaryView, _, indexPath in
-            supplementaryView.dateString = self.sectionIdentifiers[indexPath.section]
+            supplementaryView.dateString = self.sectionIdentifiers[safeIndex: indexPath.section]
         }
 
         dataSource.supplementaryViewProvider = { collectionView, _, indexPath in

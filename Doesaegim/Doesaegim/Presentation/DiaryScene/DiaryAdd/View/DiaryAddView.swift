@@ -34,6 +34,14 @@ final class DiaryAddView: UIView {
 
     let placeSearchButton = PlaceSearchButton()
 
+    let dateInputButton: AddViewInputButton = {
+        let button = AddViewInputButton()
+        button.setTitle(StringLiteral.dateButtonPlaceholder, for: .normal)
+        button.setImage(UIImage(systemName: StringLiteral.dateButtonImage), for: .normal)
+
+        return button
+    }()
+
     let titleTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = StringLiteral.titleTextFieldPlaceholder
@@ -127,7 +135,7 @@ final class DiaryAddView: UIView {
         addSubviews(scrollView, activityIndicator)
         scrollView.addSubview(contentStack)
         let contentStackSubviews = [
-            travelTextField, placeSearchButton,
+            travelTextField, placeSearchButton, dateInputButton,
             imageSlider,
             titleTextField, divider, contentTextView
         ]
@@ -147,10 +155,15 @@ final class DiaryAddView: UIView {
     private func configureConstraints() {
         scrollView.snp.makeConstraints { $0.edges.equalToSuperview() }
         contentStack.snp.makeConstraints { $0.edges.width.equalToSuperview() }
-        [travelTextField, placeSearchButton, divider, titleTextField, contentTextView].forEach { view in
+        [
+            travelTextField, placeSearchButton, divider,
+            dateInputButton, titleTextField, contentTextView
+        ].forEach { view in
             view.snp.makeConstraints { $0.leading.trailing.equalToSuperview().inset(Metric.inset) }
         }
-        placeSearchButton.snp.makeConstraints { $0.height.equalTo(Metric.placeSearchButtonHeight) }
+        [placeSearchButton, dateInputButton].forEach { view in
+            view.snp.makeConstraints { $0.height.equalTo(Metric.placeSearchButtonHeight) }
+        }
         imageSlider.snp.makeConstraints {
             $0.width.equalToSuperview()
             $0.height.equalTo(imageSlider.snp.width)
@@ -185,5 +198,9 @@ fileprivate extension DiaryAddView {
         static let squaredPlus = "plus.app"
 
         static let titleTextFieldPlaceholder = "제목"
+
+        static let dateButtonPlaceholder = "여행을 먼저 선택해 주세요."
+
+        static let dateButtonImage = "calendar"
     }
 }
