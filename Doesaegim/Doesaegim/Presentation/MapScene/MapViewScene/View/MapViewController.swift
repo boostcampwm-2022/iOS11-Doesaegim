@@ -19,16 +19,14 @@ final class MapViewController: UIViewController {
         super.viewDidLoad()
         viewModel.delegate = self
         
-        configureAnnotationView()
-//        addDummyPins() // 더미 핀을 추가하고 싶을 때
-        viewModel.fetchDiary()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureMap()
         configureSubviews()
+        configureAnnotationView()
+        viewModel.fetchDiary()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -38,44 +36,16 @@ final class MapViewController: UIViewController {
         mapView = nil
     }
     
-    // 추후 지워질 함 수 더미 핀을 만드는 함수
-    private func addDummyPins() {
-//        let dummyImage = UIImage(systemName: "doc.append")
-        let dummyImage = UIImage(systemName: "photo")
-        let dummyImageData = dummyImage?.pngData()!
-        let diaryInfoViewModel = DiaryMapInfoViewModel(
-            id: UUID(),
-            imageData: [dummyImageData!],
-            title: "제목입니다.",
-            content: "콘텐츠 입니다",
-            date: Date(),
-            latitude: 37.57,
-            longitude: 126.9796
-        )
-        addPin(with: diaryInfoViewModel)
-        
-        let diaryInfoViewModel2 = DiaryMapInfoViewModel(
-            id: UUID(),
-            imageData: [],
-            title: "제목입니다.",
-            content: "콘텐츠 입니다",
-            date: Date(),
-            latitude: 37.57,
-            longitude: 126.9996
-        )
-        addPin(with: diaryInfoViewModel2)
-    }
-    
     // MARK: - Configuration
     
     private func configureSubviews() {
-        print(#function)
+        
         guard let mapView = mapView else { return }
         view.addSubview(mapView)
     }
     
     private func configureMap() {
-        print(#function)
+        
         mapView = MKMapView()
         mapView?.frame = view.bounds
         mapView?.delegate = self
@@ -117,7 +87,7 @@ final class MapViewController: UIViewController {
     }
     
     private func addPin(with diaryInfo: DiaryMapInfoViewModel) {
-        
+        print(#function, diaryInfo.latitude, diaryInfo.longitude)
         guard let mapView = mapView else { return }
         let latitude = diaryInfo.latitude
         let longitude = diaryInfo.longitude
@@ -136,6 +106,7 @@ final class MapViewController: UIViewController {
 
 extension MapViewController: MapViewModelDelegate {
     func mapViewDairyInfoDidChage() {
+        print("[MAP DIARY INFO CHANGED]")
         clearAnnotation() // 어노테이션 삭제
         viewModel.diaryInfos.forEach { diaryInfo in
             self.addPin(with: diaryInfo)

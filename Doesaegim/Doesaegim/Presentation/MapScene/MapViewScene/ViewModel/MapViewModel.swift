@@ -48,24 +48,4 @@ extension MapViewModel {
             // TODO: - 에러처리
         }
     }
-    
-//    func addDummyDiaryData() {
-//        for count in 1...3 {
-//            let dateComponent = DateComponents(year: 2022, month: 12, day: 25+count, hour: 17)
-//            let date = Calendar.current.date(from: dateComponent)!
-//            let dts = DiaryDTO(
-//                content: "컨텐츠컨텐츠컨텐츠컨텐츠",
-//                date: date,
-//                images: ["/Users/jaehoonso/Documents/default\\ image.png"],
-//                title: "제목입니다.제목입니다.",
-//                location: LocationDTO(
-//                    name: "장소\(count)",
-//                    latitude: 37.5708,
-//                    longitude: 126.97 + (0.01*Double(count))
-//                ),
-//                travel: <#T##Travel#>
-//            )
-//        }
-//    }
-    
 }
