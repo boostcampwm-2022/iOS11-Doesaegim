@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ExchangeData {
+final class ExchangeData {
     let currencyCode: String
     let tradingStandardRate: String
     let currencyName: String
@@ -26,7 +26,7 @@ class ExchangeData {
         ExchangeData(currencyCode: "CAD", tradingStandardRate: "958", currencyName: "캐나다 달러"),
         ExchangeData(currencyCode: "CHF", tradingStandardRate: "1,389", currencyName: "스위스 프랑"),
         ExchangeData(currencyCode: "CNH", tradingStandardRate: "187", currencyName: "위안화"),
-        ExchangeData(currencyCode: "DKK", tradingStandardRate: "184", currencyName: "덴마아크 크로네"),
+        ExchangeData(currencyCode: "DKK", tradingStandardRate: "184", currencyName: "덴마크 크로네"),
         ExchangeData(currencyCode: "EUR", tradingStandardRate: "1,370", currencyName: "유로"),
         ExchangeData(currencyCode: "GBP", tradingStandardRate: "1,588", currencyName: "영국 파운드"),
         ExchangeData(currencyCode: "HKD", tradingStandardRate: "168", currencyName: "홍콩 달러"),

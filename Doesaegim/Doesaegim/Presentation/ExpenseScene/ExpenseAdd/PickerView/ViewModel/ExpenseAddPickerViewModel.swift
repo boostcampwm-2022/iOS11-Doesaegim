@@ -118,7 +118,7 @@ final class ExpenseAddPickerViewModel: ExpenseAddPickerViewModelProtocol {
             let value = exchangeInfos.map {
                 let exchangeRateType = ExchangeRateType(currencyCode: $0.currencyCode) ?? .AED
                 let icon = exchangeRateType.icon
-                return "\(icon) \($0.currencyName)"
+                return "\(icon) \(exchangeRateType.currencyName)"
             }
             return value[safeIndex: row]
         } else {
