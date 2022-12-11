@@ -110,8 +110,9 @@ extension Date {
     /// 어제날짜를 yyyy-MM-dd 문자열로 반환하는 메서드
     /// - Returns: yyyy-MM-dd 형식 어제 날짜 문자열
     static func yesterDayDateConvertToString() -> String {
-        let yesterday = Date(timeIntervalSinceNow: 60 * 60 * 24 * -1)
+        let calendar: Calendar = .current
+        let yesterday =  calendar.date(byAdding: .day, value: -1, to: Date())
         let formatter = Date.yearMonthDaySplitDashDateFormatter
-        return formatter.string(from: yesterday)
+        return formatter.string(from: yesterday ?? Date(timeIntervalSinceNow: 60 * 60 * 24 * -1))
     }
 }
