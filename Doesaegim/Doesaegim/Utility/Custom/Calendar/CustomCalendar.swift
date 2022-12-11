@@ -187,7 +187,11 @@ final class CustomCalendar: UICollectionView {
         days.removeAll()
         
         setSelectableDay(firstWeekIndex: firstWeekIndex, totalDays: totalDays)
-        
+    }
+    
+    private func isPeriodDate(start: Date, end: Date, current: Date?) -> Bool {
+        guard let current else { return false }
+        return start...end ~= current
     }
 }
 
@@ -241,7 +245,7 @@ extension CustomCalendar {
                         return
                     }
                     if let startDate = selectedDates.first, let endDate = selectedDates.last {
-                        let isPeriodDate = startDate...endDate ~= date
+                        let isPeriodDate = isPeriodDate(start: startDate, end: endDate, current: date)
                         days.append(Item(date: date,
                                          isSelected: selectedDates.contains(date),
                                          isSelectable: true,
@@ -264,7 +268,6 @@ extension CustomCalendar {
 
 // MARK: Calendar Cell Tapped
 
-// TODO: 출발 날짜를 선택했을 때, 이전 날짜를 선택못하도록 막아야하는 것 구현해야됨!
 extension CustomCalendar: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let startDay = calendar.component(.weekday, from: today) - 1
@@ -311,16 +314,15 @@ extension CustomCalendar: UICollectionViewDelegate {
                 }
                 completionHandler?(selectedDates)
                 days = days.map {
-                    let periodDate = $0.date == nil ? false : startDate...endDate ~= ($0.date ?? Date())
+                    let isPeriodDate = isPeriodDate(start: startDate, end: endDate, current: $0.date)
                     return Item(
                         date: $0.date,
                         isSelected: selectedDates.compactMap { $0 }.contains($0.date),
                         isSelectable: true,
-                        isPeriodDate: periodDate
+                        isPeriodDate: isPeriodDate
                     )
                     
                 }
-                print("isSelected", selectedDates)
             }
             configureSnapshot()
         }
