@@ -9,6 +9,12 @@ import Foundation
 
 extension Date {
 
+    // MARK: - Enums
+
+    private enum LocaleIdentifier {
+        static let korea = "ko"
+    }
+
     // MARK: - Properties
     
     static let yearMonthDayDateFormatter: DateFormatter = {
@@ -73,6 +79,7 @@ extension Date {
     /// 날짜를 22.11.16(수) 형태로 표현한 문자열
     var shortYearMonthDateString: String {
         let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: LocaleIdentifier.korea)
         formatter.dateFormat = "yy.MM.dd(E)"
 
         return formatter.string(from: self)
