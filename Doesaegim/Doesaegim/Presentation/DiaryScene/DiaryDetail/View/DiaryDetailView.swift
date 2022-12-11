@@ -21,7 +21,12 @@ final class DiaryDetailView: UIView {
     }()
     
     /// 이미지 슬라이더 뷰.
-    lazy var imageSlider = ImageSliderView()
+    let imageSlider: ImageSliderView = {
+        let slider = ImageSliderView()
+        slider.allowsSelection = true
+        
+        return slider
+    }()
     
     /// 내용 레이블
     private let contentLabel: UILabel = {

@@ -55,6 +55,11 @@ final class ImageSliderView: UIView {
         set { slider.dataSource = newValue }
     }
     
+    var allowsSelection: Bool {
+        get { slider.allowsSelection }
+        set { slider.allowsSelection = newValue }
+    }
+    
     // MARK: - Init
     
     override init(frame: CGRect) {
