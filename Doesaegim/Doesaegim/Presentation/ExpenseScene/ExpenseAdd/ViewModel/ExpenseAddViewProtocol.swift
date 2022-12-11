@@ -10,8 +10,6 @@ import Foundation
 protocol ExpenseAddViewProtocol: AnyObject {
     var delegate: ExpenseAddViewDelegate? { get set }
     
-    var currentTravel: Travel? { get set }
-    
     var isValidName: Bool { get set }
     var isValidAmount: Bool { get set }
     var isValidUnit: Bool { get set }
@@ -26,10 +24,6 @@ protocol ExpenseAddViewProtocol: AnyObject {
     func isValidUnitItem(item: String?)
     func isValidCategoryItem(item: ExpenseType)
     func isValidDate(dateString: String?)
-    
-    func exchangeLabelShow(amount: String?, unit: String)
-    func postExpense(expense: ExpenseDTO, completion: @escaping () -> Void)
-    
     func isClearInput(
         name: String?,
         amount: String?,
@@ -38,10 +32,27 @@ protocol ExpenseAddViewProtocol: AnyObject {
         date: String?,
         description: String?
     )
+    func exchangeLabelShow(amount: String?, unit: String)
+    func addExpense(
+        name: String?,
+        category: String?,
+        content: String?,
+        cost: String?,
+        date: String?,
+        exchangeInfo: ExchangeData?
+    ) -> Result<Expense, Error>
+    
+    func dateInputButtonTapped()
+    func pickerViewInputButtonTapped(type: ExpenseAddPickerViewController.PickerType)
+    
 }
 
 protocol ExpenseAddViewDelegate: AnyObject {
     func isValidInput(isValid: Bool)
     func exchangeLabelUpdate(result: Int)
     func backButtonDidTap(isClear: Bool)
+    func presentCalendarViewController(travel: Travel)
+    func presentExpenseAddPickerView(
+        type: ExpenseAddPickerViewController.PickerType
+    )
 }

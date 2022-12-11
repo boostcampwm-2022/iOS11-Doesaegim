@@ -12,6 +12,6 @@ protocol ExpenseAddPickerViewProtocol: AnyObject {
 }
 
 protocol ExpenseAddPickerViewDelegate: AnyObject {
-    func selectedExchangeInfo(item: ExchangeResponse)
+    func selectedExchangeInfo(item: ExchangeData)
     func selectedCategory(item: ExpenseType)
 }

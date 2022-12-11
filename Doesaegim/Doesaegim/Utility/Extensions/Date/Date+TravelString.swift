@@ -98,4 +98,21 @@ extension Date {
     static func convertDateStringToDate(dateString: String, formatter: DateFormatter) -> Date? {
         return formatter.date(from: dateString)
     }
+    
+    /// 오늘날짜를 yyyy-MM-dd 문자열로 반환하는 메서드
+    /// - Returns: yyyy-MM-dd 형식 오늘 날짜 문자열
+    static func todayDateConvertToString() -> String {
+        let day = Date()
+        let formatter = Date.yearMonthDaySplitDashDateFormatter
+        return formatter.string(from: day)
+    }
+    
+    /// 어제날짜를 yyyy-MM-dd 문자열로 반환하는 메서드
+    /// - Returns: yyyy-MM-dd 형식 어제 날짜 문자열
+    static func yesterDayDateConvertToString() -> String {
+        let calendar: Calendar = .current
+        let yesterday =  calendar.date(byAdding: .day, value: -1, to: Date())
+        let formatter = Date.yearMonthDaySplitDashDateFormatter
+        return formatter.string(from: yesterday ?? Date(timeIntervalSinceNow: 60 * 60 * 24 * -1))
+    }
 }

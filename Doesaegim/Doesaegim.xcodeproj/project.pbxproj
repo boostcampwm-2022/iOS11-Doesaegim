@@ -163,6 +163,10 @@
 		EE12EA162935A4C800D41DFE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE12EA152935A4C800D41DFE /* GoogleService-Info.plist */; };
 		EE12EA232935B62D00D41DFE /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = EE12EA222935B62D00D41DFE /* FirebaseAnalytics */; };
 		EE12EA252935B62D00D41DFE /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = EE12EA242935B62D00D41DFE /* FirebaseCrashlytics */; };
+		EE26BE382941852600A746F2 /* ExpenseAddPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE26BE372941852600A746F2 /* ExpenseAddPickerViewModel.swift */; };
+		EE26BE3C2941858F00A746F2 /* ExpenseAddPickerViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE26BE3B2941858F00A746F2 /* ExpenseAddPickerViewModelProtocol.swift */; };
+		EE26BE412941A12600A746F2 /* ExchangeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE26BE402941A12600A746F2 /* ExchangeRepository.swift */; };
+		EE26BE432941A16900A746F2 /* ExchangeRemoteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE26BE422941A16900A746F2 /* ExchangeRemoteRepository.swift */; };
 		EE2C553D291CC08B0018B109 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EE2C553C291CC08B0018B109 /* SnapKit */; };
 		EE3E29A829235F6B007C7FC7 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E29A729235F6B007C7FC7 /* UITextField+.swift */; };
 		EE3E29BC2923C870007C7FC7 /* TravelAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E29BB2923C870007C7FC7 /* TravelAddViewController.swift */; };
@@ -181,6 +185,9 @@
 		EE97A8B62940638800BB8390 /* PlanAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97A8B52940638800BB8390 /* PlanAddView.swift */; };
 		EE97A8B82940647A00BB8390 /* AddViewInputButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97A8B72940647A00BB8390 /* AddViewInputButton.swift */; };
 		EE97A8BA2940661600BB8390 /* AddViewCompleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97A8B92940661600BB8390 /* AddViewCompleteButton.swift */; };
+		EE97A8BC2940806100BB8390 /* ExchangeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97A8BB2940806100BB8390 /* ExchangeData.swift */; };
+		EE97A8C029408CB200BB8390 /* ExpenseAddRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97A8BF29408CB200BB8390 /* ExpenseAddRepository.swift */; };
+		EE97A8C229408CE000BB8390 /* ExpenseAddLocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE97A8C129408CE000BB8390 /* ExpenseAddLocalRepository.swift */; };
 		EEA1C824292F395100B80901 /* ExchangeDiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA1C823292F395100B80901 /* ExchangeDiskCache.swift */; };
 		EEA1C826292F4E6000B80901 /* ExchangeMemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA1C825292F4E6000B80901 /* ExchangeMemoryCache.swift */; };
 		EEB6C4F8292CA8DB0060A459 /* ExpenseAddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB6C4F7292CA8DB0060A459 /* ExpenseAddViewModel.swift */; };
@@ -370,6 +377,10 @@
 		EE12EA102934AEFA00D41DFE /* CustomCalendarCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarCellViewModel.swift; sourceTree = "<group>"; };
 		EE12EA122934AF2900D41DFE /* CustomCalendarCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarCellProtocol.swift; sourceTree = "<group>"; };
 		EE12EA152935A4C800D41DFE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EE26BE372941852600A746F2 /* ExpenseAddPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddPickerViewModel.swift; sourceTree = "<group>"; };
+		EE26BE3B2941858F00A746F2 /* ExpenseAddPickerViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddPickerViewModelProtocol.swift; sourceTree = "<group>"; };
+		EE26BE402941A12600A746F2 /* ExchangeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRepository.swift; sourceTree = "<group>"; };
+		EE26BE422941A16900A746F2 /* ExchangeRemoteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeRemoteRepository.swift; sourceTree = "<group>"; };
 		EE3E29A729235F6B007C7FC7 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		EE3E29AB292361B5007C7FC7 /* CustomCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendar.swift; sourceTree = "<group>"; };
 		EE3E29AD292365C7007C7FC7 /* CustomCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalendarCell.swift; sourceTree = "<group>"; };
@@ -390,6 +401,9 @@
 		EE97A8B52940638800BB8390 /* PlanAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanAddView.swift; sourceTree = "<group>"; };
 		EE97A8B72940647A00BB8390 /* AddViewInputButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewInputButton.swift; sourceTree = "<group>"; };
 		EE97A8B92940661600BB8390 /* AddViewCompleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewCompleteButton.swift; sourceTree = "<group>"; };
+		EE97A8BB2940806100BB8390 /* ExchangeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeData.swift; sourceTree = "<group>"; };
+		EE97A8BF29408CB200BB8390 /* ExpenseAddRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddRepository.swift; sourceTree = "<group>"; };
+		EE97A8C129408CE000BB8390 /* ExpenseAddLocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddLocalRepository.swift; sourceTree = "<group>"; };
 		EEA1C823292F395100B80901 /* ExchangeDiskCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeDiskCache.swift; sourceTree = "<group>"; };
 		EEA1C825292F4E6000B80901 /* ExchangeMemoryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeMemoryCache.swift; sourceTree = "<group>"; };
 		EEB6C4F3292C8CC50060A459 /* ExpenseAddPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAddPickerViewController.swift; sourceTree = "<group>"; };
@@ -559,6 +573,7 @@
 		A4CC04DA292351DC00BB678B /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				EE97A8BD29408BF900BB8390 /* ExpenseScene */,
 				BB9DB8132928D0C300102EC8 /* PersistentStorage */,
 				A4CC04DB292351E700BB678B /* TravelScene */,
 				A4EB25C0292BB4F7002D129A /* DiaryScene */,
@@ -1209,6 +1224,40 @@
 			path = AddViewComponents;
 			sourceTree = "<group>";
 		};
+		EE26BE392941852900A746F2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EE26BE372941852600A746F2 /* ExpenseAddPickerViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EE26BE3A2941854000A746F2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EEB6C4F3292C8CC50060A459 /* ExpenseAddPickerViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EE26BE3D2941859300A746F2 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				EEB6C4F5292CA3990060A459 /* ExpenseAddPickerViewProtocol.swift */,
+				EE26BE3B2941858F00A746F2 /* ExpenseAddPickerViewModelProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		EE26BE3F2941A10900A746F2 /* Exchange */ = {
+			isa = PBXGroup;
+			children = (
+				EE26BE402941A12600A746F2 /* ExchangeRepository.swift */,
+				EE26BE422941A16900A746F2 /* ExchangeRemoteRepository.swift */,
+			);
+			path = Exchange;
+			sourceTree = "<group>";
+		};
 		EE3E29B92923C85B007C7FC7 /* TravelAdd */ = {
 			isa = PBXGroup;
 			children = (
@@ -1283,6 +1332,24 @@
 			path = PlanAdd;
 			sourceTree = "<group>";
 		};
+		EE97A8BD29408BF900BB8390 /* ExpenseScene */ = {
+			isa = PBXGroup;
+			children = (
+				EE26BE3F2941A10900A746F2 /* Exchange */,
+				EE97A8BE29408C0900BB8390 /* ExpenseAdd */,
+			);
+			path = ExpenseScene;
+			sourceTree = "<group>";
+		};
+		EE97A8BE29408C0900BB8390 /* ExpenseAdd */ = {
+			isa = PBXGroup;
+			children = (
+				EE97A8BF29408CB200BB8390 /* ExpenseAddRepository.swift */,
+				EE97A8C129408CE000BB8390 /* ExpenseAddLocalRepository.swift */,
+			);
+			path = ExpenseAdd;
+			sourceTree = "<group>";
+		};
 		EEA1C822292F391A00B80901 /* Exchange */ = {
 			isa = PBXGroup;
 			children = (
@@ -1309,8 +1376,9 @@
 		EEB6C4F2292C8CAC0060A459 /* PickerView */ = {
 			isa = PBXGroup;
 			children = (
-				EEB6C4F3292C8CC50060A459 /* ExpenseAddPickerViewController.swift */,
-				EEB6C4F5292CA3990060A459 /* ExpenseAddPickerViewProtocol.swift */,
+				EE26BE3D2941859300A746F2 /* Protocol */,
+				EE26BE3A2941854000A746F2 /* View */,
+				EE26BE392941852900A746F2 /* ViewModel */,
 			);
 			path = PickerView;
 			sourceTree = "<group>";
@@ -1336,6 +1404,7 @@
 			isa = PBXGroup;
 			children = (
 				EEB6C502292CC88B0060A459 /* ExchangeResponse.swift */,
+				EE97A8BB2940806100BB8390 /* ExchangeData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1584,6 +1653,8 @@
 				EEB6C4FB292CA9200060A459 /* ExpenseAddViewProtocol.swift in Sources */,
 				BBDB2E96292635FD00752924 /* ExpenseSectionHeaderView.swift in Sources */,
 				B5D64E6E292E254A00E1CC81 /* DiaryDetailViewModelDelegate.swift in Sources */,
+				EE97A8C029408CB200BB8390 /* ExpenseAddRepository.swift in Sources */,
+				EE26BE432941A16900A746F2 /* ExchangeRemoteRepository.swift in Sources */,
 				B53763CC292B56600073BF46 /* CustomPieChart.swift in Sources */,
 				EE5D50F5293DD495006ECE87 /* TravelAddLocalRepository.swift in Sources */,
 				B53763E3292B99B80073BF46 /* PieceShapeLayer.swift in Sources */,
@@ -1630,6 +1701,7 @@
 				BBFAC08B291CBDD700D7FD57 /* MainTabBarController.swift in Sources */,
 				A4EB25C2292BB518002D129A /* DiaryAddLocalRepository.swift in Sources */,
 				B5C096C629238A0B007426B1 /* SearchingLocationViewModelDelegate.swift in Sources */,
+				EE97A8BC2940806100BB8390 /* ExchangeData.swift in Sources */,
 				B53763D5292B61A40073BF46 /* CustomChartItem.swift in Sources */,
 				EE97A8B82940647A00BB8390 /* AddViewInputButton.swift in Sources */,
 				A49FD4662934DF7D00A92427 /* TranslucentActivityIndicatorView.swift in Sources */,
@@ -1654,12 +1726,14 @@
 				A4B38C342940D3D400E52150 /* PlanListSnapshotData.swift in Sources */,
 				B5C096C029236BC0007426B1 /* SearchResultCellViewModel.swift in Sources */,
 				A48E9948292515020029D57D /* UIViewController+PresentAlert.swift in Sources */,
+				EE26BE412941A12600A746F2 /* ExchangeRepository.swift in Sources */,
 				BB6BE55B2936020300857D25 /* FaceDetectController+CollectionView.swift in Sources */,
 				BB6BE5572935E68E00857D25 /* FaceDetectViewModel.swift in Sources */,
 				B5DEDE3829409CD400AD2515 /* ImageSliderView.swift in Sources */,
 				EEDB753629260E360069A7F5 /* PlanAddViewProtocol.swift in Sources */,
 				B5D64E63292DF06400E1CC81 /* DiaryAddView.swift in Sources */,
 				A4CC04E02923738500BB678B /* PlanLocalRepository.swift in Sources */,
+				EE26BE382941852600A746F2 /* ExpenseAddPickerViewModel.swift in Sources */,
 				B5D64E78292E4B9A00E1CC81 /* DetailImageCell.swift in Sources */,
 				BB0A8287293F29FA0014056C /* ImageCacheManager.swift in Sources */,
 				B57D96262922301E00B510B8 /* TravelDTO.swift in Sources */,
@@ -1700,6 +1774,7 @@
 				A4CC04822922191300BB678B /* PersistentManager.swift in Sources */,
 				BB7D9A2A29261C0600BF2BD6 /* ExpenseListCell.swift in Sources */,
 				A4CC04C929227C7200BB678B /* PlanCollectionViewCell.swift in Sources */,
+				EE97A8C229408CE000BB8390 /* ExpenseAddLocalRepository.swift in Sources */,
 				A4CC04D72923347E00BB678B /* PlanListViewController.swift in Sources */,
 				EE3FB85E2938738A0024AEE1 /* TravelAddView.swift in Sources */,
 				A48E9946292512BC0029D57D /* CoreDataError.swift in Sources */,
@@ -1708,6 +1783,7 @@
 				BBB31A3E2926007D00C9E3A9 /* ExpenseListViewController.swift in Sources */,
 				BB6079B3292F546900BF30C8 /* DiaryListHeaderView.swift in Sources */,
 				B53763E8292BA0760073BF46 /* PieceTextLayer.swift in Sources */,
+				EE26BE3C2941858F00A746F2 /* ExpenseAddPickerViewModelProtocol.swift in Sources */,
 				BB305CBF294084BC006C3480 /* SettingViewModelProtocol.swift in Sources */,
 				BBD0D066291DED6A007D0D82 /* UIColor+.swift in Sources */,
 				BBD97ACA2936110500D1AF44 /* DetectInfoViewModel.swift in Sources */,

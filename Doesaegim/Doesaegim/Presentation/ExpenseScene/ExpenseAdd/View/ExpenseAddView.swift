@@ -11,233 +11,174 @@ final class ExpenseAddView: UIView {
     
     // MARK: - UI properties
     
-    lazy var scrollView: UIScrollView = {
+    let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        
         scrollView.backgroundColor = .white
         scrollView.showsVerticalScrollIndicator = false
+        
         return scrollView
     }()
     
-    private lazy var contentView: UIView = {
-        let view = UIView()
-        return view
-    }()
+    private let contentView: UIView = UIView()
     
-    private lazy var titleStackView: UIStackView = {
+    private let titleStackView: UIStackView = {
         let stackView = UIStackView()
-        
         stackView.axis = .vertical
-        stackView.spacing = 12
+        stackView.spacing = Metric.stackViewSpacing
+        
         return stackView
     }()
     
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
-        
+    private let titleLabel: AddViewSubtitleLabel = {
+        let label = AddViewSubtitleLabel()
         label.text = "지출 이름"
-        label.textColor = .black
-        label.font = .systemFont(ofSize: 20, weight: .bold)
-        label.textAlignment = .left
+    
         return label
     }()
     
-    lazy var titleTextField: UITextField = {
-        let textField = UITextField()
-        
+    let titleTextField: AddViewTextField = {
+        let textField = AddViewTextField()
         textField.placeholder = StringLiteral.titleTextFieldPlaceholder
-        textField.layer.cornerRadius = 10
-        textField.backgroundColor = .grey1
-        textField.textColor = .black
-        textField.font = .systemFont(ofSize: 17, weight: .regular)
-        textField.addPadding(witdh: 8)
+        
         return textField
     }()
     
-    private lazy var amountStackView: UIStackView = {
+    private let amountStackView: UIStackView = {
         let stackView = UIStackView()
-        
         stackView.axis = .vertical
-        stackView.spacing = 12
+        stackView.spacing = Metric.stackViewSpacing
+        
         return stackView
     }()
     
-    private lazy var amountLabel: UILabel = {
-        let label = UILabel()
-        
+    private let amountLabel: AddViewSubtitleLabel = {
+        let label = AddViewSubtitleLabel()
         label.text = "지출 액수"
-        label.textColor = .black
-        label.font = .systemFont(ofSize: 20, weight: .bold)
-        label.textAlignment = .left
+        
         return label
     }()
     
-    lazy var amountTextField: UITextField = {
-        let textField = UITextField()
-        
+    let amountTextField: AddViewTextField = {
+        let textField = AddViewTextField()
         textField.placeholder = StringLiteral.amountTextFieldPlaceholder
-        textField.layer.cornerRadius = 10
-        textField.backgroundColor = .grey1
-        textField.textColor = .black
-        textField.font = .systemFont(ofSize: 17, weight: .regular)
-        textField.addPadding(witdh: 8)
         textField.keyboardType = .numberPad
+        
         return textField
     }()
     
-    private lazy var moneyUnitStackView: UIStackView = {
+    private let moneyUnitStackView: UIStackView = {
         let stackView = UIStackView()
-        
         stackView.axis = .vertical
-        stackView.spacing = 12
+        stackView.spacing = Metric.stackViewSpacing
+        
         return stackView
     }()
     
-    private lazy var moneyUnitLabel: UILabel = {
-        let label = UILabel()
-        
+    private let moneyUnitLabel: AddViewSubtitleLabel = {
+        let label = AddViewSubtitleLabel()
         label.text = "화폐 단위"
-        label.textColor = .black
-        label.font = .systemFont(ofSize: 20, weight: .bold)
-        label.textAlignment = .left
+        
         return label
     }()
     
-    lazy var moneyUnitButton: UIButton = {
-        let button = UIButton()
-        
-        button.layer.cornerRadius = 10
-        button.backgroundColor = .grey1
-        button.setTitleColor(.grey3, for: .normal)
+    let moneyUnitButton: AddViewInputButton = {
+        let button = AddViewInputButton()
         button.setTitle(StringLiteral.moneyUnitButtonPlaceholder, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
         button.titleEdgeInsets = .init(top: 0, left: 7, bottom: 0, right: 0)
-        button.tintColor = .grey3
-        button.contentHorizontalAlignment = .left
+        
         return button
     }()
     
-    lazy var moneyUnitExchangeLabel: UILabel = {
+    let moneyUnitExchangeLabel: UILabel = {
         let label = UILabel()
-        
         label.textColor = .primaryOrange
-        label.font.withSize(9)
+        label.font.withSize(Metric.moneyUnitExchangeLabelFontSize)
         label.textAlignment = .right
         label.isHidden = true
+        
         return label
     }()
     
-    private lazy var categoryStackView: UIStackView = {
+    private let categoryStackView: UIStackView = {
         let stackView = UIStackView()
-        
         stackView.axis = .vertical
-        stackView.spacing = 12
+        stackView.spacing = Metric.stackViewSpacing
+        
         return stackView
     }()
     
-    private lazy var categoryLabel: UILabel = {
-        let label = UILabel()
-        
+    private let categoryLabel: AddViewSubtitleLabel = {
+        let label = AddViewSubtitleLabel()
         label.text = "카테고리"
-        label.textColor = .black
-        label.font = .systemFont(ofSize: 20, weight: .bold)
-        label.textAlignment = .left
+    
         return label
     }()
     
-    lazy var categoryButton: UIButton = {
-        let button = UIButton()
-        
-        button.layer.cornerRadius = 10
-        button.backgroundColor = .grey1
-        button.setTitleColor(.grey3, for: .normal)
+    let categoryButton: AddViewInputButton = {
+        let button = AddViewInputButton()
         button.setTitle(StringLiteral.categoryButtonPlaceholder, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
         button.setImage(UIImage(systemName: "c.circle"), for: .normal)
-        button.titleEdgeInsets = .init(top: 0, left: 15, bottom: 0, right: -5)
-        button.imageEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: 5)
-        button.tintColor = .grey3
-        button.contentHorizontalAlignment = .left
+
         return button
     }()
     
-    private lazy var dateStackView: UIStackView = {
+    private let dateStackView: UIStackView = {
         let stackView = UIStackView()
-        
         stackView.axis = .vertical
-        stackView.spacing = 12
+        stackView.spacing = Metric.stackViewSpacing
+        
         return stackView
     }()
     
     
-    private lazy var dateLabel: UILabel = {
-        let label = UILabel()
-        
+    private let dateLabel: AddViewSubtitleLabel = {
+        let label = AddViewSubtitleLabel()
         label.text = "날짜"
-        label.textColor = .black
-        label.font = .systemFont(ofSize: 20, weight: .bold)
-        label.textAlignment = .left
+        
         return label
     }()
     
-    lazy var dateButton: UIButton = {
-        let button = UIButton()
-        
-        button.layer.cornerRadius = 10
-        button.backgroundColor = .grey1
-        button.setTitleColor(.grey3, for: .normal)
+    let dateButton: AddViewInputButton = {
+        let button = AddViewInputButton()
         button.setTitle(StringLiteral.dateButtonPlaceholder, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .regular)
         button.setImage(UIImage(systemName: "calendar"), for: .normal)
-        button.titleEdgeInsets = .init(top: 0, left: 15, bottom: 0, right: -5)
-        button.imageEdgeInsets = .init(top: 0, left: 5, bottom: 0, right: 5)
-        button.tintColor = .grey3
-        button.contentHorizontalAlignment = .left
+        
         return button
     }()
     
-    private lazy var descriptionStackView: UIStackView = {
+    private let descriptionStackView: UIStackView = {
         let stackView = UIStackView()
-        
         stackView.axis = .vertical
-        stackView.spacing = 12
+        stackView.spacing = Metric.stackViewSpacing
+        
         return stackView
     }()
     
-    private lazy var descriptionTitleLabel: UILabel = {
-        let label = UILabel()
-        
+    private let descriptionTitleLabel: AddViewSubtitleLabel = {
+        let label = AddViewSubtitleLabel()
         label.text = "설명"
-        label.textColor = .black
-        label.font = .systemFont(ofSize: 20, weight: .bold)
-        label.textAlignment = .left
+        
         return label
     }()
     
-    lazy var descriptionTextView: UITextView = {
+    let descriptionTextView: UITextView = {
         let textView = UITextView()
-        
-        textView.layer.cornerRadius = 10
+        textView.layer.cornerRadius = Metric.textViewCornerRadius
         textView.text = StringLiteral.descriptionTextViewPlaceholder
         textView.textColor = .grey3
-        textView.font = .systemFont(ofSize: 14, weight: .regular)
+        textView.font?.withSize(Metric.textViewFontSize)
         textView.backgroundColor = .grey1
-        textView.contentInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        textView.contentInset = Metric.textViewInset
+        
         return textView
     }()
     
-    lazy var addButton: UIButton = {
-        let button = UIButton()
-
+    let addButton: AddViewCompleteButton = {
+        let button = AddViewCompleteButton()
         button.setTitle("지출 추가", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .grey3
-        button.isEnabled = false
-        button.layer.cornerRadius = 10
+        
         return button
     }()
-    
-    // MARK: - Properties
     
     // MARK: - Lifecycles
     
@@ -355,6 +296,14 @@ final class ExpenseAddView: UIView {
 }
 
 extension ExpenseAddView {
+    enum Metric {
+        static let stackViewSpacing: CGFloat = 12
+        static let textViewCornerRadius: CGFloat = 10
+        static let textViewFontSize: CGFloat = 14
+        static let textViewInset: UIEdgeInsets = .init(top: 8, left: 8, bottom: 8, right: 8)
+        static let moneyUnitExchangeLabelFontSize: CGFloat = 9
+    }
+    
     enum StringLiteral {
         static let titleTextFieldPlaceholder = "지출의 이름을 입력해주세요."
         static let amountTextFieldPlaceholder = "지출 액수를 입력해주세요."

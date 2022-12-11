@@ -226,8 +226,9 @@ final class ExpenseListViewController: UIViewController {
     // MARK: - Action
     
     @objc func didAddExpenseButtonTap() {
+        guard let travel = viewModel?.currentTravel else { return }
         navigationController?.pushViewController(
-            ExpenseAddViewController(travel: viewModel?.currentTravel),
+            ExpenseAddViewController(travel: travel),
             animated: true
         )
     }
