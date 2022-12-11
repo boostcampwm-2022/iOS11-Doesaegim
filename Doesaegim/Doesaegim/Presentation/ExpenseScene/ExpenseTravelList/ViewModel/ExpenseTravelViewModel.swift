@@ -31,8 +31,14 @@ final class ExpenseTravelViewModel: ExpenseTravelViewModelProtocol {
         let result = PersistentRepository.shared.fetchTravel(offset: travelInfos.count, limit: 10)
         switch result {
         case .success(let travels):
+            
+            
             let newTravelInfos = travels.compactMap({ Travel.convertToViewModel(with: $0) })
-            travelInfos.append(contentsOf: newTravelInfos)
+            var tempTravelInfos = travelInfos
+            tempTravelInfos.append(contentsOf: newTravelInfos)
+            travelInfos.removeAll() // 하지 않으면 앱의 설정사항이 변경되지 않는다. 한번 삭제한 다음 새로고침 해주어야한다.
+            travelInfos = tempTravelInfos
+//            travelInfos.append(contentsOf: newTravelInfos)
             
             // 가격 정보 계산
             travels.forEach { travel in

@@ -2,7 +2,7 @@
 //  SettingOptionViewModel.swift
 //  Doesaegim
 //
-//  Created by Jaehoon So on 2022/12/09.
+//  Created by Jaehoon So on 2022/12/07.
 //
 
 import UIKit

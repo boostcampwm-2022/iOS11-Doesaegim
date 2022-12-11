@@ -143,7 +143,7 @@ extension DiaryListCell {
         titleLabel.text = data.title
         contentLabel.text = data.content
         
-        let formatter = Date.yearMonthDayDateFormatter
+        let formatter = Date.convertYearToDayFormatter(with: data.date)
         let dateString = formatter.string(from: data.date)
         
         dateLabel.text = dateString

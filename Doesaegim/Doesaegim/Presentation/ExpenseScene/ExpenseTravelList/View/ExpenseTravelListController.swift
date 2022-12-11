@@ -52,7 +52,6 @@ final class ExpenseTravelListController: UIViewController {
         viewModel?.delegate = self
         collectionView.delegate = self
         
-        viewModel?.fetchTravelInfo()
         configureNavigationBar()
         configureSubviews()
         configureConstratins()
@@ -114,7 +113,8 @@ final class ExpenseTravelListController: UIViewController {
             cell.configureContent(with: identifier, cost: cost)
             
             // TODO: - 페이지 네이션 기준도 상수로 만들어서 사용하면 좋겠다.
-            if indexPath.row == viewModel.travelInfos.count - 3 {
+            if indexPath.row == viewModel.travelInfos.count - 1 ,
+               viewModel.travelInfos.count > 10 {
                 DispatchQueue.main.async {
                     viewModel.fetchTravelInfo()
                 }

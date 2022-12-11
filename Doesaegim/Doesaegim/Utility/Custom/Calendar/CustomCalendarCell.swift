@@ -56,7 +56,7 @@ final class CustomCalendarCell: UICollectionViewCell {
     
     func configureUI(item: CustomCalendar.Item) {
         if let date = item.date {
-            dateLabel.text = Date.onlyDayDateFormaater.string(from: date)
+            dateLabel.text = Date.onlyDayDateFormatter.string(from: date)
             viewModel.checkDateIsSunday(to: date)
         } else {
             dateLabel.text = ""

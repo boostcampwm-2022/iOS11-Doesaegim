@@ -10,6 +10,7 @@ import UIKit
 
 final class SettingViewModel: SettingViewModelProtocol {
     
+    var delegate: SettingViewModelDelegate?
     var settingInfos: [SettingSection] = [SettingSection]()
     
 }
@@ -29,15 +30,17 @@ extension SettingViewModel {
                             title: "날짜/시간표시",
                             icon: UIImage(systemName: "calendar"),
                             iconTintColor: .primaryOrange,
-                            handler: {
+                            handler: { [weak self] in
                                 print("날짜/시간표시 셀 선택")
+                                let controller = CalendarSettingController()
+                                self?.delegate?.settingViewCellDidTapped(moveTo: controller)
                             }
                         )
                     ),
                     
-                    .staticCell(
+                    .switchCell(
                         model: SettingOptionViewModel(
-                            title: "알림설정",
+                            title: "알림받기",
                             icon: UIImage(systemName: "bell"),
                             iconTintColor: .primaryOrange,
                             handler: {

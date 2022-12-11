@@ -109,7 +109,8 @@ final class TravelListViewController: UIViewController {
             cell.configureContent(with: identifier)
             
             if let viewModel = self.viewModel,
-               indexPath.row == viewModel.travelInfos.count - 3 {
+               viewModel.travelInfos.count >= 10,
+               indexPath.row == viewModel.travelInfos.count - 1 {
                 DispatchQueue.main.async {
                     viewModel.fetchTravelInfo()
                 }
@@ -144,12 +145,15 @@ extension TravelListViewController: TravelListViewModelDelegate {
             return
         }
         
+        print("Travel List - Snapshot 재적용")
+        
         let travelInfos = viewModel.travelInfos
         var snapshot = SnapShot()
         
         snapshot.appendSections(["main section"])
         snapshot.appendItems(travelInfos)
-        self.travelDataSource?.apply(snapshot, animatingDifferences: true)
+        travelDataSource?.apply(snapshot, animatingDifferences: true)
+
         
     }
     
