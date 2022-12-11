@@ -19,11 +19,7 @@ final class ExpenseAddView: UIView {
         return scrollView
     }()
     
-    private let contentView: UIView = {
-        let view = UIView()
-        
-        return view
-    }()
+    private let contentView: UIView = UIView()
     
     private let titleStackView: UIStackView = {
         let stackView = UIStackView()
