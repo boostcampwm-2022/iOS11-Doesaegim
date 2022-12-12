@@ -123,8 +123,7 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
             exchangeCalculataion = -1
             return
         }
-        exchangeCalculataion = exchangeInfo.isHundredPer ?
-        Int(rationalUnit * rationalAmount * 0.01) : Int(rationalUnit * rationalAmount)
+        exchangeCalculataion = Int(rationalUnit * rationalAmount * 1 / exchangeInfo.percent)
     }
     
     func addExpense(
@@ -147,13 +146,11 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
             return .failure(CoreDataError.saveFailure(.expense))
         }
         let newContent = content == StringLiteral.descriptionTextViewPlaceholder ? "" : (content ?? "")
-        let newCost = exchangeInfo.isHundredPer ?
-        Int64(cost * tradingStandardRate * 0.01) : Int64(cost * tradingStandardRate)
         let expenseDTO = ExpenseDTO(
             name: name,
             category: category,
             content: newContent,
-            cost: Int64(cost * tradingStandardRate),
+            cost: Int64(cost * tradingStandardRate * (1 / exchangeInfo.percent)),
             currency: exchangeInfo.currencyName,
             date: date,
             travel: travel)
