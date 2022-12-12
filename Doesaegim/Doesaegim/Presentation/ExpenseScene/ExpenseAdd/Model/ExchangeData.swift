@@ -17,7 +17,7 @@ final class ExchangeData {
         self.currencyCode = currencyCode
         self.tradingStandardRate = tradingStandardRate
         self.currencyName = currencyName
-        isHundredPer = currencyCode.hasSuffix("(100)") ? true : false
+        isHundredPer = currencyCode.hasSuffix("(100)")
     }
     
     static let list: [ExchangeData] = [
