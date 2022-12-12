@@ -15,7 +15,9 @@ final class DiaryPhotoDetailViewController: UIViewController {
     
     private let photoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+
         return imageView
     }()
     
@@ -28,6 +30,8 @@ final class DiaryPhotoDetailViewController: UIViewController {
     init(item: DetailImageCellViewModel) {
         self.item = item
         super.init(nibName: nil, bundle: nil)
+
+        hidesBottomBarWhenPushed = true
     }
     
     @available(*, unavailable)
@@ -65,11 +69,7 @@ final class DiaryPhotoDetailViewController: UIViewController {
     }
     
     private func configureConstraints() {
-        photoImageView.snp.makeConstraints {
-            $0.center.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview()
-            $0.height.width.equalTo(view.snp.width)
-        }
+        photoImageView.snp.makeConstraints { $0.edges.equalTo(view.safeAreaLayoutGuide) }
     }
     
     private func configureNavigationBar() {

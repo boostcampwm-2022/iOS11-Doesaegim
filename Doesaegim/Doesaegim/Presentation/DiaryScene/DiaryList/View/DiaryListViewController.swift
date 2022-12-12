@@ -60,7 +60,6 @@ final class DiaryListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        tabBarController?.tabBar.isHidden = false
         viewModel?.fetchDiary()
     }
 }
@@ -105,8 +104,9 @@ extension DiaryListViewController {
     
     // MARK: - Actions
     @objc private func didAddDiaryButtonTap() {
-        print("다이어리 추가버튼 탭")
-        navigationController?.pushViewController(DiaryAddViewController(), animated: true)
+        let diaryAddViewController = DiaryAddViewController()
+        diaryAddViewController.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(diaryAddViewController, animated: true)
     }
     
     // MARK: - Collection View
