@@ -49,8 +49,7 @@ final class ExpenseSectionHeaderView: UICollectionReusableView {
     
     func configureData(date: Date?) {
         guard let date else { return }
-        let formatter = Date.yearMonthDayDateFormatter
-        let dateString = formatter.string(from: date)
+        let dateString = date.userDefaultFormattedDate
         
         dateLabel.text = dateString
     }
