@@ -56,17 +56,7 @@ final class ExpenseTravelViewModel: ExpenseTravelViewModelProtocol {
                 )
             }
             
-            expenseInfos = newExpenseInfos
-//            let newTravelInfos = travels.compactMap({ Travel.convertToViewModel(with: $0) })
-//            // 가격 정보 계산
-//            travels.forEach { travel in
-//                guard let expenses: [Expense] = travel.expense?.allObjects as? [Expense] else { return }
-//                let sum = expenses.compactMap({ Expense.convertToViewModel(from: $0)?.cost }).reduce(0, +)
-//                costs.append(sum)
-//                print("\(sum)을 추가하였습니다.")
-//            }
-//
-//            travelInfos = newTravelInfos
+            expenseInfos = newExpenseInfos.sorted(by: sortByDate)
             
         case .failure(let error):
             print(error.localizedDescription)
@@ -77,8 +67,8 @@ final class ExpenseTravelViewModel: ExpenseTravelViewModelProtocol {
 
 extension ExpenseTravelViewModel {
     
-    func sortByDate(_ lhs: ExpenseInfoViewModel, _ rhs: ExpenseInfoViewModel) -> Bool {
-        return lhs.date > rhs.date
+    func sortByDate(_ lhs: TravelExpenseInfoViewModel, _ rhs: TravelExpenseInfoViewModel) -> Bool {
+        return lhs.travel.startDate > rhs.travel.startDate
     }
     
 }
