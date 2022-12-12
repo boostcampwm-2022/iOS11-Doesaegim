@@ -16,7 +16,7 @@ final class ExpenseTravelListController: UIViewController {
     private typealias SnapShot
         = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>
     private typealias CellRegistration
-        = UICollectionView.CellRegistration<ExpenseTravelListCell, TravelInfoViewModel>
+        = UICollectionView.CellRegistration<ExpenseTravelCollectionViewCell, TravelInfoViewModel>
     
     // MARK: - Properties
     
@@ -98,19 +98,44 @@ final class ExpenseTravelListController: UIViewController {
     
     // MARK: - Collection View
     
-    private func createCollectionViewListLayout() -> UICollectionViewCompositionalLayout {
-        var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
-        listConfiguration.showsSeparators = false
-        listConfiguration.backgroundColor = .white
+    private func createCollectionViewListLayout() -> UICollectionViewLayout {
         
-        return UICollectionViewCompositionalLayout.list(using: listConfiguration)
+        let heightDimension = NSCollectionLayoutDimension.estimated(70)
+        
+        let layout = UICollectionViewCompositionalLayout { _, _ -> NSCollectionLayoutSection? in
+            let itemSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: heightDimension
+            )
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+            item.edgeSpacing = NSCollectionLayoutEdgeSpacing(
+                leading: .fixed(0),
+                top: .fixed(4),
+                trailing: .fixed(0),
+                bottom: .fixed(4)
+            )
+            let groupSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: heightDimension
+            )
+            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+
+            let section = NSCollectionLayoutSection(group: group)
+            return section
+        }
+        
+        return layout
+        
+        
+        
     }
     
     private func configureCollectionViewDataSource() {
         let travelCell =  CellRegistration { cell, indexPath, identifier in
             guard let viewModel = self.viewModel,
                   let cost = viewModel.costs[safeIndex: indexPath.row] else { return }
-            cell.configureContent(with: identifier, cost: cost)
+            cell.configure(with: identifier, cost: cost)
             
             // TODO: - 페이지 네이션 기준도 상수로 만들어서 사용하면 좋겠다.
             if indexPath.row == viewModel.travelInfos.count - 1 ,
