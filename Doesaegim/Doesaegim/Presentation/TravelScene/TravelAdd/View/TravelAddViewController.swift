@@ -191,7 +191,8 @@ extension TravelAddViewController {
     }
     
     @objc func addButtonTouchUpInside() {
-        if mode == .post {
+        switch mode {
+        case .post:
             let result = viewModel.addTravel(
                 name: rootView.travelTitleTextField.text,
                 startDateString: rootView.travelDateStartLabel.text,
@@ -204,7 +205,7 @@ extension TravelAddViewController {
                 presentErrorAlert(title: CoreDataError.saveFailure(.travel).errorDescription)
                 print(error.localizedDescription)
             }
-        } else {
+        case .update:
             let result = viewModel.updateTravel(
                 name: rootView.travelTitleTextField.text,
                 startDate: rootView.customCalendar.selectedDates.first,
