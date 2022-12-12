@@ -19,11 +19,21 @@ final class BarBackgroundLayer: CAShapeLayer {
     
     private let maxCost: CGFloat
     
-    /// maxCost를 기준으로 0 ~ maxCost 사이의 값을 n등분하여 배열로 저장하는 프로퍼티. 0과 maxCost는 포함되지 않고 사잇값만 저장한다.
+    /// n의 자릿수를 가지는 maxCost를 n-2자리에서 올림한 값. ex) 1234 -> 1300
+    /// 만일 `n <= 2`라면 maxCost를 그대로 리턴한다.
+    private var maxStandard: CGFloat {
+        let digit = CGFloat(String(Int(maxCost)).count - 2)
+        
+        guard digit > 0 else { return maxCost }
+        let maxStandard: CGFloat = ceil(maxCost * pow(0.1, digit)) * pow(10, digit)
+        
+        return maxStandard
+    }
+    
+    /// maxCost를 기준으로 0 ~ maxStandard 사이의 값을 n등분하여 배열로 저장하는 프로퍼티. 0과 maxCost는 포함되지 않고 사잇값만 저장한다.
     private var costStandards: [CGFloat] {
-        var array: [CGFloat] = []
-        for order in 1 ..< Metric.dividerCount {
-            array.append(maxCost / CGFloat(Metric.dividerCount) * CGFloat(order))
+        let array: [CGFloat] = (1 ..< Metric.dividerCount).map {
+            maxStandard / CGFloat(Metric.dividerCount) * CGFloat($0)
         }
         
         return array
@@ -120,15 +130,18 @@ final class BarBackgroundLayer: CAShapeLayer {
     
     /// 배경의 좌측에 최고 금액을 기준으로 나눈 금액 단위를 표시한다.
     private func configureCostTextLayer(with index: Int) {
-        guard let willDisplayCost = costStandards[safeIndex: index] else { return }
+        guard let willDisplayCost = costStandards[safeIndex: index],
+              !costStandards.isEmpty,
+              maxCost != 0
+        else { return }
         
-        let costWidth = inset.width
-        let costHeight = (rect.height - inset.height) / CGFloat(costStandards.count + 1)
+        let costWidth = inset.width - Metric.costTextToLinePadding
+        let costHeight = (rect.height - inset.height) / CGFloat(costStandards.count)
         let baseY = rect.maxY - inset.height
         
         let costTextFrame = CGRect(
-            x: rect.minX,
-            y: baseY - costHeight * CGFloat(index + 1),
+            x: rect.minX - Metric.costTextToLinePadding,
+            y: baseY - costHeight * (willDisplayCost / maxCost) * CGFloat(costStandards.count),
             width: costWidth,
             height: costHeight
         )
@@ -136,7 +149,8 @@ final class BarBackgroundLayer: CAShapeLayer {
         let costTextLayer = BarTextLayer(
             rect: costTextFrame,
             text: Int(willDisplayCost).numberFormatter(),
-            textFontSize: Metric.costFontSize
+            textFontSize: Metric.costFontSize,
+            alignment: .right
         )
         addSublayer(costTextLayer)
     }
@@ -148,6 +162,8 @@ extension BarBackgroundLayer {
     enum Metric {
         static let dividerCount = 5
         static let lineWidth: CGFloat = 2
+        
+        static let costTextToLinePadding: CGFloat = 2
         
         static let dateFontSize: CGFloat = 11
         static let costFontSize: CGFloat = 9
