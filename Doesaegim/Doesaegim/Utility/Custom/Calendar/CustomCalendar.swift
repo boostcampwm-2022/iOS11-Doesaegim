@@ -33,14 +33,14 @@ final class CustomCalendar: UICollectionView {
     
     private var diffableDatasource: Datasource?
     private var today = Date()
-    private var calendar = Calendar(identifier: .gregorian)
+    private var calendar = Calendar.current
     private var dateComponents = DateComponents()
     private let dateFormmater = Date.yearMonthDateFormatter
     private let weeks: [String] = ["일", "월", "화", "수", "목", "금", "토"]
     private var days: [Item] = []
     private let touchOption: TouchOption
     private var selectedCount = 0
-    private var selectedDates: [Date] = []
+    var selectedDates: [Date] = []
     
     var startDate: Date?
     var endDate: Date?
@@ -174,8 +174,10 @@ final class CustomCalendar: UICollectionView {
     private func setupCalendar(date: Date) {
         /// 현재 Month의 1일이 무슨 요일인지 인덱스로 알려줌
         /// 0부터 월요일
-        let firstWeekIndex = calendar.component(.weekday, from: date) - 1
         
+        guard let firstDayOfMonth = calendar.date(from: dateComponents) else { return }
+        let firstWeekIndex = calendar.component(.weekday, from: firstDayOfMonth) - 1
+        print("firstWeekIndex: ",firstWeekIndex)
         /// 마지막 날짜
         /// ex) 2월 - 28, 12월- 31
         let endOfday = calendar.range(of: .day, in: .month, for: date)?.count ?? 31
@@ -271,6 +273,7 @@ extension CustomCalendar {
     }
     
     func initUpdateMode(start: Date, end: Date) {
+        selectedDates.removeAll()
         selectedDates = [start, end]
         selectedCount = 2
         setupCalendar(date: start)
@@ -282,7 +285,8 @@ extension CustomCalendar {
 
 extension CustomCalendar: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let startDay = calendar.component(.weekday, from: today) - 1
+        guard let firstDayOfMonth = calendar.date(from: dateComponents) else { return }
+        let startDay = calendar.component(.weekday, from: firstDayOfMonth) - 1
         
         guard days[indexPath.row].isSelectable else { return }
         
@@ -303,7 +307,7 @@ extension CustomCalendar: UICollectionViewDelegate {
         
         guard let date = Date.yearMonthDayDateFormatter.date(from: stringDate) else { return }
         selectedDates.append(date)
-        
+        print("##", startDay, today)
         switch touchOption {
         case .single:
             completionHandler?(selectedDates)
@@ -312,6 +316,7 @@ extension CustomCalendar: UICollectionViewDelegate {
             configureSnapshot()
             days = days.map { Item(date: $0.date, isSelected: false, isSelectable: $0.isSelectable) }
         case .double:
+            completionHandler?(selectedDates)
             if selectedCount == 1 {
                 if let selectedDate = selectedDates.first {
                     days = days.map {
@@ -325,7 +330,6 @@ extension CustomCalendar: UICollectionViewDelegate {
                 guard let startDate = selectedDates.first, let endDate = selectedDates.last else {
                     return
                 }
-                completionHandler?(selectedDates)
                 days = days.map {
                     let isPeriodDate = isPeriodDate(start: startDate, end: endDate, current: $0.date)
                     return Item(
