@@ -103,7 +103,13 @@ final class DiaryDetailViewController: UIViewController {
             image: .edit,
             primaryAction: UIAction(handler: { [weak self] _ in
                 guard let diary = self?.viewModel.diary,
-                      let images = self?.viewModel.cellViewModels.map({ UIImage(data: $0.data) })
+                      let size = self?.view.bounds.size,
+                      let scale = self?.view.window?.windowScene?.screen.scale,
+                      let images = self?.viewModel.cellViewModels.map({ UIImage(
+                        data: $0.data,
+                        size: size,
+                        scale: scale
+                      )})
                 else {
                     return
                 }
@@ -130,8 +136,15 @@ final class DiaryDetailViewController: UIViewController {
     
     /// 이미지 슬라이더 컬렉션뷰의 데이터소스를 지정한다.
     private func configureImageSliderDataSource() {
-        let cellRegistration = CellRegistration { cell, _, itemIdentifier in
-            let image = UIImage(data: itemIdentifier.data)
+        let cellRegistration = CellRegistration { [weak self] cell, _, itemIdentifier in
+            guard let size = self?.view.bounds.size,
+                  let scale = self?.view.window?.windowScene?.screen.scale
+            else {
+                cell.setupImage(image: UIImage(data: itemIdentifier.data))
+                return 
+            }
+
+            let image = UIImage(data: itemIdentifier.data, size: size, scale: scale)
             cell.setupImage(image: image)
         }
         
@@ -202,7 +215,7 @@ extension DiaryDetailViewController: UICollectionViewDelegate {
             return
         }
         
-        let photoDetailViewController = DiaryPhotoDetailViewController(item: item)
+        let photoDetailViewController = DiaryPhotoDetailViewController(imageData: item.data)
         navigationController?.pushViewController(photoDetailViewController, animated: true)
     }
 }
