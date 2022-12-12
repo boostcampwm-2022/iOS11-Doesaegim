@@ -115,14 +115,15 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
         isValidDate = true
     }
     
-    func exchangeLabelShow(amount: String?, unit: String) {
+    func exchangeLabelShow(amount: String?, exchangeInfo: ExchangeData?) {
         guard let amount,
+              let exchangeInfo,
               let rationalAmount = Double(amount),
-              let rationalUnit = Double(unit.convertRemoveComma()) else {
+              let rationalUnit = Double(exchangeInfo.tradingStandardRate.convertRemoveComma()) else {
             exchangeCalculataion = -1
             return
         }
-        exchangeCalculataion = Int(rationalAmount * rationalUnit)
+        exchangeCalculataion = Int(rationalUnit * rationalAmount * 1 / exchangeInfo.percent)
     }
     
     func addExpense(
@@ -149,7 +150,7 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
             name: name,
             category: category,
             content: newContent,
-            cost: Int64(cost * tradingStandardRate) ,
+            cost: Int64(cost * tradingStandardRate * (1 / exchangeInfo.percent)),
             currency: exchangeInfo.currencyName,
             date: date,
             travel: travel)
