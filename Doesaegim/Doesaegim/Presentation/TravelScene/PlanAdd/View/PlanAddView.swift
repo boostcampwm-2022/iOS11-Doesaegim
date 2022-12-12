@@ -66,6 +66,14 @@ final class PlanAddView: UIView {
         return button
     }()
     
+    let placeSearchClearButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        button.tintColor = UIColor.gray
+        
+        return button
+    }()
+    
     private let dateStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -156,7 +164,9 @@ final class PlanAddView: UIView {
         addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubviews(
-            planTitleStackView, placeTitleStackView, dateStackView, descriptionStackView
+            planTitleStackView, placeTitleStackView, dateStackView,
+            descriptionStackView, placeSearchClearButton
+            
         )
         planTitleStackView.addArrangedSubviews(planTitleLabel, planTitleTextField)
         placeTitleStackView.addArrangedSubviews(placeTitleLabel, placeSearchButton)
@@ -190,6 +200,7 @@ final class PlanAddView: UIView {
         
         placeSearchButton.snp.makeConstraints {
             $0.height.equalTo(36)
+            $0.width.equalToSuperview()
         }
         
         dateStackView.snp.makeConstraints {
@@ -214,6 +225,12 @@ final class PlanAddView: UIView {
         addButton.snp.makeConstraints {
             $0.height.equalTo(48)
         }
+        
+        placeSearchClearButton.snp.makeConstraints {
+            $0.trailing.equalTo(placeSearchButton.snp.trailing).inset(10)
+            $0.centerY.equalTo(placeSearchButton)
+            $0.height.width.equalTo(24)
+        }
     }
     
     private func setDetailMode() {
@@ -222,6 +239,7 @@ final class PlanAddView: UIView {
         dateInputButton.isEnabled = false
         descriptionTextView.isEditable = false
         addButton.isHidden = true
+        placeSearchClearButton.isHidden = true
     }
     
     // MARK: - Keyboard

@@ -24,9 +24,11 @@ final class PlanAddViewModel: PlanAddViewProtocol {
     var selectedLocation: LocationDTO? {
         didSet {
             guard let selectedLocation = selectedLocation
-            else { return }
+            else {
+                delegate?.planAddViewDidSelectLocation(locationName: "장소를 검색해 주세요.")
+                return
+            }
             delegate?.planAddViewDidSelectLocation(locationName: selectedLocation.name)
-            print("####", selectedLocation)
         }
     }
     
@@ -169,9 +171,15 @@ final class PlanAddViewModel: PlanAddViewProtocol {
             planLocation.setValue(location.name, forKey: "name")
             planLocation.setValue(location.latitude, forKey: "latitude")
             planLocation.setValue(location.longitude, forKey: "longitude")
+        } else if let _ = plan.location, selectedLocation == nil {
+            plan.location = nil
         }
         plan.setValue(content, forKey: "content")
         return PersistentManager.shared.saveContext()
+    }
+    
+    func removeLocation() {
+        selectedLocation = nil
     }
 }
 

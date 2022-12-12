@@ -115,6 +115,11 @@ final class PlanAddViewController: UIViewController {
             self,
             action: #selector(addButtonTouchUpInside),
             for: .touchUpInside)
+        rootView.placeSearchClearButton.addTarget(
+            self,
+            action: #selector(placeClearButtonDidTap),
+            for: .touchUpInside
+        )
     }
 }
 // MARK: - Keyboard
@@ -239,6 +244,10 @@ extension PlanAddViewController {
             date: rootView.dateInputButton.titleLabel?.text,
             description: rootView.descriptionTextView.text
         )
+    }
+    
+    @objc func placeClearButtonDidTap() {
+        viewModel.removeLocation()
     }
 }
 
