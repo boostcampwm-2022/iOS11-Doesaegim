@@ -99,10 +99,17 @@ final class DiaryDetailView: UIView {
     /// - Parameter diary: 화면에 표시할 다이어리 객체
     func setupData(diary: Diary) {
         contentLabel.text = diary.content
-        locationLabel.text = diary.location?.name
+        if let locationName = diary.location?.name {
+            locationLabel.text = locationName
+        } else {
+            locationLabel.isHidden = true
+        }
         
-        let dateFormatter = Date.yearMonthDayTimeDateFormatter
-        dateLabel.text = dateFormatter.string(from: diary.date ?? Date())
+        if let diaryDate = diary.date {
+            dateLabel.text = diaryDate.userDefaultFormattedDate + " " + diaryDate.userDefaultFormattedTime
+        } else {
+            dateLabel.isHidden = true
+        }
         activityIndicatorView.stopAnimating()
     }
     
