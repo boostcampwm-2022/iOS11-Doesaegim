@@ -80,6 +80,7 @@ final class FaceDetectController: UIViewController {
         self.currentImage = image
         self.viewModel = viewModel
         self.viewModel?.delegate = self
+        view.backgroundColor = .white
     }
     
     init(image: UIImage, viewModel: FaceDetectViewModelProtocol) {
@@ -88,6 +89,7 @@ final class FaceDetectController: UIViewController {
         self.currentImage = image
         self.viewModel = viewModel
         self.viewModel?.delegate = self
+        view.backgroundColor = .white
     }
     
     @available(*, unavailable)
