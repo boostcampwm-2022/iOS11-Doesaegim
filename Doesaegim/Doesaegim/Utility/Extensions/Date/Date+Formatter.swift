@@ -138,12 +138,15 @@ extension Date {
     static func convertMonthToDayFormatter(with date: Date) -> DateFormatter {
         
         let formatter = DateFormatter()
-        guard let formatterState = UserDefaults.standard.object(
+//        guard let formatterState = UserDefaults.standard.object(
+//            forKey: UserDefaultsKey.CalendarInfoKey.yearMonthDateFormat.rawValue
+//        ) as? Int else {
+//            formatter.dateFormat = "MM월 dd일"
+//            return formatter
+//        }
+        let formatterState = UserDefaults.standard.integer(
             forKey: UserDefaultsKey.CalendarInfoKey.yearMonthDateFormat.rawValue
-        ) as? Int else {
-            formatter.dateFormat = "MM월 dd일"
-            return formatter
-        }
+        )
         
         switch formatterState {
         case 0:
