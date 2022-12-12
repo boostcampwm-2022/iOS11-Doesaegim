@@ -34,8 +34,6 @@ final class ExpenseTravelViewModel: ExpenseTravelViewModelProtocol {
     }
     
     func fetchTravelInfo() {
-        print("[FETCH TRAVEL INFO START]")
-//        let result = PersistentRepository.shared.fetchTravel(offset: travelInfos.count, limit: 10)
         let result = PersistentRepository.shared.fetchTravel()
         expenseInfos.removeAll()
         switch result {

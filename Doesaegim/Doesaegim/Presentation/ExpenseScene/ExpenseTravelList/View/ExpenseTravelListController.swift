@@ -84,10 +84,6 @@ final class ExpenseTravelListController: UIViewController {
         }
         
         collectionView.snp.makeConstraints {
-//            $0.horizontalEdges.equalToSuperview().inset(16)
-//            $0.verticalEdges.equalToSuperview().inset(0)
-            
-            // TODO: - 위의 방법으로 constraint를 지정했더니 corenrradius가 적용되지 않습니다.
             
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.top.equalTo(view.safeAreaLayoutGuide)
@@ -135,14 +131,6 @@ final class ExpenseTravelListController: UIViewController {
         let travelCell =  CellRegistration { cell, indexPath, identifier in
             guard let viewModel = self.viewModel else { return }
             cell.configure(with: identifier)
-            
-            // TODO: - 페이지 네이션 기준도 상수로 만들어서 사용하면 좋겠다.
-//            if indexPath.row == viewModel.expenseInfos.count - 1 ,
-//               viewModel.exp.count > 10 {
-//                DispatchQueue.main.async {
-//                    viewModel.fetchTravelInfo()
-//                }
-//            }
         }
         
         travelDataSource = DataSource(
@@ -178,18 +166,12 @@ extension ExpenseTravelListController: ExpenseTravelViewModelDelegate {
     
     func travelListSnapshotShouldChange() {
 
-        guard let viewModel = viewModel else {
-            return
-        }
+        guard let viewModel = viewModel else { return }
         
-//        let travelInfos = viewModel.travelInfos
         let expenseInfos = viewModel.expenseInfos
         var snapshot = SnapShot()
         snapshot.appendSections(["main section"])
         snapshot.appendItems(expenseInfos, toSection: "main section")
-//        expenseInfos.forEach {
-//            snapshot.appendItems([$0.travel], toSection: "main section")
-//        }
         
         travelDataSource?.apply(snapshot, animatingDifferences: true)
     }

@@ -103,12 +103,6 @@ extension TravelCollectionViewCell {
             $0.trailing.equalToSuperview().inset(9)
         }
         
-//        labelStackView.snp.makeConstraints {
-//            $0.centerY.equalToSuperview()
-//            $0.leading.equalTo(imageView.snp.trailing).offset(9)
-//            $0.trailing.equalToSuperview().inset(9)
-//        }
-        
     }
     
     func configure(with data: TravelInfoViewModel) {
