@@ -57,6 +57,17 @@ extension SettingViewModel {
                 options: [
                     .staticCell(
                         model: SettingOptionViewModel(
+                            title: "문의하기",
+                            icon: UIImage(systemName: "text.bubble"),
+                            iconTintColor: .primaryOrange,
+                            handler: {
+                                // TODO: - 문의하기 알림
+                                self.delegate?.settingInquiryDidTap()
+                            }
+                        )
+                    ),
+                    .staticCell(
+                        model: SettingOptionViewModel(
                             title: "개인정보처리방침",
                             icon: UIImage(systemName: "lock"),
                             iconTintColor: .primaryOrange,

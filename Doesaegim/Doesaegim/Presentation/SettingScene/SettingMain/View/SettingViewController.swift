@@ -131,6 +131,16 @@ extension SettingViewController: UITableViewDataSource {
 
 extension SettingViewController: SettingViewModelDelegate {
     
+    func settingInquiryDidTap() {
+        let alertAction = UIAlertAction(title: "확인", style: .default)
+        
+        presentAlert(
+            title: "다음 이메일로 문의해주세요",
+            message: "doesaegim2022@gmail.com",
+            actions: alertAction
+        )
+    }
+    
     func settingViewCellDidTap(moveTo controller: UIViewController) {
         print(#function)
         navigationController?.pushViewController(controller, animated: true)
