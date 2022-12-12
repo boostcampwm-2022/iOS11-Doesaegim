@@ -12,11 +12,11 @@ import SnapKit
 final class ExpenseTravelListController: UIViewController {
 
     private typealias DataSource
-        = UICollectionViewDiffableDataSource<String, TravelInfoViewModel>
+        = UICollectionViewDiffableDataSource<String, TravelExpenseInfoViewModel>
     private typealias SnapShot
-        = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>
+        = NSDiffableDataSourceSnapshot<String, TravelExpenseInfoViewModel>
     private typealias CellRegistration
-        = UICollectionView.CellRegistration<ExpenseTravelListCell, TravelInfoViewModel>
+        = UICollectionView.CellRegistration<ExpenseTravelCollectionViewCell, TravelExpenseInfoViewModel>
     
     // MARK: - Properties
     
@@ -84,10 +84,6 @@ final class ExpenseTravelListController: UIViewController {
         }
         
         collectionView.snp.makeConstraints {
-//            $0.horizontalEdges.equalToSuperview().inset(16)
-//            $0.verticalEdges.equalToSuperview().inset(0)
-            
-            // TODO: - 위의 방법으로 constraint를 지정했더니 corenrradius가 적용되지 않습니다.
             
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.top.equalTo(view.safeAreaLayoutGuide)
@@ -98,27 +94,43 @@ final class ExpenseTravelListController: UIViewController {
     
     // MARK: - Collection View
     
-    private func createCollectionViewListLayout() -> UICollectionViewCompositionalLayout {
-        var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
-        listConfiguration.showsSeparators = false
-        listConfiguration.backgroundColor = .white
+    private func createCollectionViewListLayout() -> UICollectionViewLayout {
         
-        return UICollectionViewCompositionalLayout.list(using: listConfiguration)
+        let heightDimension = NSCollectionLayoutDimension.estimated(70)
+        
+        let layout = UICollectionViewCompositionalLayout { _, _ -> NSCollectionLayoutSection? in
+            let itemSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: heightDimension
+            )
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+            item.edgeSpacing = NSCollectionLayoutEdgeSpacing(
+                leading: .fixed(0),
+                top: .fixed(4),
+                trailing: .fixed(0),
+                bottom: .fixed(4)
+            )
+            let groupSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: heightDimension
+            )
+            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+
+            let section = NSCollectionLayoutSection(group: group)
+            return section
+        }
+        
+        return layout
+        
+        
+        
     }
     
     private func configureCollectionViewDataSource() {
         let travelCell =  CellRegistration { cell, indexPath, identifier in
-            guard let viewModel = self.viewModel,
-                  let cost = viewModel.costs[safeIndex: indexPath.row] else { return }
-            cell.configureContent(with: identifier, cost: cost)
-            
-            // TODO: - 페이지 네이션 기준도 상수로 만들어서 사용하면 좋겠다.
-            if indexPath.row == viewModel.travelInfos.count - 1 ,
-               viewModel.travelInfos.count > 10 {
-                DispatchQueue.main.async {
-                    viewModel.fetchTravelInfo()
-                }
-            }
+            guard let viewModel = self.viewModel else { return }
+            cell.configure(with: identifier)
         }
         
         travelDataSource = DataSource(
@@ -141,7 +153,7 @@ extension ExpenseTravelListController: UICollectionViewDelegate {
         guard let viewModel = viewModel else { return }
         
         let expenseListViewController = ExpenseListViewController()
-        selectedID = viewModel.travelInfos[indexPath.row].uuid
+        selectedID = viewModel.expenseInfos[indexPath.row].travel.uuid
         expenseListViewController.travelID = selectedID
         navigationController?.pushViewController(expenseListViewController, animated: true)
     }
@@ -154,15 +166,13 @@ extension ExpenseTravelListController: ExpenseTravelViewModelDelegate {
     
     func travelListSnapshotShouldChange() {
 
-        guard let viewModel = viewModel else {
-            return
-        }
+        guard let viewModel = viewModel else { return }
         
-        let travelInfos = viewModel.travelInfos
+        let expenseInfos = viewModel.expenseInfos
         var snapshot = SnapShot()
-        
         snapshot.appendSections(["main section"])
-        snapshot.appendItems(travelInfos)
+        snapshot.appendItems(expenseInfos, toSection: "main section")
+        
         travelDataSource?.apply(snapshot, animatingDifferences: true)
     }
     
@@ -172,8 +182,8 @@ extension ExpenseTravelListController: ExpenseTravelViewModelDelegate {
             return
         }
         
-        let travelInfos = viewModel.travelInfos
-        placeholdLabel.isHidden = !travelInfos.isEmpty
+        let expenseInfos = viewModel.expenseInfos
+        placeholdLabel.isHidden = !expenseInfos.isEmpty
     }
     
     func travelListFetchDidFail() {
@@ -187,3 +197,5 @@ extension ExpenseTravelListController: ExpenseTravelViewModelDelegate {
         present(alert, animated: true, completion: nil)
     }
 }
+
+

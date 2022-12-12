@@ -138,7 +138,6 @@ final class MapViewController: UIViewController {
 
 extension MapViewController: MapViewModelDelegate {
     func mapViewDairyInfoDidChage() {
-        print("[MAP DIARY INFO CHANGED]")
         clearAnnotation() // 어노테이션 삭제
         viewModel.diaryInfos.forEach { diaryInfo in
             self.addPin(with: diaryInfo)

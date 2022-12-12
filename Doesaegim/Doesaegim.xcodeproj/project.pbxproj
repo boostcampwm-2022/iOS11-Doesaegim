@@ -114,6 +114,9 @@
 		BB3DB920292CA76800C70D62 /* MapViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3DB91F292CA76800C70D62 /* MapViewModelProtocol.swift */; };
 		BB3DB922292CA79500C70D62 /* DiaryMapInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3DB921292CA79500C70D62 /* DiaryMapInfoViewModel.swift */; };
 		BB3DB926292CF89400C70D62 /* DiaryAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3DB925292CF89400C70D62 /* DiaryAnnotation.swift */; };
+		BB4630C02946C34900FB106F /* TravelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4630BF2946C34900FB106F /* TravelCollectionViewCell.swift */; };
+		BB4630C22946E7B100FB106F /* ExpenseTravelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4630C12946E7B100FB106F /* ExpenseTravelCollectionViewCell.swift */; };
+		BB4630C42946F1EA00FB106F /* TravelExpenseInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4630C32946F1EA00FB106F /* TravelExpenseInfoViewModel.swift */; };
 		BB5771A42923A08F0034047D /* ExpenseTravelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5771A32923A08F0034047D /* ExpenseTravelViewModel.swift */; };
 		BB5771AC2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5771AB2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift */; };
 		BB5DE44C292B8E86001DA6F6 /* Int+convertCostString.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5DE44B292B8E86001DA6F6 /* Int+convertCostString.swift */; };
@@ -131,8 +134,6 @@
 		BBA0D186294208400031DD81 /* CalendarSettingViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA0D185294208400031DD81 /* CalendarSettingViewModelProtocol.swift */; };
 		BBA9D0FC29460F1600A7BCE8 /* Date+TravelString.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA9D0FB29460F1600A7BCE8 /* Date+TravelString.swift */; };
 		BBAD297029432C5100D05F73 /* SettingOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBAD296F29432C5100D05F73 /* SettingOptionViewModel.swift */; };
-		BBB31A372925F5E400C9E3A9 /* TravelListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB31A362925F5E400C9E3A9 /* TravelListCell.swift */; };
-		BBB31A392925F77900C9E3A9 /* ExpenseTravelListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB31A382925F77900C9E3A9 /* ExpenseTravelListCell.swift */; };
 		BBB31A3E2926007D00C9E3A9 /* ExpenseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB31A3D2926007D00C9E3A9 /* ExpenseListViewController.swift */; };
 		BBB31A402926008D00C9E3A9 /* ExpenseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB31A3F2926008D00C9E3A9 /* ExpenseListViewModel.swift */; };
 		BBD0D05B291DE956007D0D82 /* TravelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD0D05A291DE956007D0D82 /* TravelListViewController.swift */; };
@@ -333,6 +334,9 @@
 		BB3DB91F292CA76800C70D62 /* MapViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelProtocol.swift; sourceTree = "<group>"; };
 		BB3DB921292CA79500C70D62 /* DiaryMapInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryMapInfoViewModel.swift; sourceTree = "<group>"; };
 		BB3DB925292CF89400C70D62 /* DiaryAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAnnotation.swift; sourceTree = "<group>"; };
+		BB4630BF2946C34900FB106F /* TravelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelCollectionViewCell.swift; sourceTree = "<group>"; };
+		BB4630C12946E7B100FB106F /* ExpenseTravelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelCollectionViewCell.swift; sourceTree = "<group>"; };
+		BB4630C32946F1EA00FB106F /* TravelExpenseInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelExpenseInfoViewModel.swift; sourceTree = "<group>"; };
 		BB5771A32923A08F0034047D /* ExpenseTravelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelViewModel.swift; sourceTree = "<group>"; };
 		BB5771AB2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelViewModelProtocol.swift; sourceTree = "<group>"; };
 		BB5DE44B292B8E86001DA6F6 /* Int+convertCostString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+convertCostString.swift"; sourceTree = "<group>"; };
@@ -350,8 +354,6 @@
 		BBA0D185294208400031DD81 /* CalendarSettingViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSettingViewModelProtocol.swift; sourceTree = "<group>"; };
 		BBA9D0FB29460F1600A7BCE8 /* Date+TravelString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TravelString.swift"; sourceTree = "<group>"; };
 		BBAD296F29432C5100D05F73 /* SettingOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingOptionViewModel.swift; path = Doesaegim/Data/ViewModel/SettingOptionViewModel.swift; sourceTree = SOURCE_ROOT; };
-		BBB31A362925F5E400C9E3A9 /* TravelListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListCell.swift; sourceTree = "<group>"; };
-		BBB31A382925F77900C9E3A9 /* ExpenseTravelListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelListCell.swift; sourceTree = "<group>"; };
 		BBB31A3D2926007D00C9E3A9 /* ExpenseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListViewController.swift; sourceTree = "<group>"; };
 		BBB31A3F2926008D00C9E3A9 /* ExpenseListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseListViewModel.swift; sourceTree = "<group>"; };
 		BBD0D05A291DE956007D0D82 /* TravelListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelListViewController.swift; sourceTree = "<group>"; };
@@ -926,7 +928,7 @@
 			isa = PBXGroup;
 			children = (
 				BBD0D05A291DE956007D0D82 /* TravelListViewController.swift */,
-				BBB31A362925F5E400C9E3A9 /* TravelListCell.swift */,
+				BB4630BF2946C34900FB106F /* TravelCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -981,7 +983,7 @@
 			isa = PBXGroup;
 			children = (
 				BBD0D05C291DE975007D0D82 /* ExpenseTravelListController.swift */,
-				BBB31A382925F77900C9E3A9 /* ExpenseTravelListCell.swift */,
+				BB4630C12946E7B100FB106F /* ExpenseTravelCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1003,6 +1005,7 @@
 				BB02B095292F2A4900FE11DA /* DiaryInfoViewModel.swift */,
 				BBD97AC92936110500D1AF44 /* DetectInfoViewModel.swift */,
 				BB22445B29419EB200546E19 /* TravelDiaryViewModel.swift */,
+				BB4630C32946F1EA00FB106F /* TravelExpenseInfoViewModel.swift */,
 				BB22446D2941CE8B00546E19 /* Setting */,
 			);
 			path = ViewModel;
@@ -1721,6 +1724,7 @@
 				A4CC04A429221EEE00BB678B /* Plan+CoreDataClass.swift in Sources */,
 				EEB6C500292CC4910060A459 /* Resource.swift in Sources */,
 				B5B497CB29374BEF009AE4AC /* CustomBarChart.swift in Sources */,
+				BB4630C42946F1EA00FB106F /* TravelExpenseInfoViewModel.swift in Sources */,
 				EE116C5E2924CB6B0017B519 /* TravelAddViewProtocol.swift in Sources */,
 				EEB6C4FB292CA9200060A459 /* ExpenseAddViewProtocol.swift in Sources */,
 				BBDB2E96292635FD00752924 /* ExpenseSectionHeaderView.swift in Sources */,
@@ -1755,8 +1759,8 @@
 				BBDB2E9429262BB300752924 /* ExpenseCollectionHeaderView.swift in Sources */,
 				B5D64E61292DF06400E1CC81 /* PlaceSearchButton.swift in Sources */,
 				B5683DF5294188DB00FF3E38 /* SearchingLocationRepository.swift in Sources */,
+				BB4630C02946C34900FB106F /* TravelCollectionViewCell.swift in Sources */,
 				EE3FB85C29386B850024AEE1 /* AddViewSubtitleLabel.swift in Sources */,
-				BBB31A372925F5E400C9E3A9 /* TravelListCell.swift in Sources */,
 				B5D64E69292DFEF000E1CC81 /* DiaryDetailView.swift in Sources */,
 				B5D64E72292E3B1300E1CC81 /* DiaryDetailRepository.swift in Sources */,
 				A4EB25CB292C92F1002D129A /* PickerDataSource.swift in Sources */,
@@ -1826,9 +1830,9 @@
 				EE116C582924AA0D0017B519 /* CustomCalendarCell.swift in Sources */,
 				BB6BE55D29360A2F00857D25 /* DetectedFaceCell.swift in Sources */,
 				EE97A8B62940638800BB8390 /* PlanAddView.swift in Sources */,
-				BBB31A392925F77900C9E3A9 /* ExpenseTravelListCell.swift in Sources */,
 				B57D962E2922318F00B510B8 /* ExpenseDTO.swift in Sources */,
 				A48E994A292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift in Sources */,
+				BB4630C22946E7B100FB106F /* ExpenseTravelCollectionViewCell.swift in Sources */,
 				B57D962C2922315500B510B8 /* LocationDTO.swift in Sources */,
 				BBEC31F729349FDE0064CCFA /* FaceDetectController.swift in Sources */,
 				BB7D9A262926088A00BF2BD6 /* ExpensePlaceholdView.swift in Sources */,
