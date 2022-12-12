@@ -92,6 +92,7 @@ final class ExpenseAddViewController: UIViewController {
     private func setDelegates() {
         viewModel.delegate = self
         rootView.descriptionTextView.delegate = self
+        rootView.amountTextField.delegate = self
     }
     
     @objc func backButtonTouchUpInside() {
@@ -268,5 +269,29 @@ extension ExpenseAddViewController: UITextViewDelegate {
             textView.text = ExpenseAddView.StringLiteral.descriptionTextViewPlaceholder
             textView.textColor = .grey3
         }
+    }
+}
+
+extension ExpenseAddViewController: UITextFieldDelegate {
+    func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
+        if let char = string.cString(using: String.Encoding.utf8) {
+            let isBackSpace = strcmp(char, "\\b")
+            if isBackSpace == -92 {
+                return true
+            }
+        }
+        
+        guard let text = textField.text else { return true }
+        return text.count < Metric.amountTextFieldMaxCount
+    }
+}
+
+fileprivate extension ExpenseAddViewController {
+    enum Metric {
+        static let amountTextFieldMaxCount: Int = 9
     }
 }
