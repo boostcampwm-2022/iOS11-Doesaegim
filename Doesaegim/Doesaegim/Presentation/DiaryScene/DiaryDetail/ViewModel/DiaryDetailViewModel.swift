@@ -11,20 +11,21 @@ final class DiaryDetailViewModel {
     
     // MARK: - Properties
     
+    let diary: Diary
+
     weak var delegate: DiaryDetailViewModelDelegate?
-    
+
     var imageCount: Int { diary.images?.count ?? 0 }
-    
+
     var cellViewModels: [DetailImageCellViewModel] = [] {
         didSet {
             delegate?.diaryDetailImageSliderPagesDidFetch(cellViewModels.count)
             delegate?.diaryDetailImageSliderDidRefresh()
         }
     }
-    
+
     private let navigationTitle: String?
-    
-    private let diary: Diary
+
     
     private let repository = DiaryDetailLocalRepository()
     

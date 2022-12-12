@@ -30,6 +30,8 @@ final class DiaryPhotoDetailViewController: UIViewController {
     init(item: DetailImageCellViewModel) {
         self.item = item
         super.init(nibName: nil, bundle: nil)
+
+        hidesBottomBarWhenPushed = true
     }
     
     @available(*, unavailable)

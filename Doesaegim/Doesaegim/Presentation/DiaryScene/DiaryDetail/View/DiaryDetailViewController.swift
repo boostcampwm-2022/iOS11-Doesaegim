@@ -59,6 +59,8 @@ final class DiaryDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        configureNavigationBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -93,6 +95,29 @@ final class DiaryDetailViewController: UIViewController {
     private func bindToViewModel() {
         viewModel.delegate = self
         viewModel.fetchDiaryDetail()
+    }
+
+    private func configureNavigationBar() {
+        navigationItem.backButtonTitle = .empty
+        let editButton = UIBarButtonItem(
+            image: .edit,
+            primaryAction: UIAction(handler: { [weak self] _ in
+                guard let diary = self?.viewModel.diary,
+                      let images = self?.viewModel.cellViewModels.map({ UIImage(data: $0.data) })
+                else {
+                    return
+                }
+
+                let editViewModel = DiaryEditViewModel(
+                    diary: diary,
+                    repository: DiaryEditLocalRepository(),
+                    imageManager: ImageManager(),
+                    images: images
+                )
+                let editViewController = DiaryEditViewController(viewModel: editViewModel)
+                self?.show(editViewController, sender: self)
+            }))
+        navigationItem.setRightBarButton(editButton, animated: true)
     }
     
     // MARK: - Configure ImageSlider Delegates

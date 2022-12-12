@@ -1,14 +1,14 @@
 //
-//  DiaryAddViewController.swift
+//  DiaryEditViewController.swift
 //  Doesaegim
 //
-//  Created by sun on 2022/11/21.
+//  Created by sun on 2022/12/12.
 //
 
 import PhotosUI
 import UIKit
 
-final class DiaryAddViewController: UIViewController {
+final class DiaryEditViewController: UIViewController {
     typealias ImageID = String
     private typealias DataSource = UICollectionViewDiffableDataSource<Section, ImageID>
 
@@ -25,14 +25,26 @@ final class DiaryAddViewController: UIViewController {
 
     // MARK: - Properties
 
-    private let viewModel = DiaryAddViewModel(
-        repository: DiaryAddLocalRepository(),
-        imageManager: ImageManager()
-    )
+    private let viewModel: DiaryEditViewModel
 
     private lazy var imageSliderDataSource = configureImageSliderDataSource()
 
     private var selectedTravelPickerIndex = Int.zero
+
+
+    // MARK: - Inits
+
+    init(viewModel: DiaryEditViewModel) {
+        self.viewModel = viewModel
+
+        super.init(nibName: nil, bundle: nil)
+        hidesBottomBarWhenPushed = true
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
 
     // MARK: - Life Cycle
@@ -40,7 +52,6 @@ final class DiaryAddViewController: UIViewController {
     override func loadView() {
         view = rootView
     }
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +66,7 @@ final class DiaryAddViewController: UIViewController {
         configureNameTextField()
         configureContentTextView()
         applySnapshot(usingIDs: [.empty])
+        viewModel.viewDidLoad()
     }
 
 
@@ -135,7 +147,7 @@ final class DiaryAddViewController: UIViewController {
         let presentCalendar = UIAction { [weak self] _ in
             guard let dateInterval = self?.viewModel.dateInterval
             else {
-                return 
+                return
             }
             let calendarViewController = CalendarViewController(
                 touchOption: .single,
@@ -179,7 +191,7 @@ final class DiaryAddViewController: UIViewController {
                 else {
                     return
                 }
-                
+
                 cell.addPhotoButtonAction = self?.presentPhotoPickerAction()
                 cell.removePhotoButtonAction = UIAction { [weak self] _ in
                     self?.viewModel.removeImage(withID: id)
@@ -222,6 +234,10 @@ final class DiaryAddViewController: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, ImageID>()
         snapshot.appendSections([.main])
         snapshot.appendItems(identifiers)
+        if snapshot.numberOfItems(inSection: .main) < Metric.numberOfMaximumPhotos,
+           !snapshot.itemIdentifiers(inSection: .main).contains(.empty) {
+            snapshot.appendItems([.empty])
+        }
         imageSliderDataSource.apply(snapshot, animatingDifferences: true)
     }
 
@@ -274,8 +290,7 @@ final class DiaryAddViewController: UIViewController {
 
 
 // MARK: - UIPickerViewDelegate
-// TODO: 종료 날짜순으로 정렬해서 호출하고, 초기값 설정하기?
-extension DiaryAddViewController: UIPickerViewDelegate {
+extension DiaryEditViewController: UIPickerViewDelegate {
     func pickerView(
         _ pickerView: UIPickerView,
         titleForRow row: Int,
@@ -287,27 +302,29 @@ extension DiaryAddViewController: UIPickerViewDelegate {
 
 
 // MARK: - DiaryAddViewModelDelegate
-extension DiaryAddViewController: DiaryAddViewModelDelegate {
-
-    func diaryAddViewModelValuesDidChange(_ diary: TemporaryDiary) {
+extension DiaryEditViewController: DiaryEditViewModelDelegate {
+    func diaryEditViewModelValuesDidChange(_ diary: TemporaryDiary) {
         navigationItem.rightBarButtonItem?.isEnabled = diary.hasAllRequiredProperties
         rootView.travelTextField.text = diary.travel?.name
         rootView.placeSearchButton.setTitle(diary.location?.name, for: .normal)
         rootView.dateInputButton.setTitle(diary.dateString, for: .normal)
+        rootView.titleTextField.text = diary.title
+        rootView.contentTextView.text = diary.content
     }
 
-    func diaryAddViewModelDidUpdateSelectedImageIDs(_ identifiers: [ImageID]) {
-        rootView.imageSlider.setupNumberOfPages(identifiers.count)
+    func diaryEditViewModelDidUpdateSelectedImageIDs(_ identifiers: [ImageID]) {
         applySnapshot(usingIDs: identifiers)
+        let numberOfPages = imageSliderDataSource.snapshot().numberOfItems(inSection: .main)
+        rootView.imageSlider.setupNumberOfPages(numberOfPages)
     }
 
-    func diaryAddViewModelDidLoadImage(withID id: ImageID) {
+    func diaryEditViewModelDidLoadImage(withID id: ImageID) {
         var snapshot = imageSliderDataSource.snapshot()
         snapshot.reloadItems([id])
         imageSliderDataSource.apply(snapshot, animatingDifferences: true)
     }
 
-    func diaryAddViewModelDidAddDiary(_ result: Result<Diary, Error>) {
+    func diaryEditViewModelDidSaveDiary(_ result: Result<Bool, Error>) {
         rootView.isSaving = false
 
         switch result {
@@ -321,7 +338,7 @@ extension DiaryAddViewController: DiaryAddViewModelDelegate {
         }
     }
 
-    func diaryAddViewModelDidRemoveImage(withID id: ImageID) {
+    func diaryEditViewModelDidRemoveImage(withID id: ImageID) {
         var snapshot = imageSliderDataSource.snapshot()
         snapshot.deleteItems([id])
         if !snapshot.itemIdentifiers.contains(.empty) {
@@ -335,7 +352,7 @@ extension DiaryAddViewController: DiaryAddViewModelDelegate {
 
 
 // MARK: - SearchingLocationViewControllerDelegate
-extension DiaryAddViewController: SearchingLocationViewControllerDelegate {
+extension DiaryEditViewController: SearchingLocationViewControllerDelegate {
     func searchingLocationViewController(didSelect location: LocationDTO) {
         viewModel.locationDidSelect(location)
     }
@@ -343,7 +360,7 @@ extension DiaryAddViewController: SearchingLocationViewControllerDelegate {
 
 
 // MARK: - PHPickerViewControllerDelegate
-extension DiaryAddViewController: PHPickerViewControllerDelegate {
+extension DiaryEditViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         dismiss(animated: true)
         viewModel.imageDidSelect(results.map { ($0.assetIdentifier ?? UUID().uuidString, $0.itemProvider) })
@@ -352,15 +369,14 @@ extension DiaryAddViewController: PHPickerViewControllerDelegate {
 
 
 // MARK: - UITextViewDelegate
-extension DiaryAddViewController: UITextViewDelegate {
+extension DiaryEditViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         viewModel.contentDidChange(to: textView.text)
     }
 }
 
 // MARK: - Constants
-fileprivate extension DiaryAddViewController {
-
+fileprivate extension DiaryEditViewController {
     enum Metric {
         static let spacing: CGFloat = 16
 
@@ -368,7 +384,7 @@ fileprivate extension DiaryAddViewController {
     }
 
     enum StringLiteral {
-        static let navigationTitle = "작성 화면"
+        static let navigationTitle = "편집 화면"
 
         static let disablePhotoSelection = "사진은 5개만 추가 가능해요"
     }
@@ -376,7 +392,7 @@ fileprivate extension DiaryAddViewController {
 
 
 // MARK: - CalendarViewDelegate
-extension DiaryAddViewController: CalendarViewDelegate {
+extension DiaryEditViewController: CalendarViewDelegate {
     func fetchDate(date: Date) {
         viewModel.dateDidSelect(date)
     }
