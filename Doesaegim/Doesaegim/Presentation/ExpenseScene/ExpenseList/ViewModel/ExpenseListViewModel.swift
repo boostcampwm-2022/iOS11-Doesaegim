@@ -58,8 +58,7 @@ extension ExpenseListViewModel {
             guard let viewModel = Expense.convertToViewModel(from: expense) else { continue }
             newExpenses.append(viewModel)
             
-            let formatter = Date.yearMonthDayDateFormatter
-            let dateString = formatter.string(from: viewModel.date)
+            let dateString = viewModel.date.userDefaultFormattedDate
             if !newSections.contains(dateString) {
                 newSections.append(dateString)
             }

@@ -248,9 +248,7 @@ extension ExpenseListViewController: ExpenseListViewModelDelegate {
         snapshot.appendSections(viewModel.sections)
         
         for info in expenseInfos {
-            let formatter = Date.yearMonthDayDateFormatter
-            let dateString = formatter.string(from: info.date)
-            
+            let dateString = info.date.userDefaultFormattedDate
             snapshot.appendItems([info], toSection: dateString)
         }
         
