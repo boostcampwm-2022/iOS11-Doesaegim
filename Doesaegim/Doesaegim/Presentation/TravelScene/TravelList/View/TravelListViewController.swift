@@ -17,7 +17,7 @@ final class TravelListViewController: UIViewController {
     private typealias SnapShot
     = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>
     private typealias CellRegistration
-    = UICollectionView.CellRegistration<TravelListCell, TravelInfoViewModel>
+    = UICollectionView.CellRegistration<TravelCollectionViewCell, TravelInfoViewModel>
     
     // MARK: - Properties
     
@@ -30,11 +30,8 @@ final class TravelListViewController: UIViewController {
     }()
     
     private lazy var planCollectionView: UICollectionView = {
-        var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
-        configuration.showsSeparators = false
-        configuration.trailingSwipeActionsConfigurationProvider = makeSwipeActions
-        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
         
+        let layout = createCompositionalLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
         collectionView.layer.cornerRadius = 12
@@ -103,10 +100,40 @@ final class TravelListViewController: UIViewController {
     
     // MARK: - Configure CollectionView
     
-    private func configureCollectionViewDataSource() {
-        let travelCell = CellRegistration { cell, indexPath, identifier in
+    private func createCompositionalLayout() -> UICollectionViewLayout {
+        
+        let heightDimension = NSCollectionLayoutDimension.estimated(70)
+        
+        let layout = UICollectionViewCompositionalLayout { _, _ -> NSCollectionLayoutSection? in
+            let itemSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: heightDimension
+            )
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-            cell.configureContent(with: identifier)
+            item.edgeSpacing = NSCollectionLayoutEdgeSpacing(
+                leading: .fixed(0),
+                top: .fixed(4),
+                trailing: .fixed(0),
+                bottom: .fixed(4)
+            )
+            let groupSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: heightDimension
+            )
+            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+
+            let section = NSCollectionLayoutSection(group: group)
+            return section
+        }
+        
+        return layout
+    }
+    
+    private func configureCollectionViewDataSource() {
+        
+        let travelCell = CellRegistration { cell, indexPath, identifier in
+            cell.configure(with: identifier)
             
             if let viewModel = self.viewModel,
                viewModel.travelInfos.count >= 10,
@@ -115,7 +142,6 @@ final class TravelListViewController: UIViewController {
                     viewModel.fetchTravelInfo()
                 }
             }
-            
         }
         
         travelDataSource = DataSource(
@@ -145,8 +171,6 @@ extension TravelListViewController: TravelListViewModelDelegate {
             return
         }
         
-        print("Travel List - Snapshot 재적용")
-        
         let travelInfos = viewModel.travelInfos
         var snapshot = SnapShot()
         
@@ -172,27 +196,15 @@ extension TravelListViewController: TravelListViewModelDelegate {
     }
     
     func travelListDeleteDataDidFail() {
-        let alert = UIAlertController(
-            title: "삭제 실패",
-            message: "여행정보를 삭제하기를 실패하였습니다",
-            preferredStyle: .alert
-        )
         
         let okAction = UIAlertAction(title: "확인", style: .default)
-        alert.addAction(okAction)
-        
-        present(alert, animated: true, completion: nil)
+        presentAlert(title: "삭제 실패", message: "여행정보 삭제하기를 실패하였습니다.", actions: okAction)
     }
     
     func travelListFetchDidFail() {
-        let alert = UIAlertController(
-            title: "로드 실패",
-            message: "여행정보 불러오기를 실패하였습니다",
-            preferredStyle: .alert
-        )
+        
         let alertAction = UIAlertAction(title: "확인", style: .default)
-        alert.addAction(alertAction)
-        present(alert, animated: true, completion: nil)
+        presentAlert(title: "로드 실패", message: "여행정보 불러오기를 실패하였습니다", actions: alertAction)
     }
 }
 
