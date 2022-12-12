@@ -40,7 +40,7 @@ final class BlurredImageViewModel {
                 from: blendedImage.extent
               )
         else {
-            blurCompletionHandler?(nil)
+            blurCompletionHandler?(image)
             return
         }
 
