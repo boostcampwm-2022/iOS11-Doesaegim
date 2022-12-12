@@ -66,7 +66,7 @@ extension LibraryViewController {
     }
     
     private func configureNavigationBar() {
-        navigationItem.title = "라이센스"
+        navigationItem.title = "오픈소스 및 라이브러리"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     

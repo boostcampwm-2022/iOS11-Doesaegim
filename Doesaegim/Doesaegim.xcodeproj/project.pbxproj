@@ -592,7 +592,7 @@
 			children = (
 				BB2244662941CC2400546E19 /* SettingMain */,
 				BB2244672941CC3900546E19 /* CalendarSetting */,
-				BB2244692941CC6900546E19 /* License */,
+				BB2244692941CC6900546E19 /* Library */,
 			);
 			path = SettingScene;
 			sourceTree = "<group>";
@@ -929,13 +929,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		BB2244692941CC6900546E19 /* License */ = {
+		BB2244692941CC6900546E19 /* Library */ = {
 			isa = PBXGroup;
 			children = (
 				BB4630CB2947157400FB106F /* ViewModel */,
 				BB4630CA2947156F00FB106F /* View */,
 			);
-			path = License;
+			path = Library;
 			sourceTree = "<group>";
 		};
 		BB22446A2941CE3D00546E19 /* ViewModel */ = {
