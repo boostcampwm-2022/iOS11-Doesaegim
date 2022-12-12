@@ -28,6 +28,8 @@ final class ExpenseListViewController: UIViewController {
         
         collectionView.backgroundColor = .white
         collectionView.layer.cornerRadius = 12
+        collectionView.allowsSelection = false
+        
         return collectionView
     }()
     
@@ -86,10 +88,7 @@ final class ExpenseListViewController: UIViewController {
         }
         
         placeholdView.snp.makeConstraints {
-            $0.centerX.equalTo(view.snp.centerX)
-            $0.centerY.equalTo(view.snp.centerY).multipliedBy(1.3)
-            $0.width.equalTo(view.bounds.width - 100)
-            $0.height.equalTo(50)
+            $0.edges.equalToSuperview()
         }
     }
     
