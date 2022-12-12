@@ -1,5 +1,5 @@
 //
-//  LicenseViewModel.swift
+//  LibraryViewModel.swift
 //  Doesaegim
 //
 //  Created by Jaehoon So on 2022/12/12.
@@ -8,14 +8,14 @@
 import Foundation
 
 
-final class LicenseViewModel: LicenseViewModelProtocol {
+final class LibraryViewModel: LibraryViewModelProtocol {
     
-    var delegate: LicenseViewModelDelegate?
-    var licenseInfos: [LicenseInfoViewModel]
+    var delegate: LibraryViewModelDelegate?
+    var licenseInfos: [LibraryInfoViewModel]
     
     init() {
         licenseInfos = [
-            LicenseInfoViewModel(
+            LibraryInfoViewModel(
                 name: "Firebase",
                 version: "9.6.0",
                 description:
@@ -24,7 +24,7 @@ final class LicenseViewModel: LicenseViewModelProtocol {
                 monetize your app. More information about Firebase can be found on the
                 """
             ),
-            LicenseInfoViewModel(
+            LibraryInfoViewModel(
                 name: "SnapKit",
                 version: "5.6.0",
                 description:
@@ -32,7 +32,7 @@ final class LicenseViewModel: LicenseViewModelProtocol {
                 SnapKit is a DSL to make Auto Layout easy on both iOS and OS X.
                 """
             ),
-            LicenseInfoViewModel(
+            LibraryInfoViewModel(
                 name: "SwiftProtobuf",
                 version: "1.20.3",
                 description:
@@ -41,7 +41,7 @@ final class LicenseViewModel: LicenseViewModelProtocol {
                 After using the protoc plugin to generate Swift code from your .proto files, you will need to add this library to your project.
                 """
             ),
-            LicenseInfoViewModel(
+            LibraryInfoViewModel(
                 name: "Promises",
                 version: "2.1.1",
                 description:
@@ -49,7 +49,7 @@ final class LicenseViewModel: LicenseViewModelProtocol {
                 Promises is a modern framework that provides a synchronization construct for Objective-C and Swift to facilitate writing asynchronous code.
                 """
             ),
-            LicenseInfoViewModel(
+            LibraryInfoViewModel(
                 name: "nanopb",
                 version: "2.30909.0",
                 description:
@@ -57,7 +57,7 @@ final class LicenseViewModel: LicenseViewModelProtocol {
                 Nanopb is a small code-size Protocol Buffers implementation in ansi C. It is especially suitable for use in microcontrollers, but fits any memory restricted system.
                 """
             ),
-            LicenseInfoViewModel(
+            LibraryInfoViewModel(
                 name: "leveldb",
                 version: "1.22.2",
                 description:
@@ -65,7 +65,7 @@ final class LicenseViewModel: LicenseViewModelProtocol {
                 LevelDB is a fast key-value storage library written at Google that provides an ordered mapping from string keys to string values.
                 """
             ),
-            LicenseInfoViewModel(
+            LibraryInfoViewModel(
                 name: "GTMSessionFetcher",
                 version: "2.3.0",
                 description:
@@ -73,7 +73,7 @@ final class LicenseViewModel: LicenseViewModelProtocol {
                 GTMSessionFetcher makes it easy for Cocoa applications to perform http operations. The fetcher is implemented as a wrapper on NSURLSession, so its behavior is asynchronous and uses operating-system settings.
                 """
             ),
-            LicenseInfoViewModel(
+            LibraryInfoViewModel(
                 name: "gRPC",
                 version: "1.44.3-grpc",
                 description:
@@ -81,7 +81,7 @@ final class LicenseViewModel: LicenseViewModelProtocol {
                 RPC is a modern open source high performance Remote Procedure Call (RPC) framework that can run in any environment. It can efficiently connect services in and across data centers with pluggable support for load balancing, tracing, health checking and authentication.
                 """
             ),
-            LicenseInfoViewModel(
+            LibraryInfoViewModel(
                 name: "GoogleUtilities",
                 version: "7.10.0",
                 description:
@@ -89,7 +89,7 @@ final class LicenseViewModel: LicenseViewModelProtocol {
                 GoogleUtilities provides a set of utilities for Firebase and other Google SDKs for Apple platform development.
                 """
             ),
-            LicenseInfoViewModel(
+            LibraryInfoViewModel(
                 name: "GoogleDataTransport",
                 version: "9.2.0",
                 description:
@@ -97,7 +97,7 @@ final class LicenseViewModel: LicenseViewModelProtocol {
                 This library is for internal Google use only. It allows the logging of data and telemetry from Google SDKs.
                 """
             ),
-            LicenseInfoViewModel(
+            LibraryInfoViewModel(
                 name: "GoogleAppMeasurement",
                 version: "9.6.0",
                 description:
@@ -105,7 +105,7 @@ final class LicenseViewModel: LicenseViewModelProtocol {
                 GoogleAppMeasurement is not supported for direct usage by non-Google libraries. Any issues should be reported to the product that is using GoogleAppMeasurement.
                 """
             ),
-            LicenseInfoViewModel(
+            LibraryInfoViewModel(
                 name: "BoringSSL-GRPC",
                 version: "0.9.1",
                 description:
@@ -115,7 +115,7 @@ final class LicenseViewModel: LicenseViewModelProtocol {
                 Versioning should follow normal sem-ver, as dependencies on this package are locked to the patch version. Non breaking edits to the Package manifest alone should be a patch version update.
                 """
             ),
-            LicenseInfoViewModel(
+            LibraryInfoViewModel(
                 name: "abseil",
                 version: "0.20220203.2",
                 description:
@@ -127,7 +127,7 @@ final class LicenseViewModel: LicenseViewModelProtocol {
     }
 }
 
-extension LicenseViewModel {
+extension LibraryViewModel {
     
     func loadData() {
         delegate?.licenseViewShouldUpdated()

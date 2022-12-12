@@ -1,5 +1,5 @@
 //
-//  LicenseViewController.swift
+//  LibraryViewController.swift
 //  Doesaegim
 //
 //  Created by Jaehoon So on 2022/12/08.
@@ -9,14 +9,14 @@ import UIKit
 
 
 
-final class LicenseViewController: UIViewController {
+final class LibraryViewController: UIViewController {
 
     private typealias DataSource
-        = UICollectionViewDiffableDataSource<LicenseSection, LicenseInfoViewModel>
+        = UICollectionViewDiffableDataSource<LicenseSection, LibraryInfoViewModel>
     private typealias SnapShot
-        = NSDiffableDataSourceSnapshot<LicenseSection, LicenseInfoViewModel>
+        = NSDiffableDataSourceSnapshot<LicenseSection, LibraryInfoViewModel>
     private typealias CellRegistration
-        = UICollectionView.CellRegistration<LicenseCollectionViewCell, LicenseInfoViewModel>
+        = UICollectionView.CellRegistration<LibraryCollectionViewCell, LibraryInfoViewModel>
     
     private lazy var licenseCollectionView: UICollectionView = {
         let layout = createCompositionalLayout()
@@ -30,7 +30,7 @@ final class LicenseViewController: UIViewController {
     
     private var licenseDataSource: DataSource?
     
-    private var viewModel: LicenseViewModelProtocol = LicenseViewModel()
+    private var viewModel: LibraryViewModelProtocol = LibraryViewModel()
     
     // MARK: - Life Cycle
     
@@ -47,7 +47,7 @@ final class LicenseViewController: UIViewController {
     
 }
 
-extension LicenseViewController {
+extension LibraryViewController {
     
     // MARK: - Configuration
     
@@ -76,8 +76,7 @@ extension LicenseViewController {
     
     private func configureConstraints() {
         licenseCollectionView.snp.makeConstraints {
-            $0.verticalEdges.equalTo(view.safeAreaLayoutGuide)
-            $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
@@ -129,7 +128,13 @@ extension LicenseViewController {
                 heightDimension: heightDimension
             )
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-
+            group.edgeSpacing = NSCollectionLayoutEdgeSpacing(
+                leading: .fixed(16),
+                top: .fixed(0),
+                trailing: .fixed(-16),
+                bottom: .fixed(0)
+            )
+            
             let section = NSCollectionLayoutSection(group: group)
             return section
         }
@@ -139,7 +144,7 @@ extension LicenseViewController {
     
 }
 
-extension LicenseViewController: LicenseViewModelDelegate {
+extension LibraryViewController: LibraryViewModelDelegate {
     
     func licenseViewShouldUpdated() {
         
@@ -152,12 +157,11 @@ extension LicenseViewController: LicenseViewModelDelegate {
         licenseDataSource?.apply(snapShot, animatingDifferences: true)
         
     }
-    
 }
 
 // MARK: - Data
 
-extension LicenseViewController {
+extension LibraryViewController {
     enum LicenseSection {
         case main
     }

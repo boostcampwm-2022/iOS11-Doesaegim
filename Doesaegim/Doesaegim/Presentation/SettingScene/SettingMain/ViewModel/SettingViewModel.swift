@@ -57,13 +57,12 @@ extension SettingViewModel {
                 options: [
                     .staticCell(
                         model: SettingOptionViewModel(
-                            title: "라이센스",
+                            title: "오픈소스 및 라이브러리",
                             icon: UIImage(systemName: "text.book.closed"),
                             iconTintColor: .primaryOrange,
                             handler: {
                                 // TODO: - 라이센스 화면으로 이동 -> delegate 메서드 사용
-                                print("라이센스 셀 선택")
-                                let licenseViewController = LicenseViewController()
+                                let licenseViewController = LibraryViewController()
                                 self.delegate?.settingViewCellDidTapped(moveTo: licenseViewController)
                             }
                         )

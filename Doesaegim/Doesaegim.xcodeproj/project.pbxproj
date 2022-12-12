@@ -99,7 +99,7 @@
 		BB22445C29419EB200546E19 /* TravelDiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB22445B29419EB200546E19 /* TravelDiaryViewModel.swift */; };
 		BB22445E2941BEFD00546E19 /* SettingSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB22445D2941BEFD00546E19 /* SettingSwitchCell.swift */; };
 		BB2244632941C8D400546E19 /* CalendarSettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2244622941C8D400546E19 /* CalendarSettingController.swift */; };
-		BB2244652941C8DF00546E19 /* LicenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2244642941C8DF00546E19 /* LicenseViewController.swift */; };
+		BB2244652941C8DF00546E19 /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2244642941C8DF00546E19 /* LibraryViewController.swift */; };
 		BB22446C2941CE4900546E19 /* CalendarSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB22446B2941CE4900546E19 /* CalendarSettingViewModel.swift */; };
 		BB22446F2941CE9A00546E19 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB22446E2941CE9A00546E19 /* CalendarViewModel.swift */; };
 		BB2244712941D15C00546E19 /* CalendarSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2244702941D15C00546E19 /* CalendarSettingCell.swift */; };
@@ -117,10 +117,10 @@
 		BB4630C02946C34900FB106F /* TravelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4630BF2946C34900FB106F /* TravelCollectionViewCell.swift */; };
 		BB4630C22946E7B100FB106F /* ExpenseTravelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4630C12946E7B100FB106F /* ExpenseTravelCollectionViewCell.swift */; };
 		BB4630C42946F1EA00FB106F /* TravelExpenseInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4630C32946F1EA00FB106F /* TravelExpenseInfoViewModel.swift */; };
-		BB4630C72947152100FB106F /* LicenseInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4630C62947152100FB106F /* LicenseInfoViewModel.swift */; };
-		BB4630C92947156900FB106F /* LicenseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4630C82947156900FB106F /* LicenseCollectionViewCell.swift */; };
-		BB4630CD2947158400FB106F /* LicenseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4630CC2947158400FB106F /* LicenseViewModel.swift */; };
-		BB4630CF29471A5D00FB106F /* LicenseViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4630CE29471A5D00FB106F /* LicenseViewModelProtocol.swift */; };
+		BB4630C72947152100FB106F /* LibraryInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4630C62947152100FB106F /* LibraryInfoViewModel.swift */; };
+		BB4630C92947156900FB106F /* LibraryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4630C82947156900FB106F /* LibraryCollectionViewCell.swift */; };
+		BB4630CD2947158400FB106F /* LibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4630CC2947158400FB106F /* LibraryViewModel.swift */; };
+		BB4630CF29471A5D00FB106F /* LibraryViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4630CE29471A5D00FB106F /* LibraryViewModelProtocol.swift */; };
 		BB5771A42923A08F0034047D /* ExpenseTravelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5771A32923A08F0034047D /* ExpenseTravelViewModel.swift */; };
 		BB5771AC2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5771AB2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift */; };
 		BB5DE44C292B8E86001DA6F6 /* Int+convertCostString.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5DE44B292B8E86001DA6F6 /* Int+convertCostString.swift */; };
@@ -323,7 +323,7 @@
 		BB22445B29419EB200546E19 /* TravelDiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelDiaryViewModel.swift; sourceTree = "<group>"; };
 		BB22445D2941BEFD00546E19 /* SettingSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSwitchCell.swift; sourceTree = "<group>"; };
 		BB2244622941C8D400546E19 /* CalendarSettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSettingController.swift; sourceTree = "<group>"; };
-		BB2244642941C8DF00546E19 /* LicenseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewController.swift; sourceTree = "<group>"; };
+		BB2244642941C8DF00546E19 /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
 		BB22446B2941CE4900546E19 /* CalendarSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSettingViewModel.swift; sourceTree = "<group>"; };
 		BB22446E2941CE9A00546E19 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		BB2244702941D15C00546E19 /* CalendarSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSettingCell.swift; sourceTree = "<group>"; };
@@ -341,10 +341,10 @@
 		BB4630BF2946C34900FB106F /* TravelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelCollectionViewCell.swift; sourceTree = "<group>"; };
 		BB4630C12946E7B100FB106F /* ExpenseTravelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelCollectionViewCell.swift; sourceTree = "<group>"; };
 		BB4630C32946F1EA00FB106F /* TravelExpenseInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelExpenseInfoViewModel.swift; sourceTree = "<group>"; };
-		BB4630C62947152100FB106F /* LicenseInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseInfoViewModel.swift; sourceTree = "<group>"; };
-		BB4630C82947156900FB106F /* LicenseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseCollectionViewCell.swift; sourceTree = "<group>"; };
-		BB4630CC2947158400FB106F /* LicenseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewModel.swift; sourceTree = "<group>"; };
-		BB4630CE29471A5D00FB106F /* LicenseViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewModelProtocol.swift; sourceTree = "<group>"; };
+		BB4630C62947152100FB106F /* LibraryInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryInfoViewModel.swift; sourceTree = "<group>"; };
+		BB4630C82947156900FB106F /* LibraryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCollectionViewCell.swift; sourceTree = "<group>"; };
+		BB4630CC2947158400FB106F /* LibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewModel.swift; sourceTree = "<group>"; };
+		BB4630CE29471A5D00FB106F /* LibraryViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewModelProtocol.swift; sourceTree = "<group>"; };
 		BB5771A32923A08F0034047D /* ExpenseTravelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelViewModel.swift; sourceTree = "<group>"; };
 		BB5771AB2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelViewModelProtocol.swift; sourceTree = "<group>"; };
 		BB5DE44B292B8E86001DA6F6 /* Int+convertCostString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+convertCostString.swift"; sourceTree = "<group>"; };
@@ -901,7 +901,7 @@
 			children = (
 				BBAD296F29432C5100D05F73 /* SettingOptionViewModel.swift */,
 				BB22446E2941CE9A00546E19 /* CalendarViewModel.swift */,
-				BB4630C62947152100FB106F /* LicenseInfoViewModel.swift */,
+				BB4630C62947152100FB106F /* LibraryInfoViewModel.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -982,8 +982,8 @@
 		BB4630CA2947156F00FB106F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				BB2244642941C8DF00546E19 /* LicenseViewController.swift */,
-				BB4630C82947156900FB106F /* LicenseCollectionViewCell.swift */,
+				BB2244642941C8DF00546E19 /* LibraryViewController.swift */,
+				BB4630C82947156900FB106F /* LibraryCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -991,8 +991,8 @@
 		BB4630CB2947157400FB106F /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				BB4630CE29471A5D00FB106F /* LicenseViewModelProtocol.swift */,
-				BB4630CC2947158400FB106F /* LicenseViewModel.swift */,
+				BB4630CE29471A5D00FB106F /* LibraryViewModelProtocol.swift */,
+				BB4630CC2947158400FB106F /* LibraryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1723,7 +1723,7 @@
 			files = (
 				EE3FB85929375C960024AEE1 /* SharePopoverViewController.swift in Sources */,
 				B5716134293CE56E002FDC35 /* CustomChartType.swift in Sources */,
-				BB4630CF29471A5D00FB106F /* LicenseViewModelProtocol.swift in Sources */,
+				BB4630CF29471A5D00FB106F /* LibraryViewModelProtocol.swift in Sources */,
 				B5C421A4292F204900963B17 /* ExpenseAddPickerViewController.swift in Sources */,
 				BB22446C2941CE4900546E19 /* CalendarSettingViewModel.swift in Sources */,
 				B5C421A3292F201700963B17 /* ExpenseAddPickerViewProtocol.swift in Sources */,
@@ -1740,7 +1740,7 @@
 				BBD0D05B291DE956007D0D82 /* TravelListViewController.swift in Sources */,
 				A4B38C322940C73C00E52150 /* PlanListViewModelDelegate.swift in Sources */,
 				BBE695D829228B560015FAD4 /* TravelListViewModel.swift in Sources */,
-				BB2244652941C8DF00546E19 /* LicenseViewController.swift in Sources */,
+				BB2244652941C8DF00546E19 /* LibraryViewController.swift in Sources */,
 				BB9DB80E2928CA6A00102EC8 /* ExpenseListViewModelProtocol.swift in Sources */,
 				EE3FB856293751A00024AEE1 /* DiaryPhotoDetailViewController.swift in Sources */,
 				EE5D50F3293DD413006ECE87 /* TravelAddRepository.swift in Sources */,
@@ -1772,7 +1772,7 @@
 				A4EB25CD292C9775002D129A /* TemporaryDiary.swift in Sources */,
 				EEDB75312925F56D0069A7F5 /* CalendarProtocol.swift in Sources */,
 				A4CC04D32923308600BB678B /* DateCollectionHeaderView.swift in Sources */,
-				BB4630C72947152100FB106F /* LicenseInfoViewModel.swift in Sources */,
+				BB4630C72947152100FB106F /* LibraryInfoViewModel.swift in Sources */,
 				BB305CBD29408457006C3480 /* SettingViewModel.swift in Sources */,
 				A4CC04CF292281B400BB678B /* UIStackView+AddArrangedSubviews.swift in Sources */,
 				BBEC31FA2934B40B0064CCFA /* CGImagePropertyOrientation+.swift in Sources */,
@@ -1838,7 +1838,7 @@
 				BB22445E2941BEFD00546E19 /* SettingSwitchCell.swift in Sources */,
 				BB6BE5572935E68E00857D25 /* FaceDetectViewModel.swift in Sources */,
 				B5DEDE3829409CD400AD2515 /* ImageSliderView.swift in Sources */,
-				BB4630C92947156900FB106F /* LicenseCollectionViewCell.swift in Sources */,
+				BB4630C92947156900FB106F /* LibraryCollectionViewCell.swift in Sources */,
 				EEDB753629260E360069A7F5 /* PlanAddViewProtocol.swift in Sources */,
 				B5D64E63292DF06400E1CC81 /* DiaryAddView.swift in Sources */,
 				A4CC04E02923738500BB678B /* PlanLocalRepository.swift in Sources */,
@@ -1874,7 +1874,7 @@
 				EE116C592924AA0D0017B519 /* CustomCalendarHeaderView.swift in Sources */,
 				A4CC04A229221EEE00BB678B /* Diary+CoreDataClass.swift in Sources */,
 				A4B38C3029407D1500E52150 /* PlanAddViewControllerDelegate.swift in Sources */,
-				BB4630CD2947158400FB106F /* LicenseViewModel.swift in Sources */,
+				BB4630CD2947158400FB106F /* LibraryViewModel.swift in Sources */,
 				EE116C5A2924AA0D0017B519 /* CustomCalendar.swift in Sources */,
 				A4EB00DC2926456D00A83936 /* UIScrollView+DidPassPoint.swift in Sources */,
 				EE97A8B2294053CE00BB8390 /* PlanAddRepository.swift in Sources */,

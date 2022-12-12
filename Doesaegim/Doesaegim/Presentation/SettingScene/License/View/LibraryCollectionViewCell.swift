@@ -1,5 +1,5 @@
 //
-//  LicenseCollectionViewCell.swift
+//  LibraryCollectionViewCell.swift
 //  Doesaegim
 //
 //  Created by Jaehoon So on 2022/12/12.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class LicenseCollectionViewCell: UICollectionViewCell {
+final class LibraryCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Properties
     
@@ -80,7 +80,7 @@ final class LicenseCollectionViewCell: UICollectionViewCell {
     
 }
 
-extension LicenseCollectionViewCell {
+extension LibraryCollectionViewCell {
     
     private func configure() {
         configureView()
@@ -112,7 +112,7 @@ extension LicenseCollectionViewCell {
         }
     }
     
-    public func configure(with data: LicenseInfoViewModel) {
+    public func configure(with data: LibraryInfoViewModel) {
         
         titleLabel.text = data.name
         versionLabel.text = data.version
