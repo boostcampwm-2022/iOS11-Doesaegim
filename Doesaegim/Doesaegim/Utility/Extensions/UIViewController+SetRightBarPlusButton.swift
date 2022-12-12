@@ -17,7 +17,6 @@ extension UIViewController {
         let addButton = UIBarButtonItem(systemItem: .add, primaryAction: UIAction(handler: { _ in
             self.show(viewControllerFactory(), sender: self)
         }))
-        addButton.tintColor = .black
         navigationItem.setRightBarButton(addButton, animated: true)
     }
 }
