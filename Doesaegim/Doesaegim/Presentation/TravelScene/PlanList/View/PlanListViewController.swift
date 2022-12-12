@@ -92,7 +92,7 @@ final class PlanListViewController: UIViewController {
         let moveToUpdateTravelAction = UIAction(
             title: "여행 수정 하기"
         ) { [weak self] _ in
-            let travelAddViewController = TravelAddViewController(
+            let travelAddViewController = TravelWriteViewController(
                 mode: .update,
                 travel: self?.viewModel.travel
             )

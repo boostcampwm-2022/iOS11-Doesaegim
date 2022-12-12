@@ -1,5 +1,5 @@
 //
-//  TravelAddViewModel.swift
+//  TravelWriteViewModel.swift
 //  Doesaegim
 //
 //  Created by 김민석 on 2022/11/16.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class TravelAddViewModel: TravelAddViewProtocol {
+final class TravelWriteViewModel: TravelWriteViewProtocol {
     
     // MARK: - Properties
     
@@ -65,8 +65,8 @@ final class TravelAddViewModel: TravelAddViewProtocol {
     
     func isClearInput(title: String?, startDate: String?, endDate: String?) {
         guard let title, title.isEmpty,
-              startDate == TravelAddView.StringLiteral.startDateLabelPlaceholder,
-              endDate == TravelAddView.StringLiteral.endDateLabelPlaceholder else {
+              startDate == TravelWriteView.StringLiteral.startDateLabelPlaceholder,
+              endDate == TravelWriteView.StringLiteral.endDateLabelPlaceholder else {
             isClearInput = false
             return
         }

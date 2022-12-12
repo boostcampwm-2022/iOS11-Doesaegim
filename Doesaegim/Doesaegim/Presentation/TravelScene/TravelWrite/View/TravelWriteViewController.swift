@@ -1,5 +1,5 @@
 //
-//  TravelAddViewController.swift
+//  TravelWriteViewController.swift
 //  Doesaegim
 //
 //  Created by 김민석 on 2022/11/14.
@@ -9,15 +9,15 @@ import UIKit
 
 import SnapKit
 
-final class TravelAddViewController: UIViewController {
+final class TravelWriteViewController: UIViewController {
     
     // MARK: - UI properties
     
-    private lazy var rootView = TravelAddView(frame: .zero, mode: mode)
+    private lazy var rootView = TravelWriteView(frame: .zero, mode: mode)
     
     // MARK: - Properties
     
-    private let viewModel: TravelAddViewModel
+    private let viewModel: TravelWriteViewModel
     private let dateFormatter: DateFormatter = Date.yearMonthDayDateFormatter
     private let mode: Mode
     private let travel: Travel?
@@ -25,7 +25,7 @@ final class TravelAddViewController: UIViewController {
     // MARK: - Lifecycles
     
     init(mode: Mode, travel: Travel? = nil) {
-        viewModel = TravelAddViewModel()
+        viewModel = TravelWriteViewModel()
         self.mode = mode
         self.travel = travel
         super.init(nibName: nil, bundle: nil)
@@ -138,7 +138,7 @@ final class TravelAddViewController: UIViewController {
 
 // MARK: - Keyboard
 
-extension TravelAddViewController {
+extension TravelWriteViewController {
     private func setKeyboardNotification() {
         NotificationCenter.default.addObserver(
             self,
@@ -185,7 +185,7 @@ extension TravelAddViewController {
 
 // MARK: - Actions
 
-extension TravelAddViewController {
+extension TravelWriteViewController {
     @objc func textFieldDidChange(_ sender: UITextField) {
         viewModel.travelTitleDidChanged(title: sender.text)
     }
@@ -232,7 +232,7 @@ extension TravelAddViewController {
 
 // MARK: - TextField Delegate
 
-extension TravelAddViewController: UITextFieldDelegate {
+extension TravelWriteViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -241,7 +241,7 @@ extension TravelAddViewController: UITextFieldDelegate {
 
 // MARK: TravelAddViewDelegate
 
-extension TravelAddViewController: TravelAddViewDelegate {
+extension TravelWriteViewController: TravelAddViewDelegate {
     func travelAddFormDidChange(isValid: Bool) {
         rootView.addButton.isEnabled = isValid
         rootView.addButton.backgroundColor = isValid ? .primaryOrange : .grey3
@@ -258,7 +258,7 @@ extension TravelAddViewController: TravelAddViewDelegate {
 
 // MARK: Enums
 
-extension TravelAddViewController {
+extension TravelWriteViewController {
     enum Mode {
         case post
         case update

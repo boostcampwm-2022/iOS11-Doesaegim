@@ -158,7 +158,7 @@ final class TravelListViewController: UIViewController {
     
     @objc func didAddTravelButtonTap() {
         // 여행 추가 뷰컨트롤러 이동
-        navigationController?.pushViewController(TravelAddViewController(mode: .post), animated: true)
+        navigationController?.pushViewController(TravelWriteViewController(mode: .post), animated: true)
     }
 }
 
