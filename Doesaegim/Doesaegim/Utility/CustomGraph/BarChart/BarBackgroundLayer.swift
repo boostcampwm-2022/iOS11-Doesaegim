@@ -97,6 +97,8 @@ final class BarBackgroundLayer: CAShapeLayer {
     
     /// 배경의 하단에 차트 데이터 값이 존재하는 날짜를 표시한다.
     private func configureDateTextLayer(with index: Int) {
+        guard let willDisplayDate = criteria[safeIndex: index] else { return }
+        
         let textWidth = (rect.width - inset.width) / CGFloat(criteria.count)
         let textHeight = inset.height
         let baseX = rect.minX + inset.width
@@ -110,13 +112,15 @@ final class BarBackgroundLayer: CAShapeLayer {
         
         let dateTextLayer = BarTextLayer(
             rect: dateTextFrame,
-            text: Date.yearMonthDaySplitDashDateFormatter.string(from: criteria[index])
+            text: Date.yearMonthDaySplitDashDateFormatter.string(from: willDisplayDate)
         )
         addSublayer(dateTextLayer)
     }
     
     /// 배경의 좌측에 최고 금액을 기준으로 나눈 금액 단위를 표시한다.
     private func configureCostTextLayer(with index: Int) {
+        guard let willDisplayCost = costStandards[safeIndex: index] else { return }
+        
         let costWidth = inset.width
         let costHeight = (rect.height - inset.height) / CGFloat(costStandards.count + 1)
         let baseY = rect.maxY - inset.height
@@ -130,7 +134,7 @@ final class BarBackgroundLayer: CAShapeLayer {
         
         let costTextLayer = BarTextLayer(
             rect: costTextFrame,
-            text: Int(costStandards[index]).numberFormatter(),
+            text: Int(willDisplayCost).numberFormatter(),
             textFontSize: 9
         )
         addSublayer(costTextLayer)
