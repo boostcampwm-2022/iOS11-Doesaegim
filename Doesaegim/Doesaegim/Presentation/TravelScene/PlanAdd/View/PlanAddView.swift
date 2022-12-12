@@ -118,7 +118,6 @@ final class PlanAddView: UIView {
     
     let addButton: AddViewCompleteButton = {
         let button = AddViewCompleteButton()
-        button.setTitle("일정 추가", for: .normal)
         
         return button
     }()
@@ -137,6 +136,8 @@ final class PlanAddView: UIView {
         if mode == .detail {
             setDetailMode()
         }
+        mode == .update ? addButton.setTitle("일정 수정", for: .normal)
+                        : addButton.setTitle("일정 추가", for: .normal)
     }
     
     @available(*, unavailable)

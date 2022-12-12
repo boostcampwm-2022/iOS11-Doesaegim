@@ -35,7 +35,7 @@ final class PlanAddViewModel: PlanAddViewProtocol {
         }
     }
     
-    private let travel: Travel
+    let travel: Travel
     private let repository: PlanAddLocalRepository
     var plan: Plan?
     
@@ -159,6 +159,25 @@ final class PlanAddViewModel: PlanAddViewProtocol {
     func fetchPlan() {
         guard let plan else { return }
         delegate?.configurePlanDetail(plan: plan)
+    }
+    
+    func updatePlan(
+        name: String?,
+        dateString: String?,
+        content: String?,
+        location: LocationDTO?
+    ) -> Result<Bool, Error> {
+        guard let name,
+              let dateString,
+              let date = Date.yearMonthDayTimeDateFormatter.date(from: dateString),
+              let plan else {
+            return .failure(CoreDataError.fetchFailure(.plan))
+        }
+        plan.setValue(name, forKey: "name")
+        plan.setValue(date, forKey: "date")
+        plan.setValue(location, forKey: "location")
+        plan.setValue(content, forKey: "content")
+        return PersistentManager.shared.saveContext()
     }
 }
 

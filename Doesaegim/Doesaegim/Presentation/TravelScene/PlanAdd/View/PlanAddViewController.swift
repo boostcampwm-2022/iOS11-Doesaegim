@@ -13,7 +13,7 @@ final class PlanAddViewController: UIViewController {
     
     // MARK: - UI properties
     
-    private let rootView: PlanAddView
+    private var rootView: PlanAddView
     
     // MARK: - Properties
 
@@ -23,7 +23,7 @@ final class PlanAddViewController: UIViewController {
     
     private var locationDTO: LocationDTO?
     
-    private let mode: Mode
+    private var mode: Mode
     
     private let planID: UUID?
     
@@ -51,7 +51,7 @@ final class PlanAddViewController: UIViewController {
         setKeyboardNotification()
         setDelegate()
         setAddTargets()
-        if mode == .detail {
+        if mode == .detail || mode == .update {
             viewModel.fetchPlan()
         }
     }
@@ -69,6 +69,7 @@ final class PlanAddViewController: UIViewController {
             target: self,
             action: #selector(backButtonTouchUpInside)
         )
+        navigationItem.rightBarButtonItem = nil
         switch mode {
         case .detail:
             navigationItem.title = "일정 상세"
@@ -163,7 +164,18 @@ extension PlanAddViewController {
     }
     
     @objc private func updateButtonTapped() {
-        print("수정버튼 탭")
+        let updateAction = UIAlertAction(
+            title: "수정하기",
+            style: .default
+        ) { [weak self] _ in
+            self?.mode = .update
+            self?.rootView = PlanAddView(frame: .zero, mode: .update)
+            self?.loadView()
+            self?.viewDidLoad()
+            self?.viewModel.isValidInput = true
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        presentAlert(title: "일정 수정", message: "일정을 수정하시겠습니까?", actions: updateAction, cancelAction)
     }
 }
 
@@ -183,20 +195,41 @@ extension PlanAddViewController {
     }
     
     @objc func addButtonTouchUpInside() {
-        let result = viewModel.addPlan(
-            name: rootView.planTitleTextField.text,
-            dateString: rootView.dateInputButton.titleLabel?.text,
-            locationDTO: locationDTO,
-            content: rootView.descriptionTextView.text
-        )
         
-        switch result {
-        case .success(let plan):
-            delegate?.planAddViewControllerDidAddPlan(plan)
-            navigationController?.popViewController(animated: true)
-        case .failure(let error):
-            presentErrorAlert(title: CoreDataError.saveFailure(.plan).errorDescription)
-            print(error.localizedDescription)
+        switch mode {
+        case .post:
+            let result = viewModel.addPlan(
+                name: rootView.planTitleTextField.text,
+                dateString: rootView.dateInputButton.titleLabel?.text,
+                locationDTO: locationDTO,
+                content: rootView.descriptionTextView.text
+            )
+            
+            switch result {
+            case .success(let plan):
+                delegate?.planAddViewControllerDidAddPlan(plan)
+                navigationController?.popViewController(animated: true)
+            case .failure(let error):
+                presentErrorAlert(title: CoreDataError.saveFailure(.plan).errorDescription)
+                print(error.localizedDescription)
+            }
+        case .update:
+            let result = viewModel.updatePlan(
+                name: rootView.planTitleTextField.text,
+                dateString: rootView.dateInputButton.titleLabel?.text,
+                content: rootView.descriptionTextView.text,
+                location: locationDTO
+            )
+            switch result {
+            case .success:
+                navigationController?.popViewController(animated: true)
+            case .failure(let error):
+                presentErrorAlert(title: CoreDataError.updateFailure(.plan).errorDescription)
+                print(error.localizedDescription)
+            }
+            
+        case .detail:
+            break
         }
     }
     
