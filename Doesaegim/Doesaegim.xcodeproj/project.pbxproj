@@ -115,6 +115,7 @@
 		BB3DB926292CF89400C70D62 /* DiaryAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB3DB925292CF89400C70D62 /* DiaryAnnotation.swift */; };
 		BB4630C02946C34900FB106F /* TravelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4630BF2946C34900FB106F /* TravelCollectionViewCell.swift */; };
 		BB4630C22946E7B100FB106F /* ExpenseTravelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4630C12946E7B100FB106F /* ExpenseTravelCollectionViewCell.swift */; };
+		BB4630C42946F1EA00FB106F /* TravelExpenseInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4630C32946F1EA00FB106F /* TravelExpenseInfoViewModel.swift */; };
 		BB5771A42923A08F0034047D /* ExpenseTravelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5771A32923A08F0034047D /* ExpenseTravelViewModel.swift */; };
 		BB5771AC2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5771AB2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift */; };
 		BB5DE44C292B8E86001DA6F6 /* Int+convertCostString.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5DE44B292B8E86001DA6F6 /* Int+convertCostString.swift */; };
@@ -335,6 +336,7 @@
 		BB3DB925292CF89400C70D62 /* DiaryAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryAnnotation.swift; sourceTree = "<group>"; };
 		BB4630BF2946C34900FB106F /* TravelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelCollectionViewCell.swift; sourceTree = "<group>"; };
 		BB4630C12946E7B100FB106F /* ExpenseTravelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelCollectionViewCell.swift; sourceTree = "<group>"; };
+		BB4630C32946F1EA00FB106F /* TravelExpenseInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelExpenseInfoViewModel.swift; sourceTree = "<group>"; };
 		BB5771A32923A08F0034047D /* ExpenseTravelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelViewModel.swift; sourceTree = "<group>"; };
 		BB5771AB2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelViewModelProtocol.swift; sourceTree = "<group>"; };
 		BB5DE44B292B8E86001DA6F6 /* Int+convertCostString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+convertCostString.swift"; sourceTree = "<group>"; };
@@ -1005,6 +1007,7 @@
 				BB02B095292F2A4900FE11DA /* DiaryInfoViewModel.swift */,
 				BBD97AC92936110500D1AF44 /* DetectInfoViewModel.swift */,
 				BB22445B29419EB200546E19 /* TravelDiaryViewModel.swift */,
+				BB4630C32946F1EA00FB106F /* TravelExpenseInfoViewModel.swift */,
 				BB22446D2941CE8B00546E19 /* Setting */,
 			);
 			path = ViewModel;
@@ -1723,6 +1726,7 @@
 				A4CC04A429221EEE00BB678B /* Plan+CoreDataClass.swift in Sources */,
 				EEB6C500292CC4910060A459 /* Resource.swift in Sources */,
 				B5B497CB29374BEF009AE4AC /* CustomBarChart.swift in Sources */,
+				BB4630C42946F1EA00FB106F /* TravelExpenseInfoViewModel.swift in Sources */,
 				EE116C5E2924CB6B0017B519 /* TravelAddViewProtocol.swift in Sources */,
 				EEB6C4FB292CA9200060A459 /* ExpenseAddViewProtocol.swift in Sources */,
 				BBDB2E96292635FD00752924 /* ExpenseSectionHeaderView.swift in Sources */,

@@ -113,14 +113,17 @@ extension ExpenseTravelCollectionViewCell {
         
         priceLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.leading.equalTo(labelStackView.snp.trailing).offset(6)
             $0.trailing.equalToSuperview().inset(9)
         }
     }
     
-    func configure(with data: TravelInfoViewModel, cost: Int) {
-        titleLabel.text = data.title
-        dateLabel.text = Date.convertTravelString(start: data.startDate, end: data.endDate)
+    func configure(with data: TravelExpenseInfoViewModel) {
+        
+        let travel = data.travel
+        let cost = data.cost
+        
+        titleLabel.text = travel.title
+        dateLabel.text = Date.convertTravelString(start: travel.startDate, end: travel.endDate)
         priceLabel.text = cost.numberFormatter()
     }
     

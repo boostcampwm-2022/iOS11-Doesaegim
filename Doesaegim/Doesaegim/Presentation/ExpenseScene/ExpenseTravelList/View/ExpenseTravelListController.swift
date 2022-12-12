@@ -12,11 +12,11 @@ import SnapKit
 final class ExpenseTravelListController: UIViewController {
 
     private typealias DataSource
-        = UICollectionViewDiffableDataSource<String, TravelInfoViewModel>
+        = UICollectionViewDiffableDataSource<String, TravelExpenseInfoViewModel>
     private typealias SnapShot
-        = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>
+        = NSDiffableDataSourceSnapshot<String, TravelExpenseInfoViewModel>
     private typealias CellRegistration
-        = UICollectionView.CellRegistration<ExpenseTravelCollectionViewCell, TravelInfoViewModel>
+        = UICollectionView.CellRegistration<ExpenseTravelCollectionViewCell, TravelExpenseInfoViewModel>
     
     // MARK: - Properties
     
@@ -133,17 +133,16 @@ final class ExpenseTravelListController: UIViewController {
     
     private func configureCollectionViewDataSource() {
         let travelCell =  CellRegistration { cell, indexPath, identifier in
-            guard let viewModel = self.viewModel,
-                  let cost = viewModel.costs[safeIndex: indexPath.row] else { return }
-            cell.configure(with: identifier, cost: cost)
+            guard let viewModel = self.viewModel else { return }
+            cell.configure(with: identifier)
             
             // TODO: - 페이지 네이션 기준도 상수로 만들어서 사용하면 좋겠다.
-            if indexPath.row == viewModel.travelInfos.count - 1 ,
-               viewModel.travelInfos.count > 10 {
-                DispatchQueue.main.async {
-                    viewModel.fetchTravelInfo()
-                }
-            }
+//            if indexPath.row == viewModel.expenseInfos.count - 1 ,
+//               viewModel.exp.count > 10 {
+//                DispatchQueue.main.async {
+//                    viewModel.fetchTravelInfo()
+//                }
+//            }
         }
         
         travelDataSource = DataSource(
@@ -166,7 +165,7 @@ extension ExpenseTravelListController: UICollectionViewDelegate {
         guard let viewModel = viewModel else { return }
         
         let expenseListViewController = ExpenseListViewController()
-        selectedID = viewModel.travelInfos[indexPath.row].uuid
+        selectedID = viewModel.expenseInfos[indexPath.row].travel.uuid
         expenseListViewController.travelID = selectedID
         navigationController?.pushViewController(expenseListViewController, animated: true)
     }
@@ -183,11 +182,15 @@ extension ExpenseTravelListController: ExpenseTravelViewModelDelegate {
             return
         }
         
-        let travelInfos = viewModel.travelInfos
+//        let travelInfos = viewModel.travelInfos
+        let expenseInfos = viewModel.expenseInfos
         var snapshot = SnapShot()
-        
         snapshot.appendSections(["main section"])
-        snapshot.appendItems(travelInfos)
+        snapshot.appendItems(expenseInfos, toSection: "main section")
+//        expenseInfos.forEach {
+//            snapshot.appendItems([$0.travel], toSection: "main section")
+//        }
+        
         travelDataSource?.apply(snapshot, animatingDifferences: true)
     }
     
@@ -197,8 +200,8 @@ extension ExpenseTravelListController: ExpenseTravelViewModelDelegate {
             return
         }
         
-        let travelInfos = viewModel.travelInfos
-        placeholdLabel.isHidden = !travelInfos.isEmpty
+        let expenseInfos = viewModel.expenseInfos
+        placeholdLabel.isHidden = !expenseInfos.isEmpty
     }
     
     func travelListFetchDidFail() {
@@ -212,3 +215,5 @@ extension ExpenseTravelListController: ExpenseTravelViewModelDelegate {
         present(alert, animated: true, completion: nil)
     }
 }
+
+
