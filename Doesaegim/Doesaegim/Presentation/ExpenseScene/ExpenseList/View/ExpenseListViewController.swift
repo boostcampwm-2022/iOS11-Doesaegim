@@ -28,6 +28,8 @@ final class ExpenseListViewController: UIViewController {
         
         collectionView.backgroundColor = .white
         collectionView.layer.cornerRadius = 12
+        collectionView.allowsSelection = false
+        
         return collectionView
     }()
     
