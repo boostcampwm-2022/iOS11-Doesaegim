@@ -19,6 +19,7 @@ protocol SettingViewModelProtocol: AnyObject{
 
 protocol SettingViewModelDelegate: AnyObject{
     
-    func settingViewCellDidTapped(moveTo controller: UIViewController)
+    func settingViewCellDidTap(moveTo controller: UIViewController)
+    func settingPersonalInformationProcessingDidTap()
         
 }

@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import SafariServices
+
 
 final class SettingViewController: UIViewController {
     
@@ -129,9 +131,18 @@ extension SettingViewController: UITableViewDataSource {
 
 extension SettingViewController: SettingViewModelDelegate {
     
-    func settingViewCellDidTapped(moveTo controller: UIViewController) {
+    func settingViewCellDidTap(moveTo controller: UIViewController) {
         print(#function)
         navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func settingPersonalInformationProcessingDidTap() {
+        guard let url = URL(
+            string: "https://sunny-side-up.notion.site/1d9f9efaceb5433abeeaf71c1f63b263"
+        ) else { return }
+        
+        let safariViewController = SFSafariViewController(url: url)
+        present(safariViewController, animated: true)
     }
     
 }

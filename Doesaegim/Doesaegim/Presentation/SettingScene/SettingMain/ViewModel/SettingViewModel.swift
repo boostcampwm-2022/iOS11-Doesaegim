@@ -34,7 +34,7 @@ extension SettingViewModel {
                                 print("날짜/시간표시 셀 선택")
                                 // 클로저 내에서 끝나므로 [weak self] 불필요 
                                 let controller = CalendarSettingController()
-                                self.delegate?.settingViewCellDidTapped(moveTo: controller)
+                                self.delegate?.settingViewCellDidTap(moveTo: controller)
                             }
                         )
                     ),
@@ -57,13 +57,24 @@ extension SettingViewModel {
                 options: [
                     .staticCell(
                         model: SettingOptionViewModel(
+                            title: "개인정보처리방침",
+                            icon: UIImage(systemName: "lock"),
+                            iconTintColor: .primaryOrange,
+                            handler: {
+                                print("개인정보처리방침")
+                                self.delegate?.settingPersonalInformationProcessingDidTap()
+                            }
+                        )
+                    ),
+                    .staticCell(
+                        model: SettingOptionViewModel(
                             title: "오픈소스 및 라이브러리",
                             icon: UIImage(systemName: "text.book.closed"),
                             iconTintColor: .primaryOrange,
                             handler: {
                                 // TODO: - 라이센스 화면으로 이동 -> delegate 메서드 사용
                                 let licenseViewController = LibraryViewController()
-                                self.delegate?.settingViewCellDidTapped(moveTo: licenseViewController)
+                                self.delegate?.settingViewCellDidTap(moveTo: licenseViewController)
                             }
                         )
                     )
