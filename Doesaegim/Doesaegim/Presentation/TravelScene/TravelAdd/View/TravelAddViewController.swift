@@ -79,6 +79,9 @@ final class TravelAddViewController: UIViewController {
         rootView.customCalendar.completionHandler = { [weak self] dates in
             self?.viewModel.travelDateTapped(dates: dates) { isSuccess in
                 guard isSuccess, let startDate = dates.first, let endDate = dates.last else {
+                    return
+                }
+                if startDate > endDate {
                     self?.presentErrorAlert(title: "날짜를 다시 입력해주세요")
                     return
                 }
@@ -125,6 +128,9 @@ final class TravelAddViewController: UIViewController {
         rootView.travelDateStartLabel.textColor = .black
         rootView.travelDateEndLabel.textColor = .black
         rootView.customCalendar.initUpdateMode(start: startDate, end: endDate)
+        viewModel.isValidInput = true
+        viewModel.isValidDate = true
+        viewModel.isValidTextField = true
     }
     
 }
@@ -184,17 +190,32 @@ extension TravelAddViewController {
     }
     
     @objc func addButtonTouchUpInside() {
-        let result = viewModel.addTravel(
-            name: rootView.travelTitleTextField.text,
-            startDateString: rootView.travelDateStartLabel.text,
-            endDateString: rootView.travelDateEndLabel.text
-        )
-        switch result {
-        case .success:
-            navigationController?.popViewController(animated: true)
-        case .failure(let error):
-            presentErrorAlert(title: CoreDataError.saveFailure(.travel).errorDescription)
-            print(error.localizedDescription)
+        if mode == .post {
+            let result = viewModel.addTravel(
+                name: rootView.travelTitleTextField.text,
+                startDateString: rootView.travelDateStartLabel.text,
+                endDateString: rootView.travelDateEndLabel.text
+            )
+            switch result {
+            case .success:
+                navigationController?.popViewController(animated: true)
+            case .failure(let error):
+                presentErrorAlert(title: CoreDataError.saveFailure(.travel).errorDescription)
+                print(error.localizedDescription)
+            }
+        } else {
+            let result = viewModel.updateTravel(
+                name: rootView.travelTitleTextField.text,
+                startDate: rootView.customCalendar.selectedDates.first,
+                endDate: rootView.customCalendar.selectedDates.last,
+                travel: travel)
+            switch result {
+            case .success:
+                navigationController?.popToRootViewController(animated: true)
+            case .failure(let error):
+                presentErrorAlert(title: CoreDataError.updateFailure(.travel).errorDescription)
+                print(error.localizedDescription)
+            }
         }
     }
     

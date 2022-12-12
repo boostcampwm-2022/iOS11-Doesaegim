@@ -88,4 +88,35 @@ final class TravelAddViewModel: TravelAddViewProtocol {
         let travelDTO = TravelDTO(name: name, startDate: startDate, endDate: endDate)
         return repository.addTravel(travelDTO)
     }
+    
+    func updateTravel(
+        name: String?,
+        startDate: Date?,
+        endDate: Date?,
+        travel: Travel?
+    ) -> Result<Bool, Error> {
+        guard let travel,
+              let name,
+              let startDate,
+              let endDate else {
+            return .failure(CoreDataError.fetchFailure(.travel))
+        }
+        let result = PersistentRepository.shared.fetchTravel()
+        switch result {
+        case .success(let travels):
+            let updateTravels = travels.filter({ $0.id == travel.id })
+            guard let updateTravel = updateTravels.last
+            else {
+                return .failure(CoreDataError.fetchFailure(.travel))
+            }
+            updateTravel.setValue(name, forKey: "name")
+            updateTravel.setValue(startDate, forKey: "startDate")
+            updateTravel.setValue(endDate, forKey: "endDate")
+            return PersistentManager.shared.saveContext()
+            
+        case .failure(let error):
+            print(error.localizedDescription)
+            return .failure(CoreDataError.updateFailure(.travel))
+        }
+    }
 }
