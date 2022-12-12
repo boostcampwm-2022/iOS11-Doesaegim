@@ -93,6 +93,13 @@ final class DiaryEditViewModel {
 
     func travelDidSelect(_ travel: Travel) {
         temporaryDiary.travel = travel
+        if let date = temporaryDiary.date,
+           let startDate = travel.startDate,
+           let endDate = travel.endDate,
+           let dateAfterEndDate = Calendar.current.date(byAdding: .day, value: 1, to: endDate),
+           !(startDate..<dateAfterEndDate ~= date) {
+            temporaryDiary.date = nil
+        }
         delegate?.diaryEditViewModelValuesDidChange(temporaryDiary)
     }
 
