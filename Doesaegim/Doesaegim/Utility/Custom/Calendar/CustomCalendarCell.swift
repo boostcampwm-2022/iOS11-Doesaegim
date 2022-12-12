@@ -28,15 +28,12 @@ final class CustomCalendarCell: UICollectionViewCell {
     // MARK: - Properties
     
     static let identifier = "CustomCalendarCell"
-    private let viewModel: CustomCalendarCellViewModel
     
     // MARK: - Lifecycles
     
     override init(frame: CGRect) {
-        viewModel = CustomCalendarCellViewModel()
         super.init(frame: frame)
         configureViews()
-        viewModel.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -57,10 +54,10 @@ final class CustomCalendarCell: UICollectionViewCell {
     func configureUI(item: CustomCalendar.Item) {
         if let date = item.date {
             dateLabel.text = Date.onlyDayDateFormatter.string(from: date)
-            viewModel.checkDateIsSunday(to: date)
         } else {
             dateLabel.text = ""
         }
+        dateLabel.textColor = item.isSunday ? .systemRed : .black
         dateLabel.layer.borderWidth = item.isSelected ? 3 : 0
         if !item.isSelectable {
             dateLabel.textColor = .grey1
@@ -69,10 +66,4 @@ final class CustomCalendarCell: UICollectionViewCell {
         
     }
     
-}
-
-extension CustomCalendarCell: CustomCalendarCellDelegate {
-    func changeLabelColor(isSunday: Bool) {
-        dateLabel.textColor = isSunday ? .systemRed : .black
-    }
 }
