@@ -31,7 +31,7 @@ extension CalendarSettingViewModel {
             CalendarSection(
                 title: "날짜 표시",
                 selectedOption: UserDefaults.standard.object(
-                    forKey: CalendarInfoKey.yearMonthDateFormat.rawValue
+                    forKey: UserDefaultsKey.CalendarInfoKey.yearMonthDateFormat.rawValue
                 ) as? Int ?? 0,
                 options: [
                     CalendarViewModel(title: "yyyy년 mm월 dd일", handler: {
@@ -48,7 +48,7 @@ extension CalendarSettingViewModel {
             CalendarSection(
                 title: "시간 표시",
                 selectedOption: UserDefaults.standard.object(
-                    forKey: CalendarInfoKey.timeFormat.rawValue
+                    forKey: UserDefaultsKey.CalendarInfoKey.timeFormat.rawValue
                 ) as? Int ?? 0,
                 options: [
                     CalendarViewModel(title: "AM/PM", handler: {
@@ -74,9 +74,15 @@ extension CalendarSettingViewModel {
         // 선택된 정보를 UserDefaults에 등록
         switch section {
         case 0:
-            UserDefaults.standard.set(row, forKey: CalendarInfoKey.yearMonthDateFormat.rawValue)
+            UserDefaults.standard.set(
+                row,
+                forKey: UserDefaultsKey.CalendarInfoKey.yearMonthDateFormat.rawValue
+            )
         case 1:
-            UserDefaults.standard.set(row, forKey: CalendarInfoKey.timeFormat.rawValue)
+            UserDefaults.standard.set(
+                row,
+                forKey: UserDefaultsKey.CalendarInfoKey.timeFormat.rawValue
+            )
         default:
             print("잘못된 접근입니다.")
         }
@@ -89,7 +95,7 @@ struct CalendarSection {
     var options: [CalendarViewModel]
 }
 
-enum CalendarInfoKey: String {
-    case yearMonthDateFormat
-    case timeFormat
-}
+//enum CalendarInfoKey: String {
+//    case yearMonthDateFormat
+//    case timeFormat
+//}

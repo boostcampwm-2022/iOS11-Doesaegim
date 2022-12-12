@@ -114,7 +114,7 @@ extension Date {
         
         let formatter = DateFormatter()
         guard let formatterState = UserDefaults.standard.object(
-            forKey: CalendarInfoKey.yearMonthDateFormat.rawValue
+            forKey: UserDefaultsKey.CalendarInfoKey.yearMonthDateFormat.rawValue
         ) as? Int else {
             formatter.dateFormat = "yyyy년 MM월 dd일"
             return formatter
@@ -139,7 +139,7 @@ extension Date {
         
         let formatter = DateFormatter()
         guard let formatterState = UserDefaults.standard.object(
-            forKey: CalendarInfoKey.yearMonthDateFormat.rawValue
+            forKey: UserDefaultsKey.CalendarInfoKey.yearMonthDateFormat.rawValue
         ) as? Int else {
             formatter.dateFormat = "MM월 dd일"
             return formatter
@@ -162,7 +162,7 @@ extension Date {
         
         let formatter = DateFormatter()
         guard let formatterState = UserDefaults.standard.object(
-            forKey: CalendarInfoKey.timeFormat.rawValue
+            forKey: UserDefaultsKey.CalendarInfoKey.timeFormat.rawValue
         ) as? Int else {
             formatter.dateFormat = "HH:mm"
             return formatter

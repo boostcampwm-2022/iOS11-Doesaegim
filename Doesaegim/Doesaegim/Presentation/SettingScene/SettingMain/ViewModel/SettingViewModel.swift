@@ -45,7 +45,7 @@ extension SettingViewModel {
                             title: "알림받기",
                             icon: UIImage(systemName: "bell"),
                             iconTintColor: .primaryOrange,
-                            switchKey: "alertOn",
+                            switchKey: UserDefaultsKey.AlertInfoKey.isAlertOn.rawValue,
                             handler: {
                                 print("알림설정 셀 선택")
                                 self.delegate?.settingAlertDidTap()
