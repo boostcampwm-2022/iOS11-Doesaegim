@@ -170,10 +170,6 @@ final class DiaryDetailViewController: UIViewController {
 
 extension DiaryDetailViewController: DiaryDetailViewModelDelegate {
     
-    func diaryDetailTitleDidFetch(with title: String?) {
-        navigationItem.title = title
-    }
-    
     func diaryDetailDidFetch(diary: Diary) {
         rootView.setupData(diary: diary)
     }
