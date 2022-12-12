@@ -128,6 +128,7 @@ final class TravelAddViewController: UIViewController {
         rootView.travelDateStartLabel.textColor = .black
         rootView.travelDateEndLabel.textColor = .black
         rootView.customCalendar.initUpdateMode(start: startDate, end: endDate)
+        rootView.addButton.setTitle("여행 수정", for: .normal)
         viewModel.isValidInput = true
         viewModel.isValidDate = true
         viewModel.isValidTextField = true
