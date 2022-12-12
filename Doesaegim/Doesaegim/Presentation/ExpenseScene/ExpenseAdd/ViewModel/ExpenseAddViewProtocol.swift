@@ -32,7 +32,7 @@ protocol ExpenseAddViewProtocol: AnyObject {
         date: String?,
         description: String?
     )
-    func exchangeLabelShow(amount: String?, unit: String)
+    func exchangeLabelShow(amount: String?, exchangeInfo: ExchangeData?)
     func addExpense(
         name: String?,
         category: String?,

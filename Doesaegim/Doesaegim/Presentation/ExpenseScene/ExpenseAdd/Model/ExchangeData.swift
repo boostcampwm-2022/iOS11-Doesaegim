@@ -11,11 +11,13 @@ final class ExchangeData {
     let currencyCode: String
     let tradingStandardRate: String
     let currencyName: String
+    var isHundredPer: Bool = false
     
     init(currencyCode: String, tradingStandardRate: String, currencyName: String) {
         self.currencyCode = currencyCode
         self.tradingStandardRate = tradingStandardRate
         self.currencyName = currencyName
+        isHundredPer = currencyCode.hasSuffix("(100)") ? true : false
     }
     
     static let list: [ExchangeData] = [

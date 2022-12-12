@@ -127,8 +127,7 @@ extension ExpenseAddViewController {
         
         if sender == rootView.amountTextField {
             viewModel.isValidAmountTextField(text: sender.text)
-            guard let exchangeInfo else { return }
-            viewModel.exchangeLabelShow(amount: sender.text, unit: exchangeInfo.tradingStandardRate)
+            viewModel.exchangeLabelShow(amount: sender.text, exchangeInfo: exchangeInfo)
             return
         }
     }
@@ -171,7 +170,7 @@ extension ExpenseAddViewController: ExpenseAddPickerViewDelegate {
         let title = "\(exchangeRateType.icon) \(item.currencyName)"
         rootView.moneyUnitButton.setTitle(title, for: .normal)
         viewModel.isValidUnitItem(item: title)
-        viewModel.exchangeLabelShow(amount: rootView.amountTextField.text, unit: item.tradingStandardRate)
+        viewModel.exchangeLabelShow(amount: rootView.amountTextField.text, exchangeInfo: item)
     }
     
     func selectedCategory(item: ExpenseType) {
