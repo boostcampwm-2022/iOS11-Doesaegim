@@ -76,11 +76,17 @@ extension Date {
         return formatter
     }()
 
-    /// 날짜를 22.11.16(수) 형태로 표현한 문자열
-    var shortYearMonthDateString: String {
-        let formatter = DateFormatter()
+    var userDefaultFormattedDate: String {
+        let formatter = Date.convertYearToDayFormatter(with: self)
         formatter.locale = Locale(identifier: LocaleIdentifier.korea)
-        formatter.dateFormat = "yy.MM.dd(E)"
+        formatter.dateFormat += " (E)"
+
+        return formatter.string(from: self)
+    }
+
+    var userDefaultFormattedTime: String {
+        let formatter = Date.convertHourToMinuteFormatter(with: self)
+        formatter.locale = Locale(identifier: LocaleIdentifier.korea)
 
         return formatter.string(from: self)
     }
@@ -165,6 +171,7 @@ extension Date {
         switch formatterState {
         case 0:
             formatter.dateFormat = "a HH:mm"
+            formatter.timeStyle = .short
             formatter.amSymbol = "AM"
             formatter.pmSymbol = "PM"
         case 1:

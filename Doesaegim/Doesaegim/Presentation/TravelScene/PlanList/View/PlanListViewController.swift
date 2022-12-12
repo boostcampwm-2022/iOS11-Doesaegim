@@ -10,7 +10,7 @@ import UIKit
 /// 일정을 조회, 추가, 삭제할 수 있는 뷰 컨트롤러
 final class PlanListViewController: UIViewController {
     typealias DataSource =  UICollectionViewDiffableDataSource<Section, ItemID>
-    typealias Section = String
+    typealias Section = Date
     typealias ItemID = UUID
 
     // MARK: - UI Properties
@@ -59,6 +59,13 @@ final class PlanListViewController: UIViewController {
         configureCollectionView()
         viewModel.fetchPlans()
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        viewModel.viewWillAppear()
+    }
+
 
     // MARK: - NavigationBar Configuration Functions
 
@@ -139,8 +146,13 @@ final class PlanListViewController: UIViewController {
         /// 헤더 설정
         let headerRegistration = UICollectionView.SupplementaryRegistration<DateCollectionHeaderView>(
             elementKind: StringLiteral.sectionHeaderElementKind
-        ) { supplementaryView, _, indexPath in
-            supplementaryView.dateString = self.sectionIdentifiers[safeIndex: indexPath.section]
+        ) { [weak self] supplementaryView, _, indexPath in
+            guard let sectionIdentifier = self?.sectionIdentifiers[safeIndex: indexPath.section]
+            else {
+                return
+            }
+
+            supplementaryView.dateString = self?.viewModel.dateString(forSection: sectionIdentifier)
         }
 
         dataSource.supplementaryViewProvider = { collectionView, _, indexPath in
@@ -243,9 +255,15 @@ extension PlanListViewController: PlanListViewModelDelegate {
         }
     }
 
+    func planListViewModelDidUpdateDateFormat() {
+        var snapshot = dataSource.snapshot()
+        snapshot.reloadSections(snapshot.sectionIdentifiers)
+        dataSource.apply(snapshot, animatingDifferences: false)
+    }
+
     /// 새롭게 불러온 데이터만을 반영해서 스냅샷을 갱신
     private func applySnapshot(usingData data: [PlanListSnapshotData]) {
-        var snapshot = self.dataSource.snapshot()
+        var snapshot = dataSource.snapshot()
 
         data.forEach {
             if !snapshot.sectionIdentifiers.contains($0.section) {
