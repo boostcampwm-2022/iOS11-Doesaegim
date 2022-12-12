@@ -165,20 +165,20 @@ final class CustomCalendar: UICollectionView {
     private func configureCalendar() {
         dateComponents.year = calendar.component(.year, from: today)
         dateComponents.month = calendar.component(.month, from: today)
-        setupCalendar()
+        setupCalendar(date: today)
         configureSnapshot()
     }
     
     
     /// 캘린더 설정 함수
-    private func setupCalendar() {
+    private func setupCalendar(date: Date) {
         /// 현재 Month의 1일이 무슨 요일인지 인덱스로 알려줌
         /// 0부터 월요일
-        let firstWeekIndex = calendar.component(.weekday, from: today) - 1
+        let firstWeekIndex = calendar.component(.weekday, from: date) - 1
         
         /// 마지막 날짜
         /// ex) 2월 - 28, 12월- 31
-        let endOfday = calendar.range(of: .day, in: .month, for: today)?.count ?? 31
+        let endOfday = calendar.range(of: .day, in: .month, for: date)?.count ?? 31
         
         /// 모든 날짜의 합을 알려줌
         /// ex) 2022년 11월  화요일 시작 (2) + 30일까지 있음 (30)
@@ -268,6 +268,13 @@ extension CustomCalendar {
                 }
             }
         }
+    }
+    
+    func initUpdateMode(start: Date, end: Date) {
+        selectedDates = [start, end]
+        selectedCount = 2
+        setupCalendar(date: start)
+        configureSnapshot()
     }
 }
 

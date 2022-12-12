@@ -22,7 +22,6 @@ final class PlanListViewController: UIViewController {
 
     private lazy var dataSource = configureDataSource()
 
-
     // MARK: - Properties
 
     private let viewModel: PlanListViewModel
@@ -93,7 +92,10 @@ final class PlanListViewController: UIViewController {
         let moveToUpdateTravelAction = UIAction(
             title: "여행 수정 하기"
         ) { [weak self] _ in
-            let travelAddViewController = TravelAddViewController()
+            let travelAddViewController = TravelAddViewController(
+                mode: .update,
+                travel: self?.viewModel.travel
+            )
             self?.navigationController?.pushViewController(travelAddViewController, animated: true)
         }
         let cancel = UIAction(title: "취소", attributes: .destructive) { _ in }

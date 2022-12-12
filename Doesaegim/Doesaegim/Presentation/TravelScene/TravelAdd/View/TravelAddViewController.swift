@@ -13,17 +13,21 @@ final class TravelAddViewController: UIViewController {
     
     // MARK: - UI properties
     
-    private let rootView = TravelAddView()
+    private lazy var rootView = TravelAddView(frame: .zero, mode: mode)
     
     // MARK: - Properties
     
     private let viewModel: TravelAddViewModel
     private let dateFormatter: DateFormatter = Date.yearMonthDayDateFormatter
+    private let mode: Mode
+    private let travel: Travel?
     
     // MARK: - Lifecycles
     
-    init() {
+    init(mode: Mode, travel: Travel? = nil) {
         viewModel = TravelAddViewModel()
+        self.mode = mode
+        self.travel = travel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -43,6 +47,9 @@ final class TravelAddViewController: UIViewController {
         setDelegate()
         setAddTargets()
         bindCalendar()
+        if mode == .update {
+            initUpdateMode()
+        }
     }
     
     deinit {
@@ -56,7 +63,7 @@ final class TravelAddViewController: UIViewController {
     }
     
     private func configureNavigationBar() {
-        navigationItem.title = "여행 추가"
+        navigationItem.title = mode == .post ? "여행 추가" : "여행 수정"
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "chevron.backward"),
             style: .done,
@@ -107,6 +114,19 @@ final class TravelAddViewController: UIViewController {
         viewModel.delegate = self
         rootView.travelTitleTextField.delegate = self
     }
+    
+    // MARK: - UpdateMode
+    
+    private func initUpdateMode() {
+        guard let travel, let startDate = travel.startDate, let endDate = travel.endDate else { return }
+        rootView.travelTitleTextField.text = travel.name
+        rootView.travelDateStartLabel.text = Date.yearMonthDayDateFormatter.string(from: startDate)
+        rootView.travelDateEndLabel.text = Date.yearMonthDayDateFormatter.string(from: endDate)
+        rootView.travelDateStartLabel.textColor = .black
+        rootView.travelDateEndLabel.textColor = .black
+        rootView.customCalendar.initUpdateMode(start: startDate, end: endDate)
+    }
+    
 }
 
 // MARK: - Keyboard
@@ -210,5 +230,14 @@ extension TravelAddViewController: TravelAddViewDelegate {
         } else {
             navigationController?.popViewController(animated: true)
         }
+    }
+}
+
+// MARK: Enums
+
+extension TravelAddViewController {
+    enum Mode {
+        case post
+        case update
     }
 }

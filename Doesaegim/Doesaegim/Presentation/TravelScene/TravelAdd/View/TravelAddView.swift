@@ -128,9 +128,11 @@ final class TravelAddView: UIView {
         return customCalendar
     }()
     
-    // MARK: - Lifecycles
+    // MARK: - Properties
+    private let mode: TravelAddViewController.Mode
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, mode: TravelAddViewController.Mode) {
+        self.mode = mode
         super.init(frame: frame)
         configureViews()
     }
@@ -202,7 +204,6 @@ final class TravelAddView: UIView {
             $0.height.equalTo(48)
         }
     }
-    
 }
 
 extension TravelAddView {
