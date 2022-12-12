@@ -8,7 +8,8 @@
 import Foundation
 
 final class PlanListViewModel {
-    typealias SectionAndPlanID = (section: String, planID: UUID)
+    typealias Section = Date
+    typealias SectionAndPlanID = (section: Section, planID: UUID)
 
     // MARK: - Properties
     
@@ -18,7 +19,7 @@ final class PlanListViewModel {
 
     weak var delegate: PlanListViewModelDelegate?
 
-    private(set) var planViewModels = [String: [PlanViewModel]]()
+    private(set) var planViewModels = [Section: [PlanViewModel]]()
     
     private let repository: PlanRepository
 
@@ -33,6 +34,12 @@ final class PlanListViewModel {
     /// 아직 뷰모델로 변환되지 않은 Plan의 시작 인덱스
     private var planOffset = Int.zero
 
+    private var dateFormat = UserDefaults.standard.object(
+        forKey: CalendarInfoKey.yearMonthDateFormat.rawValue
+    ) as? Int
+
+    private var timeFormat = UserDefaults.standard.object(forKey: CalendarInfoKey.timeFormat.rawValue) as? Int
+
     
     // MARK: - Init(s)
 
@@ -45,8 +52,31 @@ final class PlanListViewModel {
 
     // MARK: - Functions
 
-    func item(in section: String, id: UUID) -> PlanViewModel? {
+    func item(in section: Section, id: UUID) -> PlanViewModel? {
         planViewModels[section]?.first { $0.id == id }
+    }
+
+    func dateString(forSection section: Section) -> String {
+        section.userDefaultFormattedDate
+    }
+
+    func viewWillAppear() {
+        guard let previousDateFormat = dateFormat,
+              let previousTimeFormat = timeFormat,
+              let currentDateFormat = UserDefaults.standard.object(
+                forKey: CalendarInfoKey.yearMonthDateFormat.rawValue
+            ) as? Int,
+              let currentTimeFormat = UserDefaults.standard.object(
+                forKey: CalendarInfoKey.timeFormat.rawValue
+              ) as? Int,
+              previousDateFormat != currentDateFormat || previousTimeFormat != currentTimeFormat
+        else {
+            return
+        }
+        
+        self.dateFormat = currentDateFormat
+        self.timeFormat = currentTimeFormat
+        delegate?.planListViewModelDidUpdateDateFormat()
     }
 
 
@@ -97,7 +127,7 @@ final class PlanListViewModel {
                 return nil
             }
             
-            let section = date.shortYearMonthDateString
+            let section = section(for: date)
             let viewModel = PlanViewModel(plan: $0, repository: repository)
             planViewModels[section, default: []].append(viewModel)
 
@@ -112,7 +142,7 @@ final class PlanListViewModel {
 
     // MARK: - Plan Deleting Functions
 
-    func deletePlan(in section: String, id: UUID) {
+    func deletePlan(in section: Section, id: UUID) {
         guard let index = planViewModels[section]?.firstIndex(where: { $0.id == id }),
               let planViewModel = planViewModels[section]?[index]
         else {
@@ -165,7 +195,7 @@ final class PlanListViewModel {
             return
         }
         /// 당장 화면에 나타내야 하는 경우 바로 뷰모델로 변환해서 스냅샷에 반영
-        let section = newPlanDate.shortYearMonthDateString
+        let section = section(for: newPlanDate)
         let viewModel = PlanViewModel(plan: newPlan, repository: repository)
         let viewModelsInSection = planViewModels[section, default: []]
         let row = viewModelsInSection.firstIndex {
@@ -178,6 +208,10 @@ final class PlanListViewModel {
 
 
     // MARK: - Utility Functions
+
+    private func section(for date: Date) -> Section {
+        Calendar.current.startOfDay(for: date)
+    }
 
     private func isLastestPlan(lhs: Plan, rhs: Plan) -> Bool {
         guard let lhsDate = lhs.date,

@@ -9,10 +9,11 @@ import Foundation
 
 /// PlanListViewController에서 스냅샷을 생성하는 데 필요한 데이터 
 struct PlanListSnapshotData {
+    typealias Section = Date
 
     // MARK: - Properties
 
-    let section: String
+    let section: Section
 
     let itemID: UUID
 
@@ -21,7 +22,7 @@ struct PlanListSnapshotData {
 
     // MARK: - Init
 
-    init(section: String, itemID: UUID, row: Int? = nil) {
+    init(section: Section, itemID: UUID, row: Int? = nil) {
         self.section = section
         self.itemID = itemID
         self.row = row
