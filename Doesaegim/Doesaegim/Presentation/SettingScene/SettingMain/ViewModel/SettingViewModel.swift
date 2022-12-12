@@ -30,10 +30,11 @@ extension SettingViewModel {
                             title: "날짜/시간표시",
                             icon: UIImage(systemName: "calendar"),
                             iconTintColor: .primaryOrange,
-                            handler: { [weak self] in
+                            handler: {
                                 print("날짜/시간표시 셀 선택")
+                                // 클로저 내에서 끝나므로 [weak self] 불필요 
                                 let controller = CalendarSettingController()
-                                self?.delegate?.settingViewCellDidTapped(moveTo: controller)
+                                self.delegate?.settingViewCellDidTapped(moveTo: controller)
                             }
                         )
                     ),
@@ -62,6 +63,8 @@ extension SettingViewModel {
                             handler: {
                                 // TODO: - 라이센스 화면으로 이동 -> delegate 메서드 사용
                                 print("라이센스 셀 선택")
+                                let licenseViewController = LicenseViewController()
+                                self.delegate?.settingViewCellDidTapped(moveTo: licenseViewController)
                             }
                         )
                     )

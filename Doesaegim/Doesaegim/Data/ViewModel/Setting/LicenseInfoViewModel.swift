@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+
+struct LicenseInfoViewModel: Hashable {
+    
+    let name: String
+    let version: String
+    let description: String
+    
+}

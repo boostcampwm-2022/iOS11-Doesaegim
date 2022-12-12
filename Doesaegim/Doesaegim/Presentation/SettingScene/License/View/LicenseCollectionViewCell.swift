@@ -53,6 +53,7 @@ final class LicenseCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         
         label.font = label.font.withSize(14)
+        label.numberOfLines = 10
         label.textColor = .grey4
         
         return label
@@ -62,12 +63,12 @@ final class LicenseCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configure()
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        configure()
     }
     
     override func prepareForReuse() {
@@ -82,8 +83,15 @@ final class LicenseCollectionViewCell: UICollectionViewCell {
 extension LicenseCollectionViewCell {
     
     private func configure() {
+        configureView()
         configureSubviews()
         configureConstraints()
+        addShadow()
+    }
+    
+    private func configureView() {
+        backgroundColor = .systemBackground
+        layer.cornerRadius = 10
     }
     
     private func configureSubviews() {
@@ -99,15 +107,24 @@ extension LicenseCollectionViewCell {
     
     private func configureConstraints() {
         contentStackView.snp.makeConstraints {
-            $0.horizontalEdges.equalToSuperview().inset(\9)
+            $0.horizontalEdges.equalToSuperview().inset(9)
             $0.verticalEdges.equalToSuperview().inset(6)
         }
     }
     
     public func configure(with data: LicenseInfoViewModel) {
+        
         titleLabel.text = data.name
         versionLabel.text = data.version
         descriptionLabel.text = data.description
     }
     
+    private func addShadow() {
+        layer.masksToBounds = false
+        layer.shadowColor = UIColor.grey2?.cgColor
+        layer.shadowOffset = CGSize(width: 1, height: 1)
+        layer.shadowRadius = 2
+        layer.shadowOpacity = 1
+
+    }
 }

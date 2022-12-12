@@ -6,3 +6,19 @@
 //
 
 import Foundation
+
+
+protocol LicenseViewModelProtocol {
+    
+    var delegate: LicenseViewModelDelegate? { get set }
+    var licenseInfos: [LicenseInfoViewModel] { get set }
+    
+    func loadData()
+    
+}
+
+protocol LicenseViewModelDelegate {
+    
+    func licenseViewShouldUpdated()
+    
+}
