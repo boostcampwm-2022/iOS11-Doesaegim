@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TravelAddView: UIView {
+final class TravelWriteView: UIView {
     
     // MARK: - UI properties
     
@@ -128,9 +128,11 @@ final class TravelAddView: UIView {
         return customCalendar
     }()
     
-    // MARK: - Lifecycles
+    // MARK: - Properties
+    private let mode: TravelWriteViewController.Mode
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, mode: TravelWriteViewController.Mode) {
+        self.mode = mode
         super.init(frame: frame)
         configureViews()
     }
@@ -202,10 +204,9 @@ final class TravelAddView: UIView {
             $0.height.equalTo(48)
         }
     }
-    
 }
 
-extension TravelAddView {
+extension TravelWriteView {
     
     enum StringLiteral {
         static let travelTitlePlaceholder = "여행 제목을 입력해주세요."

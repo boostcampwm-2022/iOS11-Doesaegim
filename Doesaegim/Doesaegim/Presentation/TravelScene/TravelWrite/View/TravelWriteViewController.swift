@@ -1,5 +1,5 @@
 //
-//  TravelAddViewController.swift
+//  TravelWriteViewController.swift
 //  Doesaegim
 //
 //  Created by 김민석 on 2022/11/14.
@@ -9,21 +9,25 @@ import UIKit
 
 import SnapKit
 
-final class TravelAddViewController: UIViewController {
+final class TravelWriteViewController: UIViewController {
     
     // MARK: - UI properties
     
-    private let rootView = TravelAddView()
+    private lazy var rootView = TravelWriteView(frame: .zero, mode: mode)
     
     // MARK: - Properties
     
-    private let viewModel: TravelAddViewModel
+    private let viewModel: TravelWriteViewModel
     private let dateFormatter: DateFormatter = Date.yearMonthDayDateFormatter
+    private let mode: Mode
+    private let travel: Travel?
     
     // MARK: - Lifecycles
     
-    init() {
-        viewModel = TravelAddViewModel()
+    init(mode: Mode, travel: Travel? = nil) {
+        viewModel = TravelWriteViewModel(travel: travel)
+        self.mode = mode
+        self.travel = travel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -43,6 +47,9 @@ final class TravelAddViewController: UIViewController {
         setDelegate()
         setAddTargets()
         bindCalendar()
+        if mode == .update {
+            initUpdateMode()
+        }
     }
     
     deinit {
@@ -56,7 +63,7 @@ final class TravelAddViewController: UIViewController {
     }
     
     private func configureNavigationBar() {
-        navigationItem.title = "여행 추가"
+        navigationItem.title = mode == .post ? "여행 추가" : "여행 수정"
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "chevron.backward"),
             style: .done,
@@ -72,6 +79,9 @@ final class TravelAddViewController: UIViewController {
         rootView.customCalendar.completionHandler = { [weak self] dates in
             self?.viewModel.travelDateTapped(dates: dates) { isSuccess in
                 guard isSuccess, let startDate = dates.first, let endDate = dates.last else {
+                    return
+                }
+                if startDate > endDate {
                     self?.presentErrorAlert(title: "날짜를 다시 입력해주세요")
                     return
                 }
@@ -107,11 +117,28 @@ final class TravelAddViewController: UIViewController {
         viewModel.delegate = self
         rootView.travelTitleTextField.delegate = self
     }
+    
+    // MARK: - UpdateMode
+    
+    private func initUpdateMode() {
+        guard let travel, let startDate = travel.startDate, let endDate = travel.endDate else { return }
+        rootView.travelTitleTextField.text = travel.name
+        rootView.travelDateStartLabel.text = Date.yearMonthDayDateFormatter.string(from: startDate)
+        rootView.travelDateEndLabel.text = Date.yearMonthDayDateFormatter.string(from: endDate)
+        rootView.travelDateStartLabel.textColor = .black
+        rootView.travelDateEndLabel.textColor = .black
+        rootView.customCalendar.initUpdateMode(start: startDate, end: endDate)
+        rootView.addButton.setTitle("여행 수정", for: .normal)
+        viewModel.isValidInput = true
+        viewModel.isValidDate = true
+        viewModel.isValidTextField = true
+    }
+    
 }
 
 // MARK: - Keyboard
 
-extension TravelAddViewController {
+extension TravelWriteViewController {
     private func setKeyboardNotification() {
         NotificationCenter.default.addObserver(
             self,
@@ -158,23 +185,39 @@ extension TravelAddViewController {
 
 // MARK: - Actions
 
-extension TravelAddViewController {
+extension TravelWriteViewController {
     @objc func textFieldDidChange(_ sender: UITextField) {
         viewModel.travelTitleDidChanged(title: sender.text)
     }
     
     @objc func addButtonTouchUpInside() {
-        let result = viewModel.addTravel(
-            name: rootView.travelTitleTextField.text,
-            startDateString: rootView.travelDateStartLabel.text,
-            endDateString: rootView.travelDateEndLabel.text
-        )
-        switch result {
-        case .success:
-            navigationController?.popViewController(animated: true)
-        case .failure(let error):
-            presentErrorAlert(title: CoreDataError.saveFailure(.travel).errorDescription)
-            print(error.localizedDescription)
+        switch mode {
+        case .post:
+            let result = viewModel.addTravel(
+                name: rootView.travelTitleTextField.text,
+                startDateString: rootView.travelDateStartLabel.text,
+                endDateString: rootView.travelDateEndLabel.text
+            )
+            switch result {
+            case .success:
+                navigationController?.popViewController(animated: true)
+            case .failure(let error):
+                presentErrorAlert(title: CoreDataError.saveFailure(.travel).errorDescription)
+                print(error.localizedDescription)
+            }
+        case .update:
+            let result = viewModel.updateTravel(
+                name: rootView.travelTitleTextField.text,
+                startDate: rootView.customCalendar.selectedDates.first,
+                endDate: rootView.customCalendar.selectedDates.last,
+                travel: travel)
+            switch result {
+            case .success:
+                navigationController?.popToRootViewController(animated: true)
+            case .failure(let error):
+                presentErrorAlert(title: CoreDataError.updateFailure(.travel).errorDescription)
+                print(error.localizedDescription)
+            }
         }
     }
     
@@ -189,7 +232,7 @@ extension TravelAddViewController {
 
 // MARK: - TextField Delegate
 
-extension TravelAddViewController: UITextFieldDelegate {
+extension TravelWriteViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -198,7 +241,7 @@ extension TravelAddViewController: UITextFieldDelegate {
 
 // MARK: TravelAddViewDelegate
 
-extension TravelAddViewController: TravelAddViewDelegate {
+extension TravelWriteViewController: TravelAddViewDelegate {
     func travelAddFormDidChange(isValid: Bool) {
         rootView.addButton.isEnabled = isValid
         rootView.addButton.backgroundColor = isValid ? .primaryOrange : .grey3
@@ -210,5 +253,14 @@ extension TravelAddViewController: TravelAddViewDelegate {
         } else {
             navigationController?.popViewController(animated: true)
         }
+    }
+}
+
+// MARK: Enums
+
+extension TravelWriteViewController {
+    enum Mode {
+        case post
+        case update
     }
 }

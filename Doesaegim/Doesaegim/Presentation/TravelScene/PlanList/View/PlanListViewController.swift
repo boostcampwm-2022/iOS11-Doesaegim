@@ -22,7 +22,6 @@ final class PlanListViewController: UIViewController {
 
     private lazy var dataSource = configureDataSource()
 
-
     // MARK: - Properties
 
     private let viewModel: PlanListViewModel
@@ -71,15 +70,42 @@ final class PlanListViewController: UIViewController {
 
     private func configureNavigationBar() {
         navigationItem.title = viewModel.navigationTitle
-        setRightBarAddButton { [weak self] in
-            if let travel = self?.viewModel.travel {
-                let planAddViewController = PlanAddViewController(travel: travel)
-                planAddViewController.delegate = self
-                return planAddViewController
-            } else {
-                return UIViewController()
+        let ellipsisButton = UIBarButtonItem(
+            image: UIImage(systemName: "ellipsis"),
+            style: .plain,
+            target: self,
+            action: nil
+        )
+        
+        let moveToPlanAddViewControllerAction = UIAction(
+            title: "일정 추가 하기"
+        ) { [weak self] _  in
+                if let travel = self?.viewModel.travel {
+                    let planAddViewController = PlanAddViewController(travel: travel)
+                    planAddViewController.delegate = self
+                    self?.navigationController?.pushViewController(planAddViewController, animated: true)
+                } else {
+                    self?.presentErrorAlert(title: "일정을 추가할 수 없어요.")
+                }
             }
+        
+        let moveToUpdateTravelAction = UIAction(
+            title: "여행 수정 하기"
+        ) { [weak self] _ in
+            let travelAddViewController = TravelWriteViewController(
+                mode: .update,
+                travel: self?.viewModel.travel
+            )
+            self?.navigationController?.pushViewController(travelAddViewController, animated: true)
         }
+        let cancel = UIAction(title: "취소", attributes: .destructive) { _ in }
+        
+        ellipsisButton.menu = UIMenu(
+            title: "이동하기",
+            options: .displayInline,
+            children: [moveToPlanAddViewControllerAction,moveToUpdateTravelAction, cancel]
+        )
+        navigationItem.rightBarButtonItem = ellipsisButton
     }
 
 

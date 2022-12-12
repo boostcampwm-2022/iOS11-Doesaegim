@@ -1,5 +1,5 @@
 //
-//  TravelAddViewModel.swift
+//  TravelWriteViewModel.swift
 //  Doesaegim
 //
 //  Created by 김민석 on 2022/11/16.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class TravelAddViewModel: TravelAddViewProtocol {
+final class TravelWriteViewModel: TravelWriteViewProtocol {
     
     // MARK: - Properties
     
@@ -28,13 +28,16 @@ final class TravelAddViewModel: TravelAddViewProtocol {
         }
     }
     
+    private let travel: Travel?
+    
     // MARK: - Lifecycles
     
-    init() {
+    init(travel: Travel? = nil) {
         isValidTextField = false
         isValidDate = false
         isValidInput = isValidTextField && isValidDate
         isClearInput = true
+        self.travel = travel
         repository = TravelAddLocalRepository()
     }
     
@@ -65,8 +68,8 @@ final class TravelAddViewModel: TravelAddViewProtocol {
     
     func isClearInput(title: String?, startDate: String?, endDate: String?) {
         guard let title, title.isEmpty,
-              startDate == TravelAddView.StringLiteral.startDateLabelPlaceholder,
-              endDate == TravelAddView.StringLiteral.endDateLabelPlaceholder else {
+              startDate == TravelWriteView.StringLiteral.startDateLabelPlaceholder,
+              endDate == TravelWriteView.StringLiteral.endDateLabelPlaceholder else {
             isClearInput = false
             return
         }
@@ -87,5 +90,23 @@ final class TravelAddViewModel: TravelAddViewProtocol {
         
         let travelDTO = TravelDTO(name: name, startDate: startDate, endDate: endDate)
         return repository.addTravel(travelDTO)
+    }
+    
+    func updateTravel(
+        name: String?,
+        startDate: Date?,
+        endDate: Date?,
+        travel: Travel?
+    ) -> Result<Bool, Error> {
+        guard let travel,
+              let name,
+              let startDate,
+              let endDate else {
+            return .failure(CoreDataError.fetchFailure(.travel))
+        }
+        travel.setValue(name, forKey: "name")
+        travel.setValue(startDate, forKey: "startDate")
+        travel.setValue(endDate, forKey: "endDate")
+        return PersistentManager.shared.saveContext()
     }
 }
