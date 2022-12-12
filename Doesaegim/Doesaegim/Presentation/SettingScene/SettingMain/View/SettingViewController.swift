@@ -141,6 +141,16 @@ extension SettingViewController: SettingViewModelDelegate {
         )
     }
     
+    func settingAlertDidTap() {
+        let alertAction = UIAlertAction(title: "확인", style: .default)
+        
+        presentAlert(
+            title: "아직 추가되지 않은 기능이에요!",
+            message: "앞으로 추가될 예정입니다\n많은 응원부탁드려요 ☺️",
+            actions: alertAction
+        )
+    }
+    
     func settingViewCellDidTap(moveTo controller: UIViewController) {
         print(#function)
         navigationController?.pushViewController(controller, animated: true)

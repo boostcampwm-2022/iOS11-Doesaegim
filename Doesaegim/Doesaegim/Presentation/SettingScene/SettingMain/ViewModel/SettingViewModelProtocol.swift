@@ -22,5 +22,6 @@ protocol SettingViewModelDelegate: AnyObject{
     func settingViewCellDidTap(moveTo controller: UIViewController)
     func settingPersonalInformationProcessingDidTap()
     func settingInquiryDidTap()
+    func settingAlertDidTap()
         
 }

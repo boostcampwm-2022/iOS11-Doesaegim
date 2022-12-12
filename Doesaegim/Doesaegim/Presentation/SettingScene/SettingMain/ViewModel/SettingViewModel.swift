@@ -30,6 +30,7 @@ extension SettingViewModel {
                             title: "날짜/시간표시",
                             icon: UIImage(systemName: "calendar"),
                             iconTintColor: .primaryOrange,
+                            switchKey: nil,
                             handler: {
                                 print("날짜/시간표시 셀 선택")
                                 // 클로저 내에서 끝나므로 [weak self] 불필요 
@@ -44,8 +45,10 @@ extension SettingViewModel {
                             title: "알림받기",
                             icon: UIImage(systemName: "bell"),
                             iconTintColor: .primaryOrange,
+                            switchKey: "alertOn",
                             handler: {
                                 print("알림설정 셀 선택")
+                                self.delegate?.settingAlertDidTap()
                             }
                         )
                     )
@@ -60,6 +63,7 @@ extension SettingViewModel {
                             title: "문의하기",
                             icon: UIImage(systemName: "text.bubble"),
                             iconTintColor: .primaryOrange,
+                            switchKey: nil,
                             handler: {
                                 // TODO: - 문의하기 알림
                                 self.delegate?.settingInquiryDidTap()
@@ -71,6 +75,7 @@ extension SettingViewModel {
                             title: "개인정보처리방침",
                             icon: UIImage(systemName: "lock"),
                             iconTintColor: .primaryOrange,
+                            switchKey: nil,
                             handler: {
                                 print("개인정보처리방침")
                                 self.delegate?.settingPersonalInformationProcessingDidTap()
@@ -82,6 +87,7 @@ extension SettingViewModel {
                             title: "오픈소스 및 라이브러리",
                             icon: UIImage(systemName: "text.book.closed"),
                             iconTintColor: .primaryOrange,
+                            switchKey: nil,
                             handler: {
                                 // TODO: - 라이센스 화면으로 이동 -> delegate 메서드 사용
                                 let licenseViewController = LibraryViewController()
