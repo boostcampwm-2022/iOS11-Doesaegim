@@ -37,17 +37,25 @@ final class PlanAddViewModel: PlanAddViewProtocol {
     
     private let travel: Travel
     private let repository: PlanAddLocalRepository
+    var plan: Plan?
     
     // MARK: - Lifecycles
     
-    init(travel: Travel) {
+    init(travel: Travel, planID: UUID? = nil) {
         isValidName = false
         isValidPlace = false
         isValidDate = false
         isValidInput = isValidName && isValidPlace && isValidDate
         isClearInput = true
-        self.travel = travel
         repository = PlanAddLocalRepository()
+        self.travel = travel
+        let result = repository.getPlanDetail(with: planID)
+        switch result {
+        case .success(let plan):
+            self.plan = plan
+        case .failure:
+            self.plan = nil
+        }
     }
     
     // MARK: - Helpers
@@ -146,6 +154,11 @@ final class PlanAddViewModel: PlanAddViewProtocol {
     
     func placeButtonTapped() {
         delegate?.presentSearchingLocationViewController()
+    }
+    
+    func fetchPlan() {
+        guard let plan else { return }
+        delegate?.configurePlanDetail(plan: plan)
     }
 }
 

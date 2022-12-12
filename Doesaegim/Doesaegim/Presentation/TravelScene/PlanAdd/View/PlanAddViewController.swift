@@ -13,7 +13,7 @@ final class PlanAddViewController: UIViewController {
     
     // MARK: - UI properties
     
-    private let rootView = PlanAddView()
+    private let rootView: PlanAddView
     
     // MARK: - Properties
 
@@ -23,10 +23,17 @@ final class PlanAddViewController: UIViewController {
     
     private var locationDTO: LocationDTO?
     
+    private let mode: Mode
+    
+    private let planID: UUID?
+    
     // MARK: - Lifecycles
     
-    init(travel: Travel) {
-        viewModel = PlanAddViewModel(travel: travel)
+    init(travel: Travel, mode: Mode, planID: UUID? = nil) {
+        viewModel = PlanAddViewModel(travel: travel, planID: planID)
+        rootView = PlanAddView(frame: .zero, mode: mode)
+        self.mode = mode
+        self.planID = planID
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -44,6 +51,9 @@ final class PlanAddViewController: UIViewController {
         setKeyboardNotification()
         setDelegate()
         setAddTargets()
+        if mode == .detail {
+            viewModel.fetchPlan()
+        }
     }
     
     deinit {
@@ -53,13 +63,27 @@ final class PlanAddViewController: UIViewController {
     // MARK: - Configure Functions
     
     private func configureNavigationBar() {
-        navigationItem.title = "일정 추가"
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "chevron.backward"),
             style: .done,
             target: self,
             action: #selector(backButtonTouchUpInside)
         )
+        switch mode {
+        case .detail:
+            navigationItem.title = "일정 상세"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(
+                image: UIImage(systemName: "pencil"),
+                style: .done,
+                target: self,
+                action: #selector(updateButtonTapped)
+            )
+        case .post:
+            navigationItem.title = "일정 추가"
+        case .update:
+            navigationItem.title = "일정 수정"
+        }
+        
     }
     
     // MARK: - Set Delegate
@@ -136,6 +160,10 @@ extension PlanAddViewController {
     
     @objc private func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    @objc private func updateButtonTapped() {
+        print("수정버튼 탭")
     }
 }
 
@@ -222,7 +250,7 @@ extension PlanAddViewController: PlanAddViewDelegate {
     }
     
     func backButtonDidTap(isClear: Bool) {
-        if !isClear {
+        if !isClear && mode != .detail {
             presentIsClearAlert()
         } else {
             navigationController?.popViewController(animated: true)
@@ -242,6 +270,20 @@ extension PlanAddViewController: PlanAddViewDelegate {
         searchingLocationViewController.delegate = self
         navigationController?.pushViewController(searchingLocationViewController, animated: true)
     }
+    
+    func configurePlanDetail(plan: Plan) {
+        rootView.planTitleTextField.text = plan.name
+        if let location = plan.location {
+            rootView.placeSearchButton.setTitle(location.name, for: .normal)
+        } else {
+            rootView.placeSearchButton.setTitle("입력하신 장소가 없어요.", for: .normal)
+        }
+        
+        guard let date = plan.date else { return }
+        
+        rootView.dateInputButton.setTitle(Date.yearMonthDayTimeDateFormatter.string(from: date), for: .normal)
+        rootView.descriptionTextView.text = plan.content
+    }
 }
 
 // MARK: - SearchingLocationViewControllerDelegate
@@ -260,5 +302,16 @@ extension PlanAddViewController: CalendarViewDelegate {
         let dateString = Date.yearMonthDayTimeDateFormatter.string(from: date)
         rootView.dateInputButton.setTitle(dateString, for: .normal)
         viewModel.isValidDate(dateString: dateString)
+    }
+}
+
+// MARK: PlanMode Enum
+
+extension PlanAddViewController {
+    
+    enum Mode {
+        case post
+        case update
+        case detail
     }
 }

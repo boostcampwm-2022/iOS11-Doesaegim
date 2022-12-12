@@ -37,4 +37,5 @@ protocol PlanAddViewDelegate: AnyObject {
     func backButtonDidTap(isClear: Bool)
     func presentCalendarViewController(travel: Travel)
     func presentSearchingLocationViewController()
+    func configurePlanDetail(plan: Plan)
 }

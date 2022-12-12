@@ -19,11 +19,7 @@ final class PlanAddView: UIView {
         return scrollView
     }()
     
-    private let contentView: UIView = {
-        let view = UIView()
-        
-        return view
-    }()
+    private let contentView: UIView = UIView()
     
     private let planTitleStackView: UIStackView = {
         let stackView = UIStackView()
@@ -93,6 +89,14 @@ final class PlanAddView: UIView {
         return button
     }()
     
+    private let descriptionStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = Metric.stackViewSpacing
+        
+        return stackView
+    }()
+    
     private let descriptionTitleLabel: AddViewSubtitleLabel = {
         let label = AddViewSubtitleLabel()
         label.text = "설명"
@@ -114,17 +118,25 @@ final class PlanAddView: UIView {
     
     let addButton: AddViewCompleteButton = {
         let button = AddViewCompleteButton()
-        button.setTitle("여행 추가", for: .normal)
+        button.setTitle("일정 추가", for: .normal)
         
         return button
     }()
     
+    // MARK: Properties
+    
+    private let mode: PlanAddViewController.Mode
+    
     // MARK: - Lifecycles
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, mode: PlanAddViewController.Mode) {
+        self.mode = mode
         super.init(frame: frame)
         configureViews()
         setAddTarget()
+        if mode == .detail {
+            setDetailMode()
+        }
     }
     
     @available(*, unavailable)
@@ -143,12 +155,12 @@ final class PlanAddView: UIView {
         addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubviews(
-            planTitleStackView, placeTitleStackView, dateStackView,
-            descriptionTitleLabel, descriptionTextView, addButton
+            planTitleStackView, placeTitleStackView, dateStackView, descriptionStackView
         )
         planTitleStackView.addArrangedSubviews(planTitleLabel, planTitleTextField)
         placeTitleStackView.addArrangedSubviews(placeTitleLabel, placeSearchButton)
         dateStackView.addArrangedSubviews(dateTitleLabel, dateInputButton)
+        descriptionStackView.addArrangedSubviews(descriptionTitleLabel, descriptionTextView, addButton)
     }
     
     private func configureConstraint() {
@@ -188,23 +200,27 @@ final class PlanAddView: UIView {
             $0.height.equalTo(36)
         }
         
-        descriptionTitleLabel.snp.makeConstraints {
+        descriptionStackView.snp.makeConstraints {
             $0.top.equalTo(dateStackView.snp.bottom).offset(24)
-            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.horizontalEdges.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().offset(-30)
         }
         
         descriptionTextView.snp.makeConstraints {
-            $0.top.equalTo(descriptionTitleLabel.snp.bottom).offset(12)
-            $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(200)
         }
         
         addButton.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalToSuperview().offset(-30)
-            $0.top.equalTo(descriptionTextView.snp.bottom).offset(40)
             $0.height.equalTo(48)
         }
+    }
+    
+    private func setDetailMode() {
+        planTitleTextField.isEnabled = false
+        placeSearchButton.isEnabled = false
+        dateInputButton.isEnabled = false
+        descriptionTextView.isEditable = false
+        addButton.isHidden = true
     }
     
     // MARK: - Keyboard

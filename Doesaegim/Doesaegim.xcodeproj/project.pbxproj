@@ -1911,7 +1911,6 @@
 				BB6BE55D29360A2F00857D25 /* DetectedFaceCell.swift in Sources */,
 				EE97A8B62940638800BB8390 /* PlanAddView.swift in Sources */,
 				A499EB492947096800E7F774 /* DiaryEditViewController.swift in Sources */,
-				BBB31A392925F77900C9E3A9 /* ExpenseTravelListCell.swift in Sources */,
 				B57D962E2922318F00B510B8 /* ExpenseDTO.swift in Sources */,
 				A48E994A292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift in Sources */,
 				BB4630C22946E7B100FB106F /* ExpenseTravelCollectionViewCell.swift in Sources */,
