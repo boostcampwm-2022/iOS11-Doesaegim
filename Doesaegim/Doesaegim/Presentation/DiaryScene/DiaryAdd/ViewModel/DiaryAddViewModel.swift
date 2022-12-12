@@ -200,7 +200,6 @@ final class DiaryAddViewModel {
     private func addDiary() -> Result<Diary, Error> {
         guard let title = temporaryDiary.title,
               let content = temporaryDiary.content,
-              let location = temporaryDiary.location,
               let travel = temporaryDiary.travel,
               let date = temporaryDiary.date
         else {
@@ -213,7 +212,7 @@ final class DiaryAddViewModel {
             date: date,
             images: temporaryDiary.imagePaths,
             title: title,
-            location: location,
+            location: temporaryDiary.location,
             travel: travel
         )
 

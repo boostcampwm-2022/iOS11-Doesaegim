@@ -18,15 +18,14 @@ struct TemporaryDiary {
     var content: String?
     var imagePaths = [String]()
 
-    /// 필수 항목(여행, 장소, 날짜, 제목, 내용)이 작성되었는 지 여부
+    /// 필수 항목(여행, 날짜, 제목, 내용)이 작성되었는 지 여부
     var hasAllRequiredProperties: Bool {
         let hasTravel = travel != nil
-        let hasLocation = location != nil
         let hasDate = date != nil
         let hasTitle = title?.isEmpty == false
         let hasContent = content?.isEmpty == false
 
-        return hasTravel && hasLocation && hasDate && hasTitle && hasContent
+        return hasTravel && hasDate && hasTitle && hasContent
     }
 
     var dateString: String {

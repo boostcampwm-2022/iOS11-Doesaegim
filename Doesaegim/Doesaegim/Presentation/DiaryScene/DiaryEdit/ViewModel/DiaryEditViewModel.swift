@@ -244,7 +244,6 @@ final class DiaryEditViewModel {
     private func saveDiary() -> Result<Bool, Error> {
         guard let title = temporaryDiary.title,
               let content = temporaryDiary.content,
-              let location = temporaryDiary.location,
               let travel = temporaryDiary.travel,
               let previousTravel = diary.travel,
               let date = temporaryDiary.date
@@ -259,12 +258,32 @@ final class DiaryEditViewModel {
         diary.title = title
         diary.date = date
         diary.content = content
+        diary.images = temporaryDiary.imagePaths
+        updateLocation()
+
+        return repository.saveDiary()
+    }
+
+    private func updateLocation() {
+        guard let location = temporaryDiary.location
+        else {
+            return
+        }
+
+        guard diary.location != nil
+        else {
+            let dto = LocationDTO(
+                name: location.name,
+                latitude: location.latitude,
+                longitude: location.longitude
+            )
+            diary.location = Location.add(with: dto)
+            return
+        }
+
         diary.location?.name = location.name
         diary.location?.latitude = location.latitude
         diary.location?.longitude = location.longitude
-        diary.images = temporaryDiary.imagePaths
-
-        return repository.saveDiary()
     }
 
     private func deleteImagesInFileSystem() {
