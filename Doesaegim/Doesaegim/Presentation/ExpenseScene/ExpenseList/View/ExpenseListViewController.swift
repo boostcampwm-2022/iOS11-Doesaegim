@@ -172,11 +172,9 @@ final class ExpenseListViewController: UIViewController {
     
     private func configureCollectionViewDataSource() {
         
-        var date: Date?
+        var sections: [String]?
         let expenseCell = CellRegistration { cell, _, identifier in
             cell.configureContent(with: identifier)
-            // TODO: - 페이지네이션
-            date = identifier.date
         }
         
         expenseDataSource = DataSource(
@@ -199,7 +197,8 @@ final class ExpenseListViewController: UIViewController {
         
         let sectionHeaderRegistration = SectionHeaderRegistration(
             elementKind: HeaderKind.sectionHeader
-        ) { _, _, _ in
+        ) { [weak self] _, _, _ in
+            sections = self?.viewModel?.sections
         }
         
         expenseDataSource?.supplementaryViewProvider = { (collectionView, kind, indexPath) in
@@ -216,7 +215,9 @@ final class ExpenseListViewController: UIViewController {
                 using: sectionHeaderRegistration,
                 for: indexPath
             )
-            sectionHeader.configureData(date: date)
+            sectionHeader.configureData(
+                dateString: sections?[safeIndex: indexPath.section]
+            )
             return sectionHeader
         }
         
@@ -248,9 +249,7 @@ extension ExpenseListViewController: ExpenseListViewModelDelegate {
         snapshot.appendSections(viewModel.sections)
         
         for info in expenseInfos {
-            let formatter = Date.yearMonthDayDateFormatter
-            let dateString = formatter.string(from: info.date)
-            
+            let dateString = info.date.userDefaultFormattedDate
             snapshot.appendItems([info], toSection: dateString)
         }
         
