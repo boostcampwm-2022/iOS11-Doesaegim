@@ -123,17 +123,14 @@ extension LibraryViewController {
                 trailing: .fixed(0),
                 bottom: .fixed(6)
             )
+            
+            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
+            
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
                 heightDimension: heightDimension
             )
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-            group.edgeSpacing = NSCollectionLayoutEdgeSpacing(
-                leading: .fixed(16),
-                top: .fixed(0),
-                trailing: .fixed(-16),
-                bottom: .fixed(0)
-            )
             
             let section = NSCollectionLayoutSection(group: group)
             return section
