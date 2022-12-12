@@ -11,4 +11,5 @@ enum ImageStatus {
     case inProgress(Progress)
     case complete(UIImage?)
     case error(UIImage?)
+    case dummy
 }

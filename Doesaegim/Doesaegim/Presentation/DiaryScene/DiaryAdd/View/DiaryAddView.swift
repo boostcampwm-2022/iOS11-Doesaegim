@@ -22,6 +22,15 @@ final class DiaryAddView: UIView {
         return scrollView
     }()
 
+    let travelPickerToolbar: UIToolbar = {
+        let toolbar = UIToolbar()
+        toolbar.barStyle = UIBarStyle.default
+        toolbar.tintColor = .primaryOrange
+        toolbar.sizeToFit()
+
+        return toolbar
+    }()
+
     let travelPicker = UIPickerView()
 
     let travelTextField: UITextField = {
@@ -56,17 +65,6 @@ final class DiaryAddView: UIView {
         textView.layer.cornerRadius = 8
         
         return textView
-    }()
-
-    let addPhotoButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(.init(systemName: StringLiteral.squaredPlus), for: .normal)
-        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: Metric.addPhotoButtonWidth)
-        button.setPreferredSymbolConfiguration(symbolConfiguration, forImageIn: .normal)
-        button.tintColor = .primaryOrange
-
-        return button
     }()
 
     private(set) lazy var imageSlider = ImageSliderView()
@@ -140,8 +138,8 @@ final class DiaryAddView: UIView {
             titleTextField, divider, contentTextView
         ]
         contentStack.addArrangedSubviews(contentStackSubviews)
-        contentStack.addSubview(addPhotoButton)
         travelTextField.inputView = travelPicker
+        travelTextField.inputAccessoryView = travelPickerToolbar
         scrollView.addGestureRecognizer(UITapGestureRecognizer(
             target: self, action: #selector(backgroundDidTap)
         ))
@@ -169,7 +167,6 @@ final class DiaryAddView: UIView {
             $0.height.equalTo(imageSlider.snp.width)
         }
         divider.snp.makeConstraints { $0.height.equalTo(Metric.one)}
-        addPhotoButton.snp.makeConstraints { $0.center.equalTo(imageSlider) }
         activityIndicator.snp.makeConstraints { $0.edges.equalToSuperview() }
     }
 }
@@ -180,8 +177,6 @@ fileprivate extension DiaryAddView {
 
     enum Metric {
         static let spacing: CGFloat = 8
-
-        static let addPhotoButtonWidth: CGFloat = 36
 
         static let one: CGFloat = 1
 
@@ -194,8 +189,6 @@ fileprivate extension DiaryAddView {
 
     enum StringLiteral {
         static let travelTextFieldPlaceholder = "여행을 선택해주세요"
-
-        static let squaredPlus = "plus.app"
 
         static let titleTextFieldPlaceholder = "제목"
 
