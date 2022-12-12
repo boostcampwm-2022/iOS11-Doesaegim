@@ -26,6 +26,7 @@ final class PlanAddViewModel: PlanAddViewProtocol {
             guard let selectedLocation = selectedLocation
             else { return }
             delegate?.planAddViewDidSelectLocation(locationName: selectedLocation.name)
+            print("####", selectedLocation)
         }
     }
     
@@ -45,7 +46,7 @@ final class PlanAddViewModel: PlanAddViewProtocol {
         isValidName = false
         isValidPlace = false
         isValidDate = false
-        isValidInput = isValidName && isValidPlace && isValidDate
+        isValidInput = isValidName && isValidDate
         isClearInput = true
         repository = PlanAddLocalRepository()
         self.travel = travel
@@ -62,7 +63,7 @@ final class PlanAddViewModel: PlanAddViewProtocol {
     
     func isValidPlanName(name: String?) {
         defer {
-            isValidInput = isValidName && isValidPlace && isValidDate
+            isValidInput = isValidName && isValidDate
         }
         guard let name,
               !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
@@ -71,23 +72,10 @@ final class PlanAddViewModel: PlanAddViewProtocol {
         }
         isValidName = true
     }
-    
-    func isValidPlace(place: LocationDTO?) {
-        defer {
-            isValidInput = isValidName && isValidPlace && isValidDate
-        }
-        
-        guard let place = place else {
-            isValidPlace = false
-            return
-        }
-        selectedLocation = place
-        isValidPlace = true
-    }
-    
+
     func isValidDate(dateString: String) {
         defer {
-            isValidInput = isValidName && isValidPlace && isValidDate
+            isValidInput = isValidName && isValidDate
         }
         guard Date.convertDateStringToDate(
             dateString: dateString,
@@ -129,7 +117,6 @@ final class PlanAddViewModel: PlanAddViewProtocol {
     ) -> Result<Plan, Error> {
         guard let name,
               let dateString,
-              let locationDTO,
               let date = Date.convertDateStringToDate(
                 dateString: dateString,
                 formatter: Date.yearMonthDayTimeDateFormatter
@@ -164,8 +151,7 @@ final class PlanAddViewModel: PlanAddViewProtocol {
     func updatePlan(
         name: String?,
         dateString: String?,
-        content: String?,
-        location: LocationDTO?
+        content: String?
     ) -> Result<Bool, Error> {
         guard let name,
               let dateString,
@@ -175,7 +161,15 @@ final class PlanAddViewModel: PlanAddViewProtocol {
         }
         plan.setValue(name, forKey: "name")
         plan.setValue(date, forKey: "date")
-        plan.setValue(location, forKey: "location")
+        
+        if plan.location == nil, let locationDTO = selectedLocation {
+            let location = Location.add(with: locationDTO)
+            plan.location = location
+        } else if let planLocation = plan.location, let location = selectedLocation {
+            planLocation.setValue(location.name, forKey: "name")
+            planLocation.setValue(location.latitude, forKey: "latitude")
+            planLocation.setValue(location.longitude, forKey: "longitude")
+        }
         plan.setValue(content, forKey: "content")
         return PersistentManager.shared.saveContext()
     }

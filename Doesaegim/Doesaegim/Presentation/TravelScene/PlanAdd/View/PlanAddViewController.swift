@@ -21,8 +21,6 @@ final class PlanAddViewController: UIViewController {
 
     private let viewModel: PlanAddViewModel
     
-    private var locationDTO: LocationDTO?
-    
     private var mode: Mode
     
     private let planID: UUID?
@@ -173,6 +171,8 @@ extension PlanAddViewController {
             self?.loadView()
             self?.viewDidLoad()
             self?.viewModel.isValidInput = true
+            self?.viewModel.isValidDate = true
+            self?.viewModel.isValidName = true
         }
         let cancelAction = UIAlertAction(title: "취소", style: .cancel)
         presentAlert(title: "일정 수정", message: "일정을 수정하시겠습니까?", actions: updateAction, cancelAction)
@@ -201,7 +201,7 @@ extension PlanAddViewController {
             let result = viewModel.addPlan(
                 name: rootView.planTitleTextField.text,
                 dateString: rootView.dateInputButton.titleLabel?.text,
-                locationDTO: locationDTO,
+                locationDTO: viewModel.selectedLocation,
                 content: rootView.descriptionTextView.text
             )
             
@@ -217,8 +217,7 @@ extension PlanAddViewController {
             let result = viewModel.updatePlan(
                 name: rootView.planTitleTextField.text,
                 dateString: rootView.dateInputButton.titleLabel?.text,
-                content: rootView.descriptionTextView.text,
-                location: locationDTO
+                content: rootView.descriptionTextView.text
             )
             switch result {
             case .success:
@@ -323,8 +322,7 @@ extension PlanAddViewController: PlanAddViewDelegate {
 
 extension PlanAddViewController: SearchingLocationViewControllerDelegate {
     func searchingLocationViewController(didSelect location: LocationDTO) {
-        viewModel.isValidPlace(place: location)
-        locationDTO = location
+        viewModel.selectedLocation = location
     }
 }
 

@@ -14,5 +14,5 @@ struct PlanDTO {
     let isComplete: Bool = false
     let content: String
     let travel: Travel
-    let location: LocationDTO
+    let location: LocationDTO?
 }

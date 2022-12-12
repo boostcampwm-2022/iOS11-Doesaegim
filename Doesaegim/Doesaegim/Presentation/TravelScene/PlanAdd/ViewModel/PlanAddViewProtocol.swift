@@ -16,7 +16,6 @@ protocol PlanAddViewProtocol: AnyObject {
     var isClearInput: Bool { get set }
     
     func isValidPlanName(name: String?)
-    func isValidPlace(place: LocationDTO?)
     func isValidDate(dateString: String)
     
     func isClearInput(title: String?, place: String?, date: String?, description: String?)
