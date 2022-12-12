@@ -339,7 +339,7 @@ fileprivate extension DiaryAddViewController {
 
 // MARK: - CalendarViewDelegate
 extension DiaryAddViewController: CalendarViewDelegate {
-    func fetchDate(dateString: String) {
-        viewModel.dateDidSelect(dateString)
+    func fetchDate(date: Date) {
+        viewModel.dateDidSelect(date)
     }
 }

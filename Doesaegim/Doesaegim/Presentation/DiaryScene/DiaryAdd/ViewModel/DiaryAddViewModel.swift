@@ -64,11 +64,7 @@ final class DiaryAddViewModel {
         delegate?.diaryAddViewModelValuesDidChange(temporaryDiary)
     }
 
-    func dateDidSelect(_ dateString: String) {
-        let date =  Date.convertDateStringToDate(
-            dateString: dateString,
-            formatter: Date.yearMonthDayTimeDateFormatter
-        )
+    func dateDidSelect(_ date: Date) {
         temporaryDiary.date = date
         delegate?.diaryAddViewModelValuesDidChange(temporaryDiary)
     }
