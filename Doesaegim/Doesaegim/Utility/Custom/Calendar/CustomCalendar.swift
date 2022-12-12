@@ -21,6 +21,7 @@ final class CustomCalendar: UICollectionView {
         var isSelected: Bool = false
         var isSelectable: Bool = true
         var isPeriodDate: Bool = false
+        var isSunday: Bool = false
     }
     
     // MARK: - typealias
@@ -32,7 +33,7 @@ final class CustomCalendar: UICollectionView {
     
     private var diffableDatasource: Datasource?
     private var today = Date()
-    private var calendar = Calendar.current
+    private var calendar = Calendar(identifier: .gregorian)
     private var dateComponents = DateComponents()
     private let dateFormmater = Date.yearMonthDateFormatter
     private let weeks: [String] = ["일", "월", "화", "수", "목", "금", "토"]
@@ -230,7 +231,8 @@ extension CustomCalendar {
                     if let startDate, let endDate {
                         let isSelectable =  (startDate...endDate) ~= date
                         days.append(Item(date: date,
-                                         isSelectable: isSelectable))
+                                         isSelectable: isSelectable,
+                                         isSunday: day % 7 == 0))
                     }
                 }
             }
@@ -249,15 +251,18 @@ extension CustomCalendar {
                         days.append(Item(date: date,
                                          isSelected: selectedDates.contains(date),
                                          isSelectable: true,
-                                         isPeriodDate: isPeriodDate))
+                                         isPeriodDate: isPeriodDate,
+                                         isSunday: day % 7 == 0))
                     } else if let startDate = selectedDates.first {
                         let isSelectable = startDate <= date
                         days.append(Item(date: date,
                                          isSelected: startDate == date,
-                                         isSelectable: isSelectable))
+                                         isSelectable: isSelectable,
+                                         isSunday: day % 7 == 0))
                     } else {
                         days.append(Item(date: date,
-                                         isSelectable: true))
+                                         isSelectable: true,
+                                         isSunday: day % 7 == 0))
                     }
                     
                 }
@@ -305,7 +310,8 @@ extension CustomCalendar: UICollectionViewDelegate {
                     days = days.map {
                         $0.date == nil ? Item(date: nil, isSelectable: false)
                         : Item(date: $0.date ?? Date(), isSelected: selectedDate == ($0.date ?? Date()),
-                               isSelectable: selectedDate <= ($0.date ?? Date()), isPeriodDate: false)
+                               isSelectable: selectedDate <= ($0.date ?? Date()), isPeriodDate: false,
+                               isSunday: $0.isSunday)
                     }
                 }
             } else if selectedCount == 2 {
@@ -319,7 +325,8 @@ extension CustomCalendar: UICollectionViewDelegate {
                         date: $0.date,
                         isSelected: selectedDates.compactMap { $0 }.contains($0.date),
                         isSelectable: true,
-                        isPeriodDate: isPeriodDate
+                        isPeriodDate: isPeriodDate,
+                        isSunday: $0.isSunday
                     )
                     
                 }
