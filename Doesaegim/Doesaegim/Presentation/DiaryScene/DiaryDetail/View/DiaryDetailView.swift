@@ -105,8 +105,11 @@ final class DiaryDetailView: UIView {
             locationLabel.isHidden = true
         }
         
-        let dateFormatter = Date.yearMonthDayTimeDateFormatter
-        dateLabel.text = dateFormatter.string(from: diary.date ?? Date())
+        if let diaryDate = diary.date {
+            dateLabel.text = diaryDate.userDefaultFormattedDate + " " + diaryDate.userDefaultFormattedTime
+        } else {
+            dateLabel.isHidden = true
+        }
         activityIndicatorView.stopAnimating()
     }
     
