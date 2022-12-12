@@ -87,7 +87,7 @@ extension PieceTextLayer {
     enum Metric {
         static let radiusRatio: CGFloat = 0.4
 
-        static let textWidth: CGFloat = 60
+        static let textWidth: CGFloat = 70
         static let textFontSize: CGFloat = 16
         
         static let positionRatio: CGFloat = 0.7

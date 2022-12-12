@@ -112,7 +112,8 @@ final class BarBackgroundLayer: CAShapeLayer {
         
         let dateTextLayer = BarTextLayer(
             rect: dateTextFrame,
-            text: Date.yearMonthDaySplitDashDateFormatter.string(from: willDisplayDate)
+            text: Date.monthDayDateFormatter.string(from: willDisplayDate),
+            textFontSize: Metric.dateFontSize
         )
         addSublayer(dateTextLayer)
     }
@@ -135,7 +136,7 @@ final class BarBackgroundLayer: CAShapeLayer {
         let costTextLayer = BarTextLayer(
             rect: costTextFrame,
             text: Int(willDisplayCost).numberFormatter(),
-            textFontSize: 9
+            textFontSize: Metric.costFontSize
         )
         addSublayer(costTextLayer)
     }
@@ -147,6 +148,8 @@ extension BarBackgroundLayer {
     enum Metric {
         static let dividerCount = 5
         static let lineWidth: CGFloat = 2
-        static let textFontSize: CGFloat = 14
+        
+        static let dateFontSize: CGFloat = 11
+        static let costFontSize: CGFloat = 9
     }
 }
