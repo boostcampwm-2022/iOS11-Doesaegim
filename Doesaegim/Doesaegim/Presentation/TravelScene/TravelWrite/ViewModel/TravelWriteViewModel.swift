@@ -28,13 +28,16 @@ final class TravelWriteViewModel: TravelWriteViewProtocol {
         }
     }
     
+    private let travel: Travel?
+    
     // MARK: - Lifecycles
     
-    init() {
+    init(travel: Travel? = nil) {
         isValidTextField = false
         isValidDate = false
         isValidInput = isValidTextField && isValidDate
         isClearInput = true
+        self.travel = travel
         repository = TravelAddLocalRepository()
     }
     
@@ -101,22 +104,9 @@ final class TravelWriteViewModel: TravelWriteViewProtocol {
               let endDate else {
             return .failure(CoreDataError.fetchFailure(.travel))
         }
-        let result = PersistentRepository.shared.fetchTravel()
-        switch result {
-        case .success(let travels):
-            let updateTravels = travels.filter({ $0.id == travel.id })
-            guard let updateTravel = updateTravels.last
-            else {
-                return .failure(CoreDataError.fetchFailure(.travel))
-            }
-            updateTravel.setValue(name, forKey: "name")
-            updateTravel.setValue(startDate, forKey: "startDate")
-            updateTravel.setValue(endDate, forKey: "endDate")
-            return PersistentManager.shared.saveContext()
-            
-        case .failure(let error):
-            print(error.localizedDescription)
-            return .failure(CoreDataError.updateFailure(.travel))
-        }
+        travel.setValue(name, forKey: "name")
+        travel.setValue(startDate, forKey: "startDate")
+        travel.setValue(endDate, forKey: "endDate")
+        return PersistentManager.shared.saveContext()
     }
 }

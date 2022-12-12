@@ -25,7 +25,7 @@ final class TravelWriteViewController: UIViewController {
     // MARK: - Lifecycles
     
     init(mode: Mode, travel: Travel? = nil) {
-        viewModel = TravelWriteViewModel()
+        viewModel = TravelWriteViewModel(travel: travel)
         self.mode = mode
         self.travel = travel
         super.init(nibName: nil, bundle: nil)
