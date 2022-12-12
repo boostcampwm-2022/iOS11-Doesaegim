@@ -35,13 +35,13 @@ extension CalendarSettingViewModel {
                 ) as? Int ?? 0,
                 options: [
                     CalendarViewModel(title: "yyyy년 mm월 dd일", handler: {
-                        print("yyyy년 mm월 dd일")
+                        
                     }),
                     CalendarViewModel( title: "yyyy/mm/dd", handler: {
-                        print("yyyy/mm/dd")
+                        
                     }),
                     CalendarViewModel( title: "mm/dd/yyyy", handler: {
-                        print("mm/dd/yyyy")
+                        
                     }),
                 ]
             ),
@@ -52,10 +52,10 @@ extension CalendarSettingViewModel {
                 ) as? Int ?? 0,
                 options: [
                     CalendarViewModel(title: "AM/PM", handler: {
-                        print("AM/PM표기법")
+                        
                     }),
                     CalendarViewModel(title: "24시간", handler: {
-                        print("24시간")
+                        
                     })
                 ]
             )
