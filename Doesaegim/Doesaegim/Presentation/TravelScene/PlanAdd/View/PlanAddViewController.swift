@@ -49,7 +49,7 @@ final class PlanAddViewController: UIViewController {
         setKeyboardNotification()
         setDelegate()
         setAddTargets()
-        if mode == .detail || mode == .update {
+        if mode != .post {
             viewModel.fetchPlan()
         }
     }

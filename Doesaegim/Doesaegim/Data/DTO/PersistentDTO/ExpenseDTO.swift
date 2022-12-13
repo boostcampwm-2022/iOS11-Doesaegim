@@ -15,5 +15,6 @@ struct ExpenseDTO {
     let cost: Int64
     let currency: String
     let date: Date
+    let tradingStandardRate: Double
     let travel: Travel
 }

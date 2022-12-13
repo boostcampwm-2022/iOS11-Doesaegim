@@ -13,17 +13,20 @@ final class ExpenseAddViewController: UIViewController {
     
     // MARK: - UI properties
     
-    private let rootView = ExpenseAddView()
+    private var rootView: ExpenseAddView
     
     // MARK: - Properties
     
     private let viewModel: ExpenseAddViewModel
     private var exchangeInfo: ExchangeData?
+    private var mode: Mode
     
     // MARK: - Lifecycles
     
-    init(travel: Travel) {
-        viewModel = ExpenseAddViewModel(travel: travel)
+    init(travel: Travel, mode: Mode, expenseID: UUID? = nil) {
+        rootView = ExpenseAddView(frame: .zero, mode: mode)
+        viewModel = ExpenseAddViewModel(travel: travel, expenseID: expenseID)
+        self.mode = mode
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -40,18 +43,35 @@ final class ExpenseAddViewController: UIViewController {
         setKeyboardNotification()
         setAddTarget()
         setDelegates()
+        if mode != .post {
+            viewModel.fetchExpense()
+        }
     }
     
     // MARK: - Configure Function
     
     private func configureNavigation() {
-        navigationItem.title = "지출 추가"
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "chevron.backward"),
             style: .done,
             target: self,
             action: #selector(backButtonTouchUpInside)
         )
+        navigationItem.rightBarButtonItem = nil
+        switch mode {
+        case .detail:
+            navigationItem.title = "지출 상세"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(
+                image: UIImage(systemName: "pencil"),
+                style: .done,
+                target: self,
+                action: #selector(updateButtonTapped)
+            )
+        case .post:
+            navigationItem.title = "지출 추가"
+        case .update:
+            navigationItem.title = "지출 수정"
+        }
     }
     
     // MARK: - AddTarget
@@ -105,6 +125,27 @@ final class ExpenseAddViewController: UIViewController {
             description: rootView.descriptionTextView.text
         )
     }
+    
+    @objc private func updateButtonTapped() {
+        let updateAction = UIAlertAction(
+            title: "수정하기",
+            style: .default
+        ) { [weak self] _ in
+            self?.mode = .update
+            self?.rootView = ExpenseAddView(frame: .zero, mode: .update)
+            self?.loadView()
+            self?.viewDidLoad()
+            self?.viewModel.isValidName = true
+            self?.viewModel.isValidAmount = true
+            self?.viewModel.isValidUnit = true
+            self?.viewModel.isValidCategory = true
+            self?.viewModel.isValidDate = true
+            self?.viewModel.isValidInput = true
+            
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        presentAlert(title: "지출 수정", message: "지출을 수정하시겠습니까?", actions: updateAction, cancelAction)
+    }
 }
 
 // MARK: - Actions
@@ -134,21 +175,45 @@ extension ExpenseAddViewController {
     }
     
     @objc func addButtonTouchUpInside() {
-        let result = viewModel.addExpense(
-            name: rootView.titleTextField.text,
-            category: rootView.categoryButton.titleLabel?.text,
-            content: rootView.descriptionTextView.text,
-            cost: rootView.amountTextField.text,
-            date: rootView.dateButton.titleLabel?.text,
-            exchangeInfo: exchangeInfo
-        )
-        switch result {
-        case .success:
-            navigationController?.popViewController(animated: true)
-        case .failure(let error):
-            print(error.localizedDescription)
-            presentErrorAlert(title: CoreDataError.saveFailure(.expense).errorDescription)
+        switch mode {
+        case .post:
+            let result = viewModel.addExpense(
+                name: rootView.titleTextField.text,
+                category: rootView.categoryButton.titleLabel?.text,
+                content: rootView.descriptionTextView.text,
+                cost: rootView.amountTextField.text,
+                date: rootView.dateButton.titleLabel?.text,
+                exchangeInfo: exchangeInfo
+            )
+            switch result {
+            case .success:
+                navigationController?.popViewController(animated: true)
+            case .failure(let error):
+                print(error.localizedDescription)
+                presentErrorAlert(title: CoreDataError.saveFailure(.expense).errorDescription)
+            }
+            
+        case .update:
+            let result = viewModel.updateExpense(
+                name: rootView.titleTextField.text,
+                category: rootView.categoryButton.titleLabel?.text,
+                content: rootView.descriptionTextView.text,
+                cost: rootView.amountTextField.text,
+                date: rootView.dateButton.titleLabel?.text,
+                exchangeInfo: exchangeInfo
+            )
+            switch result {
+            case .success:
+                navigationController?.popViewController(animated: true)
+            case .failure(let error):
+                print(error.localizedDescription)
+                presentErrorAlert(title: CoreDataError.saveFailure(.expense).errorDescription)
+            }
+            
+        case .detail:
+            break
         }
+        
     }
 }
 
@@ -194,7 +259,7 @@ extension ExpenseAddViewController: ExpenseAddViewDelegate {
     }
     
     func backButtonDidTap(isClear: Bool) {
-        if !isClear {
+        if !isClear && mode != .detail {
             presentIsClearAlert()
         } else {
             navigationController?.popViewController(animated: true)
@@ -215,6 +280,29 @@ extension ExpenseAddViewController: ExpenseAddViewDelegate {
         pickerViewController.delegate = self
         present(pickerViewController, animated: true)
     }
+    
+    func configureExpenseDetail(expense: Expense) {
+        guard let date = expense.date
+        else { return }
+        rootView.titleTextField.text = expense.name
+        // TODO: 수정해야함
+        rootView.amountTextField.text = "\(expense.cost)"
+        
+        rootView.moneyUnitButton.setTitle(
+            expense.currency,
+            for: .normal
+        )
+        rootView.categoryButton.setTitle(
+            expense.category,
+            for: .normal
+        )
+        rootView.dateButton.setTitle(
+            Date.yearMonthDayDateFormatter.string(from: date),
+            for: .normal
+        )
+        rootView.descriptionTextView.text = expense.content
+    }
+    
 }
 
 // MARK: - Keyboard
@@ -289,8 +377,18 @@ extension ExpenseAddViewController: UITextFieldDelegate {
     }
 }
 
+// MARK: - Enum Mode
+
+extension ExpenseAddViewController {
+    enum Mode {
+        case post
+        case detail
+        case update
+    }
+}
+
 fileprivate extension ExpenseAddViewController {
     enum Metric {
-        static let amountTextFieldMaxCount: Int = 9
+        static let amountTextFieldMaxCount: Int = 7
     }
 }

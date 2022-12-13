@@ -28,8 +28,6 @@ final class ExpenseListViewController: UIViewController {
         
         collectionView.backgroundColor = .white
         collectionView.layer.cornerRadius = 12
-        collectionView.allowsSelection = false
-        
         return collectionView
     }()
     
@@ -264,7 +262,7 @@ final class ExpenseListViewController: UIViewController {
     @objc func didAddExpenseButtonTap() {
         guard let travel = viewModel?.currentTravel else { return }
         navigationController?.pushViewController(
-            ExpenseAddViewController(travel: travel),
+            ExpenseAddViewController(travel: travel, mode: .post),
             animated: true
         )
     }
@@ -312,8 +310,15 @@ extension ExpenseListViewController: ExpenseListViewModelDelegate {
 
 extension ExpenseListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
-        
+        guard let expenseInfoViewModel = expenseDataSource?.itemIdentifier(for: indexPath),
+              let travel = viewModel?.currentTravel
+        else { return }
+        let expenseWriteViewController = ExpenseAddViewController(
+            travel: travel,
+            mode: .detail,
+            expenseID: expenseInfoViewModel.uuid
+        )
+        navigationController?.pushViewController(expenseWriteViewController, animated: true)
     }
 }
 

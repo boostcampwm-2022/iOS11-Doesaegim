@@ -17,6 +17,7 @@
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="tradingStandardRate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="travel" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Travel" inverseName="expense" inverseEntity="Travel"/>
     </entity>
     <entity name="Location" representedClassName=".Location" syncable="YES" codeGenerationType="category">

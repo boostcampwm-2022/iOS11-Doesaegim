@@ -180,12 +180,18 @@ final class ExpenseAddView: UIView {
         return button
     }()
     
+    // MARK: - Properties
+    
+    private let mode: ExpenseAddViewController.Mode
+    
     // MARK: - Lifecycles
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, mode: ExpenseAddViewController.Mode) {
+        self.mode = mode
         super.init(frame: frame)
         backgroundColor = .white
         configureViews()
+        modeInit()
     }
     
     @available(*, unavailable)
@@ -205,14 +211,14 @@ final class ExpenseAddView: UIView {
         scrollView.addSubview(contentView)
         contentView.addSubviews(
             titleStackView, amountStackView, moneyUnitStackView, categoryStackView,
-            dateStackView, descriptionStackView, addButton
+            dateStackView, descriptionStackView
         )
         titleStackView.addArrangedSubviews(titleLabel, titleTextField)
         amountStackView.addArrangedSubviews(amountLabel, amountTextField)
         moneyUnitStackView.addArrangedSubviews(moneyUnitLabel, moneyUnitButton, moneyUnitExchangeLabel)
         categoryStackView.addArrangedSubviews(categoryLabel, categoryButton)
         dateStackView.addArrangedSubviews(dateLabel, dateButton)
-        descriptionStackView.addArrangedSubviews(descriptionTitleLabel, descriptionTextView)
+        descriptionStackView.addArrangedSubviews(descriptionTitleLabel, descriptionTextView, addButton)
         scrollView.addGestureRecognizer(UITapGestureRecognizer(
             target: self, action: #selector(backgroundDidTap)
         ))
@@ -276,6 +282,7 @@ final class ExpenseAddView: UIView {
         descriptionStackView.snp.makeConstraints {
             $0.top.equalTo(dateStackView.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().offset(-30)
         }
         
         descriptionTextView.snp.makeConstraints {
@@ -283,11 +290,30 @@ final class ExpenseAddView: UIView {
         }
         
         addButton.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalToSuperview().offset(-30)
-            $0.top.equalTo(descriptionTextView.snp.bottom).offset(40)
+            
             $0.height.equalTo(48)
         }
+    }
+    
+    private func modeInit() {
+        switch mode {
+        case .detail:
+            setDetailMode()
+        case .update:
+            addButton.setTitle("지출 수정", for: .normal)
+        case .post:
+            addButton.setTitle("지출 추가", for: .normal)
+        }
+    }
+    
+    private func setDetailMode() {
+        titleTextField.isEnabled = false
+        amountTextField.isEnabled = false
+        moneyUnitButton.isEnabled = false
+        categoryButton.isEnabled = false
+        dateButton.isEnabled = false
+        descriptionTextView.isEditable = false
+        addButton.isHidden = true
     }
     
     @objc private func backgroundDidTap() {
