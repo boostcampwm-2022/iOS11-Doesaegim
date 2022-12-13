@@ -20,7 +20,12 @@ final class SearchingLocationRemoteRepository: SearchingLocationRepository {
         
         let search = MKLocalSearch(request: request)
         search.start { response, error in
-            if error != nil { return completion(.failure(.invalidRequest)) }
+            if let error {
+                if let mkError = error as? MKError, mkError.code == .placemarkNotFound {
+                    return completion(.success([]))
+                }
+                return completion(.failure(.invalidRequest))
+            }
             
             guard let response
             else { return completion(.failure(.responseError)) }
