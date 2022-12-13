@@ -77,12 +77,13 @@ final class CustomPieChart: UIView {
     /// 주어진 rect에 맞게 원형 차트를 그린다. 원형 차트는 정원 형태로 영역에 꽉 채워서 그려진다.
     /// - Parameter rect: 원형 차트를 그릴 영역.
     override func draw(_ rect: CGRect) {
+        initializeAnimation()
+
         if isAnimating {
             drawOnePiece(with: currentItem, on: rect)
             return
         }
         
-        initializeAnimation()
         for index in items.indices {
             currentIndex = index
             drawOnePiece(with: currentItem, on: rect)
@@ -184,7 +185,7 @@ extension CustomPieChart: CAAnimationDelegate {
         
         startAngle += ratio * Metric.angle
         currentIndex += 1
-        setNeedsDisplay()
+        drawOnePiece(with: currentItem, on: bounds)
     }
 }
 
