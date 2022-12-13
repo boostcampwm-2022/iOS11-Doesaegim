@@ -50,7 +50,6 @@ final class DiaryDetailViewModel {
     // MARK: - Functions
     
     func fetchDiaryDetail() {
-        delegate?.diaryDetailTitleDidFetch(with: navigationTitle)
         delegate?.diaryDetailDidFetch(diary: diary)
         
         guard let paths = diary.images,

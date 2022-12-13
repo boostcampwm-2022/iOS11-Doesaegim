@@ -24,8 +24,10 @@ public class Diary: NSManagedObject {
         diary.title = object.title
         diary.content = object.content
 
-        let location = Location.add(with: object.location)
-        diary.location = location
+        if let locationDTO = object.location {
+            let location = Location.add(with: locationDTO)
+            diary.location = location
+        }
         
         object.travel.addToDiary(diary)
         

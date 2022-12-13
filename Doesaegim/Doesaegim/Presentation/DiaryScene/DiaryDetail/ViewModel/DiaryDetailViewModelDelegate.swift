@@ -9,8 +9,6 @@ import Foundation
 
 protocol DiaryDetailViewModelDelegate: AnyObject {
     
-    func diaryDetailTitleDidFetch(with title: String?)
-    
     func diaryDetailDidFetch(diary: Diary)
     
     func diaryDetailImageSliderPagesDidFetch(_ count: Int)

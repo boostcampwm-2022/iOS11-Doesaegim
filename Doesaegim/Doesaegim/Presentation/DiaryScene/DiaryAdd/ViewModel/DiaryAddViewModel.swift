@@ -60,6 +60,14 @@ final class DiaryAddViewModel {
 
     func travelDidSelect(_ travel: Travel) {
         temporaryDiary.travel = travel
+        if let date = temporaryDiary.date,
+           let startDate = travel.startDate,
+           let endDate = travel.endDate,
+           let dateAfterEndDate = Calendar.current.date(byAdding: .day, value: 1, to: endDate),
+           !(startDate..<dateAfterEndDate ~= date) {
+            /// 여행 변경 후 기존에 설정한 날짜가 여행의 기간을 벗어나는 경우 무효화
+            temporaryDiary.date = nil
+        }
         delegate?.diaryAddViewModelValuesDidChange(temporaryDiary)
     }
 
@@ -200,7 +208,6 @@ final class DiaryAddViewModel {
     private func addDiary() -> Result<Diary, Error> {
         guard let title = temporaryDiary.title,
               let content = temporaryDiary.content,
-              let location = temporaryDiary.location,
               let travel = temporaryDiary.travel,
               let date = temporaryDiary.date
         else {
@@ -213,7 +220,7 @@ final class DiaryAddViewModel {
             date: date,
             images: temporaryDiary.imagePaths,
             title: title,
-            location: location,
+            location: temporaryDiary.location,
             travel: travel
         )
 

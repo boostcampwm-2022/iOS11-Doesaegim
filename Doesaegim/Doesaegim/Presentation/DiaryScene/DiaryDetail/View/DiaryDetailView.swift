@@ -27,6 +27,15 @@ final class DiaryDetailView: UIView {
         
         return slider
     }()
+
+    /// 제목 레이블
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = Metric.contentNumberOfLines
+        label.font = .boldSystemFont(ofSize: FontSize.title)
+
+        return label
+    }()
     
     /// 내용 레이블
     private let contentLabel: UILabel = {
@@ -98,6 +107,7 @@ final class DiaryDetailView: UIView {
     /// 다이어리 객체를 받아와 각 뷰의 요소를 설정한다.
     /// - Parameter diary: 화면에 표시할 다이어리 객체
     func setupData(diary: Diary) {
+        titleLabel.text = diary.title
         contentLabel.text = diary.content
         if let locationName = diary.location?.name {
             locationLabel.text = locationName
@@ -134,7 +144,7 @@ final class DiaryDetailView: UIView {
     
     private func configureSubviews() {
         infoStack.addArrangedSubviews(locationLabel, dateLabel)
-        contentStack.addArrangedSubviews(imageSlider, contentLabel, infoStack)
+        contentStack.addArrangedSubviews(imageSlider, titleLabel, contentLabel, infoStack)
         
         scrollView.addSubview(contentStack)
         addSubviews(scrollView, activityIndicatorView)
@@ -142,7 +152,7 @@ final class DiaryDetailView: UIView {
     
     private func configureConstraint() {
         imageSlider.snp.makeConstraints { $0.height.equalTo(imageSlider.snp.width) }
-        [contentLabel, infoStack].forEach {
+        [titleLabel, contentLabel, infoStack].forEach {
             $0.snp.makeConstraints {
                 $0.leading.equalToSuperview().inset(Metric.contentInsets)
             }
