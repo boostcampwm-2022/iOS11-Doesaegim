@@ -181,7 +181,20 @@ final class ExpenseListViewController: UIViewController {
         
         var sections: [String]?
         let expenseCell = CellRegistration { cell, _, identifier in
-            cell.configureContent(with: identifier)
+            cell.configureContent(with: identifier) { [weak self] in
+                // 알림을 내보내고, 지우는 로직
+                let cancelAction = UIAlertAction(title: "취소", style: .default)
+                let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] _ in
+                    self?.viewModel?.deleteExpenseData(with: identifier.uuid)
+                }
+                
+                self?.presentAlert(
+                    title: "지출을 삭제하시겠습니까?",
+                    message: "한번 삭제한 지출은 복구할 수 없습니다.",
+                    actions: cancelAction, deleteAction
+                )
+                
+            }
         }
         
         expenseDataSource = DataSource(

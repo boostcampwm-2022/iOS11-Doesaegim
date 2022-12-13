@@ -25,7 +25,7 @@ final class ExpenseListCell: UICollectionViewCell {
         
         stackView.axis = .vertical
         stackView.distribution = .fill
-        stackView.spacing = 3
+        stackView.spacing = 4
         stackView.alignment = .leading
         
         return stackView
@@ -64,10 +64,13 @@ final class ExpenseListCell: UICollectionViewCell {
 
     }()
     
-    let menuButton: UIButton = {
+    let deleteButton: UIButton = {
+        let button = UIButton()
         
+        button.setImage(UIImage(systemName: "trash"), for: .normal)
+        button.tintColor = .primaryOrange
         
-        
+        return button
     }()
     
     // MARK: - Initializer
@@ -110,6 +113,7 @@ final class ExpenseListCell: UICollectionViewCell {
         // stack view
         labelStackView.addArrangedSubview(expenseTitle)
         labelStackView.addArrangedSubview(expenseDescription)
+        labelStackView.addArrangedSubview(deleteButton)
     }
     
     private func configureConstraints() {
@@ -121,24 +125,34 @@ final class ExpenseListCell: UICollectionViewCell {
             $0.height.equalTo(30)
         }
         
-        priceLabel.snp.makeConstraints {
-            $0.centerY.equalTo(self.snp.centerY)
-            $0.trailing.equalTo(self.snp.trailing).offset(-12)
-        }
-        
         labelStackView.snp.makeConstraints {
             $0.leading.equalTo(categoryImageView.snp.trailing).offset(9)
             $0.trailing.equalTo(priceLabel.snp.leading).offset(-6)
             $0.verticalEdges.equalToSuperview().inset(6)
         }
+        
+        priceLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(9)
+        }
+        
+//        menuButton.snp.makeConstraints {
+//            $0.leading.equalTo(priceLabel.snp.trailing).offset(6)
+//            $0.trailing.equalToSuperview().inset(9)
+//            $0.centerY.equalToSuperview()
+//        }
     }
     
-    func configureContent(with data: ExpenseInfoViewModel) {
+    func configureContent(with data: ExpenseInfoViewModel, handler: @escaping () -> Void) {
         
         configureImageView(with: data.category)
         configureTitle(with: data.name)
         configureDescription(with: data.content)
         configurePrice(with: data.cost)
+        
+        deleteButton.addAction(UIAction(handler: { _ in
+            handler()
+        }), for: .touchUpInside)
         
     }
     
