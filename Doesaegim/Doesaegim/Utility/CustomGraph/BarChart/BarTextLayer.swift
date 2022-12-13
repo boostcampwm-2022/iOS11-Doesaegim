@@ -57,6 +57,5 @@ final class BarTextLayer: CATextLayer {
         )
         string = attributedString
         alignmentMode = alignment ?? .center
-        truncationMode = .end
     }
 }
