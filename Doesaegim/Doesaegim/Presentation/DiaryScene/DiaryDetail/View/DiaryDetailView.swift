@@ -111,6 +111,7 @@ final class DiaryDetailView: UIView {
         contentLabel.text = diary.content
         if let locationName = diary.location?.name {
             locationLabel.text = locationName
+            locationLabel.isHidden = false
         } else {
             locationLabel.isHidden = true
         }

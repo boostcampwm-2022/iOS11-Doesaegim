@@ -17,6 +17,7 @@ protocol ExpenseListViewModelProtocol: AnyObject {
     func fetchCurrentTravel(with travelID: UUID?)
     func fetchExpenseData()
     func addExpenseData() // 추후 제거
+    func deleteExpenseData(with id: UUID)
     
 }
 

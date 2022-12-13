@@ -103,7 +103,7 @@ final class DiaryEditViewModel {
         delegate?.diaryEditViewModelValuesDidChange(temporaryDiary)
     }
 
-    func locationDidSelect(_ location: LocationDTO) {
+    func locationDidSelect(_ location: LocationDTO?) {
         temporaryDiary.location = location
         delegate?.diaryEditViewModelValuesDidChange(temporaryDiary)
     }
@@ -266,31 +266,45 @@ final class DiaryEditViewModel {
         diary.date = date
         diary.content = content
         diary.images = temporaryDiary.imagePaths
-        updateLocation()
+
+        switch updateLocation() {
+        case .success:
+            break
+        case .failure:
+            return .failure(CoreDataError.saveFailure(.diary))
+        }
 
         return repository.saveDiary()
     }
 
-    private func updateLocation() {
-        guard let location = temporaryDiary.location
-        else {
-            return
+    private func updateLocation() -> Result<Bool, Error> {
+        if temporaryDiary.location == nil, diary.location == nil {
+            return .success(true)
         }
 
-        guard diary.location != nil
-        else {
+        if temporaryDiary.location == nil,
+           let previousLocation = diary.location {
+            return repository.deleteLocation(previousLocation)
+        }
+
+        if let location = temporaryDiary.location, diary.location == nil {
             let dto = LocationDTO(
                 name: location.name,
                 latitude: location.latitude,
                 longitude: location.longitude
             )
             diary.location = Location.add(with: dto)
-            return
+            return .success(true)
         }
 
-        diary.location?.name = location.name
-        diary.location?.latitude = location.latitude
-        diary.location?.longitude = location.longitude
+        if let location = temporaryDiary.location, diary.location != nil {
+            diary.location?.name = location.name
+            diary.location?.latitude = location.latitude
+            diary.location?.longitude = location.longitude
+            return .success(true)
+        }
+
+        return .failure(CoreDataError.saveFailure(.diary))
     }
 
     private func deleteImagesInFileSystem() {

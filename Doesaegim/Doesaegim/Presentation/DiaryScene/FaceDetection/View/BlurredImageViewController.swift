@@ -22,6 +22,8 @@ final class BlurredImageViewController: UIViewController {
         return imageView
     }()
 
+    private let activityIndicator = UIActivityIndicatorView()
+
 
     // MARK: - Properties
 
@@ -58,16 +60,22 @@ final class BlurredImageViewController: UIViewController {
 
     private func configureViews() {
         view.backgroundColor = .white
-        configureImageView()
+        configureSubviews()
     }
 
-    private func configureImageView() {
-        view.addSubview(imageView)
-        imageView.snp.makeConstraints { $0.edges.equalTo(view.safeAreaLayoutGuide) }
+    private func configureSubviews() {
+        view.addSubviews(imageView, activityIndicator)
+        [imageView, activityIndicator].forEach { subview in
+            subview.snp.makeConstraints { $0.edges.equalTo(view.safeAreaLayoutGuide) }
+        }
+        activityIndicator.startAnimating()
     }
 
     private func bindToViewModel() {
-        viewModel.blurCompletionHandler = { [weak self] in self?.imageView.image = $0 }
+        viewModel.blurCompletionHandler = { [weak self] in
+            self?.imageView.image = $0
+            self?.activityIndicator.stopAnimating()
+        }
     }
 
     private func configureNavigationBar() {

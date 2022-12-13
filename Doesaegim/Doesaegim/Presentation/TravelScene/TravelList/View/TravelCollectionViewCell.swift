@@ -50,6 +50,17 @@ final class TravelCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    private let deleteButton: UIButton = {
+        let button = UIButton()
+        
+        button.tintColor = .primaryOrange
+        button.setImage(UIImage(systemName: "trash"), for: .normal)
+        
+        return button
+    }()
+    
+    var deleteAction: (() -> Void)?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -85,6 +96,7 @@ extension TravelCollectionViewCell {
         
         addSubview(imageView)
         addSubview(labelStackView)
+        addSubview(deleteButton)
         labelStackView.addArrangedSubview(titleLabel)
         labelStackView.addArrangedSubview(dateLabel)
     }
@@ -100,7 +112,12 @@ extension TravelCollectionViewCell {
         labelStackView.snp.makeConstraints {
             $0.verticalEdges.equalToSuperview().inset(9)
             $0.leading.equalTo(imageView.snp.trailing).offset(9)
+            $0.trailing.equalTo(deleteButton.snp.leading).offset(-9)
+        }
+        
+        deleteButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(9)
+            $0.centerY.equalToSuperview()
         }
         
     }
@@ -108,15 +125,10 @@ extension TravelCollectionViewCell {
     func configure(with data: TravelInfoViewModel) {
         titleLabel.text = data.title
         dateLabel.text = Date.convertTravelString(start: data.startDate, end: data.endDate)
-    }
-    
-    private func addShadow() {
-        layer.masksToBounds = false
-        layer.shadowColor = UIColor.grey2?.cgColor
-        layer.shadowOffset = CGSize(width: 1, height: 1)
-        layer.shadowRadius = 3
-        layer.shadowOpacity = 1
-
+        
+        deleteButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.deleteAction?()
+        }), for: .touchUpInside)
     }
     
 }

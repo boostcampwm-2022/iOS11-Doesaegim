@@ -59,4 +59,30 @@ final class DiaryDetailViewModel {
         cellViewModels = imageItems.map { DetailImageCellViewModel(data: $0) }
     }
     
+    func deleteDiary(with id: UUID) {
+        
+        let result = PersistentRepository.shared.fetchDiary()
+        switch result {
+        case .success(let diaries):
+            let deleteDiary = diaries.filter { $0.id == id }
+            guard let deleteObject = deleteDiary.last else { return }
+            
+            let deleteResult = PersistentManager.shared.delete(deleteObject)
+            switch deleteResult {
+            case .success(let isDeleteComplete):
+                if isDeleteComplete {
+                    delegate?.diaryDeleteDidComplete()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                // TODO: - 삭제실패 알림 delegate
+            }
+            
+        case .failure(let error):
+            print(error.localizedDescription)
+            
+        }
+        
+    }
+    
 }
