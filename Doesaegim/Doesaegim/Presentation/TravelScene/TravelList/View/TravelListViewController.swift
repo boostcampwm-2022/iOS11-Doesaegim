@@ -134,6 +134,19 @@ final class TravelListViewController: UIViewController {
         
         let travelCell = CellRegistration { cell, indexPath, identifier in
             cell.configure(with: identifier)
+            cell.deleteAction = { [weak self] in
+                let cancelAction = UIAlertAction(title: "취소", style: .default)
+                let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
+                    self?.viewModel?.deleteTravel(with: identifier.uuid)
+                }
+                
+                self?.presentAlert(
+                    title: "여행을 삭제하시겠습니까?",
+                    message: "관련된 일정, 지출, 다이어리가 전부 삭제됩니다. 정말 삭제하시겠습니까?",
+                    actions: cancelAction, deleteAction
+                )
+            }
+            
             
             if let viewModel = self.viewModel,
                viewModel.travelInfos.count >= 10,
