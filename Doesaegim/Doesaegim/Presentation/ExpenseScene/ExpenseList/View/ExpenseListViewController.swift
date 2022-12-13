@@ -187,9 +187,11 @@ final class ExpenseListViewController: UIViewController {
     private func configureCollectionViewDataSource() {
         
         var sections: [String]?
-        let expenseCell = CellRegistration { cell, _, identifier in
-            cell.configureContent(with: identifier) { [weak self] in
-                // 알림을 내보내고, 지우는 로직
+        let expenseCell = CellRegistration { cell, indexPath, identifier in
+            
+            cell.configureContent(with: identifier)
+            cell.deleteAction = { [weak self] in
+                
                 let cancelAction = UIAlertAction(title: "취소", style: .default)
                 let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] _ in
                     self?.viewModel?.deleteExpenseData(with: identifier.uuid)
@@ -200,8 +202,8 @@ final class ExpenseListViewController: UIViewController {
                     message: "한번 삭제한 지출은 복구할 수 없습니다.",
                     actions: cancelAction, deleteAction
                 )
-                
             }
+            
         }
         
         expenseDataSource = DataSource(
@@ -304,6 +306,7 @@ extension ExpenseListViewController: ExpenseListViewModelDelegate {
 extension ExpenseListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath)
+        
     }
 }
 

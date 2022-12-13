@@ -73,6 +73,8 @@ final class ExpenseListCell: UICollectionViewCell {
         return button
     }()
     
+    var deleteAction: (() -> Void)?
+    
     // MARK: - Initializer
     
     override init(frame: CGRect) {
@@ -143,15 +145,15 @@ final class ExpenseListCell: UICollectionViewCell {
 //        }
     }
     
-    func configureContent(with data: ExpenseInfoViewModel, handler: @escaping () -> Void) {
+    func configureContent(with data: ExpenseInfoViewModel) {
         
         configureImageView(with: data.category)
         configureTitle(with: data.name)
         configureDescription(with: data.content)
         configurePrice(with: data.cost)
         
-        deleteButton.addAction(UIAction(handler: { _ in
-            handler()
+        deleteButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.deleteAction?()
         }), for: .touchUpInside)
         
     }

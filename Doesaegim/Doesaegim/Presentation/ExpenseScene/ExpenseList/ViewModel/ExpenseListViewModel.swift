@@ -101,7 +101,7 @@ extension ExpenseListViewModel {
         let result = PersistentRepository.shared.fetchExpense()
         switch result {
         case .success(let expenses):
-            let deleteExpense = expenses.filter { $0.id == id}
+            let deleteExpense = expenses.filter { $0.id == id }
             guard let deleteObject = deleteExpense.last,
                   let travel = currentTravel else { return }
             print("JH", deleteExpense)
@@ -134,7 +134,7 @@ extension ExpenseListViewModel {
             fatalError("ExpenseListViewModel - sortByDate date 정보를 받지 못했거나 dateFormatter에 이상이 있습니다.")
         }
         
-        return leftDateValue < rightDateValue
+        return leftDateValue > rightDateValue
     }
     
     private func sortByDateString(_ lhs: String, _ rhs: String) -> Bool {
