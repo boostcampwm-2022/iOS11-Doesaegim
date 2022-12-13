@@ -124,14 +124,14 @@ final class ExpenseListViewController: UIViewController {
             )
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
             
-            group.edgeSpacing = NSCollectionLayoutEdgeSpacing(
-                leading: .fixed(0),
-                top: .fixed(6),
-                trailing: .fixed(0),
-                bottom: .fixed(6)
-            )
-            
             let section = NSCollectionLayoutSection(group: group)
+            
+            section.contentInsets = NSDirectionalEdgeInsets(
+                top: 0,
+                leading: 0,
+                bottom: 6,
+                trailing: 0
+            )
             
             let sectionHeaderSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
