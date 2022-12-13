@@ -83,7 +83,7 @@ final class ExpenseListViewController: UIViewController {
     
     private func configureConstraints() {
         expenseCollectionView.snp.makeConstraints {
-            $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
             $0.verticalEdges.equalTo(view.safeAreaLayoutGuide)
         }
         
@@ -128,9 +128,9 @@ final class ExpenseListViewController: UIViewController {
             
             section.contentInsets = NSDirectionalEdgeInsets(
                 top: 0,
-                leading: 0,
+                leading: 16,
                 bottom: 6,
-                trailing: 0
+                trailing: 16
             )
             
             let sectionHeaderSize = NSCollectionLayoutSize(
@@ -156,6 +156,13 @@ final class ExpenseListViewController: UIViewController {
             layoutSize: globalHeaderSize,
             elementKind: HeaderKind.globalHeader,
             alignment: .top
+        )
+        
+        globalHeader.contentInsets = NSDirectionalEdgeInsets(
+            top: 0,
+            leading: 16,
+            bottom: 6,
+            trailing: 16
         )
         
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
