@@ -26,7 +26,7 @@ final class CustomCalendarHeaderView: UICollectionReusableView {
     private lazy var backMonthButton: UIButton = {
         let button = UIButton()
         
-        button.setImage(UIImage(systemName: "arrowshape.left"), for: .normal)
+        button.setImage(UIImage(systemName: "arrowtriangle.left"), for: .normal)
         button.tintColor = .white
         button.tag = -1
         
@@ -36,7 +36,7 @@ final class CustomCalendarHeaderView: UICollectionReusableView {
     private lazy var nextMonthButton: UIButton = {
         let button = UIButton()
         
-        button.setImage(UIImage(systemName: "arrowshape.right"), for: .normal)
+        button.setImage(UIImage(systemName: "arrowtriangle.right"), for: .normal)
         button.tintColor = .white
         button.tag = 1
         
