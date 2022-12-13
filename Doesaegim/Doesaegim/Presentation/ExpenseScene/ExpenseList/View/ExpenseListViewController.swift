@@ -83,7 +83,7 @@ final class ExpenseListViewController: UIViewController {
     
     private func configureConstraints() {
         expenseCollectionView.snp.makeConstraints {
-            $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
             $0.verticalEdges.equalTo(view.safeAreaLayoutGuide)
         }
         
@@ -107,17 +107,31 @@ final class ExpenseListViewController: UIViewController {
         let layout = UICollectionViewCompositionalLayout { _, _ -> NSCollectionLayoutSection? in
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(50)
+                heightDimension: .estimated(50)
             )
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             
+            item.edgeSpacing = NSCollectionLayoutEdgeSpacing(
+                leading: .fixed(0),
+                top: .fixed(6),
+                trailing: .fixed(0),
+                bottom: .fixed(6)
+            )
+            
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(50)
+                heightDimension: .estimated(50)
             )
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
             
             let section = NSCollectionLayoutSection(group: group)
+            
+            section.contentInsets = NSDirectionalEdgeInsets(
+                top: 0,
+                leading: 16,
+                bottom: 6,
+                trailing: 16
+            )
             
             let sectionHeaderSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
@@ -142,6 +156,13 @@ final class ExpenseListViewController: UIViewController {
             layoutSize: globalHeaderSize,
             elementKind: HeaderKind.globalHeader,
             alignment: .top
+        )
+        
+        globalHeader.contentInsets = NSDirectionalEdgeInsets(
+            top: 0,
+            leading: 16,
+            bottom: 6,
+            trailing: 16
         )
         
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
@@ -173,8 +194,23 @@ final class ExpenseListViewController: UIViewController {
     private func configureCollectionViewDataSource() {
         
         var sections: [String]?
-        let expenseCell = CellRegistration { cell, _, identifier in
+        let expenseCell = CellRegistration { cell, indexPath, identifier in
+            
             cell.configureContent(with: identifier)
+            cell.deleteAction = { [weak self] in
+                
+                let cancelAction = UIAlertAction(title: "취소", style: .default)
+                let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] _ in
+                    self?.viewModel?.deleteExpenseData(with: identifier.uuid)
+                }
+                
+                self?.presentAlert(
+                    title: "지출을 삭제하시겠습니까?",
+                    message: "한번 삭제한 지출은 복구할 수 없습니다.",
+                    actions: cancelAction, deleteAction
+                )
+            }
+            
         }
         
         expenseDataSource = DataSource(
@@ -277,6 +313,7 @@ extension ExpenseListViewController: ExpenseListViewModelDelegate {
 extension ExpenseListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath)
+        
     }
 }
 

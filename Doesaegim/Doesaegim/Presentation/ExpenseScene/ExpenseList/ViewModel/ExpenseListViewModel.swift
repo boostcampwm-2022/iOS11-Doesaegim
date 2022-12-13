@@ -94,6 +94,33 @@ extension ExpenseListViewModel {
         }
         
     }
+    
+    func deleteExpenseData(with id: UUID) {
+        
+        // data에 해당하는 지출 데이터를 지운다.
+        let result = PersistentRepository.shared.fetchExpense()
+        switch result {
+        case .success(let expenses):
+            let deleteExpense = expenses.filter { $0.id == id }
+            guard let deleteObject = deleteExpense.last,
+                  let travel = currentTravel else { return }
+            print("JH", deleteExpense)
+            let deleteResult = PersistentManager.shared.delete(deleteObject)
+            switch deleteResult {
+            case .success(let isDeleteComplete):
+                // 성공했다면 데이터를 다시 로드
+                if isDeleteComplete { fetchExpenseData() }
+            case .failure(let error):
+                // TODO: - 삭제 실패 에러처리
+                print(error.localizedDescription)
+            }
+            
+            
+        case .failure(let error):
+            print("EXPENSE FETCH 실패")
+            print(error.localizedDescription)
+        }
+    }
 }
 
 // MARK: - Utility Functions
@@ -107,7 +134,7 @@ extension ExpenseListViewModel {
             fatalError("ExpenseListViewModel - sortByDate date 정보를 받지 못했거나 dateFormatter에 이상이 있습니다.")
         }
         
-        return leftDateValue < rightDateValue
+        return leftDateValue > rightDateValue
     }
     
     private func sortByDateString(_ lhs: String, _ rhs: String) -> Bool {

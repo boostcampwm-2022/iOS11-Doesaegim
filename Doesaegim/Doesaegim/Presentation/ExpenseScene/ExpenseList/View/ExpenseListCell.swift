@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ExpenseListCell: UICollectionViewListCell {
+final class ExpenseListCell: UICollectionViewCell {
     
     static let identifier: String = String(describing: ExpenseListCell.self)
     
@@ -16,7 +16,7 @@ final class ExpenseListCell: UICollectionViewListCell {
     let categoryImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "dollarsign.circle")
-        imageView.tintColor = .grey3
+        imageView.tintColor = .primaryOrange
         return imageView
     }()
     
@@ -25,7 +25,7 @@ final class ExpenseListCell: UICollectionViewListCell {
         
         stackView.axis = .vertical
         stackView.distribution = .fill
-        stackView.spacing = 3
+        stackView.spacing = 4
         stackView.alignment = .leading
         
         return stackView
@@ -37,7 +37,7 @@ final class ExpenseListCell: UICollectionViewListCell {
         label.font = label.font.withSize(16)
         label.textColor = .black
         label.lineBreakMode = .byTruncatingTail
-        label.numberOfLines = 1
+        label.numberOfLines = 2
         
         return label
     }()
@@ -48,7 +48,7 @@ final class ExpenseListCell: UICollectionViewListCell {
         label.font = label.font.withSize(12)
         label.textColor = .grey4
         label.lineBreakMode = .byTruncatingTail
-        label.numberOfLines = 1
+        label.numberOfLines = 10
         
         return label
     }()
@@ -63,6 +63,17 @@ final class ExpenseListCell: UICollectionViewListCell {
         return label
 
     }()
+    
+    let deleteButton: UIButton = {
+        let button = UIButton()
+        
+        button.setImage(UIImage(systemName: "trash"), for: .normal)
+        button.tintColor = .primaryOrange
+        
+        return button
+    }()
+    
+    var deleteAction: (() -> Void)?
     
     // MARK: - Initializer
     
@@ -85,9 +96,15 @@ final class ExpenseListCell: UICollectionViewListCell {
     // MARK: - Configuration
     
     private func configure() {
-        backgroundColor = .white
+        configureView()
         configureSubviews()
         configureConstraints()
+    }
+    
+    private func configureView() {
+        backgroundColor = .systemBackground
+        layer.cornerRadius = 10
+        addShadow()
     }
     
     private func configureSubviews() {
@@ -98,27 +115,34 @@ final class ExpenseListCell: UICollectionViewListCell {
         // stack view
         labelStackView.addArrangedSubview(expenseTitle)
         labelStackView.addArrangedSubview(expenseDescription)
+        labelStackView.addArrangedSubview(deleteButton)
     }
     
     private func configureConstraints() {
         
         categoryImageView.snp.makeConstraints {
-            $0.leading.equalToSuperview()
+            $0.leading.equalToSuperview().inset(9)
             $0.centerY.equalToSuperview()
             $0.width.equalTo(30)
             $0.height.equalTo(30)
         }
         
-        priceLabel.snp.makeConstraints {
-            $0.centerY.equalTo(self.snp.centerY)
-            $0.trailing.equalTo(self.snp.trailing).offset(-12)
+        labelStackView.snp.makeConstraints {
+            $0.leading.equalTo(categoryImageView.snp.trailing).offset(9)
+            $0.trailing.equalTo(priceLabel.snp.leading).offset(-6)
+            $0.verticalEdges.equalToSuperview().inset(6)
         }
         
-        labelStackView.snp.makeConstraints {
-            $0.leading.equalTo(categoryImageView.snp.trailing).offset(6)
-            $0.trailing.equalTo(priceLabel.snp.leading).offset(-3)
+        priceLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(9)
         }
+        
+//        menuButton.snp.makeConstraints {
+//            $0.leading.equalTo(priceLabel.snp.trailing).offset(6)
+//            $0.trailing.equalToSuperview().inset(9)
+//            $0.centerY.equalToSuperview()
+//        }
     }
     
     func configureContent(with data: ExpenseInfoViewModel) {
@@ -127,6 +151,10 @@ final class ExpenseListCell: UICollectionViewListCell {
         configureTitle(with: data.name)
         configureDescription(with: data.content)
         configurePrice(with: data.cost)
+        
+        deleteButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.deleteAction?()
+        }), for: .touchUpInside)
         
     }
     

@@ -127,13 +127,6 @@ extension ExpenseTravelCollectionViewCell {
         priceLabel.text = cost.numberFormatter()
     }
     
-    private func addShadow() {
-        layer.masksToBounds = false
-        layer.shadowColor = UIColor.grey2?.cgColor
-        layer.shadowOffset = CGSize(width: 1, height: 1)
-        layer.shadowRadius = 3
-        layer.shadowOpacity = 1
 
-    }
     
 }
