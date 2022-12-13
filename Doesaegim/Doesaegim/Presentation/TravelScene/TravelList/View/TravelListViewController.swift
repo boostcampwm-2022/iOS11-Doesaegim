@@ -247,29 +247,3 @@ extension TravelListViewController: UICollectionViewDelegate {
         }
     }
 }
-
-extension TravelListViewController {
-    
-    private func deleteTravel(with travelInfo: TravelInfoViewModel) {
-        let uuid = travelInfo.uuid
-        viewModel?.deleteTravel(with: uuid)
-    }
-    
-    private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
-        guard let indexPath = indexPath,
-              let id = travelDataSource?.itemIdentifier(for: indexPath) else { return nil }
-        
-        let deleteActionTitle = NSLocalizedString("삭제", comment: "여행 목록 삭제")
-        let deleteAction = UIContextualAction(
-            style: .destructive,
-            title: deleteActionTitle
-        ) { [weak self] _, _, completion in
-            self?.deleteTravel(with: id)
-            // 원래는 스냅샷 업데이트 메서드를 호출해주지만 뷰모델에서 Travel배열의 변화를 감지하면 자동으로 호출하므로 불필요
-            completion(false)
-        }
-        return UISwipeActionsConfiguration(actions: [deleteAction])
-    }
-    
-
-}
