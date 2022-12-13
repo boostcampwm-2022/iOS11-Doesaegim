@@ -36,9 +36,17 @@ final class CustomPieChart: UIView {
     
     private var currentIndex = 0
     
-    private var currentItem: CustomChartItem<ExpenseType> { items[currentIndex] }
+    private var currentItem: CustomChartItem<ExpenseType>? {
+        items[safeIndex: currentIndex]
+    }
     
-    private var ratio: CGFloat { currentItem.value / total }
+    private var ratio: CGFloat {
+        guard total != 0,
+              let currentItem = currentItem
+        else { return 0 }
+        
+        return currentItem.value / total
+    }
     
     // MARK: - Init
     
@@ -83,7 +91,9 @@ final class CustomPieChart: UIView {
 
     }
     
-    private func drawOnePiece(with item: CustomChartItem<ExpenseType>, on rect: CGRect) {
+    private func drawOnePiece(with item: CustomChartItem<ExpenseType>?, on rect: CGRect) {
+        guard let item = item else { return }
+        
         let category = item.criterion
         let pieceLayer = PieceShapeLayer(
             center: center,

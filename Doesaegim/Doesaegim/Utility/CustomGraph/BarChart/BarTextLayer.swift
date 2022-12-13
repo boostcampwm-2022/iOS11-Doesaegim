@@ -15,14 +15,17 @@ final class BarTextLayer: CATextLayer {
     
     private let text: String
     
-    private let textFontSize: CGFloat?
+    private let textFontSize: CGFloat
+    
+    private let alignment: CATextLayerAlignmentMode?
     
     // MARK: - Init
     
-    init(rect: CGRect, text: String, textFontSize: CGFloat? = nil) {
+    init(rect: CGRect, text: String, textFontSize: CGFloat, alignment: CATextLayerAlignmentMode? = nil) {
         self.rect = rect
         self.text = text
         self.textFontSize = textFontSize
+        self.alignment = alignment
         
         super.init()
         
@@ -48,19 +51,12 @@ final class BarTextLayer: CATextLayer {
         let attributedString = NSAttributedString(
             string: text,
             attributes: [
-                .font: UIFont.boldSystemFont(ofSize: textFontSize ?? Metric.textFontSize),
+                .font: UIFont.boldSystemFont(ofSize: textFontSize),
                 .foregroundColor: UIColor.grey3 ?? UIColor()
             ]
         )
         string = attributedString
-        alignmentMode = .center
-    }
-}
-
-// MARK: - Namespaces
-
-extension BarTextLayer {
-    enum Metric {
-        static let textFontSize: CGFloat = 14
+        alignmentMode = alignment ?? .center
+        truncationMode = .end
     }
 }
