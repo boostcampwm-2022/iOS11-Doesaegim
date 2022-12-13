@@ -9,4 +9,5 @@ import Foundation
 
 protocol ExpenseAddRepository {
     func addExpense(_ expenseDTO: ExpenseDTO) -> Result<Expense, Error>
+    func getExpenseDetail(with id: UUID?) -> Result<Expense, CoreDataError>
 }

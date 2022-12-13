@@ -55,4 +55,5 @@ protocol ExpenseAddViewDelegate: AnyObject {
     func presentExpenseAddPickerView(
         type: ExpenseAddPickerViewController.PickerType
     )
+    func configureExpenseDetail(expense: Expense)
 }

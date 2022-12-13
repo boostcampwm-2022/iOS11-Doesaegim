@@ -13,17 +13,20 @@ final class ExpenseAddViewController: UIViewController {
     
     // MARK: - UI properties
     
-    private let rootView = ExpenseAddView()
+    private let rootView: ExpenseAddView
     
     // MARK: - Properties
     
     private let viewModel: ExpenseAddViewModel
     private var exchangeInfo: ExchangeData?
+    private let mode: Mode
     
     // MARK: - Lifecycles
     
-    init(travel: Travel) {
-        viewModel = ExpenseAddViewModel(travel: travel)
+    init(travel: Travel, mode: Mode, expenseID: UUID? = nil) {
+        rootView = ExpenseAddView(frame: .zero, mode: mode)
+        viewModel = ExpenseAddViewModel(travel: travel, expenseID: expenseID)
+        self.mode = mode
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -40,6 +43,9 @@ final class ExpenseAddViewController: UIViewController {
         setKeyboardNotification()
         setAddTarget()
         setDelegates()
+        if mode != .post {
+            viewModel.fetchExpense()
+        }
     }
     
     // MARK: - Configure Function
@@ -194,7 +200,7 @@ extension ExpenseAddViewController: ExpenseAddViewDelegate {
     }
     
     func backButtonDidTap(isClear: Bool) {
-        if !isClear {
+        if !isClear && mode != .detail {
             presentIsClearAlert()
         } else {
             navigationController?.popViewController(animated: true)
@@ -215,6 +221,28 @@ extension ExpenseAddViewController: ExpenseAddViewDelegate {
         pickerViewController.delegate = self
         present(pickerViewController, animated: true)
     }
+    
+    func configureExpenseDetail(expense: Expense) {
+        guard let date = expense.date else { return }
+        rootView.titleTextField.text = expense.name
+        // TODO: 수정해야함
+        rootView.amountTextField.text = "\(expense.cost)"
+        
+        rootView.moneyUnitButton.setTitle(
+            expense.currency,
+            for: .normal
+        )
+        rootView.categoryButton.setTitle(
+            expense.category,
+            for: .normal
+        )
+        rootView.dateButton.setTitle(
+            Date.yearMonthDayDateFormatter.string(from: date),
+            for: .normal
+        )
+        rootView.descriptionTextView.text = expense.content
+    }
+    
 }
 
 // MARK: - Keyboard
@@ -286,6 +314,16 @@ extension ExpenseAddViewController: UITextFieldDelegate {
         
         guard let text = textField.text else { return true }
         return text.count < Metric.amountTextFieldMaxCount
+    }
+}
+
+// MARK: - Enum Mode
+
+extension ExpenseAddViewController {
+    enum Mode {
+        case post
+        case detail
+        case update
     }
 }
 

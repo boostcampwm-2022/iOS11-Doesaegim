@@ -141,11 +141,14 @@ final class PlanAddView: UIView {
         super.init(frame: frame)
         configureViews()
         setAddTarget()
-        if mode == .detail {
+        switch mode {
+        case .detail:
             setDetailMode()
+        case .update:
+            addButton.setTitle("일정 수정", for: .normal)
+        case .post:
+            addButton.setTitle("일정 추가", for: .normal)
         }
-        mode == .update ? addButton.setTitle("일정 수정", for: .normal)
-                        : addButton.setTitle("일정 추가", for: .normal)
     }
     
     @available(*, unavailable)
@@ -240,6 +243,17 @@ final class PlanAddView: UIView {
         descriptionTextView.isEditable = false
         addButton.isHidden = true
         placeSearchClearButton.isHidden = true
+    }
+    
+    private func modeInit() {
+        switch mode {
+        case .detail:
+            setDetailMode()
+        case .update:
+            addButton.setTitle("일정 수정", for: .normal)
+        case .post:
+            addButton.setTitle("일정 추가", for: .normal)
+        }
     }
     
     // MARK: - Keyboard
