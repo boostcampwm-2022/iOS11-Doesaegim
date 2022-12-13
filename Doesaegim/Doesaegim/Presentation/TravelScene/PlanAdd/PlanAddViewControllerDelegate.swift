@@ -7,8 +7,10 @@
 
 import Foundation
 
-/// 새로운 일정이 추가되었을 때 이를 전달받아 처리
-protocol PlanAddViewControllerDelegate: AnyObject {
+/// 새로운 일정이 추가되거나 일정의 내용이 업데이트되었을 때 이를 전달받아 처리
+protocol PlanWriteViewControllerDelegate: AnyObject {
 
-    func planAddViewControllerDidAddPlan(_ plan: Plan)
+    func planWriteViewControllerDidAddPlan(_ plan: Plan)
+
+    func planWriteViewControllerDidUpdatePlan(_ plan: Plan)
 }

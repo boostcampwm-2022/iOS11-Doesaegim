@@ -159,6 +159,7 @@ final class PlanListViewModel {
             if planViewModels[section]?.isEmpty == true {
                 planViewModels[section] = nil
             }
+            plans.removeAll { $0.id == id }
             delegate?.planListViewModelDidDeletePlan(.success(planViewModel.id))
         case .failure(let error):
             delegate?.planListViewModelDidDeletePlan(.failure(error))
@@ -206,6 +207,38 @@ final class PlanListViewModel {
         planViewModels[section, default: []].insert(viewModel, at: row)
         let snapshotData = PlanListSnapshotData(section: section, itemID: viewModel.id, row: row)
         delegate?.planListViewModelDidAddPlan(.success(snapshotData))
+    }
+
+
+    // MARK: - Plan Updating Functions
+    func update(_ plan: Plan, previousSection: Section) {
+        guard let date = plan.date,
+              let index = plans.firstIndex(of: plan),
+              let id = plan.id
+        else {
+            return
+        }
+        plans.sort { isLastestPlan(lhs: $0, rhs: $1) }
+        let newSection = section(for: date)
+        planViewModels[previousSection]?.removeAll { $0.id == plan.id }
+
+        if index < planOffset {
+            planViewModels[newSection, default: []].append(PlanViewModel(plan: plan, repository: repository))
+            planViewModels[newSection]?.sort { isLastestPlan(lhs: $0.plan, rhs: $1.plan) }
+            let data: [PlanListSnapshotData] = (Int.zero..<planOffset).compactMap {
+                guard let plan = plans[safeIndex: $0],
+                      let date = plan.date,
+                      let id = plan.id
+                else {
+                    return nil
+                }
+                return PlanListSnapshotData(section: section(for: date), itemID: id)
+            }
+            delegate?.planListViewModelDidUpdatePlans(.success(data))
+        } else {
+            planOffset -= 1
+            delegate?.planListViewModelDidDeletePlan(.success(id))
+        }
     }
 
 

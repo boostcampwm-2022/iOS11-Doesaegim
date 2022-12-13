@@ -44,7 +44,7 @@ final class PlanAddViewModel: PlanAddViewProtocol {
     
     // MARK: - Lifecycles
     
-    init(travel: Travel, planID: UUID? = nil) {
+    init(travel: Travel, plan: Plan?) {
         isValidName = false
         isValidPlace = false
         isValidDate = false
@@ -52,13 +52,7 @@ final class PlanAddViewModel: PlanAddViewProtocol {
         isClearInput = true
         repository = PlanAddLocalRepository()
         self.travel = travel
-        let result = repository.getPlanDetail(with: planID)
-        switch result {
-        case .success(let plan):
-            self.plan = plan
-        case .failure:
-            self.plan = nil
-        }
+        self.plan = plan
     }
     
     // MARK: - Helpers
@@ -149,7 +143,7 @@ final class PlanAddViewModel: PlanAddViewProtocol {
         guard let plan else { return }
         delegate?.configurePlanDetail(plan: plan)
     }
-    
+
     func updatePlan(
         name: String?,
         dateString: String?,
@@ -171,8 +165,10 @@ final class PlanAddViewModel: PlanAddViewProtocol {
             planLocation.name = location.name
             planLocation.latitude = location.latitude
             planLocation.longitude = location.longitude
-        } else if let _ = plan.location, selectedLocation == nil {
+        } else if let previousLocation = plan.location, selectedLocation == nil {
             plan.location = nil
+            // TODO: 레포지토리로 이동
+            return PersistentManager.shared.delete(previousLocation)
         }
         plan.content = content
         return PersistentManager.shared.saveContext()
