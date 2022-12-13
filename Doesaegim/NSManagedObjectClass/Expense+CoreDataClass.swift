@@ -54,7 +54,7 @@ public class Expense: NSManagedObject {
             name: name,
             content: content,
             category: category,
-            cost: Int(expense.cost),
+            cost: Int(Double(expense.cost) * expense.tradingStandardRate),
             date: date
         )
         
