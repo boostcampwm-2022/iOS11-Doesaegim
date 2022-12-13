@@ -36,6 +36,7 @@ final class ExpenseCollectionHeaderView: UICollectionReusableView {
     private let contentStack: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
+        stackView.spacing = 6
         
         return stackView
     }()
