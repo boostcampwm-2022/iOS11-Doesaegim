@@ -161,20 +161,20 @@ final class PlanAddViewModel: PlanAddViewProtocol {
               let plan else {
             return .failure(CoreDataError.fetchFailure(.plan))
         }
-        plan.setValue(name, forKey: "name")
-        plan.setValue(date, forKey: "date")
+        plan.name = name
+        plan.date = date
         
         if plan.location == nil, let locationDTO = selectedLocation {
             let location = Location.add(with: locationDTO)
             plan.location = location
         } else if let planLocation = plan.location, let location = selectedLocation {
-            planLocation.setValue(location.name, forKey: "name")
-            planLocation.setValue(location.latitude, forKey: "latitude")
-            planLocation.setValue(location.longitude, forKey: "longitude")
+            planLocation.name = location.name
+            planLocation.latitude = location.latitude
+            planLocation.longitude = location.longitude
         } else if let _ = plan.location, selectedLocation == nil {
             plan.location = nil
         }
-        plan.setValue(content, forKey: "content")
+        plan.content = content
         return PersistentManager.shared.saveContext()
     }
     
