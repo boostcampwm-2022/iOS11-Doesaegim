@@ -146,7 +146,7 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
               let category,
               let exchangeInfo,
               let costString = cost,
-              let cost = Double(costString),
+              let cost = Int(costString),
               let tradingStandardRate = Double(exchangeInfo.tradingStandardRate.convertRemoveComma()),
               let dateString = date,
               let date = Date.yearMonthDayDateFormatter.date(from: dateString),
@@ -159,9 +159,10 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
             name: name,
             category: category,
             content: newContent,
-            cost: Int64(cost * tradingStandardRate * (1 / exchangeInfo.percent)),
+            cost: Int64(cost),
             currency: "\(exchangeRateType.icon) \(exchangeRateType.currencyName)",
             date: date,
+            tradingStandardRate: tradingStandardRate * (1 / exchangeInfo.percent),
             travel: travel)
         return repository.addExpense(expenseDTO)
     }
@@ -209,10 +210,9 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
     ) -> Result<Bool, Error> {
         guard let name,
               let category,
-              let exchangeInfo,
               let costString = cost,
-              let cost = Double(costString),
-              let tradingStandardRate = Double(exchangeInfo.tradingStandardRate.convertRemoveComma()),
+              let cost = Int64(costString),
+              
               let dateString = date,
               let date = Date.yearMonthDayDateFormatter.date(from: dateString),
               let expense
@@ -222,9 +222,15 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
         expense.name = name
         expense.content = content
         expense.date = date
-        expense.cost = Int64(cost * tradingStandardRate * (1 / exchangeInfo.percent))
+        expense.cost = Int64(cost)
         expense.category = category
-        expense.currency = exchangeInfo.currencyName
+        
+        if let exchangeInfo,
+           let tradingStandardRate = Double(exchangeInfo.tradingStandardRate.convertRemoveComma()),
+           let exchangeRateType = ExchangeRateType(rawValue: exchangeInfo.currencyCode) {
+            expense.currency = "\(exchangeRateType.icon) \(exchangeRateType.currencyName)"
+            expense.tradingStandardRate = tradingStandardRate
+        }
         return PersistentManager.shared.saveContext()
     }
     

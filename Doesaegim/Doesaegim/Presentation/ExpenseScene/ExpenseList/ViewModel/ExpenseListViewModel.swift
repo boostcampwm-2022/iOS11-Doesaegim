@@ -70,28 +70,28 @@ extension ExpenseListViewModel {
     // 임시로 작성한 메서드. 추후 삭제 더미 지출 데이터를 추가한다.
     func addExpenseData() {
 
-        guard let travel = currentTravel else { return }
-        for count in 1...3 {
-            let dateComponents = DateComponents(year: 2022, month: 12, day: 25, hour: 17)
-            let date = Calendar.current.date(from: dateComponents)!
-            let dto = ExpenseDTO(
-                name: "\(count)번째 지출",
-                category: count == 1 ? "식비" : "교통비",
-                content: "식비입니다 콘텐츠 콘텐츠 콘텐츠",
-                cost: 10000,
-                currency: "KR",
-                date: date,
-                travel: travel
-            )
-            
-            let result = Expense.addAndSave(with: dto)
-            switch result {
-            case .success(let expense):
-                travel.addToExpense(expense)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+//        guard let travel = currentTravel else { return }
+//        for count in 1...3 {
+//            let dateComponents = DateComponents(year: 2022, month: 12, day: 25, hour: 17)
+//            let date = Calendar.current.date(from: dateComponents)!
+//            let dto = ExpenseDTO(
+//                name: "\(count)번째 지출",
+//                category: count == 1 ? "식비" : "교통비",
+//                content: "식비입니다 콘텐츠 콘텐츠 콘텐츠",
+//                cost: 10000,
+//                currency: "KR",
+//                date: date,
+//                travel: travel
+//            )
+//            
+//            let result = Expense.addAndSave(with: dto)
+//            switch result {
+//            case .success(let expense):
+//                travel.addToExpense(expense)
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
         
     }
 }
