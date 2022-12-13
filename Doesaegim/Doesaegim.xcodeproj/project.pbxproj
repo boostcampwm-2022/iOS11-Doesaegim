@@ -126,6 +126,8 @@
 		BB4630C92947156900FB106F /* LibraryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4630C82947156900FB106F /* LibraryCollectionViewCell.swift */; };
 		BB4630CD2947158400FB106F /* LibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4630CC2947158400FB106F /* LibraryViewModel.swift */; };
 		BB4630CF29471A5D00FB106F /* LibraryViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4630CE29471A5D00FB106F /* LibraryViewModelProtocol.swift */; };
+		BB4630D129476CE300FB106F /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4630D029476CE300FB106F /* UserDefaultsKey.swift */; };
+		BB4630D3294772E100FB106F /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4630D2294772E100FB106F /* UserDefaults+.swift */; };
 		BB5771A42923A08F0034047D /* ExpenseTravelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5771A32923A08F0034047D /* ExpenseTravelViewModel.swift */; };
 		BB5771AC2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5771AB2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift */; };
 		BB5DE44C292B8E86001DA6F6 /* Int+convertCostString.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5DE44B292B8E86001DA6F6 /* Int+convertCostString.swift */; };
@@ -355,6 +357,8 @@
 		BB4630C82947156900FB106F /* LibraryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCollectionViewCell.swift; sourceTree = "<group>"; };
 		BB4630CC2947158400FB106F /* LibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewModel.swift; sourceTree = "<group>"; };
 		BB4630CE29471A5D00FB106F /* LibraryViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewModelProtocol.swift; sourceTree = "<group>"; };
+		BB4630D029476CE300FB106F /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
+		BB4630D2294772E100FB106F /* UserDefaults+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
 		BB5771A32923A08F0034047D /* ExpenseTravelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelViewModel.swift; sourceTree = "<group>"; };
 		BB5771AB2923C4DE0034047D /* ExpenseTravelViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTravelViewModelProtocol.swift; sourceTree = "<group>"; };
 		BB5DE44B292B8E86001DA6F6 /* Int+convertCostString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+convertCostString.swift"; sourceTree = "<group>"; };
@@ -588,7 +592,7 @@
 			children = (
 				BB2244662941CC2400546E19 /* SettingMain */,
 				BB2244672941CC3900546E19 /* CalendarSetting */,
-				BB2244692941CC6900546E19 /* License */,
+				BB2244692941CC6900546E19 /* Library */,
 			);
 			path = SettingScene;
 			sourceTree = "<group>";
@@ -925,13 +929,13 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		BB2244692941CC6900546E19 /* License */ = {
+		BB2244692941CC6900546E19 /* Library */ = {
 			isa = PBXGroup;
 			children = (
 				BB4630CB2947157400FB106F /* ViewModel */,
 				BB4630CA2947156F00FB106F /* View */,
 			);
-			path = License;
+			path = Library;
 			sourceTree = "<group>";
 		};
 		BB22446A2941CE3D00546E19 /* ViewModel */ = {
@@ -1199,6 +1203,7 @@
 				BB3DB918292C649600C70D62 /* UIView+Frame.swift */,
 				A4B82D8B2938B6F200347B71 /* CIImage+Filters.swift */,
 				A4B82DD3293D7F2100347B71 /* Array+SafeIndex.swift */,
+				BB4630D2294772E100FB106F /* UserDefaults+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1561,6 +1566,7 @@
 			children = (
 				EEB6C505292CCE410060A459 /* ExchangeRateType.swift */,
 				A4C3BB74292F3810001C0514 /* ImageStatus.swift */,
+				BB4630D029476CE300FB106F /* UserDefaultsKey.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -1845,6 +1851,7 @@
 				BB9DB8122928D0BA00102EC8 /* PersistentRepositoryProtocol.swift in Sources */,
 				A4CC04C62922799600BB678B /* CheckBox.swift in Sources */,
 				A4B82D8A2938933100347B71 /* BlurredImageViewController.swift in Sources */,
+				BB4630D129476CE300FB106F /* UserDefaultsKey.swift in Sources */,
 				BB3DB922292CA79500C70D62 /* DiaryMapInfoViewModel.swift in Sources */,
 				B5B497D6293777EE009AE4AC /* ExpenseChartView.swift in Sources */,
 				BB3DB926292CF89400C70D62 /* DiaryAnnotation.swift in Sources */,
@@ -1874,6 +1881,7 @@
 				BBFE4BA62924B25D003F5CCE /* Date+Formatter.swift in Sources */,
 				B5C096BC29235B08007426B1 /* SearchResultCell.swift in Sources */,
 				B5DE4D4029271EA400D13F98 /* SearchingLocationViewControllerDelegate.swift in Sources */,
+				BB4630D3294772E100FB106F /* UserDefaults+.swift in Sources */,
 				BB22446F2941CE9A00546E19 /* CalendarViewModel.swift in Sources */,
 				BBE695DA29228C570015FAD4 /* TravelListViewModelProtocol.swift in Sources */,
 				B5B497CD29374C58009AE4AC /* BarShapeLayer.swift in Sources */,
@@ -1911,7 +1919,6 @@
 				BB6BE55D29360A2F00857D25 /* DetectedFaceCell.swift in Sources */,
 				EE97A8B62940638800BB8390 /* PlanAddView.swift in Sources */,
 				A499EB492947096800E7F774 /* DiaryEditViewController.swift in Sources */,
-				BBB31A392925F77900C9E3A9 /* ExpenseTravelListCell.swift in Sources */,
 				B57D962E2922318F00B510B8 /* ExpenseDTO.swift in Sources */,
 				A48E994A292531B30029D57D /* UIViewController+SetRightBarPlusButton.swift in Sources */,
 				BB4630C22946E7B100FB106F /* ExpenseTravelCollectionViewCell.swift in Sources */,

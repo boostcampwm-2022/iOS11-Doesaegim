@@ -114,7 +114,6 @@ extension CalendarSettingController: UITableViewDataSource {
 extension CalendarSettingController: CalendarSettingViewModelDelegate {
     
     func calendarSettingDidChange() {
-        print(#function)
         
         tableView.reloadData()
     }

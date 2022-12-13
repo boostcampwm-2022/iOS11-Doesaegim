@@ -119,7 +119,7 @@ final class MapViewController: UIViewController {
     }
     
     private func addPin(with diaryInfo: DiaryMapInfoViewModel) {
-        print(#function, diaryInfo.latitude, diaryInfo.longitude)
+        
         guard let mapView = mapView else { return }
         let latitude = diaryInfo.latitude
         let longitude = diaryInfo.longitude

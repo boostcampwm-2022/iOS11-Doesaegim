@@ -13,6 +13,7 @@ struct SettingOptionViewModel {
     let title: String
     let icon: UIImage?
     let iconTintColor: UIColor?
+    let switchKey: String?
     let handler: (() -> Void)
     
 }

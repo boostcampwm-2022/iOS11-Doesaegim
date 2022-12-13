@@ -35,10 +35,12 @@ final class PlanListViewModel {
     private var planOffset = Int.zero
 
     private var dateFormat = UserDefaults.standard.object(
-        forKey: CalendarInfoKey.yearMonthDateFormat.rawValue
+        forKey: UserDefaultsKey.CalendarInfoKey.yearMonthDateFormat.rawValue
     ) as? Int
 
-    private var timeFormat = UserDefaults.standard.object(forKey: CalendarInfoKey.timeFormat.rawValue) as? Int
+    private var timeFormat = UserDefaults.standard.object(
+        forKey: UserDefaultsKey.CalendarInfoKey.timeFormat.rawValue
+    ) as? Int
 
     
     // MARK: - Init(s)
@@ -64,10 +66,10 @@ final class PlanListViewModel {
         guard let previousDateFormat = dateFormat,
               let previousTimeFormat = timeFormat,
               let currentDateFormat = UserDefaults.standard.object(
-                forKey: CalendarInfoKey.yearMonthDateFormat.rawValue
+                forKey: UserDefaultsKey.CalendarInfoKey.yearMonthDateFormat.rawValue
             ) as? Int,
               let currentTimeFormat = UserDefaults.standard.object(
-                forKey: CalendarInfoKey.timeFormat.rawValue
+                forKey: UserDefaultsKey.CalendarInfoKey.timeFormat.rawValue
               ) as? Int,
               previousDateFormat != currentDateFormat || previousTimeFormat != currentTimeFormat
         else {

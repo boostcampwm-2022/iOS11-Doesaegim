@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import SafariServices
+
 
 final class SettingViewController: UIViewController {
     
@@ -129,9 +131,38 @@ extension SettingViewController: UITableViewDataSource {
 
 extension SettingViewController: SettingViewModelDelegate {
     
-    func settingViewCellDidTapped(moveTo controller: UIViewController) {
+    func settingInquiryDidTap() {
+        let alertAction = UIAlertAction(title: "확인", style: .default)
+        
+        presentAlert(
+            title: "다음 이메일로 문의해주세요",
+            message: "doesaegim2022@gmail.com",
+            actions: alertAction
+        )
+    }
+    
+    func settingAlertDidTap() {
+        let alertAction = UIAlertAction(title: "확인", style: .default)
+        
+        presentAlert(
+            title: "아직 추가되지 않은 기능이에요!",
+            message: "앞으로 추가될 예정입니다\n많은 응원부탁드려요 ☺️",
+            actions: alertAction
+        )
+    }
+    
+    func settingViewCellDidTap(moveTo controller: UIViewController) {
         print(#function)
         navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func settingPersonalInformationProcessingDidTap() {
+        guard let url = URL(
+            string: "https://sunny-side-up.notion.site/1d9f9efaceb5433abeeaf71c1f63b263"
+        ) else { return }
+        
+        let safariViewController = SFSafariViewController(url: url)
+        present(safariViewController, animated: true)
     }
     
 }

@@ -14,10 +14,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
+        // MARK: - UserDefaults 기본설정
+        checkUserDefaults()
+        
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         let controller = MainTabBarController()
@@ -60,6 +60,36 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             print(error.localizedDescription)
         }
         
+    }
+    
+    private func checkUserDefaults() {
+
+        if !UserDefaults.standard.hasValue(
+            for: UserDefaultsKey.CalendarInfoKey.yearMonthDateFormat.rawValue
+        ) {
+            UserDefaults.standard.set(
+                0,
+                forKey: UserDefaultsKey.CalendarInfoKey.yearMonthDateFormat.rawValue
+            )
+        }
+
+        if !UserDefaults.standard.hasValue(
+            for: UserDefaultsKey.CalendarInfoKey.timeFormat.rawValue
+        ) {
+            UserDefaults.standard.set(
+                0,
+                forKey: UserDefaultsKey.CalendarInfoKey.timeFormat.rawValue
+            )
+        }
+
+        if !UserDefaults.standard.hasValue(
+            for: UserDefaultsKey.AlertInfoKey.isAlertOn.rawValue
+        ) {
+            UserDefaults.standard.set(
+                false,
+                forKey: UserDefaultsKey.AlertInfoKey.isAlertOn.rawValue
+            )
+        }
     }
 }
 

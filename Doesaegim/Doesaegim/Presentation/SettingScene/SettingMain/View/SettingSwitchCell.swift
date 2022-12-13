@@ -71,15 +71,37 @@ final class SettingSwitchCell: UITableViewCell {
         iconImageView.image = nil
         label.text = nil
         iconContainerView.backgroundColor = nil
+        
     }
 }
 
 extension SettingSwitchCell {
     
     func configure(with info: SettingOptionViewModel) {
+        
+        guard let key = info.switchKey else { return }
+        
         label.text = info.title
         iconImageView.image = info.icon
         iconContainerView.backgroundColor = info.iconTintColor
+        
+        if let isOn = UserDefaults.standard.object(forKey: key) as? Bool {
+            controlSwitch.isOn = isOn
+        } else {
+            UserDefaults.standard.set(false, forKey: key)
+            controlSwitch.isOn = false
+        }
+        
+        controlSwitch.addAction(UIAction(handler: { _ in
+            info.handler()
+            UserDefaults.standard.setValue(self.controlSwitch.isOn, forKey: key)
+            
+            // TODO: - 추후 알림 기능이 개발되면 제거될 코드
+            self.controlSwitch.isOn = false
+            UserDefaults.standard.setValue(false, forKey: key)
+            //
+            
+        }), for: .valueChanged)
     }
     
     private func configureSubviews() {
