@@ -17,6 +17,7 @@
 		A499EB4F294709B400E7F774 /* DiaryEditViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499EB4E294709B400E7F774 /* DiaryEditViewModelDelegate.swift */; };
 		A499EB5129470BE300E7F774 /* DiaryEditRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499EB5029470BE300E7F774 /* DiaryEditRepository.swift */; };
 		A499EB5429470BF800E7F774 /* DiaryEditLocalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499EB5329470BF800E7F774 /* DiaryEditLocalRepository.swift */; };
+		A499EB5629476C2F00E7F774 /* UIImage+Downsample.swift in Sources */ = {isa = PBXBuildFile; fileRef = A499EB5529476C2F00E7F774 /* UIImage+Downsample.swift */; };
 		A49FD4662934DF7D00A92427 /* TranslucentActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49FD4652934DF7D00A92427 /* TranslucentActivityIndicatorView.swift */; };
 		A4B38C3029407D1500E52150 /* PlanAddViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B38C2F29407D1500E52150 /* PlanAddViewControllerDelegate.swift */; };
 		A4B38C322940C73C00E52150 /* PlanListViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B38C312940C73C00E52150 /* PlanListViewModelDelegate.swift */; };
@@ -250,6 +251,7 @@
 		A499EB4E294709B400E7F774 /* DiaryEditViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditViewModelDelegate.swift; sourceTree = "<group>"; };
 		A499EB5029470BE300E7F774 /* DiaryEditRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditRepository.swift; sourceTree = "<group>"; };
 		A499EB5329470BF800E7F774 /* DiaryEditLocalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEditLocalRepository.swift; sourceTree = "<group>"; };
+		A499EB5529476C2F00E7F774 /* UIImage+Downsample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Downsample.swift"; sourceTree = "<group>"; };
 		A49FD4652934DF7D00A92427 /* TranslucentActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslucentActivityIndicatorView.swift; sourceTree = "<group>"; };
 		A4B38C2F29407D1500E52150 /* PlanAddViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanAddViewControllerDelegate.swift; sourceTree = "<group>"; };
 		A4B38C312940C73C00E52150 /* PlanListViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanListViewModelDelegate.swift; sourceTree = "<group>"; };
@@ -1231,6 +1233,7 @@
 			children = (
 				BBEEFA8929376BC8005DEF38 /* UIImage+.swift */,
 				A44B8748294361F900C55B3A /* UIImage+SystemImages.swift */,
+				A499EB5529476C2F00E7F774 /* UIImage+Downsample.swift */,
 			);
 			path = UIImage;
 			sourceTree = "<group>";
@@ -1927,6 +1930,7 @@
 				A499EB4C2947099700E7F774 /* DiaryEditViewModel.swift in Sources */,
 				BB7D9A262926088A00BF2BD6 /* ExpensePlaceholdView.swift in Sources */,
 				BB02B094292F29E000FE11DA /* DiaryListViewModelProtocol.swift in Sources */,
+				A499EB5629476C2F00E7F774 /* UIImage+Downsample.swift in Sources */,
 				BBFAC089291CBDD700D7FD57 /* SceneDelegate.swift in Sources */,
 				EE85FBC3292BA9B600FF0C7C /* ExpenseAddViewController.swift in Sources */,
 				A4EB25C9292C92CC002D129A /* DiaryAddViewModelDelegate.swift in Sources */,

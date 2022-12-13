@@ -27,7 +27,12 @@ final class FaceDetectController: UIViewController {
     // MARK: - Properties
     
     private var currentImage: UIImage?
-    
+
+    private var downsampledImage: UIImage?
+
+    private var originalData: Data?
+
+
     // bounding box를 그려주는 path
     private var pathLayer: CALayer?
     
@@ -78,15 +83,18 @@ final class FaceDetectController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         let image = UIImage(data: data)
         self.currentImage = image
+        self.originalData = data
         self.viewModel = viewModel
         self.viewModel?.delegate = self
         view.backgroundColor = .white
     }
-    
+
+    /// 사용 지양, data를 인자로 받는 init 권장
     init(image: UIImage, viewModel: FaceDetectViewModelProtocol) {
         
         super.init(nibName: nil, bundle: nil)
         self.currentImage = image
+        self.downsampledImage = currentImage
         self.viewModel = viewModel
         self.viewModel?.delegate = self
         view.backgroundColor = .white
@@ -111,6 +119,19 @@ final class FaceDetectController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        guard let data = originalData,
+              let scale = view.window?.windowScene?.screen.scale,
+              downsampledImage == nil
+        else {
+            startDetect()
+            return
+        }
+        downsampledImage = UIImage(
+            data: data,
+            size: view.safeAreaLayoutGuide.layoutFrame.size,
+            scale: scale,
+            mode: .aspectFit
+        )
         startDetect()
     }
 }
@@ -164,13 +185,15 @@ extension FaceDetectController {
     // MARK: - Button Action
     
     @objc private func confirmButtonDidTap() {
-        guard let currentImage,
-              let selectedFaces = viewModel?.detectInfos.filter({ $0.isSelected }).map({ $0.bound })
+        guard let downsampledImage,
+              let selectedFaces = viewModel?.detectInfos
+            .filter({ $0.isSelected })
+            .map({ $0.downsampledBounds })
         else {
             return
         }
 
-        let viewModel = BlurredImageViewModel(image: currentImage, selectedFaceRects: selectedFaces)
+        let viewModel = BlurredImageViewModel(image: downsampledImage, selectedFaceRects: selectedFaces)
         let viewController = BlurredImageViewController(viewModel: viewModel)
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -216,8 +239,8 @@ extension FaceDetectController {
         // 이미지를 스케일 다운 시키기 위한 비율계산
         let scaleDownRatio = max(widthRatio, heightRatio)
         
-        var imageWidth = fullImageWidth / scaleDownRatio
-        var imageHeight = fullImageHeight / scaleDownRatio
+        let imageWidth = fullImageWidth / scaleDownRatio
+        let imageHeight = fullImageHeight / scaleDownRatio
         
         let xLayer = (imageFrame.width - imageWidth) / 2 + 60
         let yLayer = imageView.frame.minY + (imageFrame.height - imageHeight) / 2
@@ -289,7 +312,11 @@ extension FaceDetectController: FaceDetectViewModeleDelegate {
         CATransaction.commit()
         
         faces.forEach { observation in
-            viewModel.addDetectInfo(with: self.currentImage, boundingBox: observation.boundingBox)
+            viewModel.addDetectInfo(
+                with: currentImage,
+                downsampledImage: downsampledImage,
+                boundingBox: observation.boundingBox
+            )
         }
     }
     

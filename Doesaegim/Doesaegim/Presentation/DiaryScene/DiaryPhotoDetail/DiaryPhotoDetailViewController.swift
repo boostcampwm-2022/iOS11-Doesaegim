@@ -23,12 +23,13 @@ final class DiaryPhotoDetailViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let item: DetailImageCellViewModel
+    private let imageData: Data
+
     
     // MARK: - Lifecycles
     
-    init(item: DetailImageCellViewModel) {
-        self.item = item
+    init(imageData: Data) {
+        self.imageData = imageData
         super.init(nibName: nil, bundle: nil)
 
         hidesBottomBarWhenPushed = true
@@ -83,9 +84,8 @@ final class DiaryPhotoDetailViewController: UIViewController {
         
         let mosaicToShare = UIAction(
             title: "모자이크 후 공유하기") { [weak self] _ in
-                guard let self,
-                      let image = self.photoImageView.image else { return }
-                let controller = FaceDetectController(image: image, viewModel: FaceDetectViewModel())
+                guard let self else { return }
+                let controller = FaceDetectController(data: self.imageData, viewModel: FaceDetectViewModel())
                 self.navigationController?.pushViewController(controller, animated: true)
             }
         let sharedToActivityViewController = UIAction(
@@ -109,6 +109,13 @@ final class DiaryPhotoDetailViewController: UIViewController {
     }
     
     private func configurePhotoImageView() {
-        photoImageView.image = UIImage(data: item.data)
+        guard let scale = view.window?.windowScene?.screen.scale
+        else {
+            photoImageView.image = UIImage(data: imageData)
+            return
+        }
+
+        let size = view.safeAreaLayoutGuide.layoutFrame.size
+        photoImageView.image = UIImage(data: imageData, size: size, scale: scale)
     }
 }
