@@ -24,8 +24,10 @@ public class Plan: NSManagedObject {
         plan.date = object.date
         plan.isComplete = object.isComplete
 
-        let location = Location.add(with: object.location)
-        plan.location = location
+        if let locationDTO = object.location {
+            let location = Location.add(with: locationDTO)
+            plan.location = location
+        }
 
         object.travel.addToPlan(plan)
 

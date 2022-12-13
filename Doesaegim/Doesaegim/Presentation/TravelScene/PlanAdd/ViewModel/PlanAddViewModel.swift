@@ -24,7 +24,10 @@ final class PlanAddViewModel: PlanAddViewProtocol {
     var selectedLocation: LocationDTO? {
         didSet {
             guard let selectedLocation = selectedLocation
-            else { return }
+            else {
+                delegate?.planAddViewDidSelectLocation(locationName: "장소를 검색해 주세요.")
+                return
+            }
             delegate?.planAddViewDidSelectLocation(locationName: selectedLocation.name)
         }
     }
@@ -35,26 +38,34 @@ final class PlanAddViewModel: PlanAddViewProtocol {
         }
     }
     
-    private let travel: Travel
+    let travel: Travel
     private let repository: PlanAddLocalRepository
+    var plan: Plan?
     
     // MARK: - Lifecycles
     
-    init(travel: Travel) {
+    init(travel: Travel, planID: UUID? = nil) {
         isValidName = false
         isValidPlace = false
         isValidDate = false
-        isValidInput = isValidName && isValidPlace && isValidDate
+        isValidInput = isValidName && isValidDate
         isClearInput = true
-        self.travel = travel
         repository = PlanAddLocalRepository()
+        self.travel = travel
+        let result = repository.getPlanDetail(with: planID)
+        switch result {
+        case .success(let plan):
+            self.plan = plan
+        case .failure:
+            self.plan = nil
+        }
     }
     
     // MARK: - Helpers
     
     func isValidPlanName(name: String?) {
         defer {
-            isValidInput = isValidName && isValidPlace && isValidDate
+            isValidInput = isValidName && isValidDate
         }
         guard let name,
               !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
@@ -63,23 +74,10 @@ final class PlanAddViewModel: PlanAddViewProtocol {
         }
         isValidName = true
     }
-    
-    func isValidPlace(place: LocationDTO?) {
-        defer {
-            isValidInput = isValidName && isValidPlace && isValidDate
-        }
-        
-        guard let place = place else {
-            isValidPlace = false
-            return
-        }
-        selectedLocation = place
-        isValidPlace = true
-    }
-    
+
     func isValidDate(dateString: String) {
         defer {
-            isValidInput = isValidName && isValidPlace && isValidDate
+            isValidInput = isValidName && isValidDate
         }
         guard Date.convertDateStringToDate(
             dateString: dateString,
@@ -121,7 +119,6 @@ final class PlanAddViewModel: PlanAddViewProtocol {
     ) -> Result<Plan, Error> {
         guard let name,
               let dateString,
-              let locationDTO,
               let date = Date.convertDateStringToDate(
                 dateString: dateString,
                 formatter: Date.yearMonthDayTimeDateFormatter
@@ -146,6 +143,43 @@ final class PlanAddViewModel: PlanAddViewProtocol {
     
     func placeButtonTapped() {
         delegate?.presentSearchingLocationViewController()
+    }
+    
+    func fetchPlan() {
+        guard let plan else { return }
+        delegate?.configurePlanDetail(plan: plan)
+    }
+    
+    func updatePlan(
+        name: String?,
+        dateString: String?,
+        content: String?
+    ) -> Result<Bool, Error> {
+        guard let name,
+              let dateString,
+              let date = Date.yearMonthDayTimeDateFormatter.date(from: dateString),
+              let plan else {
+            return .failure(CoreDataError.fetchFailure(.plan))
+        }
+        plan.name = name
+        plan.date = date
+        
+        if plan.location == nil, let locationDTO = selectedLocation {
+            let location = Location.add(with: locationDTO)
+            plan.location = location
+        } else if let planLocation = plan.location, let location = selectedLocation {
+            planLocation.name = location.name
+            planLocation.latitude = location.latitude
+            planLocation.longitude = location.longitude
+        } else if let _ = plan.location, selectedLocation == nil {
+            plan.location = nil
+        }
+        plan.content = content
+        return PersistentManager.shared.saveContext()
+    }
+    
+    func removeLocation() {
+        selectedLocation = nil
     }
 }
 

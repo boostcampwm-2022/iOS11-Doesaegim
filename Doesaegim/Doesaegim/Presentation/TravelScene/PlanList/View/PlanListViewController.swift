@@ -81,7 +81,7 @@ final class PlanListViewController: UIViewController {
             title: "일정 추가 하기"
         ) { [weak self] _  in
                 if let travel = self?.viewModel.travel {
-                    let planAddViewController = PlanAddViewController(travel: travel)
+                    let planAddViewController = PlanAddViewController(travel: travel, mode: .post)
                     planAddViewController.delegate = self
                     self?.navigationController?.pushViewController(planAddViewController, animated: true)
                 } else {
@@ -219,6 +219,13 @@ extension PlanListViewController: UICollectionViewDelegate {
         else { return }
 
         viewModel.userDidScrollToEnd()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let id = dataSource.itemIdentifier(for: indexPath) else { return }
+        let planAddViewController = PlanAddViewController(travel: viewModel.travel, mode: .detail, planID: id)
+        navigationController?.pushViewController(planAddViewController, animated: true)
+        
     }
 }
 

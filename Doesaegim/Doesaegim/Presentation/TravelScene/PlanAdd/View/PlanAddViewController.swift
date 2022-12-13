@@ -13,7 +13,7 @@ final class PlanAddViewController: UIViewController {
     
     // MARK: - UI properties
     
-    private let rootView = PlanAddView()
+    private var rootView: PlanAddView
     
     // MARK: - Properties
 
@@ -21,12 +21,17 @@ final class PlanAddViewController: UIViewController {
 
     private let viewModel: PlanAddViewModel
     
-    private var locationDTO: LocationDTO?
+    private var mode: Mode
+    
+    private let planID: UUID?
     
     // MARK: - Lifecycles
     
-    init(travel: Travel) {
-        viewModel = PlanAddViewModel(travel: travel)
+    init(travel: Travel, mode: Mode, planID: UUID? = nil) {
+        viewModel = PlanAddViewModel(travel: travel, planID: planID)
+        rootView = PlanAddView(frame: .zero, mode: mode)
+        self.mode = mode
+        self.planID = planID
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -44,6 +49,9 @@ final class PlanAddViewController: UIViewController {
         setKeyboardNotification()
         setDelegate()
         setAddTargets()
+        if mode == .detail || mode == .update {
+            viewModel.fetchPlan()
+        }
     }
     
     deinit {
@@ -53,13 +61,28 @@ final class PlanAddViewController: UIViewController {
     // MARK: - Configure Functions
     
     private func configureNavigationBar() {
-        navigationItem.title = "일정 추가"
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "chevron.backward"),
             style: .done,
             target: self,
             action: #selector(backButtonTouchUpInside)
         )
+        navigationItem.rightBarButtonItem = nil
+        switch mode {
+        case .detail:
+            navigationItem.title = "일정 상세"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(
+                image: UIImage(systemName: "pencil"),
+                style: .done,
+                target: self,
+                action: #selector(updateButtonTapped)
+            )
+        case .post:
+            navigationItem.title = "일정 추가"
+        case .update:
+            navigationItem.title = "일정 수정"
+        }
+        
     }
     
     // MARK: - Set Delegate
@@ -92,6 +115,11 @@ final class PlanAddViewController: UIViewController {
             self,
             action: #selector(addButtonTouchUpInside),
             for: .touchUpInside)
+        rootView.placeSearchClearButton.addTarget(
+            self,
+            action: #selector(placeClearButtonDidTap),
+            for: .touchUpInside
+        )
     }
 }
 // MARK: - Keyboard
@@ -137,6 +165,23 @@ extension PlanAddViewController {
     @objc private func dismissKeyboard() {
         view.endEditing(true)
     }
+    
+    @objc private func updateButtonTapped() {
+        let updateAction = UIAlertAction(
+            title: "수정하기",
+            style: .default
+        ) { [weak self] _ in
+            self?.mode = .update
+            self?.rootView = PlanAddView(frame: .zero, mode: .update)
+            self?.loadView()
+            self?.viewDidLoad()
+            self?.viewModel.isValidInput = true
+            self?.viewModel.isValidDate = true
+            self?.viewModel.isValidName = true
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        presentAlert(title: "일정 수정", message: "일정을 수정하시겠습니까?", actions: updateAction, cancelAction)
+    }
 }
 
 // MARK: - Action
@@ -155,20 +200,40 @@ extension PlanAddViewController {
     }
     
     @objc func addButtonTouchUpInside() {
-        let result = viewModel.addPlan(
-            name: rootView.planTitleTextField.text,
-            dateString: rootView.dateInputButton.titleLabel?.text,
-            locationDTO: locationDTO,
-            content: rootView.descriptionTextView.text
-        )
         
-        switch result {
-        case .success(let plan):
-            delegate?.planAddViewControllerDidAddPlan(plan)
-            navigationController?.popViewController(animated: true)
-        case .failure(let error):
-            presentErrorAlert(title: CoreDataError.saveFailure(.plan).errorDescription)
-            print(error.localizedDescription)
+        switch mode {
+        case .post:
+            let result = viewModel.addPlan(
+                name: rootView.planTitleTextField.text,
+                dateString: rootView.dateInputButton.titleLabel?.text,
+                locationDTO: viewModel.selectedLocation,
+                content: rootView.descriptionTextView.text
+            )
+            
+            switch result {
+            case .success(let plan):
+                delegate?.planAddViewControllerDidAddPlan(plan)
+                navigationController?.popViewController(animated: true)
+            case .failure(let error):
+                presentErrorAlert(title: CoreDataError.saveFailure(.plan).errorDescription)
+                print(error.localizedDescription)
+            }
+        case .update:
+            let result = viewModel.updatePlan(
+                name: rootView.planTitleTextField.text,
+                dateString: rootView.dateInputButton.titleLabel?.text,
+                content: rootView.descriptionTextView.text
+            )
+            switch result {
+            case .success:
+                navigationController?.popViewController(animated: true)
+            case .failure(let error):
+                presentErrorAlert(title: CoreDataError.updateFailure(.plan).errorDescription)
+                print(error.localizedDescription)
+            }
+            
+        case .detail:
+            break
         }
     }
     
@@ -179,6 +244,10 @@ extension PlanAddViewController {
             date: rootView.dateInputButton.titleLabel?.text,
             description: rootView.descriptionTextView.text
         )
+    }
+    
+    @objc func placeClearButtonDidTap() {
+        viewModel.removeLocation()
     }
 }
 
@@ -222,7 +291,7 @@ extension PlanAddViewController: PlanAddViewDelegate {
     }
     
     func backButtonDidTap(isClear: Bool) {
-        if !isClear {
+        if !isClear && mode != .detail {
             presentIsClearAlert()
         } else {
             navigationController?.popViewController(animated: true)
@@ -242,14 +311,27 @@ extension PlanAddViewController: PlanAddViewDelegate {
         searchingLocationViewController.delegate = self
         navigationController?.pushViewController(searchingLocationViewController, animated: true)
     }
+    
+    func configurePlanDetail(plan: Plan) {
+        rootView.planTitleTextField.text = plan.name
+        if let location = plan.location {
+            rootView.placeSearchButton.setTitle(location.name, for: .normal)
+        } else {
+            rootView.placeSearchButton.setTitle("입력하신 장소가 없어요.", for: .normal)
+        }
+        
+        guard let date = plan.date else { return }
+        
+        rootView.dateInputButton.setTitle(Date.yearMonthDayTimeDateFormatter.string(from: date), for: .normal)
+        rootView.descriptionTextView.text = plan.content
+    }
 }
 
 // MARK: - SearchingLocationViewControllerDelegate
 
 extension PlanAddViewController: SearchingLocationViewControllerDelegate {
     func searchingLocationViewController(didSelect location: LocationDTO) {
-        viewModel.isValidPlace(place: location)
-        locationDTO = location
+        viewModel.selectedLocation = location
     }
 }
 
@@ -260,5 +342,16 @@ extension PlanAddViewController: CalendarViewDelegate {
         let dateString = Date.yearMonthDayTimeDateFormatter.string(from: date)
         rootView.dateInputButton.setTitle(dateString, for: .normal)
         viewModel.isValidDate(dateString: dateString)
+    }
+}
+
+// MARK: PlanMode Enum
+
+extension PlanAddViewController {
+    
+    enum Mode {
+        case post
+        case update
+        case detail
     }
 }
