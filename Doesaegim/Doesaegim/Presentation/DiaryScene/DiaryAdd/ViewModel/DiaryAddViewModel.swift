@@ -71,7 +71,7 @@ final class DiaryAddViewModel {
         delegate?.diaryAddViewModelValuesDidChange(temporaryDiary)
     }
 
-    func locationDidSelect(_ location: LocationDTO) {
+    func locationDidSelect(_ location: LocationDTO?) {
         temporaryDiary.location = location
         delegate?.diaryAddViewModelValuesDidChange(temporaryDiary)
     }

@@ -141,6 +141,11 @@ final class DiaryEditViewController: UIViewController {
             self?.show(controller, sender: self)
         }
         rootView.placeSearchButton.addAction(showLocationViewController, for: .touchUpInside)
+
+        let clearLocation = UIAction { [weak self] _ in
+            self?.viewModel.locationDidSelect(nil)
+        }
+        rootView.placeSearchButton.clearButton.addAction(clearLocation, for: .touchUpInside)
     }
 
     private func configureDateButton() {

@@ -27,6 +27,10 @@ struct DiaryEditLocalRepository: DiaryEditRepository {
     func saveDiary() -> Result<Bool, Error> {
         persistentManager.saveContext()
     }
+
+    func deleteLocation(_ location: Location) -> Result<Bool, Error> {
+        persistentManager.delete(location)
+    }
 }
 
 
