@@ -389,6 +389,6 @@ extension ExpenseAddViewController {
 
 fileprivate extension ExpenseAddViewController {
     enum Metric {
-        static let amountTextFieldMaxCount: Int = 9
+        static let amountTextFieldMaxCount: Int = 7
     }
 }
