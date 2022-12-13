@@ -134,6 +134,19 @@ final class TravelListViewController: UIViewController {
         
         let travelCell = CellRegistration { cell, indexPath, identifier in
             cell.configure(with: identifier)
+            cell.deleteAction = { [weak self] in
+                let cancelAction = UIAlertAction(title: "취소", style: .default)
+                let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
+                    self?.viewModel?.deleteTravel(with: identifier.uuid)
+                }
+                
+                self?.presentAlert(
+                    title: "여행을 삭제하시겠습니까?",
+                    message: "관련된 일정, 지출, 다이어리가 전부 삭제됩니다. 정말 삭제하시겠습니까?",
+                    actions: cancelAction, deleteAction
+                )
+            }
+            
             
             if let viewModel = self.viewModel,
                viewModel.travelInfos.count >= 10,
@@ -233,30 +246,4 @@ extension TravelListViewController: UICollectionViewDelegate {
             print(error.localizedDescription)
         }
     }
-}
-
-extension TravelListViewController {
-    
-    private func deleteTravel(with travelInfo: TravelInfoViewModel) {
-        let uuid = travelInfo.uuid
-        viewModel?.deleteTravel(with: uuid)
-    }
-    
-    private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
-        guard let indexPath = indexPath,
-              let id = travelDataSource?.itemIdentifier(for: indexPath) else { return nil }
-        
-        let deleteActionTitle = NSLocalizedString("삭제", comment: "여행 목록 삭제")
-        let deleteAction = UIContextualAction(
-            style: .destructive,
-            title: deleteActionTitle
-        ) { [weak self] _, _, completion in
-            self?.deleteTravel(with: id)
-            // 원래는 스냅샷 업데이트 메서드를 호출해주지만 뷰모델에서 Travel배열의 변화를 감지하면 자동으로 호출하므로 불필요
-            completion(false)
-        }
-        return UISwipeActionsConfiguration(actions: [deleteAction])
-    }
-    
-
 }

@@ -15,4 +15,6 @@ protocol DiaryDetailViewModelDelegate: AnyObject {
     
     func diaryDetailImageSliderDidRefresh()
     
+    func diaryDeleteDidComplete()
+    
 }

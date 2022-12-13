@@ -123,7 +123,28 @@ final class DiaryDetailViewController: UIViewController {
                 let editViewController = DiaryEditViewController(viewModel: editViewModel)
                 self?.show(editViewController, sender: self)
             }))
-        navigationItem.setRightBarButton(editButton, animated: true)
+        
+        let deleteButton = UIBarButtonItem(
+            image: UIImage(systemName: "trash"),
+            primaryAction: UIAction(handler: { [weak self] _ in
+                guard let diary = self?.viewModel.diary,
+                      let id = diary.id else { return }
+                // 알림
+                
+                let cancelAction = UIAlertAction(title: "취소", style: .default)
+                let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] _ in
+                    self?.viewModel.deleteDiary(with: id)
+                }
+                self?.presentAlert(
+                    title: "다이어리를 삭제하시겠습니까?",
+                    message: "삭제된 다이어리를 다시 복구할 수 없습니다.",
+                    actions: cancelAction, deleteAction
+                )
+                
+            })
+        )
+//        navigationItem.setRightBarButton(editButton, animated: true)
+        navigationItem.setRightBarButtonItems([deleteButton, editButton], animated: true)
     }
     
     // MARK: - Configure ImageSlider Delegates
@@ -193,6 +214,10 @@ extension DiaryDetailViewController: DiaryDetailViewModelDelegate {
     
     func diaryDetailImageSliderDidRefresh() {
         configureSnapshot()
+    }
+    
+    func diaryDeleteDidComplete() {
+        navigationController?.popViewController(animated: true)
     }
     
 }
