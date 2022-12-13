@@ -226,6 +226,15 @@ extension TravelListViewController: UICollectionViewDelegate {
                 travel: travel,
                 repository: PlanLocalRepository()
             )
+//            (1...100).forEach {
+//                Plan.addAndSave(with: PlanDTO(
+//                    name: "일정 \($0)",
+//                    date: Calendar.current.date(byAdding: .second, value: $0, to: Date()) ?? Date(),
+//                    content: "내용",
+//                    travel: travel,
+//                    location: nil)
+//                )
+//            }
             let planListViewController = PlanListViewController(viewModel: planListViewModel)
             planListViewModel.delegate = planListViewController
             show(planListViewController, sender: nil)

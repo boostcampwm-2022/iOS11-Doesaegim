@@ -10,6 +10,7 @@ import UIKit
 /// 일정을 조회, 추가, 삭제할 수 있는 뷰 컨트롤러
 final class PlanListViewController: UIViewController {
     typealias DataSource =  UICollectionViewDiffableDataSource<Section, ItemID>
+    typealias Snapshot = NSDiffableDataSourceSnapshot<Section, ItemID>
     typealias Section = Date
     typealias ItemID = UUID
 
@@ -21,6 +22,9 @@ final class PlanListViewController: UIViewController {
     )
 
     private lazy var dataSource = configureDataSource()
+
+    private var previousDate: Date?
+
 
     // MARK: - Properties
 
@@ -207,6 +211,8 @@ fileprivate extension PlanListViewController {
         static let sectionHeaderElementKind = "UICollectionElementKindSectionHeader"
 
         static let deleteActionTitle = "일정 삭제"
+
+        static let updateUnavailableError = "변경 사항을 반영할 수 없습니다."
     }
 }
 
@@ -222,18 +228,46 @@ extension PlanListViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let id = dataSource.itemIdentifier(for: indexPath) else { return }
-        let planAddViewController = PlanAddViewController(travel: viewModel.travel, mode: .detail, planID: id)
+        guard let id = dataSource.itemIdentifier(for: indexPath),
+              let section = sectionIdentifiers[safeIndex: indexPath.section],
+              let plan = viewModel.item(in: section, id: id)?.plan
+        else {
+            return
+        }
+
+        let planAddViewController = PlanAddViewController(travel: viewModel.travel, mode: .detail, plan: plan)
+        planAddViewController.delegate = self
+        previousDate = plan.date
         navigationController?.pushViewController(planAddViewController, animated: true)
-        
     }
 }
 
 
-// MARK: - PlanAddViewControllerDelegate
-extension PlanListViewController: PlanAddViewControllerDelegate {
-    func planAddViewControllerDidAddPlan(_ plan: Plan) {
+// MARK: - PlanWriteViewControllerDelegate
+extension PlanListViewController: PlanWriteViewControllerDelegate {
+    func planWriteViewControllerDidAddPlan(_ plan: Plan) {
         viewModel.addNewPlan(plan)
+    }
+
+    func planWriteViewControllerDidUpdatePlan(_ plan: Plan) {
+        var snapshot = dataSource.snapshot()
+        guard let indexPath = collectionView.indexPathsForSelectedItems?.first,
+              let itemIdentifier = dataSource.itemIdentifier(for: indexPath),
+              let section = snapshot.sectionIdentifier(containingItem: itemIdentifier),
+              let date = plan.date
+        else {
+            presentErrorAlert(title: StringLiteral.updateUnavailableError)
+            return
+        }
+
+        guard date == previousDate
+        else {
+            viewModel.update(plan, previousSection: section)
+            return
+        }
+
+        snapshot.reloadItems([itemIdentifier])
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 
@@ -244,7 +278,7 @@ extension PlanListViewController: PlanListViewModelDelegate {
     func planListViewModelDidFetchPlans(_ result: Result<[PlanListSnapshotData], Error>) {
         switch result {
         case .success(let data):
-            applySnapshot(usingData: data)
+            applySnapshot(usingData: data, snapshot: dataSource.snapshot())
             collectionView.isEmpty = viewModel.planViewModels.isEmpty
         case .failure(let error):
             presentErrorAlert(
@@ -294,9 +328,22 @@ extension PlanListViewController: PlanListViewModelDelegate {
         dataSource.apply(snapshot, animatingDifferences: false)
     }
 
+    func planListViewModelDidUpdatePlans(_ result: Result<[PlanListSnapshotData], Error>) {
+        switch result {
+        case .success(let data):
+            applySnapshot(usingData: data, snapshot: Snapshot())
+            collectionView.isEmpty = viewModel.planViewModels.isEmpty
+        case .failure(let error):
+            presentErrorAlert(
+                title: CoreDataError.updateFailure(.plan).localizedDescription,
+                message: error.localizedDescription
+            )
+        }
+    }
+
     /// 새롭게 불러온 데이터만을 반영해서 스냅샷을 갱신
-    private func applySnapshot(usingData data: [PlanListSnapshotData]) {
-        var snapshot = dataSource.snapshot()
+    private func applySnapshot(usingData data: [PlanListSnapshotData], snapshot: Snapshot) {
+        var snapshot = snapshot
 
         data.forEach {
             if !snapshot.sectionIdentifiers.contains($0.section) {
@@ -304,9 +351,7 @@ extension PlanListViewController: PlanListViewModelDelegate {
             }
             snapshot.appendItems([$0.itemID], toSection: $0.section)
         }
-        DispatchQueue.main.async { [weak self] in
-            self?.dataSource.apply(snapshot, animatingDifferences: false)
-        }
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
 
     /// 유저가 새로 추가한 일정 데이터만을 반영해서 스냅샷을 갱신

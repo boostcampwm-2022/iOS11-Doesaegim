@@ -17,4 +17,6 @@ protocol PlanListViewModelDelegate: AnyObject {
     func planListViewModelDidAddPlan(_ result: Result<PlanListSnapshotData, Error>)
 
     func planListViewModelDidUpdateDateFormat()
+
+    func planListViewModelDidUpdatePlans(_ result: Result<[PlanListSnapshotData], Error>)
 }

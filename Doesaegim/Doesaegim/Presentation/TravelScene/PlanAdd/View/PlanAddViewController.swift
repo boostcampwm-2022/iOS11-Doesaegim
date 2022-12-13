@@ -17,21 +17,21 @@ final class PlanAddViewController: UIViewController {
     
     // MARK: - Properties
 
-    weak var delegate: PlanAddViewControllerDelegate?
+    weak var delegate: PlanWriteViewControllerDelegate?
 
     private let viewModel: PlanAddViewModel
     
     private var mode: Mode
     
-    private let planID: UUID?
+    private let plan: Plan?
     
     // MARK: - Lifecycles
     
-    init(travel: Travel, mode: Mode, planID: UUID? = nil) {
-        viewModel = PlanAddViewModel(travel: travel, planID: planID)
+    init(travel: Travel, mode: Mode, plan: Plan? = nil) {
+        viewModel = PlanAddViewModel(travel: travel, plan: plan)
         rootView = PlanAddView(frame: .zero, mode: mode)
         self.mode = mode
-        self.planID = planID
+        self.plan = plan
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -212,7 +212,7 @@ extension PlanAddViewController {
             
             switch result {
             case .success(let plan):
-                delegate?.planAddViewControllerDidAddPlan(plan)
+                delegate?.planWriteViewControllerDidAddPlan(plan)
                 navigationController?.popViewController(animated: true)
             case .failure(let error):
                 presentErrorAlert(title: CoreDataError.saveFailure(.plan).errorDescription)
@@ -226,6 +226,11 @@ extension PlanAddViewController {
             )
             switch result {
             case .success:
+                guard let plan
+                else {
+                    return 
+                }
+                delegate?.planWriteViewControllerDidUpdatePlan(plan)
                 navigationController?.popViewController(animated: true)
             case .failure(let error):
                 presentErrorAlert(title: CoreDataError.updateFailure(.plan).errorDescription)
