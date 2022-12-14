@@ -14,6 +14,21 @@ final class DiaryAddViewModel {
 
     weak var delegate: DiaryAddViewModelDelegate?
 
+    var dateInterval: DateInterval? {
+        guard let travel = temporaryDiary.travel,
+              let startDate = travel.startDate,
+              let endDate = travel.endDate
+        else {
+            return nil
+        }
+
+        return DateInterval(start: startDate, end: endDate)
+    }
+
+    var selectedImageIDs: [ImageID] {
+        imageManager.selectedIDs
+    }
+
     lazy var travelPickerDataSource: PickerDataSource<Travel> = {
         let result = repository.fetchAllTravels()
 
@@ -25,12 +40,12 @@ final class DiaryAddViewModel {
         }
     }()
 
+    /// 유저의 입력값을 관리하기 위한 객체
+    private(set) var temporaryDiary = TemporaryDiary()
+
     private let repository: DiaryAddRepository
 
     private let imageManager: ImageManager
-
-    /// 유저의 입력값을 관리하기 위한 객체
-    private var temporaryDiary = TemporaryDiary()
 
 
     // MARK: - Init(s)
@@ -45,28 +60,46 @@ final class DiaryAddViewModel {
 
     func travelDidSelect(_ travel: Travel) {
         temporaryDiary.travel = travel
-        delegate?.diaryAddViewModlelValuesDidChange(temporaryDiary)
+        if let date = temporaryDiary.date,
+           let startDate = travel.startDate,
+           let endDate = travel.endDate,
+           let dateAfterEndDate = Calendar.current.date(byAdding: .day, value: 1, to: endDate),
+           !(startDate..<dateAfterEndDate ~= date) {
+            /// 여행 변경 후 기존에 설정한 날짜가 여행의 기간을 벗어나는 경우 무효화
+            temporaryDiary.date = nil
+        }
+        delegate?.diaryAddViewModelValuesDidChange(temporaryDiary)
     }
 
-    func locationDidSelect(_ location: LocationDTO) {
+    func locationDidSelect(_ location: LocationDTO?) {
         temporaryDiary.location = location
-        delegate?.diaryAddViewModlelValuesDidChange(temporaryDiary)
+        delegate?.diaryAddViewModelValuesDidChange(temporaryDiary)
+    }
+
+    func dateDidSelect(_ date: Date) {
+        temporaryDiary.date = date
+        delegate?.diaryAddViewModelValuesDidChange(temporaryDiary)
     }
 
     func titleDidChange(to title: String?) {
         temporaryDiary.title = title
-        delegate?.diaryAddViewModlelValuesDidChange(temporaryDiary)
+        delegate?.diaryAddViewModelValuesDidChange(temporaryDiary)
     }
 
     func contentDidChange(to content: String?) {
         temporaryDiary.content = content
-        delegate?.diaryAddViewModlelValuesDidChange(temporaryDiary)
+        delegate?.diaryAddViewModelValuesDidChange(temporaryDiary)
     }
 
     func image(withID id: ImageID) -> ImageStatus {
+        guard id != .empty
+        else {
+            return .dummy
+        }
+
         let status = imageManager.image(withID: id) { [weak self] id in
             DispatchQueue.main.async {
-                self?.delegate?.diaryAddViewModelDidLoadImage(withId: id)
+                self?.delegate?.diaryAddViewModelDidLoadImage(withID: id)
             }
         }
 
@@ -79,15 +112,23 @@ final class DiaryAddViewModel {
     }
 
     func imageDidSelect(_ results: [(id: ImageID, itemProvider: NSItemProvider)]) {
-        imageManager.selectedIDs.removeAll()
-        imageManager.itemProviders.removeAll()
-
         results.forEach {
+            guard !imageManager.selectedIDs.contains($0.id)
+            else {
+                return
+            }
             imageManager.selectedIDs.append($0.id)
             imageManager.itemProviders[$0.id] = $0.itemProvider
         }
+        let selectedIDs = imageManager.selectedIDs
+        let snapshotIDs = selectedIDs + (selectedIDs.count == Metric.numberOfMaximumPhotos ? [] : [.empty] )
+        delegate?.diaryAddViewModelDidUpdateSelectedImageIDs(snapshotIDs)
+    }
 
-        delegate?.diaryAddViewModelDidUpdateSelectedImageIDs(imageManager.selectedIDs)
+    func removeImage(withID id: ImageID) {
+        imageManager.selectedIDs.removeAll { $0 == id }
+        imageManager.itemProviders[id] = nil
+        delegate?.diaryAddViewModelDidRemoveImage(withID: id)
     }
 
     func saveButtonDidTap() {
@@ -146,7 +187,9 @@ final class DiaryAddViewModel {
             let savingWorkItem = DispatchWorkItem { [weak self] in
                 guard let image = self?.imageManager.images[imageID],
                       let diaryID = self?.temporaryDiary.id,
-                      FileProcessManager.shared.saveImage(image, imageID: imageID, diaryID: diaryID) == true
+                      FileProcessManager.shared.saveImage(image, imageID: imageID, diaryID: diaryID) == true,
+                      let range = self?.temporaryDiary.imagePaths.indices,
+                      range ~= index
                 else {
                     self?.temporaryDiary.imagePaths[index] = .empty
                     imageSavingGroup.leave()
@@ -165,8 +208,8 @@ final class DiaryAddViewModel {
     private func addDiary() -> Result<Diary, Error> {
         guard let title = temporaryDiary.title,
               let content = temporaryDiary.content,
-              let location = temporaryDiary.location,
-              let travel = temporaryDiary.travel
+              let travel = temporaryDiary.travel,
+              let date = temporaryDiary.date
         else {
             return .failure(CoreDataError.saveFailure(.diary))
         }
@@ -174,10 +217,10 @@ final class DiaryAddViewModel {
         let diaryDTO = DiaryDTO(
             id: temporaryDiary.id,
             content: content,
-            date: temporaryDiary.date,
+            date: date,
             images: temporaryDiary.imagePaths,
             title: title,
-            location: location,
+            location: temporaryDiary.location,
             travel: travel
         )
 
@@ -210,5 +253,9 @@ fileprivate extension DiaryAddViewModel {
 
     enum StringLiteral {
         static let errorImageName = "exclamationmark.circle"
+    }
+
+    enum Metric {
+        static let numberOfMaximumPhotos = 5
     }
 }

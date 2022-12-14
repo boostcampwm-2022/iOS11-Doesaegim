@@ -81,15 +81,12 @@ final class ExpenseListViewController: UIViewController {
     
     private func configureConstraints() {
         expenseCollectionView.snp.makeConstraints {
-            $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
             $0.verticalEdges.equalTo(view.safeAreaLayoutGuide)
         }
         
         placeholdView.snp.makeConstraints {
-            $0.centerX.equalTo(view.snp.centerX)
-            $0.centerY.equalTo(view.snp.centerY).multipliedBy(1.3)
-            $0.width.equalTo(view.bounds.width - 100)
-            $0.height.equalTo(50)
+            $0.edges.equalToSuperview()
         }
     }
     
@@ -108,17 +105,31 @@ final class ExpenseListViewController: UIViewController {
         let layout = UICollectionViewCompositionalLayout { _, _ -> NSCollectionLayoutSection? in
             let itemSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(50)
+                heightDimension: .estimated(50)
             )
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             
+            item.edgeSpacing = NSCollectionLayoutEdgeSpacing(
+                leading: .fixed(0),
+                top: .fixed(6),
+                trailing: .fixed(0),
+                bottom: .fixed(6)
+            )
+            
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(50)
+                heightDimension: .estimated(50)
             )
             let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
             
             let section = NSCollectionLayoutSection(group: group)
+            
+            section.contentInsets = NSDirectionalEdgeInsets(
+                top: 0,
+                leading: 16,
+                bottom: 6,
+                trailing: 16
+            )
             
             let sectionHeaderSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
@@ -143,6 +154,13 @@ final class ExpenseListViewController: UIViewController {
             layoutSize: globalHeaderSize,
             elementKind: HeaderKind.globalHeader,
             alignment: .top
+        )
+        
+        globalHeader.contentInsets = NSDirectionalEdgeInsets(
+            top: 0,
+            leading: 16,
+            bottom: 6,
+            trailing: 16
         )
         
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
@@ -173,11 +191,24 @@ final class ExpenseListViewController: UIViewController {
     
     private func configureCollectionViewDataSource() {
         
-        var date: Date?
-        let expenseCell = CellRegistration { cell, _, identifier in
+        var sections: [String]?
+        let expenseCell = CellRegistration { cell, indexPath, identifier in
+            
             cell.configureContent(with: identifier)
-            // TODO: - 페이지네이션
-            date = identifier.date
+            cell.deleteAction = { [weak self] in
+                
+                let cancelAction = UIAlertAction(title: "취소", style: .default)
+                let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] _ in
+                    self?.viewModel?.deleteExpenseData(with: identifier.uuid)
+                }
+                
+                self?.presentAlert(
+                    title: "지출을 삭제하시겠습니까?",
+                    message: "한번 삭제한 지출은 복구할 수 없습니다.",
+                    actions: cancelAction, deleteAction
+                )
+            }
+            
         }
         
         expenseDataSource = DataSource(
@@ -200,7 +231,8 @@ final class ExpenseListViewController: UIViewController {
         
         let sectionHeaderRegistration = SectionHeaderRegistration(
             elementKind: HeaderKind.sectionHeader
-        ) { _, _, _ in
+        ) { [weak self] _, _, _ in
+            sections = self?.viewModel?.sections
         }
         
         expenseDataSource?.supplementaryViewProvider = { (collectionView, kind, indexPath) in
@@ -217,7 +249,9 @@ final class ExpenseListViewController: UIViewController {
                 using: sectionHeaderRegistration,
                 for: indexPath
             )
-            sectionHeader.configureData(date: date)
+            sectionHeader.configureData(
+                dateString: sections?[safeIndex: indexPath.section]
+            )
             return sectionHeader
         }
         
@@ -226,8 +260,9 @@ final class ExpenseListViewController: UIViewController {
     // MARK: - Action
     
     @objc func didAddExpenseButtonTap() {
+        guard let travel = viewModel?.currentTravel else { return }
         navigationController?.pushViewController(
-            ExpenseAddViewController(travel: viewModel?.currentTravel),
+            ExpenseAddViewController(travel: travel, mode: .post),
             animated: true
         )
     }
@@ -248,9 +283,7 @@ extension ExpenseListViewController: ExpenseListViewModelDelegate {
         snapshot.appendSections(viewModel.sections)
         
         for info in expenseInfos {
-            let formatter = Date.yearMonthDayDateFormatter
-            let dateString = formatter.string(from: info.date)
-            
+            let dateString = info.date.userDefaultFormattedDate
             snapshot.appendItems([info], toSection: dateString)
         }
         
@@ -277,7 +310,15 @@ extension ExpenseListViewController: ExpenseListViewModelDelegate {
 
 extension ExpenseListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
+        guard let expenseInfoViewModel = expenseDataSource?.itemIdentifier(for: indexPath),
+              let travel = viewModel?.currentTravel
+        else { return }
+        let expenseWriteViewController = ExpenseAddViewController(
+            travel: travel,
+            mode: .detail,
+            expenseID: expenseInfoViewModel.uuid
+        )
+        navigationController?.pushViewController(expenseWriteViewController, animated: true)
     }
 }
 

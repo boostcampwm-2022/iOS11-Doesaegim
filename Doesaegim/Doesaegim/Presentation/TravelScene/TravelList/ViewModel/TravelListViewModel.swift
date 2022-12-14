@@ -24,12 +24,14 @@ final class TravelListViewModel: TravelListViewModelProtocol {
     }
     
     func fetchTravelInfo() {
-        
         let result = PersistentRepository.shared.fetchTravel(offset: travelInfos.count, limit: 10)
         switch result {
         case .success(let travels):
             let newTravelInfos = travels.compactMap{ Travel.convertToViewModel(with: $0) }
-            travelInfos.append(contentsOf: newTravelInfos)
+            var tempTravelInfos = travelInfos
+            tempTravelInfos.append(contentsOf: newTravelInfos)
+            travelInfos.removeAll()
+            travelInfos = tempTravelInfos.sorted(by: sortByDate)
             
         case .failure(let error):
             print(error.localizedDescription)
@@ -69,7 +71,7 @@ final class TravelListViewModel: TravelListViewModelProtocol {
         switch result {
         case .success(let travels):
             let newTravelInfos = travels.compactMap{ Travel.convertToViewModel(with: $0) }
-            travelInfos = newTravelInfos
+            travelInfos = newTravelInfos.sorted(by: sortByDate)
         case .failure(let error):
             print(error.localizedDescription)
             delegate?.travelListFetchDidFail()
@@ -77,4 +79,12 @@ final class TravelListViewModel: TravelListViewModelProtocol {
 
     }
 
+}
+
+extension TravelListViewModel {
+    
+    func sortByDate(_ lhs: TravelInfoViewModel, _ rhs: TravelInfoViewModel) -> Bool {
+        return lhs.startDate > rhs.startDate
+    }
+    
 }

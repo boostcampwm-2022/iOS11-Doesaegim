@@ -11,6 +11,7 @@ enum CoreDataError: LocalizedError {
     case fetchFailure(EntityType)
     case saveFailure(EntityType)
     case deleteFailure(EntityType)
+    case updateFailure(EntityType)
 
     var errorDescription: String? {
         switch self {
@@ -20,6 +21,8 @@ enum CoreDataError: LocalizedError {
             return NSLocalizedString("\(entityType) 변경사항을 저장하는 데 실패했습니다", comment: "save failure")
         case .deleteFailure(let entityType):
             return NSLocalizedString("\(entityType) 정보를 삭제하는 데 실패했습니다", comment: "delete failure")
+        case .updateFailure(let entityType):
+            return NSLocalizedString("\(entityType) 정보를 수정하는 데 실패했습니다", comment: "delete failure")
         }
     }
 }

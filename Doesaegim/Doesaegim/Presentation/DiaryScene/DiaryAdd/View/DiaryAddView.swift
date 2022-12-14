@@ -22,6 +22,15 @@ final class DiaryAddView: UIView {
         return scrollView
     }()
 
+    let travelPickerToolbar: UIToolbar = {
+        let toolbar = UIToolbar()
+        toolbar.barStyle = UIBarStyle.default
+        toolbar.tintColor = .primaryOrange
+        toolbar.sizeToFit()
+
+        return toolbar
+    }()
+
     let travelPicker = UIPickerView()
 
     let travelTextField: UITextField = {
@@ -33,6 +42,14 @@ final class DiaryAddView: UIView {
     }()
 
     let placeSearchButton = PlaceSearchButton()
+
+    let dateInputButton: AddViewInputButton = {
+        let button = AddViewInputButton()
+        button.setTitle(StringLiteral.dateButtonPlaceholder, for: .normal)
+        button.setImage(UIImage(systemName: StringLiteral.dateButtonImage), for: .normal)
+
+        return button
+    }()
 
     let titleTextField: UITextField = {
         let textField = UITextField()
@@ -50,53 +67,7 @@ final class DiaryAddView: UIView {
         return textView
     }()
 
-    let addPhotoButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(.init(systemName: StringLiteral.squaredPlus), for: .normal)
-        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: Metric.addPhotoButtonWidth)
-        button.setPreferredSymbolConfiguration(symbolConfiguration, forImageIn: .normal)
-        button.tintColor = .primaryOrange
-
-        return button
-    }()
-
-    let pageControl: UIPageControl = {
-        let control = UIPageControl()
-        control.pageIndicatorTintColor = .grey1
-        control.currentPageIndicatorTintColor = .primaryOrange
-
-        return control
-    }()
-
-    private(set) lazy var imageSlider: UICollectionView = {
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(Metric.one),
-            heightDimension: .fractionalHeight(Metric.one)
-        )
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(Metric.one),
-            heightDimension: .fractionalHeight(Metric.one)
-        )
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-
-        let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .paging
-        section.visibleItemsInvalidationHandler = { [weak self] visibleItems, _, _ in
-            self?.pageControl.currentPage = visibleItems.last?.indexPath.row ?? .zero
-        }
-
-        let layout = UICollectionViewCompositionalLayout(section: section)
-
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.allowsSelection = false
-
-        return collectionView
-    }()
+    private(set) lazy var imageSlider = ImageSliderView()
 
     private let divider: UIView = {
         let view = UIView()
@@ -162,13 +133,13 @@ final class DiaryAddView: UIView {
         addSubviews(scrollView, activityIndicator)
         scrollView.addSubview(contentStack)
         let contentStackSubviews = [
-            travelTextField, placeSearchButton,
-            imageSlider, pageControl,
+            travelTextField, placeSearchButton, dateInputButton,
+            imageSlider,
             titleTextField, divider, contentTextView
         ]
         contentStack.addArrangedSubviews(contentStackSubviews)
-        contentStack.addSubview(addPhotoButton)
         travelTextField.inputView = travelPicker
+        travelTextField.inputAccessoryView = travelPickerToolbar
         scrollView.addGestureRecognizer(UITapGestureRecognizer(
             target: self, action: #selector(backgroundDidTap)
         ))
@@ -182,16 +153,20 @@ final class DiaryAddView: UIView {
     private func configureConstraints() {
         scrollView.snp.makeConstraints { $0.edges.equalToSuperview() }
         contentStack.snp.makeConstraints { $0.edges.width.equalToSuperview() }
-        [travelTextField, placeSearchButton, divider, titleTextField, contentTextView].forEach { view in
+        [
+            travelTextField, placeSearchButton, divider,
+            dateInputButton, titleTextField, contentTextView
+        ].forEach { view in
             view.snp.makeConstraints { $0.leading.trailing.equalToSuperview().inset(Metric.inset) }
         }
-        placeSearchButton.snp.makeConstraints { $0.height.equalTo(Metric.placeSearchButtonHeight) }
+        [placeSearchButton, dateInputButton].forEach { view in
+            view.snp.makeConstraints { $0.height.equalTo(Metric.placeSearchButtonHeight) }
+        }
         imageSlider.snp.makeConstraints {
             $0.width.equalToSuperview()
             $0.height.equalTo(imageSlider.snp.width)
         }
         divider.snp.makeConstraints { $0.height.equalTo(Metric.one)}
-        addPhotoButton.snp.makeConstraints { $0.center.equalTo(imageSlider) }
         activityIndicator.snp.makeConstraints { $0.edges.equalToSuperview() }
     }
 }
@@ -202,8 +177,6 @@ fileprivate extension DiaryAddView {
 
     enum Metric {
         static let spacing: CGFloat = 8
-
-        static let addPhotoButtonWidth: CGFloat = 36
 
         static let one: CGFloat = 1
 
@@ -217,8 +190,10 @@ fileprivate extension DiaryAddView {
     enum StringLiteral {
         static let travelTextFieldPlaceholder = "여행을 선택해주세요"
 
-        static let squaredPlus = "plus.app"
-
         static let titleTextFieldPlaceholder = "제목"
+
+        static let dateButtonPlaceholder = "여행을 먼저 선택해 주세요."
+
+        static let dateButtonImage = "calendar"
     }
 }

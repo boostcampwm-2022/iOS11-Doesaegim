@@ -13,19 +13,20 @@ final class ExpenseAddViewController: UIViewController {
     
     // MARK: - UI properties
     
-    private let rootView = ExpenseAddView()
+    private var rootView: ExpenseAddView
     
     // MARK: - Properties
     
     private let viewModel: ExpenseAddViewModel
-    private var exchangeInfo: ExchangeResponse?
-    private let travel: Travel?
+    private var exchangeInfo: ExchangeData?
+    private var mode: Mode
     
     // MARK: - Lifecycles
     
-    init(travel: Travel?) {
-        viewModel = ExpenseAddViewModel()
-        self.travel = travel
+    init(travel: Travel, mode: Mode, expenseID: UUID? = nil) {
+        rootView = ExpenseAddView(frame: .zero, mode: mode)
+        viewModel = ExpenseAddViewModel(travel: travel, expenseID: expenseID)
+        self.mode = mode
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -41,20 +42,36 @@ final class ExpenseAddViewController: UIViewController {
         configureNavigation()
         setKeyboardNotification()
         setAddTarget()
-        viewModel.delegate = self
-        rootView.descriptionTextView.delegate = self
+        setDelegates()
+        if mode != .post {
+            viewModel.fetchExpense()
+        }
     }
     
     // MARK: - Configure Function
     
     private func configureNavigation() {
-        navigationItem.title = "지출 추가"
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "chevron.backward"),
             style: .done,
             target: self,
             action: #selector(backButtonTouchUpInside)
         )
+        navigationItem.rightBarButtonItem = nil
+        switch mode {
+        case .detail:
+            navigationItem.title = "지출 상세"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(
+                image: UIImage(systemName: "pencil"),
+                style: .done,
+                target: self,
+                action: #selector(updateButtonTapped)
+            )
+        case .post:
+            navigationItem.title = "지출 추가"
+        case .update:
+            navigationItem.title = "지출 수정"
+        }
     }
     
     // MARK: - AddTarget
@@ -92,6 +109,12 @@ final class ExpenseAddViewController: UIViewController {
         )
     }
     
+    private func setDelegates() {
+        viewModel.delegate = self
+        rootView.descriptionTextView.delegate = self
+        rootView.amountTextField.delegate = self
+    }
+    
     @objc func backButtonTouchUpInside() {
         viewModel.isClearInput(
             name: rootView.titleTextField.text,
@@ -102,6 +125,27 @@ final class ExpenseAddViewController: UIViewController {
             description: rootView.descriptionTextView.text
         )
     }
+    
+    @objc private func updateButtonTapped() {
+        let updateAction = UIAlertAction(
+            title: "수정하기",
+            style: .default
+        ) { [weak self] _ in
+            self?.mode = .update
+            self?.rootView = ExpenseAddView(frame: .zero, mode: .update)
+            self?.loadView()
+            self?.viewDidLoad()
+            self?.viewModel.isValidName = true
+            self?.viewModel.isValidAmount = true
+            self?.viewModel.isValidUnit = true
+            self?.viewModel.isValidCategory = true
+            self?.viewModel.isValidDate = true
+            self?.viewModel.isValidInput = true
+            
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        presentAlert(title: "지출 수정", message: "지출을 수정하시겠습니까?", actions: updateAction, cancelAction)
+    }
 }
 
 // MARK: - Actions
@@ -110,19 +154,11 @@ extension ExpenseAddViewController {
     @objc func pickerViewButtonTouchUpInside(_ sender: UIButton) {
         let type: ExpenseAddPickerViewController.PickerType =
         sender == rootView.moneyUnitButton ? .moneyUnit : .category
-        let pickerViewController = ExpenseAddPickerViewController(type: type)
-        pickerViewController.delegate = self
-        present(pickerViewController, animated: true)
+        viewModel.pickerViewInputButtonTapped(type: type)
     }
     
     @objc func dateButtonTouchUpInside() {
-        guard let travel else { return }
-        let calendarViewController = CalendarViewController(
-            touchOption: .single, type: .date,
-            startDate: travel.startDate, endDate: travel.endDate
-        )
-        calendarViewController.delegate = self
-        present(calendarViewController, animated: true)
+        viewModel.dateInputButtonTapped()
     }
     
     @objc func textFieldDidChange(_ sender: UITextField) {
@@ -133,47 +169,59 @@ extension ExpenseAddViewController {
         
         if sender == rootView.amountTextField {
             viewModel.isValidAmountTextField(text: sender.text)
-            guard let exchangeInfo else { return }
-            viewModel.exchangeLabelShow(amount: sender.text, unit: exchangeInfo.tradingStandardRate)
+            viewModel.exchangeLabelShow(amount: sender.text, exchangeInfo: exchangeInfo)
             return
         }
     }
     
     @objc func addButtonTouchUpInside() {
-        guard let name = rootView.titleTextField.text,
-              let category = rootView.categoryButton.titleLabel?.text,
-              let content = rootView.descriptionTextView.text,
-              let exchangeInfo,
-              let tradingStandardRate = Double(exchangeInfo.tradingStandardRate.convertRemoveComma()),
-              let amountText = rootView.amountTextField.text,
-              let amount = Int(amountText),
-              let dateString = rootView.dateButton.titleLabel?.text,
-              let date = Date.yearMonthDayDateFormatter.date(from: dateString),
-              let travel = travel else {
-            return
+        switch mode {
+        case .post:
+            let result = viewModel.addExpense(
+                name: rootView.titleTextField.text,
+                category: rootView.categoryButton.titleLabel?.text,
+                content: rootView.descriptionTextView.text,
+                cost: rootView.amountTextField.text,
+                date: rootView.dateButton.titleLabel?.text,
+                exchangeInfo: exchangeInfo
+            )
+            switch result {
+            case .success:
+                navigationController?.popViewController(animated: true)
+            case .failure(let error):
+                print(error.localizedDescription)
+                presentErrorAlert(title: CoreDataError.saveFailure(.expense).errorDescription)
+            }
+            
+        case .update:
+            let result = viewModel.updateExpense(
+                name: rootView.titleTextField.text,
+                category: rootView.categoryButton.titleLabel?.text,
+                content: rootView.descriptionTextView.text,
+                cost: rootView.amountTextField.text,
+                date: rootView.dateButton.titleLabel?.text,
+                exchangeInfo: exchangeInfo
+            )
+            switch result {
+            case .success:
+                navigationController?.popViewController(animated: true)
+            case .failure(let error):
+                print(error.localizedDescription)
+                presentErrorAlert(title: CoreDataError.saveFailure(.expense).errorDescription)
+            }
+            
+        case .detail:
+            break
         }
         
-        let expenseDTO = ExpenseDTO(
-            name: name,
-            category: category,
-            content: content,
-            cost: Int64(tradingStandardRate * Double(amount)),
-            currency: exchangeInfo.currencyName,
-            date: date,
-            travel: travel)
-        
-        viewModel.postExpense(expense: expenseDTO) { [weak self] in
-            self?.navigationController?.popViewController(animated: true)
-            print("지출 저장 성공!")
-        }
     }
-    
 }
 
 // MARK: - CalendarDelegate
 
 extension ExpenseAddViewController: CalendarViewDelegate {
-    func fetchDate(dateString: String) {
+    func fetchDate(date: Date) {
+        let dateString = Date.yearMonthDayDateFormatter.string(from: date)
         rootView.dateButton.setTitle(dateString, for: .normal)
         viewModel.isValidDate(dateString: dateString)
     }
@@ -182,13 +230,13 @@ extension ExpenseAddViewController: CalendarViewDelegate {
 // MARK: - PickerDelegate
 
 extension ExpenseAddViewController: ExpenseAddPickerViewDelegate {
-    func selectedExchangeInfo(item: ExchangeResponse) {
+    func selectedExchangeInfo(item: ExchangeData) {
         guard let exchangeRateType = ExchangeRateType(currencyCode: item.currencyCode) else { return }
         exchangeInfo = item
         let title = "\(exchangeRateType.icon) \(item.currencyName)"
         rootView.moneyUnitButton.setTitle(title, for: .normal)
         viewModel.isValidUnitItem(item: title)
-        viewModel.exchangeLabelShow(amount: rootView.amountTextField.text, unit: item.tradingStandardRate)
+        viewModel.exchangeLabelShow(amount: rootView.amountTextField.text, exchangeInfo: item)
     }
     
     func selectedCategory(item: ExpenseType) {
@@ -208,15 +256,51 @@ extension ExpenseAddViewController: ExpenseAddViewDelegate {
     func exchangeLabelUpdate(result: Int) {
         rootView.moneyUnitExchangeLabel.isHidden = result == -1
         rootView.moneyUnitExchangeLabel.text = "원화로 계산하면 약 \(result.numberFormatter()) 원 입니다."
-        print(result)
     }
     
     func backButtonDidTap(isClear: Bool) {
-        if !isClear {
+        if !isClear && mode != .detail {
             presentIsClearAlert()
         } else {
             navigationController?.popViewController(animated: true)
         }
+    }
+    
+    func presentCalendarViewController(travel: Travel) {
+        let calendarViewController = CalendarViewController(
+            touchOption: .single, type: .date,
+            startDate: travel.startDate, endDate: travel.endDate
+        )
+        calendarViewController.delegate = self
+        present(calendarViewController, animated: true)
+    }
+    
+    func presentExpenseAddPickerView(type: ExpenseAddPickerViewController.PickerType) {
+        let pickerViewController = ExpenseAddPickerViewController(type: type)
+        pickerViewController.delegate = self
+        present(pickerViewController, animated: true)
+    }
+    
+    func configureExpenseDetail(expense: Expense) {
+        guard let date = expense.date
+        else { return }
+        rootView.titleTextField.text = expense.name
+        // TODO: 수정해야함
+        rootView.amountTextField.text = "\(expense.cost)"
+        
+        rootView.moneyUnitButton.setTitle(
+            expense.currency,
+            for: .normal
+        )
+        rootView.categoryButton.setTitle(
+            expense.category,
+            for: .normal
+        )
+        rootView.dateButton.setTitle(
+            Date.yearMonthDayDateFormatter.string(from: date),
+            for: .normal
+        )
+        rootView.descriptionTextView.text = expense.content
     }
     
 }
@@ -272,5 +356,39 @@ extension ExpenseAddViewController: UITextViewDelegate {
             textView.text = ExpenseAddView.StringLiteral.descriptionTextViewPlaceholder
             textView.textColor = .grey3
         }
+    }
+}
+
+extension ExpenseAddViewController: UITextFieldDelegate {
+    func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
+        if let char = string.cString(using: String.Encoding.utf8) {
+            let isBackSpace = strcmp(char, "\\b")
+            if isBackSpace == -92 {
+                return true
+            }
+        }
+        
+        guard let text = textField.text else { return true }
+        return text.count < Metric.amountTextFieldMaxCount
+    }
+}
+
+// MARK: - Enum Mode
+
+extension ExpenseAddViewController {
+    enum Mode {
+        case post
+        case detail
+        case update
+    }
+}
+
+fileprivate extension ExpenseAddViewController {
+    enum Metric {
+        static let amountTextFieldMaxCount: Int = 7
     }
 }

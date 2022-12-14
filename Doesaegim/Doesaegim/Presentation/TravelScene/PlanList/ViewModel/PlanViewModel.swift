@@ -21,17 +21,8 @@ final class PlanViewModel {
         plan.name
     }
 
-    // 9:01 PM 형태의 날짜 문자열 
     var timeString: String? {
-        guard let date = plan.date
-        else {
-            return nil
-        }
-
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
-
-        return formatter.string(from: date)
+        plan.date?.userDefaultFormattedTime
     }
 
     var location: String? {

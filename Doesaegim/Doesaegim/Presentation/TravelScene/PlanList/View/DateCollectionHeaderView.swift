@@ -16,7 +16,7 @@ final class DateCollectionHeaderView: UICollectionReusableView {
 
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.font = .italicSystemFont(ofSize: FontSize.title)
+        label.changeFontSize(to: FontSize.title)
 
         return label
     }()

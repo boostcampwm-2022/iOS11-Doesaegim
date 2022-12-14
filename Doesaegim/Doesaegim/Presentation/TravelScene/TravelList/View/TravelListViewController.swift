@@ -17,7 +17,7 @@ final class TravelListViewController: UIViewController {
     private typealias SnapShot
     = NSDiffableDataSourceSnapshot<String, TravelInfoViewModel>
     private typealias CellRegistration
-    = UICollectionView.CellRegistration<TravelListCell, TravelInfoViewModel>
+    = UICollectionView.CellRegistration<TravelCollectionViewCell, TravelInfoViewModel>
     
     // MARK: - Properties
     
@@ -30,11 +30,8 @@ final class TravelListViewController: UIViewController {
     }()
     
     private lazy var planCollectionView: UICollectionView = {
-        var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
-        configuration.showsSeparators = false
-        configuration.trailingSwipeActionsConfigurationProvider = makeSwipeActions
-        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
         
+        let layout = createCompositionalLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
         collectionView.layer.cornerRadius = 12
@@ -103,18 +100,61 @@ final class TravelListViewController: UIViewController {
     
     // MARK: - Configure CollectionView
     
-    private func configureCollectionViewDataSource() {
-        let travelCell = CellRegistration { cell, indexPath, identifier in
+    private func createCompositionalLayout() -> UICollectionViewLayout {
+        
+        let heightDimension = NSCollectionLayoutDimension.estimated(70)
+        
+        let layout = UICollectionViewCompositionalLayout { _, _ -> NSCollectionLayoutSection? in
+            let itemSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: heightDimension
+            )
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-            cell.configureContent(with: identifier)
+            item.edgeSpacing = NSCollectionLayoutEdgeSpacing(
+                leading: .fixed(0),
+                top: .fixed(4),
+                trailing: .fixed(0),
+                bottom: .fixed(4)
+            )
+            let groupSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: heightDimension
+            )
+            let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+
+            let section = NSCollectionLayoutSection(group: group)
+            return section
+        }
+        
+        return layout
+    }
+    
+    private func configureCollectionViewDataSource() {
+        
+        let travelCell = CellRegistration { cell, indexPath, identifier in
+            cell.configure(with: identifier)
+            cell.deleteAction = { [weak self] in
+                let cancelAction = UIAlertAction(title: "취소", style: .default)
+                let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
+                    self?.viewModel?.deleteTravel(with: identifier.uuid)
+                }
+                
+                self?.presentAlert(
+                    title: "여행을 삭제하시겠습니까?",
+                    message: "관련된 일정, 지출, 다이어리가 전부 삭제됩니다. 정말 삭제하시겠습니까?",
+                    actions: cancelAction, deleteAction
+                )
+            }
+            
             
             if let viewModel = self.viewModel,
-               indexPath.row == viewModel.travelInfos.count - 3 {
+               viewModel.travelInfos.count >= 10,
+               indexPath.row == viewModel.travelInfos.count - 1 {
                 DispatchQueue.main.async {
                     viewModel.fetchTravelInfo()
                 }
             }
-            
         }
         
         travelDataSource = DataSource(
@@ -131,7 +171,7 @@ final class TravelListViewController: UIViewController {
     
     @objc func didAddTravelButtonTap() {
         // 여행 추가 뷰컨트롤러 이동
-        navigationController?.pushViewController(TravelAddViewController(), animated: true)
+        navigationController?.pushViewController(TravelWriteViewController(mode: .post), animated: true)
     }
 }
 
@@ -149,7 +189,8 @@ extension TravelListViewController: TravelListViewModelDelegate {
         
         snapshot.appendSections(["main section"])
         snapshot.appendItems(travelInfos)
-        self.travelDataSource?.apply(snapshot, animatingDifferences: true)
+        travelDataSource?.apply(snapshot, animatingDifferences: true)
+
         
     }
     
@@ -168,27 +209,15 @@ extension TravelListViewController: TravelListViewModelDelegate {
     }
     
     func travelListDeleteDataDidFail() {
-        let alert = UIAlertController(
-            title: "삭제 실패",
-            message: "여행정보를 삭제하기를 실패하였습니다",
-            preferredStyle: .alert
-        )
         
         let okAction = UIAlertAction(title: "확인", style: .default)
-        alert.addAction(okAction)
-        
-        present(alert, animated: true, completion: nil)
+        presentAlert(title: "삭제 실패", message: "여행정보 삭제하기를 실패하였습니다.", actions: okAction)
     }
     
     func travelListFetchDidFail() {
-        let alert = UIAlertController(
-            title: "로드 실패",
-            message: "여행정보 불러오기를 실패하였습니다",
-            preferredStyle: .alert
-        )
+        
         let alertAction = UIAlertAction(title: "확인", style: .default)
-        alert.addAction(alertAction)
-        present(alert, animated: true, completion: nil)
+        presentAlert(title: "로드 실패", message: "여행정보 불러오기를 실패하였습니다", actions: alertAction)
     }
 }
 
@@ -210,36 +239,20 @@ extension TravelListViewController: UICollectionViewDelegate {
                 travel: travel,
                 repository: PlanLocalRepository()
             )
-            show(PlanListViewController(viewModel: planListViewModel), sender: nil)
+//            (1...100).forEach {
+//                Plan.addAndSave(with: PlanDTO(
+//                    name: "일정 \($0)",
+//                    date: Calendar.current.date(byAdding: .second, value: $0, to: Date()) ?? Date(),
+//                    content: "내용",
+//                    travel: travel,
+//                    location: nil)
+//                )
+//            }
+            let planListViewController = PlanListViewController(viewModel: planListViewModel)
+            planListViewModel.delegate = planListViewController
+            show(planListViewController, sender: nil)
         case .failure(let error):
             print(error.localizedDescription)
         }
-
     }
-}
-
-extension TravelListViewController {
-    
-    private func deleteTravel(with travelInfo: TravelInfoViewModel) {
-        let uuid = travelInfo.uuid
-        viewModel?.deleteTravel(with: uuid)
-    }
-    
-    private func makeSwipeActions(for indexPath: IndexPath?) -> UISwipeActionsConfiguration? {
-        guard let indexPath = indexPath,
-              let id = travelDataSource?.itemIdentifier(for: indexPath) else { return nil }
-        
-        let deleteActionTitle = NSLocalizedString("삭제", comment: "여행 목록 삭제")
-        let deleteAction = UIContextualAction(
-            style: .destructive,
-            title: deleteActionTitle
-        ) { [weak self] _, _, completion in
-            self?.deleteTravel(with: id)
-            // 원래는 스냅샷 업데이트 메서드를 호출해주지만 뷰모델에서 Travel배열의 변화를 감지하면 자동으로 호출하므로 불필요
-            completion(false)
-        }
-        return UISwipeActionsConfiguration(actions: [deleteAction])
-    }
-    
-
 }

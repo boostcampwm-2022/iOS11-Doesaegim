@@ -10,11 +10,13 @@ import UIKit
 protocol DiaryAddViewModelDelegate: AnyObject {
     typealias ImageID = String
 
-    func diaryAddViewModlelValuesDidChange(_ diary: TemporaryDiary)
+    func diaryAddViewModelValuesDidChange(_ diary: TemporaryDiary)
 
     func diaryAddViewModelDidUpdateSelectedImageIDs(_ identifiers: [ImageID])
 
-    func diaryAddViewModelDidLoadImage(withId id: ImageID)
+    func diaryAddViewModelDidLoadImage(withID id: ImageID)
 
     func diaryAddViewModelDidAddDiary(_ result: Result<Diary, Error>)
+
+    func diaryAddViewModelDidRemoveImage(withID id: ImageID)
 }

@@ -17,7 +17,7 @@ struct ExpenseInfoViewModel: Hashable {
     let category: String
     let date: Date
     
-    init(uuid: UUID, name: String, content: String, category: String,cost: Int, date: Date) {
+    init(uuid: UUID, name: String, content: String, category: String, cost: Int, date: Date) {
         self.uuid = uuid
         self.name = name
         self.content = content

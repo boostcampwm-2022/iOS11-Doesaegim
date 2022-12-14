@@ -32,6 +32,8 @@ final class DiaryAddViewController: UIViewController {
 
     private lazy var imageSliderDataSource = configureImageSliderDataSource()
 
+    private var selectedTravelPickerIndex = Int.zero
+
 
     // MARK: - Life Cycle
 
@@ -46,17 +48,13 @@ final class DiaryAddViewController: UIViewController {
         configureNavigationBar()
         bindToViewModel()
         observeKeyBoardAppearance()
+        configureTravelPickerToolbar()
         configureTravelPicker()
+        configureDateButton()
         configurePlaceSearchButton()
-        configureImageSlider()
         configureNameTextField()
         configureContentTextView()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        tabBarController?.tabBar.isHidden = true
+        applySnapshot(usingIDs: [.empty])
     }
 
 
@@ -70,8 +68,7 @@ final class DiaryAddViewController: UIViewController {
             self?.rootView.endEditing(true)
             self?.viewModel.saveButtonDidTap()
         }
-        let saveButtonImage = UIImage(systemName: StringLiteral.saveButtonImageName)
-        let saveButton = UIBarButtonItem(image: saveButtonImage, primaryAction: saveAction)
+        let saveButton = UIBarButtonItem(image: .basicCheckmark, primaryAction: saveAction)
         saveButton.tintColor = .systemOrange
         saveButton.isEnabled = false
         navigationItem.setRightBarButton(saveButton, animated: true)
@@ -81,48 +78,127 @@ final class DiaryAddViewController: UIViewController {
         viewModel.delegate = self
     }
 
+    private func configureTravelPickerToolbar() {
+        let cancelButton = UIBarButtonItem(
+            image: .xmark,
+            primaryAction: UIAction { [weak self] _ in self?.rootView.endEditing(true) }
+        )
+        let spaceButton = UIBarButtonItem(systemItem: .flexibleSpace)
+        let doneButton  = UIBarButtonItem(
+            image: .basicCheckmark,
+            primaryAction: UIAction { [weak self] _ in
+                guard let selectedRow = self?.rootView.travelPicker.selectedRow(inComponent: .zero),
+                      let travel = self?.viewModel.travelPickerDataSource.itemForRow(selectedRow)
+                else {
+                    return
+                }
+
+                self?.selectedTravelPickerIndex = selectedRow
+                self?.viewModel.travelDidSelect(travel)
+                self?.rootView.endEditing(true)
+            }
+        )
+        rootView.travelPickerToolbar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+    }
+
     private func configureTravelPicker() {
         rootView.travelPicker.delegate = self
         rootView.travelPicker.dataSource = viewModel.travelPickerDataSource
+
+        let configureInitialSelection = UIAction { [weak self] _ in
+            if let index = self?.selectedTravelPickerIndex,
+               index != self?.rootView.travelPicker.selectedRow(inComponent: .zero) {
+                self?.rootView.travelPicker.selectRow(index, inComponent: .zero, animated: false)
+            }
+
+            guard self?.rootView.travelTextField.hasText != true,
+                  let travel = self?.viewModel.travelPickerDataSource.itemForRow(.zero)
+            else {
+                return
+            }
+            self?.viewModel.travelDidSelect(travel)
+        }
+        rootView.travelTextField.addAction(configureInitialSelection, for: .editingDidBegin)
     }
 
     private func configurePlaceSearchButton() {
-        let action = UIAction { _ in
-            self.rootView.endEditing(true)
+        let showLocationViewController = UIAction { [weak self] _ in
+            self?.rootView.endEditing(true)
             let controller = SearchingLocationViewController()
             controller.delegate = self
-            self.show(controller, sender: self)
+            self?.show(controller, sender: self)
         }
-        rootView.placeSearchButton.addAction(action, for: .touchUpInside)
+        rootView.placeSearchButton.addAction(showLocationViewController, for: .touchUpInside)
+
+        let clearLocation = UIAction { [weak self] _ in
+            self?.viewModel.locationDidSelect(nil)
+        }
+        rootView.placeSearchButton.clearButton.addAction(clearLocation, for: .touchUpInside)
     }
 
-    /// 이미지 슬라이더, 이미지 추가 버튼 관련 설정
-    private func configureImageSlider() {
-        let presentPhotoPicker = UIAction { _ in
+    private func configureDateButton() {
+        let presentCalendar = UIAction { [weak self] _ in
+            guard let dateInterval = self?.viewModel.dateInterval
+            else {
+                return 
+            }
+            let calendarViewController = CalendarViewController(
+                touchOption: .single,
+                type: .dateAndTime,
+                startDate: dateInterval.start,
+                endDate: dateInterval.end
+            )
+            calendarViewController.delegate = self
+            self?.rootView.endEditing(true)
+            self?.present(calendarViewController, animated: true)
+        }
+        rootView.dateInputButton.addAction(presentCalendar, for: .touchUpInside)
+    }
+
+    /// 사진 피커를 띄우는 액션
+    private func presentPhotoPickerAction() -> UIAction {
+        UIAction { [weak self] _ in
             var configuration = PHPickerConfiguration(photoLibrary: .shared())
             configuration.filter = .images
-            configuration.selectionLimit = Metric.numberOfMaximumPhotos
+
+            let numberOfSelectedPhotos = self?.viewModel.selectedImageIDs.count ?? .zero
+            let selectionLimit = Metric.numberOfMaximumPhotos - numberOfSelectedPhotos
+
+            guard selectionLimit > .zero
+            else {
+                self?.presentErrorAlert(title: StringLiteral.disablePhotoSelection)
+                return
+            }
+            configuration.selectionLimit = selectionLimit
 
             let picker = PHPickerViewController(configuration: configuration)
             picker.delegate = self
-            self.present(picker, animated: true)
-
+            self?.present(picker, animated: true)
         }
-        rootView.addPhotoButton.addAction(presentPhotoPicker, for: .touchUpInside)
     }
 
     private func configureImageSliderDataSource() -> DataSource {
         let cellRegistration = UICollectionView
-            .CellRegistration<ProgressiveImageCollectionViewCell, ImageID> { cell, _, id in
-                let imageStatus = self.viewModel.image(withID: id)
+            .CellRegistration<ProgressiveImageCollectionViewCell, ImageID> { [weak self] cell, _, id in
+                guard let imageStatus = self?.viewModel.image(withID: id)
+                else {
+                    return
+                }
+                
+                cell.addPhotoButtonAction = self?.presentPhotoPickerAction()
+                cell.removePhotoButtonAction = UIAction { [weak self] _ in
+                    self?.viewModel.removeImage(withID: id)
+                }
                 switch imageStatus {
                 case .inProgress(let progress):
                     cell.progress = progress
                 case .complete(let image), .error(let image) :
                     cell.image = image
+                case .dummy:
+                    break
                 }
         }
-        let collectionView = self.rootView.imageSlider
+        let collectionView = self.rootView.imageSlider.slider
 
         let dataSource = DataSource(
             collectionView: collectionView
@@ -139,12 +215,19 @@ final class DiaryAddViewController: UIViewController {
 
     private func configureNameTextField() {
         let textField = rootView.titleTextField
-        let action = UIAction { _ in self.viewModel.titleDidChange(to: textField.text) }
+        let action = UIAction { [weak self] _ in self?.viewModel.titleDidChange(to: textField.text) }
         textField.addAction(action, for: .editingChanged)
     }
 
     private func configureContentTextView() {
         rootView.contentTextView.delegate = self
+    }
+
+    private func applySnapshot(usingIDs identifiers: [ImageID]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, ImageID>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(identifiers)
+        imageSliderDataSource.apply(snapshot, animatingDifferences: true)
     }
 
 
@@ -205,44 +288,36 @@ extension DiaryAddViewController: UIPickerViewDelegate {
     ) -> String? {
         viewModel.travelPickerDataSource.itemForRow(row)?.name
     }
-
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        guard let travel = viewModel.travelPickerDataSource.itemForRow(row)
-        else {
-            return
-        }
-
-        viewModel.travelDidSelect(travel)
-    }
 }
 
 
 // MARK: - DiaryAddViewModelDelegate
 extension DiaryAddViewController: DiaryAddViewModelDelegate {
 
-    func diaryAddViewModlelValuesDidChange(_ diary: TemporaryDiary) {
+    func diaryAddViewModelValuesDidChange(_ diary: TemporaryDiary) {
         navigationItem.rightBarButtonItem?.isEnabled = diary.hasAllRequiredProperties
         rootView.travelTextField.text = diary.travel?.name
         rootView.placeSearchButton.setTitle(diary.location?.name, for: .normal)
+        rootView.dateInputButton.setTitle(diary.dateString, for: .normal)
     }
 
     func diaryAddViewModelDidUpdateSelectedImageIDs(_ identifiers: [ImageID]) {
-        rootView.pageControl.numberOfPages = identifiers.count
+        rootView.imageSlider.setupNumberOfPages(identifiers.count)
         applySnapshot(usingIDs: identifiers)
     }
 
-    func diaryAddViewModelDidLoadImage(withId id: ImageID) {
-        reloadItem(withID: id)
+    func diaryAddViewModelDidLoadImage(withID id: ImageID) {
+        var snapshot = imageSliderDataSource.snapshot()
+        snapshot.reloadItems([id])
+        imageSliderDataSource.apply(snapshot, animatingDifferences: true)
     }
 
     func diaryAddViewModelDidAddDiary(_ result: Result<Diary, Error>) {
         rootView.isSaving = false
 
         switch result {
-        case .success(let diary):
-            print(diary.title!, "이 저장되었습니다!")
+        case .success:
             navigationController?.popViewController(animated: true)
-            // TODO: 전달?
         case .failure(let error):
             presentErrorAlert(
                 title: CoreDataError.saveFailure(.diary).localizedDescription,
@@ -251,16 +326,14 @@ extension DiaryAddViewController: DiaryAddViewModelDelegate {
         }
     }
 
-    private func applySnapshot(usingIDs identifiers: [ImageID]) {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, ImageID>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(identifiers)
-        imageSliderDataSource.apply(snapshot, animatingDifferences: true)
-    }
-
-    private func reloadItem(withID id: ImageID) {
+    func diaryAddViewModelDidRemoveImage(withID id: ImageID) {
         var snapshot = imageSliderDataSource.snapshot()
-        snapshot.reloadItems([id])
+        snapshot.deleteItems([id])
+        if !snapshot.itemIdentifiers.contains(.empty) {
+            snapshot.appendItems([.empty])
+        }
+        let slider = rootView.imageSlider
+        slider.setupNumberOfPages(snapshot.itemIdentifiers.count)
         imageSliderDataSource.apply(snapshot, animatingDifferences: true)
     }
 }
@@ -290,7 +363,6 @@ extension DiaryAddViewController: UITextViewDelegate {
     }
 }
 
-
 // MARK: - Constants
 fileprivate extension DiaryAddViewController {
 
@@ -303,6 +375,14 @@ fileprivate extension DiaryAddViewController {
     enum StringLiteral {
         static let navigationTitle = "작성 화면"
 
-        static let saveButtonImageName = "checkmark"
+        static let disablePhotoSelection = "사진은 5개만 추가 가능해요"
+    }
+}
+
+
+// MARK: - CalendarViewDelegate
+extension DiaryAddViewController: CalendarViewDelegate {
+    func fetchDate(date: Date) {
+        viewModel.dateDidSelect(date)
     }
 }

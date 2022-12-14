@@ -18,8 +18,7 @@ final class PlanCollectionViewCell: UICollectionViewCell {
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.changeFontSize(to: FontSize.body)
-        label.numberOfLines = .zero
-        label.lineBreakMode = .byWordWrapping
+        label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 
         return label
     }()
@@ -27,7 +26,7 @@ final class PlanCollectionViewCell: UICollectionViewCell {
     private let timeLabel: UILabel = {
         let label = UILabel()
         label.changeFontSize(to: FontSize.caption)
-        label.textColor = .grey2
+        label.textColor = .grey3
         label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 
         return label
@@ -36,9 +35,8 @@ final class PlanCollectionViewCell: UICollectionViewCell {
     private let locationLabel: UILabel = {
         let label = UILabel()
         label.changeFontSize(to: FontSize.caption)
-        label.numberOfLines = .zero
-        label.lineBreakMode = .byWordWrapping
-        label.textColor = .grey2
+        label.textColor = .grey3
+        label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 
         return label
     }()
@@ -46,9 +44,8 @@ final class PlanCollectionViewCell: UICollectionViewCell {
     private let contentLabel: UILabel = {
         let label = UILabel()
         label.changeFontSize(to: FontSize.caption)
-        label.numberOfLines = .zero
-        label.lineBreakMode = .byWordWrapping
-        label.textColor = .grey2
+        label.textColor = .grey3
+        label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
 
         return label
     }()

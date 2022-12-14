@@ -104,8 +104,8 @@ final class CalendarViewController: UIViewController, CalendarProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
-        completeButton.addTarget(self, action: #selector(completeButtonTouchUpInside), for: .touchUpInside)
         configureViews()
+        setAddTargets()
     }
     
     // MARK: - Configure Functions
@@ -124,7 +124,6 @@ final class CalendarViewController: UIViewController, CalendarProtocol {
     private func configureConstraint() {
         contentView.snp.makeConstraints {
             $0.bottom.leading.trailing.equalToSuperview()
-//            $0.height.equalTo(600)
         }
         
         stackView.snp.makeConstraints {
@@ -143,6 +142,20 @@ final class CalendarViewController: UIViewController, CalendarProtocol {
             $0.height.equalTo(48)
         }
     }
+    
+    // MARK: SetAddTargets {
+    private func setAddTargets() {
+        completeButton.addTarget(
+            self,
+            action: #selector(completeButtonTouchUpInside),
+            for: .touchUpInside
+        )
+        let emptyViewTapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(emptyViewDidTapped))
+        emptyViewTapGesture.delegate = self
+        view.addGestureRecognizer(emptyViewTapGesture)
+    }
 }
 
 // MARK: - Action
@@ -155,9 +168,27 @@ extension CalendarViewController {
         if type == .dateAndTime {
             let time = dateFormatter.string(from: timeDatepicker.date)
             let dateString = "\(Date.yearMonthDayDateFormatter.string(from: date)) \(time)"
-            delegate?.fetchDate(dateString: dateString)
-        } else { delegate?.fetchDate(dateString: Date.yearMonthDayDateFormatter.string(from: date)) }
-        dismiss(animated: true)
+            if let date = Date.yearMonthDayTimeDateFormatter.date(from: dateString) {
+                delegate?.fetchDate(date: date)
+            } else {
+                presentErrorAlert(title: "날짜를 다시 입력해 주세요.")
+            }
             
+        } else {
+            delegate?.fetchDate(date: date)
+        }
+        dismiss(animated: true)
+    }
+    
+    @objc func emptyViewDidTapped() {
+        dismiss(animated: true)
+    }
+}
+
+// MARK: Subview들 까지 tap해도 이벤트가 발생하는 문제를 해결하기 위한 메서드
+extension CalendarViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        guard touch.view?.isDescendant(of: contentView) == false else { return false }
+        return true
     }
 }

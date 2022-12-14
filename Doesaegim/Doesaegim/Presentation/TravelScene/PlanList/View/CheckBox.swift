@@ -51,7 +51,6 @@ final class CheckBox: UIButton {
         setImage(.init(systemName: StringLiteral.circledCheckmark), for: .normal)
         setPreferredSymbolConfiguration(.init(pointSize: Metric.imagePointSize), forImageIn: .normal)
     }
-
 }
 
 

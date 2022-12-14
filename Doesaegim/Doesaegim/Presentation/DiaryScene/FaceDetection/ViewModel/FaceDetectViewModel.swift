@@ -66,19 +66,31 @@ extension FaceDetectViewModel {
         }
     }
     
-    func addDetectInfo(with image: UIImage?, boundingBox: CGRect) {
-        guard let image = image else { return }
+    func addDetectInfo(with image: UIImage?, downsampledImage: UIImage?, boundingBox: CGRect) {
+        guard let image = image,
+              let downsampledImage
+        else { return }
+
+        let rect = calculateBounds(with: image, boundingBox: boundingBox)
+        let downsampledRect = calculateBounds(with: downsampledImage, boundingBox: boundingBox)
         
+        guard let croppedImage = cropImage(of: image, with: rect) else { return }
+        let newDetectInfo = DetectInfoViewModel(
+            uuid: UUID(),
+            image: croppedImage,
+            bound: rect,
+            downsampledBounds: downsampledRect
+        )
+        detectInfos.append(newDetectInfo)
+    }
+
+    private func calculateBounds(with image: UIImage, boundingBox: CGRect) -> CGRect {
         let width = image.size.width * boundingBox.size.width
         let height = image.size.height * boundingBox.size.height
         let xCoordinate = image.size.width * boundingBox.origin.x
         let yCoordinate = (image.size.height * (1 - boundingBox.origin.y)) - height
 
-        let rect = CGRect(x: xCoordinate, y: yCoordinate, width: width, height: height)
-        
-        guard let croppedImage = cropImage(of: image, with: rect) else { return }
-        let newDetectInfo = DetectInfoViewModel(uuid: UUID(), image: croppedImage, bound: rect)
-        detectInfos.append(newDetectInfo)
+        return CGRect(x: xCoordinate, y: yCoordinate, width: width, height: height)
     }
     
     func cropImage(of image: UIImage?, with cropRect: CGRect) -> UIImage? {

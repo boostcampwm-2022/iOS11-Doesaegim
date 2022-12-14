@@ -8,11 +8,12 @@
 import Foundation
 
 final class ExpenseAddViewModel: ExpenseAddViewProtocol {
-    
+
     // MARK: - Properties
     
     weak var delegate: ExpenseAddViewDelegate?
-    var currentTravel: Travel?
+    private let travel: Travel
+    private let repository: ExpenseAddLocalRepository
     
     var isValidName: Bool
     var isValidAmount: Bool
@@ -38,17 +39,28 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
         }
     }
     
-    init() {
+    var expense: Expense?
+    
+    init(travel: Travel, expenseID: UUID? = nil) {
+        self.travel = travel
         isValidName = false
         isValidAmount = false
         isValidUnit = false
         isValidCategory = false
         isValidDate = false
         isValidInput = isValidName && isValidAmount && isValidUnit && isValidCategory && isValidDate
-        
         exchangeCalculataion = 0
-        
         isClearInput = true
+        
+        repository = ExpenseAddLocalRepository()
+        
+        let result = repository.getExpenseDetail(with: expenseID)
+        switch result {
+        case .success(let expense):
+            self.expense = expense
+        case .failure:
+            self.expense = nil
+        }
     }
     
     // MARK: - Helpers
@@ -111,26 +123,49 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
         isValidDate = true
     }
     
-    func exchangeLabelShow(amount: String?, unit: String) {
+    func exchangeLabelShow(amount: String?, exchangeInfo: ExchangeData?) {
         guard let amount,
+              let exchangeInfo,
               let rationalAmount = Double(amount),
-              let rationalUnit = Double(unit.convertRemoveComma()) else {
+              let rationalUnit = Double(exchangeInfo.tradingStandardRate.convertRemoveComma()) else {
             exchangeCalculataion = -1
             return
         }
-        exchangeCalculataion = Int(rationalAmount * rationalUnit)
+        exchangeCalculataion = Int(rationalUnit * rationalAmount * 1 / exchangeInfo.percent)
     }
     
-    func postExpense(expense: ExpenseDTO, completion: @escaping () -> Void) {
-        let result = Expense.addAndSave(with: expense)
-        switch result {
-        case .success(let expense):
-            completion()
-        case .failure(let error):
-            print(error.localizedDescription)
+    func addExpense(
+        name: String?,
+        category: String?,
+        content: String?,
+        cost: String?,
+        date: String?,
+        exchangeInfo: ExchangeData?
+    ) -> Result<Expense, Error> {
+        guard let name,
+              let category,
+              let exchangeInfo,
+              let costString = cost,
+              let cost = Int(costString),
+              let tradingStandardRate = Double(exchangeInfo.tradingStandardRate.convertRemoveComma()),
+              let dateString = date,
+              let date = Date.yearMonthDayDateFormatter.date(from: dateString),
+              let exchangeRateType = ExchangeRateType(currencyCode: exchangeInfo.currencyCode)
+               else {
+            return .failure(CoreDataError.saveFailure(.expense))
         }
+        let newContent = content == StringLiteral.descriptionTextViewPlaceholder ? "" : (content ?? "")
+        let expenseDTO = ExpenseDTO(
+            name: name,
+            category: category,
+            content: newContent,
+            cost: Int64(cost),
+            currency: "\(exchangeRateType.icon) \(exchangeRateType.currencyName)",
+            date: date,
+            tradingStandardRate: tradingStandardRate * (1 / exchangeInfo.percent),
+            travel: travel)
+        return repository.addExpense(expenseDTO)
     }
-    
     
     func isClearInput(
         name: String?,
@@ -150,6 +185,53 @@ final class ExpenseAddViewModel: ExpenseAddViewProtocol {
             return
         }
         isClearInput = true
+    }
+    
+    func dateInputButtonTapped() {
+        delegate?.presentCalendarViewController(travel: travel)
+    }
+    
+    func pickerViewInputButtonTapped(type: ExpenseAddPickerViewController.PickerType) {
+        delegate?.presentExpenseAddPickerView(type: type)
+    }
+    
+    func fetchExpense() {
+        guard let expense else { return }
+        delegate?.configureExpenseDetail(expense: expense)
+    }
+    
+    func updateExpense(
+        name: String?,
+        category: String?,
+        content: String?,
+        cost: String?,
+        date: String?,
+        exchangeInfo: ExchangeData?
+    ) -> Result<Bool, Error> {
+        guard let name,
+              let category,
+              let costString = cost,
+              let cost = Int64(costString),
+              
+              let dateString = date,
+              let date = Date.yearMonthDayDateFormatter.date(from: dateString),
+              let expense
+               else {
+            return .failure(CoreDataError.saveFailure(.expense))
+        }
+        expense.name = name
+        expense.content = content
+        expense.date = date
+        expense.cost = Int64(cost)
+        expense.category = category
+        
+        if let exchangeInfo,
+           let tradingStandardRate = Double(exchangeInfo.tradingStandardRate.convertRemoveComma()),
+           let exchangeRateType = ExchangeRateType(rawValue: exchangeInfo.currencyCode) {
+            expense.currency = "\(exchangeRateType.icon) \(exchangeRateType.currencyName)"
+            expense.tradingStandardRate = tradingStandardRate
+        }
+        return PersistentManager.shared.saveContext()
     }
     
     

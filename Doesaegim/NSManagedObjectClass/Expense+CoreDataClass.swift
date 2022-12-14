@@ -25,6 +25,7 @@ public class Expense: NSManagedObject {
         expense.category = object.category
         expense.currency = object.currency
         expense.cost = object.cost
+        expense.tradingStandardRate = object.tradingStandardRate
         object.travel.addToExpense(expense)
         
         let result = PersistentManager.shared.saveContext()
@@ -53,7 +54,7 @@ public class Expense: NSManagedObject {
             name: name,
             content: content,
             category: category,
-            cost: Int(expense.cost),
+            cost: Int(Double(expense.cost) * expense.tradingStandardRate),
             date: date
         )
         

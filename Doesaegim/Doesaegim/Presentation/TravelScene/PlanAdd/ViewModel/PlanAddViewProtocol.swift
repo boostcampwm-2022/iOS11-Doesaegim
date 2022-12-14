@@ -16,15 +16,25 @@ protocol PlanAddViewProtocol: AnyObject {
     var isClearInput: Bool { get set }
     
     func isValidPlanName(name: String?)
-    func isValidPlace(place: LocationDTO?)
     func isValidDate(dateString: String)
     
-    func postPlan(plan: PlanDTO, completion: @escaping () -> Void)
     func isClearInput(title: String?, place: String?, date: String?, description: String?)
+    
+    func addPlan(
+        name: String?,
+        dateString: String?,
+        locationDTO: LocationDTO?,
+        content: String?
+    ) -> Result<Plan, Error>
+    func dateButtonTapped()
+    func placeButtonTapped()
 }
 
 protocol PlanAddViewDelegate: AnyObject {
     func isVaildInputs(isValid: Bool)
     func planAddViewDidSelectLocation(locationName: String)
     func backButtonDidTap(isClear: Bool)
+    func presentCalendarViewController(travel: Travel)
+    func presentSearchingLocationViewController()
+    func configurePlanDetail(plan: Plan)
 }

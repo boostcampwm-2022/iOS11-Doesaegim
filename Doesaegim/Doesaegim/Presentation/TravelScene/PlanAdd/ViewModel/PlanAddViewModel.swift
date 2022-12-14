@@ -24,7 +24,10 @@ final class PlanAddViewModel: PlanAddViewProtocol {
     var selectedLocation: LocationDTO? {
         didSet {
             guard let selectedLocation = selectedLocation
-            else { return }
+            else {
+                delegate?.planAddViewDidSelectLocation(locationName: "장소를 검색해 주세요.")
+                return
+            }
             delegate?.planAddViewDidSelectLocation(locationName: selectedLocation.name)
         }
     }
@@ -35,21 +38,28 @@ final class PlanAddViewModel: PlanAddViewProtocol {
         }
     }
     
+    let travel: Travel
+    private let repository: PlanAddLocalRepository
+    var plan: Plan?
+    
     // MARK: - Lifecycles
     
-    init() {
+    init(travel: Travel, plan: Plan?) {
         isValidName = false
         isValidPlace = false
         isValidDate = false
-        isValidInput = isValidName && isValidPlace && isValidDate
+        isValidInput = isValidName && isValidDate
         isClearInput = true
+        repository = PlanAddLocalRepository()
+        self.travel = travel
+        self.plan = plan
     }
     
     // MARK: - Helpers
     
     func isValidPlanName(name: String?) {
         defer {
-            isValidInput = isValidName && isValidPlace && isValidDate
+            isValidInput = isValidName && isValidDate
         }
         guard let name,
               !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
@@ -58,28 +68,15 @@ final class PlanAddViewModel: PlanAddViewProtocol {
         }
         isValidName = true
     }
-    
-    func isValidPlace(place: LocationDTO?) {
-        defer {
-            isValidInput = isValidName && isValidPlace && isValidDate
-        }
-        
-        guard let place = place else {
-            isValidPlace = false
-            return
-        }
-        selectedLocation = place
-        isValidPlace = true
-    }
-    
+
     func isValidDate(dateString: String) {
         defer {
-            isValidInput = isValidName && isValidPlace && isValidDate
+            isValidInput = isValidName && isValidDate
         }
-        guard let date = Date.convertDateStringToDate(
+        guard Date.convertDateStringToDate(
             dateString: dateString,
             formatter: Date.yearMonthDayTimeDateFormatter
-        ) else {
+        ) != nil else {
             isValidDate = false
             return
         }
@@ -106,6 +103,79 @@ final class PlanAddViewModel: PlanAddViewProtocol {
             return
         }
         isClearInput = true
+    }
+    
+    func addPlan(
+        name: String?,
+        dateString: String?,
+        locationDTO: LocationDTO?,
+        content: String?
+    ) -> Result<Plan, Error> {
+        guard let name,
+              let dateString,
+              let date = Date.convertDateStringToDate(
+                dateString: dateString,
+                formatter: Date.yearMonthDayTimeDateFormatter
+              )
+        else {
+            return .failure(CoreDataError.saveFailure(.plan))
+        }
+        let planDTO = PlanDTO(
+            name: name,
+            date: date,
+            content: content == StringLiteral.descriptionTextViewPlaceHolder ? "" : (content ?? ""),
+            travel: travel,
+            location: locationDTO
+        )
+        
+        return repository.addPlan(planDTO)
+    }
+    
+    func dateButtonTapped() {
+        delegate?.presentCalendarViewController(travel: travel)
+    }
+    
+    func placeButtonTapped() {
+        delegate?.presentSearchingLocationViewController()
+    }
+    
+    func fetchPlan() {
+        guard let plan else { return }
+        delegate?.configurePlanDetail(plan: plan)
+    }
+
+    func updatePlan(
+        name: String?,
+        dateString: String?,
+        content: String?
+    ) -> Result<Bool, Error> {
+        guard let name,
+              let dateString,
+              let date = Date.yearMonthDayTimeDateFormatter.date(from: dateString),
+              let plan else {
+            return .failure(CoreDataError.fetchFailure(.plan))
+        }
+        plan.name = name
+        plan.date = date
+        
+        if plan.location == nil, let locationDTO = selectedLocation {
+            let location = Location.add(with: locationDTO)
+            plan.location = location
+        } else if let planLocation = plan.location, let location = selectedLocation {
+            planLocation.name = location.name
+            planLocation.latitude = location.latitude
+            planLocation.longitude = location.longitude
+        } else if let previousLocation = plan.location, selectedLocation == nil {
+            plan.location = nil
+            // TODO: 레포지토리로 이동
+            return PersistentManager.shared.delete(previousLocation)
+        }
+        plan.content = content
+        return PersistentManager.shared.saveContext()
+    }
+    
+    func removeLocation() {
+        selectedLocation = nil
     }
 }
 

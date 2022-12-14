@@ -10,6 +10,17 @@ import UIKit
 /// 장소 검색 화면으로 넘어가는 버튼
 final class PlaceSearchButton: UIButton {
 
+    // MARK: - UI Properties
+
+    let clearButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: StringLiteral.clearButtonImageName), for: .normal)
+        button.tintColor = UIColor.gray
+
+        return button
+    }()
+
+
     // MARK: - Init(s)
 
     override init(frame: CGRect) {
@@ -47,6 +58,17 @@ final class PlaceSearchButton: UIButton {
         imageEdgeInsets = Metric.imageEdgeInsets
         tintColor = .grey3
         contentHorizontalAlignment = .left
+        configureClearButton()
+    }
+
+    private func configureClearButton() {
+        addSubview(clearButton)
+        clearButton.snp.makeConstraints {
+            $0.height.equalTo(snp.height)
+            $0.width.equalTo(clearButton.snp.height)
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview()
+        }
     }
 }
 
@@ -67,5 +89,7 @@ fileprivate extension PlaceSearchButton {
         static let placeholderText = "장소를 검색해주세요"
 
         static let imageName = "magnifyingglass"
+
+        static let clearButtonImageName = "xmark.circle.fill"
     }
 }

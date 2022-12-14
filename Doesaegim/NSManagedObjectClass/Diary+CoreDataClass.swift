@@ -24,8 +24,10 @@ public class Diary: NSManagedObject {
         diary.title = object.title
         diary.content = object.content
 
-        let location = Location.add(with: object.location)
-        diary.location = location
+        if let locationDTO = object.location {
+            let location = Location.add(with: locationDTO)
+            diary.location = location
+        }
         
         object.travel.addToDiary(diary)
         
@@ -70,7 +72,12 @@ public class Diary: NSManagedObject {
         return diaryMapInfo
     }
     
-    static func convertToViewModel(with diary: Diary) -> DiaryInfoViewModel? {
+    static func convertToViewModel(
+        with diary: Diary,
+        id: UUID,
+        name: String,
+        startAt startDate: Date) -> DiaryInfoViewModel? {
+            
         guard let id = diary.id,
               let title = diary.title,
               let content = diary.content,
@@ -88,13 +95,17 @@ public class Diary: NSManagedObject {
             }
         }
         
-        let diaryInfo = DiaryInfoViewModel(
+        var diaryInfo = DiaryInfoViewModel(
             id: id,
             content: content,
             date: date,
             imageData: imageData,
             title: title
         )
+            
+        diaryInfo.travelID = id
+        diaryInfo.travelName = name
+        diaryInfo.travelDate = date
         
         return diaryInfo
     }

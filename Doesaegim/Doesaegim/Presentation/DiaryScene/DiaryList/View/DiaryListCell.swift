@@ -143,7 +143,7 @@ extension DiaryListCell {
         titleLabel.text = data.title
         contentLabel.text = data.content
         
-        let formatter = Date.yearMonthDayDateFormatter
+        let formatter = Date.convertYearToDayFormatter(with: data.date)
         let dateString = formatter.string(from: data.date)
         
         dateLabel.text = dateString
@@ -154,13 +154,4 @@ extension DiaryListCell {
         }
     }
     
-    // MARK: - Functions
-    private func addShadow() {
-        layer.masksToBounds = false
-        layer.shadowColor = UIColor.grey2?.cgColor
-        layer.shadowOffset = CGSize(width: 1, height: 1)
-        layer.shadowRadius = 3
-        layer.shadowOpacity = 1
-
-    }
 }

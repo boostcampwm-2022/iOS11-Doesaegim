@@ -36,9 +36,17 @@ final class CustomPieChart: UIView {
     
     private var currentIndex = 0
     
-    private var currentItem: CustomChartItem<ExpenseType> { items[currentIndex] }
+    private var currentItem: CustomChartItem<ExpenseType>? {
+        items[safeIndex: currentIndex]
+    }
     
-    private var ratio: CGFloat { currentItem.value / total }
+    private var ratio: CGFloat {
+        guard total != 0,
+              let currentItem = currentItem
+        else { return 0 }
+        
+        return currentItem.value / total
+    }
     
     // MARK: - Init
     
@@ -69,12 +77,13 @@ final class CustomPieChart: UIView {
     /// 주어진 rect에 맞게 원형 차트를 그린다. 원형 차트는 정원 형태로 영역에 꽉 채워서 그려진다.
     /// - Parameter rect: 원형 차트를 그릴 영역.
     override func draw(_ rect: CGRect) {
+        initializeAnimation()
+
         if isAnimating {
             drawOnePiece(with: currentItem, on: rect)
             return
         }
         
-        initializeAnimation()
         for index in items.indices {
             currentIndex = index
             drawOnePiece(with: currentItem, on: rect)
@@ -83,7 +92,9 @@ final class CustomPieChart: UIView {
 
     }
     
-    private func drawOnePiece(with item: CustomChartItem<ExpenseType>, on rect: CGRect) {
+    private func drawOnePiece(with item: CustomChartItem<ExpenseType>?, on rect: CGRect) {
+        guard let item = item else { return }
+        
         let category = item.criterion
         let pieceLayer = PieceShapeLayer(
             center: center,
@@ -174,7 +185,7 @@ extension CustomPieChart: CAAnimationDelegate {
         
         startAngle += ratio * Metric.angle
         currentIndex += 1
-        setNeedsDisplay()
+        drawOnePiece(with: currentItem, on: bounds)
     }
 }
 

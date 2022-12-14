@@ -13,9 +13,10 @@ final class ExpenseSectionHeaderView: UICollectionReusableView {
     
     let dateLabel: UILabel = {
         let label = UILabel()
-        label.font = label.font.withSize(18)
+        label.font = .boldSystemFont(ofSize: 18)
+        label.textColor = .white
         label.text = "날짜"
-        label.textColor = .black
+        
         
         return label
     }()
@@ -31,9 +32,15 @@ final class ExpenseSectionHeaderView: UICollectionReusableView {
     }
     
     private func configure() {
-        backgroundColor = .white
+        configureView()
         configureSubviews()
         configureConstraints()
+    }
+    
+    private func configureView() {
+        
+        backgroundColor = .primaryOrange
+        layer.cornerRadius = 10
     }
     
     private func configureSubviews() {
@@ -42,15 +49,13 @@ final class ExpenseSectionHeaderView: UICollectionReusableView {
     
     private func configureConstraints() {
         dateLabel.snp.makeConstraints {
-            $0.centerY.equalTo(self.snp.centerY)
-            $0.leading.equalTo(self.snp.leading)
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview().inset(6)
         }
     }
     
-    func configureData(date: Date?) {
-        guard let date else { return }
-        let formatter = Date.yearMonthDayDateFormatter
-        let dateString = formatter.string(from: date)
+    func configureData(dateString: String?) {
+        guard let dateString else { return }
         
         dateLabel.text = dateString
     }

@@ -11,26 +11,26 @@ final class DiaryDetailViewModel {
     
     // MARK: - Properties
     
+    let diary: Diary
+
     weak var delegate: DiaryDetailViewModelDelegate?
-    
+
     var imageCount: Int { diary.images?.count ?? 0 }
-    
+
     var cellViewModels: [DetailImageCellViewModel] = [] {
         didSet {
             delegate?.diaryDetailImageSliderPagesDidFetch(cellViewModels.count)
             delegate?.diaryDetailImageSliderDidRefresh()
         }
     }
-    
+
     private let navigationTitle: String?
-    
-    private let diary: Diary
+
     
     private let repository = DiaryDetailLocalRepository()
     
     // MARK: - Init
     
-    // TODO: 이니셜라이징할 때 Result를 넘겨주는 방법..???을 모르겠어서 그냥 fail뜨면 nil처리되도록..
     init?(id: UUID) {
         let result = repository.getDiaryDetail(with: id)
         switch result {
@@ -50,7 +50,6 @@ final class DiaryDetailViewModel {
     // MARK: - Functions
     
     func fetchDiaryDetail() {
-        delegate?.diaryDetailTitleDidFetch(with: navigationTitle)
         delegate?.diaryDetailDidFetch(diary: diary)
         
         guard let paths = diary.images,
@@ -58,6 +57,32 @@ final class DiaryDetailViewModel {
               let imageItems = repository.getImageDatas(from: paths, diaryID: diaryID)
         else { return }
         cellViewModels = imageItems.map { DetailImageCellViewModel(data: $0) }
+    }
+    
+    func deleteDiary(with id: UUID) {
+        
+        let result = PersistentRepository.shared.fetchDiary()
+        switch result {
+        case .success(let diaries):
+            let deleteDiary = diaries.filter { $0.id == id }
+            guard let deleteObject = deleteDiary.last else { return }
+            
+            let deleteResult = PersistentManager.shared.delete(deleteObject)
+            switch deleteResult {
+            case .success(let isDeleteComplete):
+                if isDeleteComplete {
+                    delegate?.diaryDeleteDidComplete()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                // TODO: - 삭제실패 알림 delegate
+            }
+            
+        case .failure(let error):
+            print(error.localizedDescription)
+            
+        }
+        
     }
     
 }

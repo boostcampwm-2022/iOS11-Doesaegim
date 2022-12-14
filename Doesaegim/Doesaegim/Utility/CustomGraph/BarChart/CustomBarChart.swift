@@ -59,6 +59,9 @@ final class CustomBarChart: UIView {
     /// 주어진 rect에 맞게 막대 차트를 그린다. 막대 차트는 영역에 꽉 채워서 그려진다.
     /// - Parameter rect: 막대 차트를 그릴 영역.
     override func draw(_ rect: CGRect) {
+        // 기존에 추가한 서브레이어를 모두 지운다.
+        removeAllSubLayers()
+        
         // 차트 배경 그리기
         let criteria = items.map { $0.criterion }
         let backgroundLayer = BarBackgroundLayer(
@@ -118,10 +121,8 @@ final class CustomBarChart: UIView {
     
     // MARK: - Animation Functions
     
-    /// 외부의 값 변화로 인해 애니메이션을 재실행할 경우 활용할 수 있는 메서드.
-    /// 이전에 등록된 서브레이어들을 모두 제거한 후 화면을 다시 그린다.
+    /// 외부의 값 변화로 인해 애니메이션을 재실행할 경우 활용할 수 있는 메서드. 화면을 다시 그린다.
     func executeAnimation() {
-        removeAllSubLayers()
         setNeedsDisplay()
     }
     

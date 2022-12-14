@@ -59,6 +59,8 @@ final class DiaryDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        configureNavigationBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -94,6 +96,56 @@ final class DiaryDetailViewController: UIViewController {
         viewModel.delegate = self
         viewModel.fetchDiaryDetail()
     }
+
+    private func configureNavigationBar() {
+        navigationItem.backButtonTitle = .empty
+        let editButton = UIBarButtonItem(
+            image: .edit,
+            primaryAction: UIAction(handler: { [weak self] _ in
+                guard let diary = self?.viewModel.diary,
+                      let size = self?.view.bounds.size,
+                      let scale = self?.view.window?.windowScene?.screen.scale,
+                      let images = self?.viewModel.cellViewModels.map({ UIImage(
+                        data: $0.data,
+                        size: size,
+                        scale: scale
+                      )})
+                else {
+                    return
+                }
+
+                let editViewModel = DiaryEditViewModel(
+                    diary: diary,
+                    repository: DiaryEditLocalRepository(),
+                    imageManager: ImageManager(),
+                    images: images
+                )
+                let editViewController = DiaryEditViewController(viewModel: editViewModel)
+                self?.show(editViewController, sender: self)
+            }))
+        
+        let deleteButton = UIBarButtonItem(
+            image: UIImage(systemName: "trash"),
+            primaryAction: UIAction(handler: { [weak self] _ in
+                guard let diary = self?.viewModel.diary,
+                      let id = diary.id else { return }
+                // 알림
+                
+                let cancelAction = UIAlertAction(title: "취소", style: .default)
+                let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] _ in
+                    self?.viewModel.deleteDiary(with: id)
+                }
+                self?.presentAlert(
+                    title: "다이어리를 삭제하시겠습니까?",
+                    message: "삭제된 다이어리를 다시 복구할 수 없습니다.",
+                    actions: cancelAction, deleteAction
+                )
+                
+            })
+        )
+//        navigationItem.setRightBarButton(editButton, animated: true)
+        navigationItem.setRightBarButtonItems([deleteButton, editButton], animated: true)
+    }
     
     // MARK: - Configure ImageSlider Delegates
     
@@ -105,13 +157,20 @@ final class DiaryDetailViewController: UIViewController {
     
     /// 이미지 슬라이더 컬렉션뷰의 데이터소스를 지정한다.
     private func configureImageSliderDataSource() {
-        let cellRegistration = CellRegistration { cell, _, itemIdentifier in
-            let image = UIImage(data: itemIdentifier.data)
+        let cellRegistration = CellRegistration { [weak self] cell, _, itemIdentifier in
+            guard let size = self?.view.bounds.size,
+                  let scale = self?.view.window?.windowScene?.screen.scale
+            else {
+                cell.setupImage(image: UIImage(data: itemIdentifier.data))
+                return 
+            }
+
+            let image = UIImage(data: itemIdentifier.data, size: size, scale: scale)
             cell.setupImage(image: image)
         }
         
         imageSliderDataSource = DataSource(
-            collectionView: rootView.imageSlider
+            collectionView: rootView.imageSlider.slider
         ) { collectionView, indexPath, itemIdentifier in
             let cell = collectionView.dequeueConfiguredReusableCell(
                 using: cellRegistration,
@@ -145,10 +204,6 @@ final class DiaryDetailViewController: UIViewController {
 
 extension DiaryDetailViewController: DiaryDetailViewModelDelegate {
     
-    func diaryDetailTitleDidFetch(with title: String?) {
-        navigationItem.title = title
-    }
-    
     func diaryDetailDidFetch(diary: Diary) {
         rootView.setupData(diary: diary)
     }
@@ -159,6 +214,10 @@ extension DiaryDetailViewController: DiaryDetailViewModelDelegate {
     
     func diaryDetailImageSliderDidRefresh() {
         configureSnapshot()
+    }
+    
+    func diaryDeleteDidComplete() {
+        navigationController?.popViewController(animated: true)
     }
     
 }
@@ -172,13 +231,12 @@ extension DiaryDetailViewController {
 
 extension DiaryDetailViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: 이미지를 선택했을 때 이미지 상세 화면으로 이동하도록 구현
         guard let imageSliderDataSource,
               let item = imageSliderDataSource.itemIdentifier(for: indexPath) else {
             return
         }
         
-        let photoDetailViewController = DiaryPhotoDetailViewController(item: item)
+        let photoDetailViewController = DiaryPhotoDetailViewController(imageData: item.data)
         navigationController?.pushViewController(photoDetailViewController, animated: true)
     }
 }

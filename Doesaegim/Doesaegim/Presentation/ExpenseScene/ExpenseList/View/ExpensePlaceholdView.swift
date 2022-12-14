@@ -7,14 +7,30 @@
 
 import UIKit
 
+import SnapKit
+
 final class ExpensePlaceholdView: UIView {
     
     // MARK: - Properties
     
-    let mainLabel: UILabel = {
+    private lazy var blurBackgroundView: UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: .regular)
+        let visualEffectView = UIVisualEffectView(effect: blurEffect)
+        visualEffectView.frame = bounds
+        visualEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        return visualEffectView
+    }()
+    
+    private let mainLabel: UILabel = {
         let label = UILabel()
         label.textColor = .primaryOrange
+        label.textAlignment = .center
         label.text = "지출 내역이 없어요!"
+        
+        label.layer.cornerRadius = 7
+        label.layer.borderColor = UIColor.primaryOrange?.cgColor
+        label.layer.borderWidth = 1
         
         return label
     }()
@@ -35,25 +51,18 @@ final class ExpensePlaceholdView: UIView {
     
     private func configure() {
         configureSubviews()
-        configureStyle()
         configureContstraints()
     }
     
     private func configureSubviews() {
-        addSubview(mainLabel)
-    }
-    
-    private func configureStyle() {
-        backgroundColor = .white
-        layer.cornerRadius = 7
-        layer.borderColor = UIColor.primaryOrange?.cgColor
-        layer.borderWidth = 1
+        addSubviews(blurBackgroundView, mainLabel)
     }
     
     private func configureContstraints() {
         mainLabel.snp.makeConstraints {
-            $0.centerX.equalTo(self.snp.centerX)
-            $0.centerY.equalTo(self.snp.centerY)
+            $0.horizontalEdges.equalTo(snp.horizontalEdges).inset(50)
+            $0.centerY.equalTo(snp.centerY).multipliedBy(1.3)
+            $0.height.equalTo(50)
         }
     }
 }

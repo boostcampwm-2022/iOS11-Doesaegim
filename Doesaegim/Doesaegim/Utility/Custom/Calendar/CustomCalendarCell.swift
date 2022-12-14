@@ -21,21 +21,19 @@ final class CustomCalendarCell: UICollectionViewCell {
         label.layer.borderColor = UIColor.primaryOrange?.cgColor
         label.textAlignment = .center
         label.layer.cornerRadius = contentView.frame.size.width / 2
+        label.clipsToBounds = true
         return label
     }()
     
     // MARK: - Properties
     
     static let identifier = "CustomCalendarCell"
-    private let viewModel: CustomCalendarCellViewModel
     
     // MARK: - Lifecycles
     
     override init(frame: CGRect) {
-        viewModel = CustomCalendarCellViewModel()
         super.init(frame: frame)
         configureViews()
-        viewModel.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -55,21 +53,17 @@ final class CustomCalendarCell: UICollectionViewCell {
     
     func configureUI(item: CustomCalendar.Item) {
         if let date = item.date {
-            dateLabel.text = Date.onlyDayDateFormaater.string(from: date)
-            viewModel.checkDateIsSunday(to: date)
+            dateLabel.text = Date.onlyDayDateFormatter.string(from: date)
         } else {
             dateLabel.text = ""
         }
-        dateLabel.layer.borderWidth = item.isSelected ? 1 : 0
+        dateLabel.textColor = item.isSunday ? .systemRed : .black
+        dateLabel.layer.borderWidth = item.isSelected ? 3 : 0
         if !item.isSelectable {
             dateLabel.textColor = .grey1
         }
+        dateLabel.backgroundColor = item.isPeriodDate ? .calendarOrange : .white
+        
     }
     
-}
-
-extension CustomCalendarCell: CustomCalendarCellDelegate {
-    func changeLabelColor(isSunday: Bool) {
-        dateLabel.textColor = isSunday ? .systemRed : .black
-    }
 }

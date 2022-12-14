@@ -13,6 +13,13 @@ final class SearchingLocationView: UIView {
     
     // MARK: - UI Properties
     
+    private let activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.backgroundColor = .grey2?.withAlphaComponent(Metric.IndicatorBackgroundAlpha)
+        
+        return indicator
+    }()
+    
     /// 검색 결과를 표시하는 컬렉션 뷰
     lazy var searchResultCollectionView: EmptyLabeledCollectionView = {
         var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
@@ -43,7 +50,7 @@ final class SearchingLocationView: UIView {
     }
     
     
-    // MARK: - Functions
+    // MARK: - Configure Functions
     
     private func configureViews() {
         backgroundColor = .white
@@ -52,17 +59,32 @@ final class SearchingLocationView: UIView {
     }
     
     private func configureSubviews() {
-        addSubview(searchResultCollectionView)
+        addSubviews(searchResultCollectionView, activityIndicator)
     }
     
     private func configureConstraints() {
         searchResultCollectionView.snp.makeConstraints {
             $0.edges.equalTo(safeAreaLayoutGuide)
         }
+        activityIndicator.snp.makeConstraints { $0.edges.equalToSuperview() }
+    }
+    
+    // MARK: - Activity Indicator Functions
+    
+    func startAnimating() {
+        activityIndicator.startAnimating()
+    }
+    
+    func stopAnimating() {
+        activityIndicator.stopAnimating()
     }
 }
 
 fileprivate extension SearchingLocationView {
+    enum Metric {
+        static let IndicatorBackgroundAlpha: CGFloat = 0.7
+    }
+    
     enum StringLiteral {
         static let emptyLabelText = "장소 검색 결과가 없습니다."
     }

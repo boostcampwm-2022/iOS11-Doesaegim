@@ -19,16 +19,15 @@ final class MapViewController: UIViewController {
         super.viewDidLoad()
         viewModel.delegate = self
         
-        configureAnnotationView()
-//        addDummyPins() // 더미 핀을 추가하고 싶을 때
-        viewModel.fetchDiary()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureMap()
         configureSubviews()
+        configureAnnotationView()
+        viewModel.fetchDiary()
+        configureLocation()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -38,49 +37,52 @@ final class MapViewController: UIViewController {
         mapView = nil
     }
     
-    // 추후 지워질 함 수 더미 핀을 만드는 함수
-    private func addDummyPins() {
-//        let dummyImage = UIImage(systemName: "doc.append")
-        let dummyImage = UIImage(systemName: "photo")
-        let dummyImageData = dummyImage?.pngData()!
-        let diaryInfoViewModel = DiaryMapInfoViewModel(
-            id: UUID(),
-            imageData: [dummyImageData!],
-            title: "제목입니다.",
-            content: "콘텐츠 입니다",
-            date: Date(),
-            latitude: 37.57,
-            longitude: 126.9796
-        )
-        addPin(with: diaryInfoViewModel)
-        
-        let diaryInfoViewModel2 = DiaryMapInfoViewModel(
-            id: UUID(),
-            imageData: [],
-            title: "제목입니다.",
-            content: "콘텐츠 입니다",
-            date: Date(),
-            latitude: 37.57,
-            longitude: 126.9996
-        )
-        addPin(with: diaryInfoViewModel2)
-    }
-    
     // MARK: - Configuration
     
     private func configureSubviews() {
-        print(#function)
+        
         guard let mapView = mapView else { return }
         view.addSubview(mapView)
     }
     
     private func configureMap() {
-        print(#function)
+        
         mapView = MKMapView()
         mapView?.frame = view.bounds
         mapView?.delegate = self
-        centerMapOnJongRo()
         
+    }
+    
+    private func configureLocation() {
+        let diaryInfos = viewModel.diaryInfos
+        
+        if diaryInfos.isEmpty {
+            centerMapOnJongRo()
+        } else {
+            configureMapCenter()
+        }
+    }
+    
+    private func configureMapCenter() {
+        guard let mapView = mapView,
+              let latestDiary = viewModel.diaryInfos.first else { return }
+        
+        let latitude = latestDiary.latitude
+        let longitude = latestDiary.longitude
+        
+        let centerCoordinate = CLLocationCoordinate2D(
+            latitude: latitude,
+            longitude: longitude
+        )
+        let region = MKCoordinateRegion(
+            center: centerCoordinate,
+            span: MKCoordinateSpan(
+                latitudeDelta: 0.1,
+                longitudeDelta: 0.1
+            )
+        )
+        
+        mapView.setRegion(region, animated: true)
     }
     
     private func centerMapOnJongRo() {

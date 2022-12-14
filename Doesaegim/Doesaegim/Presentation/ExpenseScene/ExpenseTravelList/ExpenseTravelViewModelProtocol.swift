@@ -11,12 +11,11 @@ import Foundation
 protocol ExpenseTravelViewModelProtocol: AnyObject {
     
     var delegate: ExpenseTravelViewModelDelegate? { get set }
-    var travelInfos: [TravelInfoViewModel] { get set }
-    var costs: [Int] { get set }
+    var expenseInfos: [TravelExpenseInfoViewModel] { get set }
+//    var costs: [Int] { get set }
     
     /// 영구저장소로부터 `Travel`엔티티를 fetch해옵니다.
     func fetchTravelInfo()
-    
 }
 
 protocol ExpenseTravelViewModelDelegate: AnyObject {
