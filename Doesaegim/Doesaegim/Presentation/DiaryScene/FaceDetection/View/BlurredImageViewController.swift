@@ -79,27 +79,26 @@ final class BlurredImageViewController: UIViewController {
     }
 
     private func configureNavigationBar() {
-        guard let image = imageView.image
-        else {
-            return
-        }
-
         let shareButton = UIBarButtonItem(image: .init(systemName: StringLiteral.shareButtonImage))
         shareButton.tintColor = .systemOrange
 
         let sharedToActivityViewController = UIAction(
             title: StringLiteral.shareButtonTitle
         ) { [weak self] _ in
-            guard let self
+            guard let self,
+                  let image = self.imageView.image
             else {
+                self?.presentErrorAlert(title: StringLiteral.missingImageAlertTitle)
                 return
             }
 
             ShareManager.shared.shareToActivityViewController(with: image, to: self)
         }
         let sharedToInstagramStory = UIAction(title: StringLiteral.instagramButtonTitle) { [weak self] _ in
-            guard let self
+            guard let self,
+                  let image = self.imageView.image
             else {
+                self?.presentErrorAlert(title: StringLiteral.missingImageAlertTitle)
                 return
             }
 
@@ -125,5 +124,7 @@ fileprivate extension BlurredImageViewController {
         static let shareButtonTitle = "공유하기"
 
         static let instagramButtonTitle = "인스타그램 스토리로 공유하기"
+
+        static let missingImageAlertTitle = "공유할 사진이 없습니다"
     }
 }

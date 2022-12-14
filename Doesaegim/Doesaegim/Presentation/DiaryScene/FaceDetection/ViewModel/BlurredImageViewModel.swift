@@ -28,7 +28,7 @@ final class BlurredImageViewModel {
     }
 
 
-    // MARK: Functions
+    // MARK: - Functions
 
     func applyFilter() {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
