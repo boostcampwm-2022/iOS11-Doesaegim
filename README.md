@@ -88,3 +88,7 @@
 - [블러 처리? CoreImage한테 맡겨 달라고](https://github.com/boostcampwm-2022/iOS11-Doesaegim/wiki/%EA%B8%B0%EC%88%A0%EC%A0%81-%EB%8F%84%EC%A0%84#%EB%B8%94%EB%9F%AC-%EC%B2%98%EB%A6%AC-coreimage%ED%95%9C%ED%85%8C-%EB%A7%A1%EA%B2%A8-%EB%8B%AC%EB%9D%BC%EA%B3%A0)
 - [얼굴인식, Vision이냐 CIDetector냐](https://github.com/boostcampwm-2022/iOS11-Doesaegim/wiki/%EA%B8%B0%EC%88%A0%EC%A0%81-%EB%8F%84%EC%A0%84#%EC%96%BC%EA%B5%B4%EC%9D%B8%EC%8B%9D-vision%EC%9D%B4%EB%83%90-cidetector%EB%83%90)
 - [🍎 기타 기술공유](https://github.com/boostcampwm-2022/iOS11-Doesaegim/wiki/%EA%B8%B0%EC%88%A0%EC%A0%81-%EB%8F%84%EC%A0%84#%EA%B8%B0%ED%83%80-%EA%B8%B0%EC%88%A0-%EA%B3%B5%EC%9C%A0)
+
+## 더 자세한 내용을 알고 싶으시다면?
+
+[iOyes 위키 바로가기](https://github.com/boostcampwm-2022/iOS11-Doesaegim/wiki)
