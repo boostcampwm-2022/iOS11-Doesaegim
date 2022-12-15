@@ -12,9 +12,9 @@
 
 > 되새김을 다운로드할 수 있는 링크입니다.
 
-<img width="100" src="https://user-images.githubusercontent.com/76734067/207779701-cd44d8b6-d3eb-473d-86f6-50fc0f439374.png">
-
-[되새김 링크](https://apps.apple.com/kr/app/%EB%90%98%EC%83%88%EA%B9%80/id6444737875)
+<a href="https://apps.apple.com/kr/app/%EB%90%98%EC%83%88%EA%B9%80/id6444737875">
+  <img width="100" src="https://user-images.githubusercontent.com/76734067/207779701-cd44d8b6-d3eb-473d-86f6-50fc0f439374.png">
+</a>
 
 ## 팀 소개
 
