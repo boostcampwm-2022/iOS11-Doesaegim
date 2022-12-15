@@ -277,6 +277,6 @@ final class PlanListViewModel {
 fileprivate extension PlanListViewModel {
 
     enum Metric {
-        static let batchSize = 20
+        static let batchSize = 40
     }
 }
