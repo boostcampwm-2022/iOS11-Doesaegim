@@ -49,7 +49,11 @@
 
 ## 동작화면
 
-
+|<img src="https://user-images.githubusercontent.com/76734067/207781971-47476431-72ef-4129-b9af-e3272b98fb3e.png">|<img src="https://user-images.githubusercontent.com/76734067/207781978-678f5dd3-d284-4954-81f2-ade9d3ac3f97.png">|<img src="https://user-images.githubusercontent.com/76734067/207781979-eff40a32-937d-449a-8950-af2416a9450b.png">|<img src="https://user-images.githubusercontent.com/76734067/207781983-91bcaf7d-8bef-4778-b20c-3f73260a8acd.png">|
+|:-:|:-:|:-:|:-:|
+|`여행목록`|`일정관리`|`지출관리`|`지도-다이어리 보기`|
+|<img src="https://user-images.githubusercontent.com/76734067/207781984-cf015692-8754-40d5-b097-1ad2260fee75.png">|<img src="https://user-images.githubusercontent.com/76734067/207781987-f29f289c-652e-48bb-93cd-dda38d6117f8.png">|<img src="https://user-images.githubusercontent.com/76734067/207781989-1b64e17f-4c44-4f08-84e4-a8bd990c7cf4.png">|<img src="https://user-images.githubusercontent.com/76734067/207781991-3fa9e5aa-75f2-42f4-9100-808d48b8f3fa.png">|
+|`다이어리`|`다이어리 확인`|`얼굴선택`|`모자이크 - 인스타 공유`|
 
 ## 프로젝트 구조
 
@@ -58,4 +62,29 @@
 <img src="https://user-images.githubusercontent.com/76734067/207780104-3a489812-6340-46bd-8087-56a2bd7cb229.png">
 
 - 애플리케이션의 구조가 크기 않아 코디네이터 패턴이나 클린아키텍쳐의 필요성을 느끼지 못했습니다.
-- `MVVM`만으로도 저희 애플리케이션을 충분히 유지보수할 수 있다고 생각하여 MVVM 디자인 패턴을 선택하였습니다.
+- `MVVM`만으로도 저희 애플리케이션을 충분히 유지보수할 수 있다고 생각하여 `MVVM` 디자인 패턴을 선택하였습니다.
+
+## 기술 스택
+
+### 💿 CoreData
+- 서드파티를 지양하고 애플의 라이브러리를 활용해 안정성을 높이기 위해 `CoreData`를 활용했습니다.
+- 안드로이드 출시 계획이 없고, 앱 기능 상 서버가 필요없다고 생각해 `CoreData`를 선택했습니다.
+
+### 🧭 MapKit & CoreLocation
+- 사용자가 작성한 다이어리를 지도상에서 보여주는 기능에 활용하였습니다.
+
+### 🙈 Vision
+- 사진상의 얼굴을 인식하고 위치를 파악해 모자이크 처리하는데 활용하였습니다.
+
+### 📊 Core Graphics
+- 지출 내역을 지출 카테고리 또는 날짜별로 확인할 수 있는 차트를 직접 구현해 활용했습니다.
+- `CoreAnimation`을 활용해 차트 애니메이션을 직접 구현했습니다.
+
+## 기술적 도전
+- [커스텀 캘린더로 날짜 선택](https://github.com/boostcampwm-2022/iOS11-Doesaegim/wiki/%EA%B8%B0%EC%88%A0%EC%A0%81-%EB%8F%84%EC%A0%84#%EC%BB%A4%EC%8A%A4%ED%85%80-%EC%BA%98%EB%A6%B0%EB%8D%94%EB%A1%9C-%EB%82%A0%EC%A7%9C-%EC%84%A0%ED%83%9D)
+- [환율에 캐시 적용..?](https://github.com/boostcampwm-2022/iOS11-Doesaegim/wiki/%EA%B8%B0%EC%88%A0%EC%A0%81-%EB%8F%84%EC%A0%84#%ED%99%98%EC%9C%A8%EC%97%90-%EC%BA%90%EC%8B%9C-%EC%A0%81%EC%9A%A9)
+- [우리 집 차트는 애니메이션 나온다?!](https://github.com/boostcampwm-2022/iOS11-Doesaegim/wiki/%EA%B8%B0%EC%88%A0%EC%A0%81-%EB%8F%84%EC%A0%84#%EC%9A%B0%EB%A6%AC-%EC%A7%91-%EC%B0%A8%ED%8A%B8%EB%8A%94-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-%EB%82%98%EC%98%A8%EB%8B%A4)
+- [일정이 무한 증식한다면? 도와줘 CoreData~](https://github.com/boostcampwm-2022/iOS11-Doesaegim/wiki/%EA%B8%B0%EC%88%A0%EC%A0%81-%EB%8F%84%EC%A0%84#%EC%9D%BC%EC%A0%95%EC%9D%B4-%EB%AC%B4%ED%95%9C-%EC%A6%9D%EC%8B%9D%ED%95%9C%EB%8B%A4%EB%A9%B4-%EB%8F%84%EC%99%80%EC%A4%98-coredata)
+- [블러 처리? CoreImage한테 맡겨 달라고](https://github.com/boostcampwm-2022/iOS11-Doesaegim/wiki/%EA%B8%B0%EC%88%A0%EC%A0%81-%EB%8F%84%EC%A0%84#%EB%B8%94%EB%9F%AC-%EC%B2%98%EB%A6%AC-coreimage%ED%95%9C%ED%85%8C-%EB%A7%A1%EA%B2%A8-%EB%8B%AC%EB%9D%BC%EA%B3%A0)
+- [얼굴인식, Vision이냐 CIDetector냐](https://github.com/boostcampwm-2022/iOS11-Doesaegim/wiki/%EA%B8%B0%EC%88%A0%EC%A0%81-%EB%8F%84%EC%A0%84#%EC%96%BC%EA%B5%B4%EC%9D%B8%EC%8B%9D-vision%EC%9D%B4%EB%83%90-cidetector%EB%83%90)
+- [🍎 기타 기술공유](https://github.com/boostcampwm-2022/iOS11-Doesaegim/wiki/%EA%B8%B0%EC%88%A0%EC%A0%81-%EB%8F%84%EC%A0%84#%EA%B8%B0%ED%83%80-%EA%B8%B0%EC%88%A0-%EA%B3%B5%EC%9C%A0)
