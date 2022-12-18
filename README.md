@@ -6,7 +6,7 @@
 
 ![Swift](https://img.shields.io/badge/swift-v5.7-orange?logo=swift) 
 ![Xcode](https://img.shields.io/badge/xcode-v14.0-blue?logo=xcode)
-![SnapKit](https://img.shields.io/badge/SnapKit-v14.0-green)
+![SnapKit](https://img.shields.io/badge/SnapKit-v5.6.0-green)
 
 ## 배포 링크
 
