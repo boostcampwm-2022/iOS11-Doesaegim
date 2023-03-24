@@ -19,6 +19,10 @@ final class ImageCacheManager {
 
 extension ImageCacheManager {
     
+    static func configureCachePolicy(maximumByte: Int) {
+        Self.cache.totalCostLimit = maximumByte
+    }
+    
     static func loadImage(with path: String) -> Result<Data, Error> {
         let cacheKey = NSString(string: path)
         guard let cacheData = ImageCacheManager.cache.object(forKey: cacheKey) else {
