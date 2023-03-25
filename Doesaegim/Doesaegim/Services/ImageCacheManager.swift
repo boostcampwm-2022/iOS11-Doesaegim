@@ -10,7 +10,7 @@ import UIKit
 
 final class ImageCacheManager {
     
-    static let shared = NSCache<NSString, NSData>()
+    static let cache = NSCache<NSString, NSData>()
     
     private init() {  }
 }
@@ -19,9 +19,13 @@ final class ImageCacheManager {
 
 extension ImageCacheManager {
     
+    static func configureCachePolicy(maximumByte: Int) {
+        Self.cache.totalCostLimit = maximumByte
+    }
+    
     static func loadImage(with path: String) -> Result<Data, Error> {
         let cacheKey = NSString(string: path)
-        guard let cacheData = ImageCacheManager.shared.object(forKey: cacheKey) else {
+        guard let cacheData = ImageCacheManager.cache.object(forKey: cacheKey) else {
             return .failure(CacheError.canNotFindImageError)
         }
         let cacheImageData = Data(referencing: cacheData)
@@ -30,7 +34,11 @@ extension ImageCacheManager {
     
     static func addImage(with path: String, data: Data) {
         let imageData = NSData(data: data)
-        ImageCacheManager.shared.setObject(imageData, forKey: NSString(string: path))
+        ImageCacheManager.cache.setObject(
+            imageData,
+            forKey: NSString(string: path),
+            cost: imageData.count
+        )
     }
     
 }

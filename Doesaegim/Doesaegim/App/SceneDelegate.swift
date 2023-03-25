@@ -17,6 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // MARK: - UserDefaults 기본설정
         checkUserDefaults()
+        ImageCacheManager.configureCachePolicy(maximumByte: 50 * 1024 * 1024) // 50MB
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
